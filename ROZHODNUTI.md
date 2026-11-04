@@ -34,6 +34,7 @@ Zadavatel 2026-11-04 předal všechna rozhodnutí a odhady Claude. Vše zde lze 
 | 29 | Hlavní graf má přepínač Roční energie, Zimní špička a Letní poledne. Výkon v MW se počítá z ročních hodnot a koeficientů v `sezonni_profily.csv`, bez pásma. | Pokyn zadavatele. Sčítání mezí koeficientů by pásmo přehnalo. |
 | 30 | Nad posuvníky položek je přepínač a posuvníky velkých trendů: obyvatelé, auta na obyvatele, účinnost aut, potřeba tepla budov a počet domácností. Změna trendu se přičítá rovnoměrně od roku 2025. Pásmo se nepřepočítává. | Pokyn zadavatele. Výchozí křivka zůstává přesně podle tabulky. |
 | 31 | Syntetický plyn je z odpadu, elektřina na jeho výrobu je nula. Množství omezuje dostupný odpad po odečtení spalovny. Jiné zdroje, například důlní nebo koksárenský plyn, nejsou započítané, protože chybí podklad. | Pokyn zadavatele. Účinnosti přeměny jsou náš odhad. |
+| 32 | Přepínač „Dorovnat na soběstačnost“ ukazuje schodek a kolik fotovoltaiky nebo větru by ho pokrylo. Výchozí hodnoty položek se nemění, jde o přepočet. | Pokyn zadavatele. Soběstačnost je zde roční bilance, ne pokrytí v každé hodině. |
 | 26 | Hodnoty tabulky pro roky 2030 a 2040 už neurčují křivku přímo, jen z nich dopočítáme k a t_m. Kde to nesedí o více než 10 % a 25 GWh, je to v `web/kontrola_krivek.txt`. | Přesné proložení není u každé položky možné. |
 
 ## Vyřešený rozpor: spotřeba 2024

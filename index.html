@@ -121,6 +121,8 @@ svg .ev{font:600 11px "Saira",sans-serif;fill:var(--ink);paint-order:stroke;stro
 .trendhead h2{margin:0}
 .trendgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:4px 24px;margin-top:6px}
 .trendgrid.off{opacity:.45}
+#fillBtn[aria-pressed=true]{background:var(--ink);color:var(--surface)}
+#fillCard .kpi{margin:8px 0 0}
 .viewnote{color:var(--muted);font-size:12.5px;margin:8px 0 0;max-width:900px}
 .ratewarn{margin:5px 0 0;color:var(--warn);font-size:12.5px}
 .grade{font:600 10.5px "JetBrains Mono",monospace;border:1px solid var(--line);border-radius:4px;padding:0 5px;margin-left:6px;color:var(--muted)}
@@ -173,11 +175,17 @@ footer{color:var(--muted);font-size:12.5px}
       <button data-show="vyroba" id="showGen" aria-pressed="true">Výroba</button>
       <button data-show="spotreba" id="showUse" aria-pressed="true">Spotřeba</button>
     </div>
+    <button class="btn" id="fillBtn" aria-pressed="false">Dorovnat na soběstačnost</button>
   </div>
   <div class="legend" id="legend"></div>
   <div id="main"></div>
   <p class="viewnote" id="viewNote" hidden></p>
   <div class="yearrow"><label for="year">Rok</label><input id="year" type="range" min="2025" max="2050" step="1" value="2050"><span class="mono" id="yearv"></span></div>
+</section>
+<section class="card" id="fillCard" hidden>
+  <h2>Co by chybělo k soběstačnosti</h2>
+  <div class="kpi" id="fillKpi"></div>
+  <p class="viewnote" id="fillNote"></p>
 </section>
 <section class="card" id="balcard">
   <h2 id="balTitle">Bilance vybrané cesty</h2>
@@ -309,7 +317,7 @@ const NF = new Intl.NumberFormat("cs-CZ",{maximumFractionDigits:0});
 const NF1 = new Intl.NumberFormat("cs-CZ",{minimumFractionDigits:1,maximumFractionDigits:1});
 const $ = id => document.getElementById(id);
 const hasItems = DATA.items.length > 0;
-const state = {path:"progresivni", mode:"simple", view:"energy", year:2050, values:{}, jumps:{}, tms:{}, trends:{}, trendOn:true, show:{progresivni:true, konzervativni:true, vyroba:true, spotreba:true}};
+const state = {path:"progresivni", mode:"simple", view:"energy", fill:false, year:2050, values:{}, jumps:{}, tms:{}, trends:{}, trendOn:true, show:{progresivni:true, konzervativni:true, vyroba:true, spotreba:true}};
 const NS = "http://www.w3.org/2000/svg";
 
 function key(it){ return it.path + "|" + it.side + "|" + it.name; }
@@ -487,6 +495,11 @@ function drawMain(){
       mk("line", {x1:xScale(ev.year), x2:xScale(ev.year), y1:Y0, y2:YB, stroke:color, "stroke-dasharray":"2 4"}, svg);
     }
     shown.forEach((ev, i) => mk("text", {class:"ev", x:xScale(ev.year) + 4, y:Y0 + 12 + (i % 4) * 14}, svg, ev.label));
+    if(state.fill && show[state.path]){
+      const shownNow = series[state.path], top2 = DATA.years.map((y, i) => [xScale(y), yS(Math.max(shownNow.gen[i], shownNow.use[i]))]);
+      const low = DATA.years.map((y, i) => [xScale(y), yS(shownNow.gen[i])]).reverse();
+      mk("path", {d:pathD(top2.concat(low)) + "Z", fill:"var(--warn)", opacity:.22}, svg);
+    }
     for(const p of Object.keys(PATHNAME)){
       if(!show[p]) continue;
       const c = p === "progresivni" ? "var(--prog)" : "var(--kons)", width = p === state.path ? 2.8 : 1.6;
@@ -791,7 +804,34 @@ function drawTrends(){
     host.appendChild(row);
   }
 }
-function refresh(){ drawMain(); drawBalance(); drawKpi(); }
+/* Hodiny a meze z Dopadové studie, tempo z historických maxim v tabulce položek. */
+const FILL = {hoursPv:1051.2, hoursWind:2744.7, windLimitMw:2014, pacePv:69.6816 + 13.125, paceWind:23.8517};
+function drawFill(){
+  const card = $("fillCard");
+  card.hidden = !state.fill || !hasItems;
+  $("fillBtn").setAttribute("aria-pressed", state.fill);
+  if(card.hidden) return;
+  const i = state.year - 2025, name = PATHNAME[state.path];
+  const gen = totals(state.path, "vyroba"), use = totals(state.path, "spotreba");
+  const gap = Math.max(use[i] - gen[i], 0), gapEnd = Math.max(use[use.length - 1] - gen[gen.length - 1], 0);
+  const pv = gap * 1000 / FILL.hoursPv, wind = gap * 1000 / FILL.hoursWind, half = gap / 2 * 1000;
+  const windNow = values(state.path, "vyroba", i).filter(x => x.it.name === "vítr").reduce((s, x) => s + x.gwh, 0) * 1000 / FILL.hoursWind;
+  const paceNeed = gapEnd / 25, cell = (a, b, c) => `<div><small>${a}</small><b>${b}</b> ${c}</div>`, one = v => NF1.format(v / 1000);
+  $("fillKpi").innerHTML =
+    cell(`Chybí v roce ${state.year}`, NF.format(gap), "GWh za rok") +
+    cell("Jen fotovoltaika navíc", one(pv), "GWp") +
+    cell("Jen vítr navíc", one(wind), "GW") +
+    cell("Půl na půl", `${one(half / FILL.hoursPv)} + ${one(half / FILL.hoursWind)}`, "GWp + GW") +
+    cell("Tempo navíc do 2050", NF.format(paceNeed), "GWh za rok");
+  const over = windNow + wind > FILL.windLimitMw;
+  let note = `${name} cesta: kdyby celý schodek roku 2050 pokryly jen nové zdroje, přibývalo by ${NF.format(paceNeed)} GWh za rok navíc. Nejrychlejší nárůst v minulosti byl ${NF1.format(FILL.pacePv)} GWh za rok u fotovoltaiky a ${NF1.format(FILL.paceWind)} GWh za rok u větru. `;
+  note += over ? `Samotný vítr by překročil potenciál kraje ${NF.format(FILL.windLimitMw)} MW podle Dopadové studie. ` : "";
+  if(state.view === "winter") note += "Slunce a vítr se v zimní špičce počítají nulou, takže toto dorovnání roční energie zimní schodek neřeší. K tomu je potřeba řízený výkon nebo baterie.";
+  else if(state.view === "summer") note += "Nové slunce a vítr by zvýšily letní přebytek, a tím i výrobu vodíku. Graf letního poledne to nezapočítává.";
+  else note += "Přepočet používá 1 051 hodin ročně u fotovoltaiky a 2 745 hodin u větru. Je to bilance za celý rok, ne v každé hodině, a nezahrnuje síť ani skladování.";
+  $("fillNote").textContent = note;
+}
+function refresh(){ drawMain(); drawBalance(); drawKpi(); drawFill(); }
 
 document.querySelectorAll("[data-path]").forEach(b => b.addEventListener("click", () => {
   state.path = b.dataset.path;
@@ -828,6 +868,7 @@ document.querySelectorAll("[data-show]").forEach(b => b.addEventListener("click"
 }));
 $("year").addEventListener("input", e => { state.year = Number(e.target.value); refresh(); });
 $("reset").addEventListener("click", () => { resetValues(); drawTrends(); drawLists(); refresh(); });
+$("fillBtn").addEventListener("click", () => { state.fill = !state.fill; refresh(); });
 $("trendOn").addEventListener("click", () => { state.trendOn = true; drawTrends(); refresh(); });
 $("trendOff").addEventListener("click", () => { state.trendOn = false; drawTrends(); refresh(); });
 $("theme").addEventListener("click", () => {
