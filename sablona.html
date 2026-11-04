@@ -70,6 +70,10 @@ footer{color:var(--muted);font-size:12.5px}
       <button data-path="progresivni" aria-pressed="true">Progresivní</button>
       <button data-path="konzervativni" aria-pressed="false">Konzervativní</button>
     </div>
+    <div class="pills" role="group" aria-label="Podrobnost posuvníků">
+      <button data-mode="simple" aria-pressed="true">Jednoduchá</button>
+      <button data-mode="detail" aria-pressed="false">Podrobná</button>
+    </div>
     <button class="btn" id="reset">Obnovit výchozí</button>
     <button class="btn" id="theme" aria-label="Přepnout motiv">Motiv</button>
   </div>
@@ -108,7 +112,7 @@ const NF = new Intl.NumberFormat("cs-CZ",{maximumFractionDigits:0});
 const NF1 = new Intl.NumberFormat("cs-CZ",{minimumFractionDigits:1,maximumFractionDigits:1});
 const $ = id => document.getElementById(id);
 const hasItems = DATA.items.length > 0;
-const state = {path:"progresivni", year:2050, values:{}, jumps:{}, show:{progresivni:true, konzervativni:true, vyroba:true, spotreba:true}};
+const state = {path:"progresivni", mode:"simple", year:2050, values:{}, jumps:{}, show:{progresivni:true, konzervativni:true, vyroba:true, spotreba:true}};
 const NS = "http://www.w3.org/2000/svg";
 
 function key(it){ return it.path + "|" + it.side + "|" + it.name; }
@@ -280,10 +284,92 @@ function drawKpi(){
 function esc(s){ return String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
 function link(s){ return esc(s).replace(/https?:\/\/[^\s;,]+/g, u => `<a href="${u}" target="_blank" rel="noopener">${u}</a>`); }
 
+/* Jednoduchá verze: skupina posouvá své položky ve stejném poměru vůči výchozím hodnotám. */
+const GROUPS = {
+  vyroba:[
+    {name:"Slunce, vítr a voda", years:false, items:["fotovoltaika střešní","fotovoltaika pozemní","vítr","malé vodní elektrárny","geotermální energie"]},
+    {name:"SMR", years:true, items:["SMR"]},
+    {name:"Plyny", years:false, items:["zemní plyn: stávající kogenerace","nové plynové bloky","syntetický plyn a biometan","hutní plyny (vysokopecní a koksárenský)","důlní plyn"]},
+    {name:"Biomasa a bioplyn", years:false, items:["biomasa","bioplyn"]},
+    {name:"Uhlí, odpad a ostatní", years:true, items:["černé uhlí: Dětmarovice","černé uhlí: teplárny a průmysl","hnědé uhlí","energetické využití odpadu","ostatní paliva a odpadní teplo (přidaná položka)","baterie","jiné skladování","vodík zpět na elektřinu"]},
+  ],
+  spotreba:[
+    {name:"Průmysl", years:true, items:["Třinecké železárny","Nová huť","ostatní průmysl a chemie","doly"]},
+    {name:"Doprava", years:false, items:["osobní auta","nákladní doprava","vlaky","MHD"]},
+    {name:"Vytápění a chlazení", years:false, items:["vytápění tepelnými čerpadly","přímotopy","elektrokotle v teplárnách","chlazení"]},
+    {name:"Domácnosti a služby", years:false, items:["domácnosti bez vytápění","služby a veřejný sektor","zemědělství a stavebnictví","úspory a účinnost"]},
+    {name:"Nové velké zátěže", years:false, items:["datacentra","výroba vodíku","výroba syntetického plynu"]},
+    {name:"Energetika a ztráty", years:false, items:["vlastní spotřeba zdrojů","ostatní energetika (přidaná položka)","ztráty v sítích","ztráty baterií"]},
+  ],
+};
+const unassigned = DATA.items.filter(it => !GROUPS[it.side].some(g => g.items.includes(it.name))).map(it => it.name);
+if(unassigned.length) console.error("Nezařazené položky", unassigned);
+
+function jumpHtml(it){
+  return `<div class="yearline"><label>${esc(it.event || "Rok změny")}</label><span class="mono jumpv"></span>` +
+    `<input class="jumpin" type="range" min="2026" max="2050" step="1" data-jump="${esc(jumpKey(it))}" aria-label="Rok: ${esc(it.event || it.name)}"></div>`;
+}
+function bindJump(input, label, it){
+  const jk = jumpKey(it);
+  input.value = state.jumps[jk];
+  label.textContent = state.jumps[jk];
+  input.addEventListener("input", () => {
+    state.jumps[jk] = Number(input.value);
+    document.querySelectorAll(".jumpin").forEach(other => {
+      if(other.dataset.jump !== jk) return;
+      other.value = input.value;
+      other.previousElementSibling.textContent = input.value;
+    });
+    label.textContent = input.value;
+    refresh();
+  });
+}
+
+function drawGroups(host){
+  for(const [side, title] of [["vyroba","Výroba v roce 2050"],["spotreba","Spotřeba v roce 2050"]]){
+    const card = document.createElement("section");
+    card.className = "card";
+    card.innerHTML = `<h2>${title}</h2>`;
+    for(const g of GROUPS[side]){
+      const members = DATA.items.filter(it => it.path === state.path && it.side === side && g.items.includes(it.name));
+      const def = members.reduce((sum, it) => sum + it.p50, 0), now = () => members.reduce((sum, it) => sum + state.values[key(it)], 0);
+      if(def === 0) continue;
+      const base = members.reduce((sum, it) => sum + it.base, 0), max = Math.max(100, def * 2, base * 1.25);
+      const years = g.years ? [...new Map(members.filter(it => it.jump !== null && it.jumpHigh > it.jumpLow && it.jump > 2026).map(it => [jumpKey(it), it])).values()] : [];
+      const row = document.createElement("div");
+      row.className = "item";
+      row.innerHTML =
+        `<div class="top"><span>${esc(g.name)}</span><span class="val mono"></span></div>` +
+        `<div class="track"><span class="def" style="left:${(def / max * 100).toFixed(2)}%"></span>` +
+        `<input class="groupin" type="range" min="0" max="${max}" step="${Math.max(1, Math.round(max / 200))}" aria-label="${esc(g.name)}"></div>` +
+        years.map(jumpHtml).join("") +
+        `<details><summary>Co je uvnitř</summary><p class="inside"></p></details>`;
+      const input = row.querySelector(".groupin"), val = row.querySelector(".val"), inside = row.querySelector(".inside");
+      const show = () => {
+        val.textContent = NF.format(now()) + " GWh";
+        inside.textContent = `Rok 2025: ${NF.format(base)} GWh. Výchozí hodnota ${NF.format(def)} GWh. ` +
+          members.map(it => `${it.name} ${NF.format(state.values[key(it)])}`).join(", ") + ". Zdroje jsou v podrobné verzi.";
+      };
+      input.value = now();
+      show();
+      input.addEventListener("input", () => {
+        const ratio = Number(input.value) / def;
+        for(const it of members) state.values[key(it)] = it.p50 * ratio;
+        show();
+        refresh();
+      });
+      row.querySelectorAll(".jumpin").forEach((el, i) => bindJump(el, el.previousElementSibling, years[i]));
+      card.appendChild(row);
+    }
+    host.appendChild(card);
+  }
+}
+
 function drawLists(){
   const host = $("lists");
   host.innerHTML = "";
   if(!hasItems) return;
+  if(state.mode === "simple"){ drawGroups(host); return; }
   for(const [side, title] of [["vyroba","Výroba v roce 2050"],["spotreba","Spotřeba v roce 2050"]]){
     const card = document.createElement("section");
     card.className = "card";
@@ -301,8 +387,7 @@ function drawLists(){
         `<div class="track"><span class="band" style="left:${pct(it.p10)};width:${((it.p90 - it.p10) / (max - min) * 100).toFixed(2)}%"></span>` +
         `<span class="def" style="left:${pct(it.p50)}"></span>` +
         `<input type="range" min="${min}" max="${max}" step="${Math.max(1, Math.round((max - min) / 200))}" aria-label="${esc(it.name)}"></div>` +
-        (it.jump !== null ? `<div class="yearline"><label>${esc(it.event || "Rok změny")}</label><span class="mono jumpv"></span>` +
-          `<input class="jumpin" type="range" min="2026" max="2050" step="1" data-jump="${esc(jumpKey(it))}" aria-label="Rok: ${esc(it.event || it.name)}"></div>` : "") +
+        (it.jump !== null ? jumpHtml(it) : "") +
         `<details><summary>Výpočet a zdroj</summary><p>Rok 2025: ${NF.format(it.base)} GWh. Výchozí hodnota ${NF.format(it.p50)} GWh, pásmo ${NF.format(it.p10)} až ${NF.format(it.p90)} GWh.</p>` +
         (it.jump !== null ? `<p>Výchozí rok změny ${it.jump}, pásmo ${it.jumpLow} až ${it.jumpHigh}.</p>` : "") +
         `<p><b>Výpočet:</b> ${esc(it.how)}</p><p><b>Zdroj:</b> ${link(it.src)}</p>` +
@@ -312,21 +397,7 @@ function drawLists(){
       const show = () => { val.textContent = NF.format(state.values[k]) + " GWh"; };
       input.value = state.values[k];
       show();
-      if(it.jump !== null){
-        const jk = jumpKey(it), jumpIn = row.querySelector(".jumpin"), jumpV = row.querySelector(".jumpv");
-        jumpIn.value = state.jumps[jk];
-        jumpV.textContent = state.jumps[jk];
-        jumpIn.addEventListener("input", () => {
-          state.jumps[jk] = Number(jumpIn.value);
-          document.querySelectorAll(".jumpin").forEach(other => {
-            if(other.dataset.jump !== jk) return;
-            other.value = jumpIn.value;
-            other.previousElementSibling.textContent = jumpIn.value;
-          });
-          jumpV.textContent = jumpIn.value;
-          refresh();
-        });
-      }
+      if(it.jump !== null) bindJump(row.querySelector(".jumpin"), row.querySelector(".jumpv"), it);
       input.addEventListener("input", () => {
         state.values[k] = Number(input.value);
         show();
@@ -354,6 +425,11 @@ document.querySelectorAll("[data-path]").forEach(b => b.addEventListener("click"
   document.querySelectorAll("[data-path]").forEach(x => x.setAttribute("aria-pressed", x === b));
   drawLists(); drawLegend(); refresh();
 }));
+document.querySelectorAll("[data-mode]").forEach(b => b.addEventListener("click", () => {
+  state.mode = b.dataset.mode;
+  document.querySelectorAll("[data-mode]").forEach(x => x.setAttribute("aria-pressed", x === b));
+  drawLists();
+}));
 document.querySelectorAll("[data-show]").forEach(b => b.addEventListener("click", () => {
   const name = b.dataset.show, other = {progresivni:"konzervativni", konzervativni:"progresivni", vyroba:"spotreba", spotreba:"vyroba"}[name];
   if(state.show[name] && !state.show[other]) return;
@@ -373,7 +449,7 @@ $("notice").textContent = hasItems
   ? "Prototyp. Hodnoty po roce 2025 jsou odhady. Položky se stupněm D jsou odhad bez publikovaného zdroje a čekají na ověření."
   : "Prototyp. Zatím jen skutečná data za roky 2023 až 2025. Položky, cesty a posuvníky se připravují.";
 $("foot").innerHTML = "Výroba je brutto. Spotřeba je součet sektorů plus ztráty v sítích. Zdroje skutečnosti: Dopadová studie energetické bezpečnosti a soběstačnosti MSK (2024), Tab. 1 a Tab. 6; zprávy ERÚ o provozu elektrizační soustavy, tabulky 6.1 a 6.3, předběžné údaje. Stupně důkazu: A měření, B publikovaná studie, C technický výpočet, D odhad bez publikovaného zdroje. Meze P10 a P90 jsou téměř všude odhad. <a href=\"polozky.csv\">Tabulka položek</a>, <a href=\"polozky_poznamky.md\">poznámky ke zdrojům</a>, <a href=\"grafy_polozek.pdf\">grafy položek</a>.";
-if(!hasItems){ $("year").closest(".yearrow").style.display = "none"; document.querySelector(".pills").style.display = "none"; $("toggles").style.display = "none"; $("reset").style.display = "none"; }
+if(!hasItems){ $("year").closest(".yearrow").style.display = "none"; document.querySelector(".controls").style.display = "none"; $("toggles").style.display = "none"; $("reset").style.display = "none"; }
 resetValues();
 drawLegend(); drawLists(); refresh();
 </script>
