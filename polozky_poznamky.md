@@ -16,14 +16,14 @@ Pro model:
 | Součet sloupců proti Celkem | ERÚ se liší o 0,1 MWh vlivem zaokrouhlení; dorovnáno v rezidualních řádcích |
 | Ztráty nad tab. 6.3 | 219,3158 GWh, spotřeba celkem 7 069,9644 GWh |
 
-ERÚ Roční zpráva 2025 (tab. 4.1, 4.3) uvádí vyšší hodnoty: výroba 2 814,8131 GWh (rozdíl 9,6 GWh, hlavně FVE), spotřeba 6 855,0524 GWh (rozdíl 4,4 GWh). Základ podle zadání zůstává na čtvrtletních zprávách. Palivový rozklad bere Roční zprávu, tab. 4.5, s. 20, protože čtvrtletní zprávy paliva po krajích nemají. Tato tabulka je stupeň A a nahradila odhad z doc 01 Tab. 4.
+ERÚ Roční zpráva 2025 (tab. 4.1, 4.3) uvádí vyšší hodnoty: výroba 2 814,8131 GWh (rozdíl 9,6 GWh, hlavně FVE), spotřeba 6 855,0524 GWh (rozdíl 4,4 GWh). Základ zůstává na čtvrtletních zprávách. Palivový rozklad bere Roční zprávu, tab. 4.5, s. 20, protože čtvrtletní zprávy paliva po krajích nemají. Tato tabulka je stupeň A a nahradila odhad z doc 01 Tab. 4.
 
 ## 2. Ztráty v sítích
 
 - Báze sazby 3,547 % je spotřeba na prahu sítě, ne netto. Doc 01 Tab. 1 s. 27: 6 018,9 − 5 805,4 = 213,5 a 213,5 / 6 018,9 = 3,547 %. Rovnice 7 na s. 74 má stejný tvar.
 - Sazba je za bývalý Severomoravský kraj od ČEZ Distribuce (s. 74), MSK se nesleduje.
 - Tab. 6.3 ztráty v sítích neobsahuje. ERÚ je dává jen do TBS (definice v každé zprávě, kap. 1) a celostátně je součet tab. 6.3 (56 871,0 GWh) menší než Spotřeba ČR bez ztrát (58 152,4 GWh).
-- Výpočet: 5 963,8184 × 3,547 % / (1 − 3,547 %) = 219,3 GWh. Báze je tab. 6.2, protože rozdíl 6.3 − 6.2 (886,8 GWh) je lokální a vlastní spotřeba, která sítí neteče. Toto je moje volba. Na bázi 6.3 by ztráty byly o cca 33 GWh vyšší.
+- Výpočet: 5 963,8184 × 3,547 % / (1 − 3,547 %) = 219,3 GWh. Báze je tab. 6.2, protože rozdíl 6.3 − 6.2 (886,8 GWh) je lokální a vlastní spotřeba, která sítí neteče. Toto je volba modelu. Na bázi 6.3 by ztráty byly o cca 33 GWh vyšší.
 
 ## 3. Rozsah 7 090 GWh proti tab. 6.3
 
@@ -32,7 +32,7 @@ Doc 01 s. 40: sektorový pohled „zahrnuje kromě spotřeby podle kategorizace 
 
 ## 4. Energetika a Průmysl v 2025
 
-Vypadá to na přeřazení, ne na reálnou změnu, ale ERÚ to nikde neuvádí a v jeho zprávách jsem poznámku k metodice nenašel.
+Vypadá to na přeřazení, ne na reálnou změnu, ale ERÚ to nikde neuvádí a v jeho zprávách poznámka k metodice není.
 
 - Skok v 2025 Q2 proběhl současně v MSK, Olomouckém (16,6 na 42,2 GWh), Plzeňském (15,2 na 26,2) a Středočeském kraji (97,9 na 162,8) a celostátně (997,9 na 1 281,0). Průmysl v týchž krajích klesl.
 - V MSK je součet Průmysl + Energetika plynulý: 2024 Q2 1 043,7, 2025 Q2 1 021,0. Hladina se drží i v 2026 (364,8 a 361,4).
@@ -52,7 +52,7 @@ Pokles je jeden krok v březnu 2026, ne mezi prosincem a červnem. ERÚ neudáv�
 
 - Nová huť: převzata 1. 10. 2025, oblouková pec do 1,5 mil. t ve fázi přípravy, vysoké pece stojí. Spotřebu zdroje neuvádějí.
 - Třinec: pec odložena na nejdříve 2030 (Novinky 23. 4. 2025), v srpnu 2026 bez nového data. Elektřina: „zvýšení spotřeby elektřiny o 30 procent na 1 TWh ročně“ (Ekonomický deník 30. 1. 2025).
-- Datacentra: projekt v MSK s výkonem a stavem jsem nenašel. Gigafactory v Dolní Lutyni se stavět nebude.
+- Datacentra: projekt v MSK s výkonem a stavem se nenašel. Gigafactory v Dolní Lutyni se stavět nebude.
 - SMR: Dětmarovice jsou zmiňovaná varianta, lokalita není vybraná, první SMR ČEZ je v Temelíně.
 
 ## 7. Fyzikální meze
@@ -70,7 +70,7 @@ Kapacitu sítě a dostupnost tepelných čerpadel z METODIKA bod 9 číselně ov
 
 ## 8. Křížová kontrola
 
-Progresivní P50 2050: výroba 8 995 GWh, spotřeba 13 461 GWh včetně ztrát. Konzervativní: 4 176 a 9 142 GWh. Doc 01 netto 2050: očekávaný 7 229,9 (Obr. 28), extrémní 9 917,3 (Obr. 38, přiřazení barvy je můj výklad), obojí bez 887 GWh lokální části a ztrát. Progresivní cesta je tedy nad extrémním scénářem o zhruba 2 TWh. Důvod: syntetický plyn 1 076, datacentra 701 a plná elektrifikace oceli, které studie nemá nebo má méně.
+Progresivní P50 2050: výroba 8 995 GWh, spotřeba 13 461 GWh včetně ztrát. Konzervativní: 4 176 a 9 142 GWh. Doc 01 netto 2050: očekávaný 7 229,9 (Obr. 28), extrémní 9 917,3 (Obr. 38, přiřazení barvy je výklad modelu), obojí bez 887 GWh lokální části a ztrát. Progresivní cesta je tedy nad extrémním scénářem o zhruba 2 TWh. Důvod: syntetický plyn 1 076, datacentra 701 a plná elektrifikace oceli, které studie nemá nebo má méně.
 
 ## 9. Řádky D podle velikosti P50 2050
 
@@ -79,7 +79,7 @@ Progresivní P50 2050: výroba 8 995 GWh, spotřeba 13 461 GWh včetně ztrát. 
 1. ostatní průmysl a chemie, 1 992 (rozvojové plochy z extrémního scénáře, držení v čase)
 2. osobní auta, 1 334 (podíl 72 %, počet aut v MSK neověřen)
 3. Třinecké železárny progresivní, 1 231 (plná elektrifikace je naše čtení, intenzita viz 10)
-4. výroba syntetického plynu, 1 076 (účinnosti a podíl v kraji bez zdroje). Otázka na zadavatele: KONTEXT píše „syntetický- využívání odpadu“. Pokud jde o plyn z odpadu, tento řádek klesne k nule.
+4. výroba syntetického plynu, 1 076 (účinnosti a podíl v kraji bez zdroje). Otevřená otázka: KONTEXT píše „syntetický- využívání odpadu“. Pokud jde o plyn z odpadu, tento řádek klesne k nule.
 5. nákladní doprava, 1 076 (podíl osobních aut 72 % a baterií 80 %)
 6. fotovoltaika střešní, 1 058 (dělení střecha a pozem)
 7. ostatní energetika, 1 001 (obsah neznámý)
@@ -144,23 +144,25 @@ Co zůstává úsudkem:
 - Velikost domácnosti: projekce domácností neexistuje, počet domácností je odvozený.
 - Auta na osobu: dorovnání na dnešní Česko 0,6098 z 0,5280. Tento vliv zvyšuje spotřebu a je největší úsudek v řádku aut.
 - Teplo: P50 je polovina poklesu z doc 05, protože plán svůj scénář sám nazývá ideálním. Celý pokles je P10.
-- Nákladní auta: vývoj spotřeby je čistý odhad, zdroj jsem nenašel.
+- Nákladní auta: vývoj spotřeby je čistý odhad, zdroj se nenašel.
 - Běžná spotřeba 2,5 MWh na odběrné místo, převzatá z dřívějšího řádku.
 
 Ponecháno záměrně beze změny: služby, vlaky, MHD a ostatní řádky, kde vliv nesedí jasně. Proběh na auto. Spotřebiče domácností, ty jsou v řádku úspory.
 
-Zastaralé po revizi, podle zadání nepřepočítáno:
+Zastaralé po revizi, nepřepočítáno:
 - Ztráty v sítích se počítají ze součtu spotřeby. Dopočet by dal progresivní 414,9 místo 446,0 a konzervativní 473,1 místo 497,8.
 - Součet spotřeby P50 2050 bez tohoto dopočtu: progresivní 12 614,8 místo 13 461,4, konzervativní 8 757,1 místo 9 141,6. Oddíl 8 a pořadí v oddílu 9 tedy platí pro stará čísla.
 - Úspory berou 10 % ze staré hodnoty domácností 434, rozdíl je asi 1 GWh.
 - Oddíly 9 a 11: počet aut v MSK je už zjištěn (ČSÚ 625 545 včetně dodávkových), zbytek seznamu v oddílu 11 platí.
-- `grafy_polozek.pdf` a `web/` jsem nepřestavoval.
+- Grafy položek a stránka tehdy přestavěné nebyly.
 
 Rozpor s hlavním zdrojem: doc 01 s.137 píše „nelze předpokládat významnou demografickou změnu“, ČSÚ dává pokles o 15,5 % do 2050. Studie to uvádí jen u odpadu, číslo nedává.
 
 Nezjištěno: vývoj spotřeby těžkých nákladních aut (studie ICCT nešly otevřít), údaje starších edic projekce ČSÚ (jen souhrn vyhledávače), hodnota 2025 v řadě aut na osobu (bráno 2024), objem nákladní přepravy do 2050.
 
 ## 13. Flotila 50 % vodík a 50 % baterie, progresivní cesta 2050 (ROZHODNUTÍ 27)
+
+Starší výpočet. Tento oddíl popisuje dřívější flotilu včetně osobních aut a jeho součty neplatí. Platné hodnoty jsou v tabulce položek a v přepočtu.
 
 Výsledek: měsíční přebytek v létě v progresivní cestě při P50 není, ani bez vodíku. Vodík tedy nelze vyrobit z letního přebytku kraje. Jeho elektřina by musela přijít ze sítě mimo kraj nebo z vyšší výroby.
 
@@ -188,14 +190,14 @@ Výpočet: vozidla × km × kg H2/100 km × kWh/kg. Celá aritmetika je ve sloup
 | Elektrolyzér 2050, kWh/kg | 48,26 | 46 až 55 | 33,3 / 0,69, IEA; DOE konečný cíl; doc 01 |
 | Komprese, kWh/kg | 3,2 pro 700 bar, 2,23 pro 350 bar | 1,7 až 6,4 a 1,7 až 4 | DOE záznam 9013 z roku 2009 |
 
-Co jsem rozhodl a zadání to neříká:
+Volby modelu nad rámec definice cesty:
 - 50 % se bere z celé flotily, takže P50 2050 má 100 % čistých aut místo dřívějších 95 %.
 - Ve 2040 je vodík třetina čistých vozidel. Je to úsudek. Z toho plyne strmý růst: u aut z 92 704 vozidel v 2040 na 305 169 v 2050.
 - Vozokilometry nákladní dopravy: 1 314,4 GWh / 1,3187 kWh/km = 996,8 mil. km. Hodnota 1,3187 je Oeko přepočtené na 40 t, aby seděla k 9 kg/100 km pro tutéž soupravu. S 0,96 kWh/km by P50 vyšlo o 37,4 % víc, to je zahrnuto v P90.
 - MHD obsahuje tramvaje, 50 % se bere z celého řádku. Je to záměrné zjednodušení, P50 baterií proto klesá pod základ 19,464.
 - `ridic` je u nových řádků prázdný, vlivy jsou přímo v hodnotách.
 
-45 760 MWh z doc 01: studie neříká, pro koho je. Není to tedy prokazatelně vodík flotily a řádek zůstává. Překryv nelze vyloučit a nejvýš je to 45,8 GWh. Číslo sedí na 3 025 + 7 × 6 105, tedy malou variantu Tab. 25; dopočet je můj. Dřívější P90 551,5 vycházelo z 64 PJ vodíku v dopravě, to už vodík flotily je, a proto jsem ho nahradil 16 665 + 7 × 34 815 = 260 370 MWh.
+45 760 MWh z doc 01: studie neříká, pro koho je. Není to tedy prokazatelně vodík flotily a řádek zůstává. Překryv nelze vyloučit a nejvýš je to 45,8 GWh. Číslo sedí na 3 025 + 7 × 6 105, tedy malou variantu Tab. 25; dopočet je náš. Dřívější P90 551,5 vycházelo z 64 PJ vodíku v dopravě, to už vodík flotily je, a proto je nahrazeno 16 665 + 7 × 34 815 = 260 370 MWh.
 
 ### Sezónnost
 
@@ -221,9 +223,9 @@ Sezónní zásobník, hypotéza pro případ výroby jen v létě a rovnoměrné
 - Příkon elektrolyzérů 3 454,2 GWh / 4 392 h = 786,5 MW, tedy víc než SMR 500 MW. Toto zatížení by letní schodek prohloubilo.
 - Výroba jen květen až srpen, 2 952 hodin: 44 990 t, 1 170,1 MW.
 
-Zastaralé po revizi, nepřepočítáno: řádek ztráty v sítích (446,0) nereaguje na nové zatížení a část elektrolyzérů může být přímo na vn nebo vvn. Oddíly 8 a 9 platí pro stará čísla, progresivní cesta je teď daleko nad extrémním scénářem doc 01. `web/` a skupiny stránky jsem neměnil.
+Zastaralé po revizi, nepřepočítáno: řádek ztráty v sítích (446,0) nereaguje na nové zatížení a část elektrolyzérů může být přímo na vn nebo vvn. Oddíly 8 a 9 platí pro stará čísla, progresivní cesta je teď daleko nad extrémním scénářem doc 01.
 
-Nezjištěno: účel 45 760 MWh, protože odkaz [45] v doc 01 vede na nesouvisející dokument a Strategii MSK 2021 jsem nenašel. Počet nákladních aut a autobusů v MSK. Podíl tramvají v Tab. 23. Hodinové přebytky. Místo pro sezónní zásobník v kraji.
+Nezjištěno: účel 45 760 MWh, protože odkaz [45] v doc 01 vede na nesouvisející dokument a Strategii MSK 2021 se nenašel. Počet nákladních aut a autobusů v MSK. Podíl tramvají v Tab. 23. Hodinové přebytky. Místo pro sezónní zásobník v kraji.
 
 Rozpor se zdroji: doc 01 s.119 píše, že v osobní a železniční dopravě „jsou tyto projekty spíše utlumovány“. Doc 05 tištěná s.46 čeká, že „u osobních automobilů zřejmě převáží elektromobilita“. Polovina osobních aut na vodík je tedy pokyn scénáře, ne závěr zdrojů.
 
@@ -233,4 +235,8 @@ Syntetický plyn se vyrábí z odpadu, ne z elektřiny. Dostupný odpad je 360 0
 
 ## Návrh z hodinového výpočtu
 
-Dosazeno: baterie 1,5 GWh a 375 MW, vodík v MHD 50 %, v nákladní dopravě 4,1 %, auta 0 %. Řádky nákladní doprava, výroba vodíku pro nákladní dopravu a ztráty baterií jsou přepočítané. Úplné výsledky jsou v hodinovém výpočtu.
+Řádek ztráty baterií odpovídá baterii 3,0 GWh a 750 MW, nabito minus vybito 40,7 GWh při 99,4 cyklu. Velikost je medián denního výkyvu zbytkového zatížení, základ návrhu, ne nákladové optimum. Vodík ve flotile je dán definicí cesty: MHD 50 %, nákladní doprava 50 %, auta 0 %.
+
+## Hodiny FVE a větru a křivky
+
+Hodiny: FVE 942 h (P10 889, P90 995, odhad), vítr 2 471 h (P10 2 184, P90 2 810), měření ERÚ pro MSK, MW beze změny. Čísla studie 0,12, 23 % a 2 744,7 h zůstávají citovaná, pro rok 2050 se nepoužívají. Ztráty v sítích jsou podle svého odvození přepočítané ze součtu spotřeby. Křivky: sloupec krivka v tabulce říká, který tvar řádek používá: prázdný je logistika nebo skok, pchip je monotónní interpolace přes milníky (Fritsch a Carlson 1980), uzly přidává rok zahájení projektů, tvrdy_skok je kalendářní skok, dva_skoky jsou dva stupně. Hodnoty 2050 se křivkou nemění.

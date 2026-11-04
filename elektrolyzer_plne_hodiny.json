@@ -1,0 +1,7 @@
+{
+ "plne_hodiny": 3219.62336,
+ "elektrolyzer_MW": 631.0,
+ "mira_ztrat": 0.03673021873138132,
+ "baterie_GWh": 3.0,
+ "pravidlo": "přebytek do sítě pod 1 % na pětiletém průměru, baterie první, 1 SMR"
+}

@@ -12,6 +12,7 @@ Z90 = norm.ppf(0.9)
 JUMP_K = 4.0
 PEAK_K = 0.5
 TM_SPREAD = 3.0
+SHIFT_MAX = 6.0
 RHO = 0.6
 FACTORS = ("elektrifikace", "povolovani", "cena")
 LOSS_ITEM = "ztráty v sítích"
@@ -55,6 +56,60 @@ def s_curve(t, tm, k):
     return (logistic(t, tm, k) - low) / (high - low)
 
 
+def pchip_slopes(xs, ys):
+    """Směrnice monotónní kubické interpolace podle Fritsche a Carlsona (1980), krok po kroku stejně jako v sablona.html."""
+    n = len(xs)
+    d = [(ys[i + 1] - ys[i]) / (xs[i + 1] - xs[i]) for i in range(n - 1)]
+    m = [0.0] * n
+    m[0], m[-1] = d[0], d[-1]
+    for i in range(1, n - 1):
+        m[i] = 0.0 if d[i - 1] * d[i] <= 0 else (d[i - 1] + d[i]) / 2.0
+    for i in range(n - 1):
+        if d[i] == 0:
+            m[i] = m[i + 1] = 0.0
+        else:
+            a, b = m[i] / d[i], m[i + 1] / d[i]
+            s = a * a + b * b
+            if s > 9.0:
+                tau = 3.0 / s ** 0.5
+                m[i], m[i + 1] = tau * a * d[i], tau * b * d[i]
+    return m
+
+
+def pchip_eval(t, nodes):
+    """Hodnota v čase t (pole libovolného tvaru) z uzlů {"x", "y", "m"}. Mimo rozsah platí krajní hodnota."""
+    xs, ys, ms = (np.asarray(nodes[k], dtype=float) for k in ("x", "y", "m"))
+    tt = np.clip(t, xs[0], xs[-1])
+    i = np.clip(np.searchsorted(xs, tt, side="right") - 1, 0, len(xs) - 2)
+    h = xs[i + 1] - xs[i]
+    u = (tt - xs[i]) / h
+    return (ys[i] * (2 * u ** 3 - 3 * u ** 2 + 1) + h * ms[i] * (u ** 3 - 2 * u ** 2 + u)
+            + ys[i + 1] * (-2 * u ** 3 + 3 * u ** 2) + h * ms[i + 1] * (u ** 3 - u ** 2))
+
+
+def warp(t, shift):
+    """Posun průběhu v čase pro křivku přes uzly. Konce 2025 a 2050 zůstávají, posun je omezený, aby čas nešel pozpátku."""
+    x = np.clip((t - 2025.0) / 25.0, 0.0, 1.0)
+    return t - np.clip(shift, -SHIFT_MAX, SHIFT_MAX) * 4.0 * x * (1.0 - x)
+
+
+def half_year(nodes, base):
+    """Rok, kdy křivka poprvé urazí polovinu své největší odchylky od roku 2025. Jen výchozí hodnota posuvníku."""
+    grid = np.linspace(2025.0, 2050.0, 2501)
+    value = pchip_eval(grid, nodes) - base
+    top = np.abs(value).max()
+    return float(grid[np.argmax(np.abs(value) >= top / 2.0)]) if top > 0 else 2038.0
+
+
+def part_s(t, part, tm_shift=0.0):
+    tm = part["tm"] + tm_shift
+    if part.get("hard"):
+        return (t >= tm) * 1.0
+    if "cap" in part:
+        tm = min(tm, part["cap"])
+    return s_curve(t, tm, part["k"])
+
+
 def fit_parts(base, target, mid30, mid40):
     """Části křivky z výchozí hodnoty, cíle a hodnot pro roky 2030 a 2040."""
     t = np.array([2030.0, 2040.0])
@@ -88,21 +143,47 @@ def item_model(row, drivers):
     driver = drivers.get(name, np.ones(len(YEARS)))
     at = {year: driver[list(YEARS).index(year)] for year in MILESTONES}
     target = num(row, "p50_2050")
+    kind = (row.get("krivka") or "").strip()
+    param = (row.get("krivka_parametry") or "").strip()
+    nodes = None
     if row["prubeh"].strip() == "skok":
         amp = target / at[2050] - base
         parts = [{"amp": amp, "tm": num(row, "skok_rok_p50"), "k": JUMP_K}] if abs(amp) > 1e-9 else []
+        if kind == "tvrdy_skok":
+            # Uzavření s daným datem: výchozí hodnota do posledního roku provozu, cíl od dalšího roku.
+            for part in parts:
+                part["hard"] = True
+        elif kind == "dva_skoky":
+            # První stupeň sedí na hodnotu tabulky pro rok 2040, druhý stupeň dorovná cíl 2050.
+            first = num(row, "p50_2040") / at[2040] - base
+            parts = [{"amp": first, "tm": num(row, "skok_rok_p50"), "k": JUMP_K},
+                     {"amp": amp - first, "tm": float(param), "k": JUMP_K, "cap": 2050.0}]
+    elif kind in ("pchip", "uzly"):
+        points = {2025.0: base, 2030.0: num(row, "p50_2030") / at[2030], 2040.0: num(row, "p50_2040") / at[2040], 2050.0: target / at[2050]}
+        if kind == "uzly":
+            for pair in param.split(";"):
+                year, value = pair.split(":")
+                points[float(year)] = float(value)
+        xs = sorted(points)
+        ys = [points[x] for x in xs]
+        nodes = {"x": xs, "y": ys, "m": pchip_slopes(xs, ys)}
+        # Část s nulovou amplitudou drží jen výchozí rok posuvníku času, hodnotu dávají uzly.
+        parts = [{"amp": 0.0, "tm": half_year(nodes, base), "k": 1.0}]
     else:
         parts = fit_parts(base, target / at[2050], num(row, "p50_2030") / at[2030], num(row, "p50_2040") / at[2040])
-    return {"base": base, "target": target, "driver": driver, "parts": parts,
+    return {"base": base, "target": target, "driver": driver, "parts": parts, "nodes": nodes,
             "jump": row["prubeh"].strip() == "skok", "saving": num(row, "p10_2050") < 0}
 
 
 def curve(model, target=None, tm_shift=0.0):
     """Výchozí křivka, případně s jiným cílem nebo posunutým načasováním. Vrací pole po letech."""
     t = YEARS.astype(float)
-    level = np.full(len(t), model["base"], dtype=float)
-    for part in model["parts"]:
-        level = level + part["amp"] * s_curve(t, part["tm"] + tm_shift, part["k"])
+    if model.get("nodes"):
+        level = pchip_eval(warp(t, tm_shift), model["nodes"])
+    else:
+        level = np.full(len(t), model["base"], dtype=float)
+        for part in model["parts"]:
+            level = level + part["amp"] * part_s(t, part, tm_shift)
     value = model["driver"] * level
     if target is not None:
         value = value + (target - model["target"]) * deviation(t)
@@ -129,10 +210,30 @@ def simulate_item(row, model, z, z_time, runs):
     driver_end = model["driver"][-1]
     if model["jump"]:
         tm = quantile(z_time, num(row, "skok_rok_p10"), num(row, "skok_rok_p50"), num(row, "skok_rok_p90"))
-        grid = s_curve(t[:, None], tm[None, :], JUMP_K)
+        parts = model["parts"]
+        grid = (t[:, None] >= tm[None, :]) * 1.0 if parts and parts[0].get("hard") else s_curve(t[:, None], tm[None, :], JUMP_K)
         # Událost po roce 2050 se do roku 2050 neprojeví.
         grid = np.where(tm[None, :] > 2050.0, 0.0, grid)
-        level = model["base"] + (targets / driver_end - model["base"]) * grid
+        if len(parts) == 2:
+            # Dva stupně: druhý drží odstup od prvního a do roku 2050 proběhne, cíl dorovná on.
+            second = s_curve(t[:, None], np.minimum(tm + parts[1]["tm"] - parts[0]["tm"], parts[1]["cap"])[None, :], JUMP_K)
+            second = np.where(tm[None, :] > 2050.0, 0.0, second)
+            level = model["base"] + parts[0]["amp"] * grid + (targets / driver_end - model["base"] - parts[0]["amp"]) * second
+        else:
+            level = model["base"] + (targets / driver_end - model["base"]) * grid
+    elif model.get("nodes"):
+        # Křivka přes uzly: odchylka běhu v milníku je z P10 až P90 tabulky pro ten rok, mezi milníky lineárně, 2025 bez odchylky.
+        shift = z_time * TM_SPREAD / Z90
+        level = pchip_eval(warp(t[:, None], shift[None, :]), model["nodes"])
+        points = [np.zeros(runs)]
+        for year in MILESTONES:
+            p50 = num(row, f"p50_{year}")
+            points.append(quantile(z, num(row, f"p10_{year}"), p50, num(row, f"p90_{year}"), model["saving"]) - p50)
+        marks = [2025.0, 2030.0, 2040.0, 2050.0]
+        weights = np.array([np.interp(t, marks, np.eye(4)[i]) for i in range(4)])
+        extra = (weights[:, :, None] * np.array(points)[:, None, :]).sum(axis=0)
+        value = model["driver"][:, None] * level + extra
+        return value if model["saving"] else np.maximum(value, 0)
     else:
         # Cíl a rok se v běhu mění. Vzestup u dvou částí zůstává, cíl dorovná poslední část.
         shift = z_time * TM_SPREAD / Z90
@@ -171,6 +272,18 @@ def simulate(rows, models, rng, runs):
     if loss is not None:
         total += loss[1] * total / default_total[:, None]
     return [np.percentile(total, q, axis=1).round(1).tolist() for q in (10, 50, 90)]
+
+
+def widen_band(band, width_share):
+    """Pravidlo z hindcastu: je-li pásmo P10 až P90 v roce 2030 užší než width_share mediánu, odchylky od mediánu se vynásobí poměrem.
+    Do roku 2030 platí celý násobek, od 2030 do 2040 klesá lineárně na 1. Vrací pásmo a násobek."""
+    low, mid, high = (np.array(b, dtype=float) for b in band)
+    i = 2030 - int(YEARS[0])
+    ratio = width_share * mid[i] / (high[i] - low[i])
+    if ratio <= 1.0:
+        return band, 1.0
+    factor = np.interp(YEARS.astype(float), [2025.0, 2030.0, 2040.0, 2050.0], [ratio, ratio, 1.0, 1.0])
+    return [(mid + (low - mid) * factor).round(1).tolist(), mid.round(1).tolist(), (mid + (high - mid) * factor).round(1).tolist()], float(ratio)
 
 
 def item_band(row, model, rng, runs=4000):

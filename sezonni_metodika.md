@@ -6,7 +6,7 @@ Roční GWh neřeknou, zda kraj pokryje špičku. Tento postup převádí ročn�
 
 **Zimní špička.** Roční maximum zatížení v nejchladnějším období, počítané se slunečním výkonem nula, tedy zimní podvečer. Doc 01 řeší stejný stav (s.56 až 57, s.73).
 
-Měření upřesňuje zadání. Celostátní zimní maxima 2023 až 2026 padla vždy mezi 8:45 a 13:15, ani jednou večer (ERÚ, kap. 9.1), a FVE tehdy dodávaly až 1 445,9 MW (19. 2. 2025, 8:45). Na grafech dne maxima se večerní zatížení drží zhruba o 5 až 10 % níž (ERÚ 2025 Q1 a 2026 Q1, s.37, odečteno z grafu). Večer je ale nejhorší pro bilanci, protože slunce nedodává nic. Skládáme tedy zatížení ročního maxima se slunečním výkonem nula. Pro dnešek je to o něco přísnější než skutečný večer. Doc 01 dělá totéž, když FVE do špičky nepočítá.
+Měření upřesňuje definici. Celostátní zimní maxima 2023 až 2026 padla vždy mezi 8:45 a 13:15, ani jednou večer (ERÚ, kap. 9.1), a FVE tehdy dodávaly až 1 445,9 MW (19. 2. 2025, 8:45). Na grafech dne maxima se večerní zatížení drží zhruba o 5 až 10 % níž (ERÚ 2025 Q1 a 2026 Q1, s.37, odečteno z grafu). Večer je ale nejhorší pro bilanci, protože slunce nedodává nic. Skládáme tedy zatížení ročního maxima se slunečním výkonem nula. Pro dnešek je to o něco přísnější než skutečný večer. Doc 01 dělá totéž, když FVE do špičky nepočítá.
 
 **Letní poledne.** Slunečné poledne o víkendu, červen až srpen. Letní maximum ČR (červen až srpen, 2023 až 2026) padá v pracovní dny na 11:30 až 13:15, poledne pracovního dne je tedy letní špička, ne minimum. Odděleného odpoledního maxima v datech není. Nejnižší zatížení je v noci, kolem 3:30 až 5:45, ale tehdy nesvítí. Pro přebytek je proto správná volba poledne s nízkou spotřebou, tedy víkend. Medián denního maxima o víkendu je 0,926 až 0,936 ročního průměru, v pracovní den 1,111 až 1,128 (2024, 2025). Denní maximum víkendu je horní odhad poledne.
 
@@ -21,13 +21,13 @@ Měření upřesňuje zadání. Celostátní zimní maxima 2023 až 2026 padla v
 
 | Položka | Zimní špička | Letní poledne |
 |---|---|---|
-| Řádky `výroba vodíku` a `výroba syntetického plynu` | vypnuto, sklad přečká špičku | potřebný výkon = GWh / plné hodiny, P50 3 000 h, rozpětí 2 000 až 4 000 h |
+| Řádky `výroba vodíku` a `výroba syntetického plynu` | vypnuto, malá nádrž přečká špičku | elektrolyzér = řádky flotily × (1 + míra ztrát sítě) × 1 000 / plné hodiny, 3 220 h z hodinového výpočtu, 631 MW v roce 2050. Řádek výroba vodíku ze studie běží jako rovnoměrná zátěž mimo tento výkon |
 | Elektrokotle | vypnuto, doc 01 s.165: „V zimním období se průmyslové elektrokotle příliš neuplatní“ | 30 % výkonu, teplo v létě je jen ohřev vody |
-| Baterie | jen ve zvláštním sloupci s bateriemi | denní blok 1 GWh (doc 01 s.145) za 5 h = 200 MW, konzervativní 20 MW |
+| Baterie | jen ve zvláštním sloupci s bateriemi | nabíjení do jmenovitého výkonu, progresivní 750 MW v roce 2050, konzervativní 2 MW |
 
 Přebytek se rozdělí v pořadí baterie, elektrokotle, elektrolýza. `leto_pro_vodik_MW` je to, co zbude, nejvýš potřeba elektrolýzy. Vypnutí elektrolýzy v zimě je předpoklad o skladu vodíku, zatím nepodložený. Bez něj by zimní bilance byla horší o stovky MW.
 
-**Baterie.** Velikost je z hodinového výpočtu: progresivní cesta 1,5 GWh a 375 MW, největší velikost, u které přidaná GWh dává aspoň 100 plných cyklů za rok. Konzervativní cesta nemá přebytek k přesunu a nese jen dnešních 10 MW. Práh je náš odhad. Baterie je krátkodobá, v zimní špičce vydrží jen několik hodin. Hlavní bilance baterie nezapočítává, protože nejsou zdroj.
+**Baterie.** Velikost je z hodinového výpočtu: progresivní cesta 3,0 GWh a 750 MW, medián denního výkyvu zbytkového zatížení 2,67 GWh zaokrouhlený nahoru. Je to základ návrhu, ne nákladové optimum. V roce 2040 je 1,7 GWh a 425 MW, stejný podíl jako dříve. Konzervativní cesta nemá přebytek k přesunu a nese jen dnešních 10 MW. Baterie je krátkodobá, v zimní špičce vydrží jen několik hodin. Hlavní bilance baterie nezapočítává, protože nejsou zdroj.
 
 ## Rozsah: čistá spotřeba proti sektorům
 
@@ -60,7 +60,7 @@ Zatížení MSK nikdo neměří. Doc 01 s.73 až 74: „Roční maximum zatíže
 
 1. Zimní koeficienty spotřeby jsou násobené jedním faktorem 0,9882, který nastaví rok 2023 na 1 025,5 MW. Letní faktor je 1,0803. Ztráty v sítích se nenásobí.
 2. Jeden volný parametr je dosažitelnost tepelných zdrojů mimo Dětmarovice: (1 024,6 + 167,6 − 567,0 − 18,5 × 0,428) / (648,4 + 99,7) = 0,825. Instalované MW jsou z Tab.28 a Tab.18, Dětmarovice 567,0 MW z Tab.46.
-3. Přímotopy a léto jsem po první kalibraci opravil podle měření, ne podle cíle. Před úpravou vyšla zima +5,8 % a léto −22,8 %. Sezónní výkyv MOO + MOP je jen 522,1 GWh, zatímco řádky čerpadel a přímotopů mají 1 374,3 GWh. Řádek přímotopů vychází z tarifů (Tab.26) a nese tedy hlavně běžnou spotřebu. VO z vvn a vn mají poměr léto / rok 0,984, proto průmysl v létě 0,95.
+3. Přímotopy a léto jsou po první kalibraci opravené podle měření, ne podle cíle. Před úpravou vyšla zima +5,8 % a léto −22,8 %. Sezónní výkyv MOO + MOP je jen 522,1 GWh, zatímco řádky čerpadel a přímotopů mají 1 374,3 GWh. Řádek přímotopů vychází z tarifů (Tab.26) a nese tedy hlavně běžnou spotřebu. VO z vvn a vn mají poměr léto / rok 0,984, proto průmysl v létě 0,95.
 
 **Proč 2025 nesedí přesně.** Hodnota +1,7 MW v Obr. 35 je prognóza z 2024 a počítá s TAMEH 229 MW, který ERÚ v březnu 2025 odebral, a s menší spotřebou. Není to měření. Řádky GWh × koeficient navíc dají o 53,0 MW méně výkonu než instalované MW (1 062,0 proti 1 115,0): ERÚ uvádí PSE 181,3 MW, řádky s hodinami z Tab.18 dají méně. Oprava by v 2050 poškodila řádek zemního plynu, proto zůstává.
 
@@ -81,12 +81,12 @@ Zatížení MSK nikdo neměří. Doc 01 s.73 až 74: „Roční maximum zatíže
 |---|---|---|---|
 | Doc 01 očekávaný, Obr. 36 | 7 229,9 / (1 − 0,03547) / 5 869 = 1 277,2 MW | 1 325,4 MW | +48,2 MW |
 | Doc 01 extrémní, Obr. 40, Tab.46 | 1 752,0 MW | 1 731,5 − 378,0 = 1 353,5 MW | −398,5 MW |
-| Progresivní cesta | 1763,7 MW | 566,2 MW | -1197,5 MW; s bateriemi -822,5 MW po 4,0 h; s měřeným větrem -1077,7 MW |
-| Konzervativní cesta | 1226,1 MW | 713,1 MW | -513,0 MW; s bateriemi -503,0 MW; s měřeným větrem -495,3 MW |
+| Progresivní cesta | 1707,9 MW | 566,2 MW | -1141,7 MW; s bateriemi -391,7 MW po 4,0 h; s měřeným větrem -1022,0 MW |
+| Konzervativní cesta | 1226,1 MW | 713,1 MW | -513,0 MW; s bateriemi -503,0 MW; s měřeným větrem -494,6 MW |
 
-Dostupný výkon cest je po odečtení lokální části 115,7 MW, aby šel srovnat se studií. Hlavní příčiny rozdílu jsou v cestách: progresivní cesta má 433 MW plynu místo 683 MW, konzervativní nemá SMR. Přesný rozklad zbytku neumím, doc 01 dosažitelný výkon po zdrojích pro 2050 netiskne. Obr. 36 a 40 Dětmarovice nepočítají, ty přidává až Tab.46. Metoda studie s τ na celé energii by dala progresivní cestě (11608,7 − 886,8) / 5,869 = 1826,9 MW, protože by započetla i elektrolýzu ve špičce.
+Dostupný výkon cest je po odečtení lokální části 115,7 MW, aby šel srovnat se studií. Hlavní příčiny rozdílu jsou v cestách: progresivní cesta má 433 MW plynu místo 683 MW, konzervativní nemá SMR. Přesný rozklad zbytku není k dispozici, doc 01 dosažitelný výkon po zdrojích pro 2050 netiskne. Obr. 36 a 40 Dětmarovice nepočítají, ty přidává až Tab.46. Metoda studie s τ na celé energii by dala progresivní cestě (12922,2 − 886,8) / 5,869 = 2050,7 MW, protože by započetla i elektrolýzu ve špičce.
 
-**Léto 2050.** Progresivní cesta má přebytek 451,8 MW. Po bateriích a elektrokotlích zbývá elektrolýze 31,8 MW z potřebných 79,4 MW. Polední přebytek sám roční objem vodíku nepokryje, stejně jako měsíční bilance v `vodik_sezonnost.csv`, kde schodek trvá celý rok. Konzervativní cesta má -542,3 MW a přebytek nemá, řízený plyn v záloze je 612,3 MW.
+**Léto 2050.** Progresivní cesta má přebytek 491,3 MW. Po bateriích a elektrokotlích zbývá elektrolýze 0,0 MW z potřebných 631,0 MW. Polední přebytek sám roční objem vodíku nepokryje, stejně jako měsíční bilance v `vodik_sezonnost.csv`, kde schodek trvá celý rok. Konzervativní cesta má -541,7 MW a přebytek nemá, řízený plyn v záloze je 612,3 MW.
 <!-- AUTO-2050 konec -->
 
 ## Co je stupeň D
@@ -99,7 +99,7 @@ Stupeň A nemá žádný řádek, protože každý přenáší měření na budo
 
 - Všechny koeficienty spotřeby kromě čerpadel. Měřený je jen celek a skupiny VO a maloodběr, ne položky.
 - Největší vliv: osobní auta a nákladní doprava (večerní nabíjení), přímotopy, plné hodiny elektrolýzy, chlazení, výkon baterií.
-- Hodnoty pro řádky se stupněm D jsou můj úsudek, ověří je lidé.
+- Hodnoty pro řádky se stupněm D jsou náš odhad a zatím je nikdo neověřil.
 
 ## Co to neukáže
 
@@ -114,6 +114,6 @@ Stupeň A nemá žádný řádek, protože každý přenáší měření na budo
 
 - **Jeden koeficient na položku a cestu.** Hodiny plynových řádků se v řádcích mění podle roku. `syntetický plyn a biometan` progresivní 2040 vychází asi o 89 MW výš než 433 MW × 30 % × 0,9. `nové plynové bloky` progresivní 2030 asi o 50 MW výš než 93 MW × 0,9. Koeficienty míří na rok 2050.
 - **Dětmarovice.** Koeficient 13,77 platí jen pro rok 2025, řádek je pak nulový.
-- **FVE v 2025.** Řádek počítá 1 051 h, změřeno 926 h, takže 2025 vychází v létě o 12 % níž.
+- **FVE v 2025.** Řádek počítá 942 h, změřeno 926 h, takže 2025 vychází v létě o 2 % níž.
 - **Ztráty v sítích** nereagují na nové řádky vodíku, dokud se řádek ztrát nepřepočte (viz `polozky_poznamky.md`, oddíl 12).
 - **Skokové položky.** `web/model.py` bere u Třince a hutních plynů jeden skok na cíl 2050, ne dva milníky. Rok události má S-křivku, v něm je tedy polovina změny.

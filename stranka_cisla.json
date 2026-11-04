@@ -1,0 +1,193 @@
+{
+ "T": {
+  "el_mw": "631",
+  "el_h": "3 220",
+  "el0_mw": "1 173",
+  "el0_h": "1 732",
+  "vyvoz": "3,9",
+  "q": "2 032",
+  "pre": "390",
+  "h2_pre": "47",
+  "h2_sit": "1 985",
+  "h2_sit_pct": "98",
+  "bat_gwh": "3",
+  "bat_mw": "750",
+  "bat_e": "2,67",
+  "bat_p": "581",
+  "bat_cykly": "99,4",
+  "bat_ztraty": "40,7",
+  "dov_0": "4 910",
+  "dov_3": "4 946",
+  "noc": "64",
+  "noc_l_pl": "3,6 %",
+  "noc_l_pol": "11,6 %",
+  "noc_z_pl": "3,6 %",
+  "noc_z_pol": "7,8 %",
+  "dov_baterie": "3 532",
+  "dov_flotila": "4 948",
+  "dov_vychozi": "4 948",
+  "t0_spicka": "1 499",
+  "t0_vyvoz": "23,5",
+  "t25_spicka": "1 267",
+  "t50_spicka": "1 267",
+  "t50_spicka_max": "1 493",
+  "t50_vyvoz": "3,9",
+  "t50_djf": "−1 488",
+  "t50_cena_od": "2,4",
+  "t50_cena_do": "4,1",
+  "tf_t": "10 543",
+  "tf_djf": "−1 034",
+  "tf_spicka": "1 267",
+  "tf_dovoz": "4 948",
+  "t50_dovoz": "4 948",
+  "tf_cena_od": "508",
+  "tf_cena_do": "863",
+  "rovn_djf": "−1 485",
+  "rovn_pulrok": "−2 632",
+  "rovn_hodiny": "11,2 %",
+  "rovn_max": "1 919",
+  "mc_rok": "4,3 %",
+  "mc_djf": "3,0 %",
+  "mc_kons": "0,5 %",
+  "roc_p10": "−9 701",
+  "roc_p50": "−5 371",
+  "roc_p90": "−1 303",
+  "bez_smr": "26 %",
+  "fve_rok": "1,6",
+  "fve_djf": "3,3",
+  "fve_djf_tf": "2,7",
+  "fve_djf_dov": "1 569",
+  "fve_djf_vyvoz": "3 135",
+  "rez_load": "1 239"
+ },
+ "must": [
+  {
+   "cesta": "progresivni",
+   "uroven": "rok",
+   "bilance": "−4 944",
+   "vitr": "2 001",
+   "vitr_nad": true,
+   "fve": "5,2",
+   "smr": "1,25",
+   "mez": "+1 391 MW větru a 1,6 GWp FVE"
+  },
+  {
+   "cesta": "progresivni",
+   "uroven": "říjen až březen",
+   "bilance": "−2 632",
+   "vitr": "1 726",
+   "vitr_nad": true,
+   "fve": "8,9",
+   "smr": "2",
+   "mez": "+1 391 MW větru a 1 SMR"
+  },
+  {
+   "cesta": "progresivni",
+   "uroven": "prosinec až únor",
+   "bilance": "−1 485",
+   "vitr": "1 854",
+   "vitr_nad": true,
+   "fve": "13,2",
+   "smr": "2",
+   "mez": "+1 391 MW větru a 1 SMR"
+  },
+  {
+   "cesta": "konzervativni",
+   "uroven": "rok",
+   "bilance": "−4 214",
+   "vitr": "1 706",
+   "vitr_nad": false,
+   "fve": "4,5",
+   "smr": "1,07",
+   "mez": "+1 918 MW větru a 0,0 GWp FVE"
+  },
+  {
+   "cesta": "konzervativni",
+   "uroven": "říjen až březen",
+   "bilance": "−2 111",
+   "vitr": "1 599",
+   "vitr_nad": false,
+   "fve": "6,9",
+   "smr": "2",
+   "mez": "+1 918 MW větru a 0 SMR"
+  },
+  {
+   "cesta": "konzervativni",
+   "uroven": "prosinec až únor",
+   "bilance": "−1 049",
+   "vitr": "1 608",
+   "vitr_nad": false,
+   "fve": "9,3",
+   "smr": "2",
+   "mez": "+1 918 MW větru a 0 SMR"
+  }
+ ],
+ "rezerva": {
+  "1 %": {
+   "2 h": "0,02",
+   "6 h": "0,07",
+   "12 h": "0,15",
+   "24 h": "0,30",
+   "72 h": "0,89"
+  },
+  "2 %": {
+   "2 h": "0,05",
+   "6 h": "0,15",
+   "12 h": "0,30",
+   "24 h": "0,59",
+   "72 h": "1,78"
+  },
+  "5 %": {
+   "2 h": "0,12",
+   "6 h": "0,37",
+   "12 h": "0,74",
+   "24 h": "1,49",
+   "72 h": "4,46"
+  },
+  "10 %": {
+   "2 h": "0,25",
+   "6 h": "0,74",
+   "12 h": "1,49",
+   "24 h": "2,97",
+   "72 h": "8,92"
+  }
+ },
+ "tempo": [
+  {
+   "jmeno": "Tabulka, progresivní",
+   "vitr": "623 MW",
+   "vitr_rok": "23,3 MW",
+   "vitr_krat": "2,6 ×",
+   "fve": "1 678 MWp",
+   "fve_rok": "54,8 MWp",
+   "fve_krat": "0,7 ×"
+  },
+  {
+   "jmeno": "Půl na půl pro úroveň 1, flotila 50/50",
+   "vitr": "1 624 MW",
+   "vitr_rok": "63,3 MW",
+   "vitr_krat": "7,0 ×",
+   "fve": "4 302 MWp",
+   "fve_rok": "159,8 MWp",
+   "fve_krat": "1,9 ×"
+  },
+  {
+   "jmeno": "Vítr na mezi a zbytek FVE, flotila 50/50",
+   "vitr": "2 014 MW",
+   "vitr_rok": "78,9 MW",
+   "vitr_krat": "8,7 ×",
+   "fve": "3 278 MWp",
+   "fve_rok": "118,8 MWp",
+   "fve_krat": "1,4 ×"
+  },
+  {
+   "jmeno": "Jen FVE, flotila 50/50",
+   "vitr": "623 MW",
+   "vitr_rok": "23,3 MW",
+   "vitr_krat": "2,6 ×",
+   "fve": "6 927 MWp",
+   "fve_rok": "264,8 MWp",
+   "fve_krat": "3,2 ×"
+  }
+ ]
+}

@@ -5,11 +5,13 @@ from pathlib import Path
 
 import numpy as np
 
-from model import YEARS, curve, item_model, num, read_drivers, read_rows, simulate
+from model import YEARS, curve, item_model, num, read_drivers, read_rows, simulate, widen_band
 
 HERE = Path(__file__).resolve().parent
 PATHS = ["progresivni", "konzervativni"]
 RUNS = 10000
+# Pozorované rozpětí pětileté změny čisté spotřeby MSK 2014 až 2025: -8,3 % až +12,3 %, tedy 20,6 procentního bodu (Dopadová studie Tab.14 s.54, ERÚ tab. 6.2).
+HINDCAST_WIDTH_2030 = 0.206
 
 # Skutečnost v GWh. Výroba je brutto, spotřeba je součet sektorů plus ztráty v sítích.
 # 2023: výroba ERÚ Roční zpráva, sektory Dopadová studie Tab. 6, ztráty 6 018,9 - 5 805,4 z Tab. 1.
@@ -25,7 +27,45 @@ HISTORY = [
 TRENDS = ("pop_msk", "velikost_dom", "auta_na_os", "eff_auta", "eff_nakladni", "teplo_budovy")
 
 # Denní nabíjení baterií v MW v letech 2025, 2030, 2040 a 2050, viz sezonni_metodika.md.
-BATTERY_DAILY = {"progresivni": [2.0, 10.0, 212.5, 375.0], "konzervativni": [2.0, 2.0, 2.0, 2.0]}
+BATTERY_DAILY = {"progresivni": [2.0, 10.0, 425.0, 750.0], "konzervativni": [2.0, 2.0, 2.0, 2.0]}
+NUMBERS = HERE  # kopie z hodinového výpočtu, přidává je nastroje/rebuild.sh
+
+
+def html_must(rows):
+    head = "<tr><th>Cesta a období</th><th>Bilance dnes, GWh</th><th>Jen vítr navíc</th><th>Jen fotovoltaika navíc</th><th>Jen SMR navíc</th><th>Vítr na mezi 2 014 MW a</th></tr>"
+    name = {"progresivni": "Progresivní", "konzervativni": "Konzervativní"}
+    body = ""
+    for r in rows:
+        wind = f"+{r['vitr']} MW" + (", nad mezí" if r["vitr_nad"] else "")
+        body += (f'<tr data-must="{r["cesta"]}"><td>{name[r["cesta"]]}, {r["uroven"]}</td><td class="n">{r["bilance"]}</td><td class="n">{wind}</td>'
+                 f'<td class="n">+{r["fve"]} GWp</td><td class="n">+{r["smr"]}</td><td>{r["mez"]}</td></tr>')
+    return f'<table class="grades">{head}{body}</table>'
+
+
+def html_tempo(rows):
+    head = "<tr><th>Případ</th><th>Vítr 2050</th><th>Vítr za rok</th><th>Proti maximu</th><th>Fotovoltaika 2050</th><th>Fotovoltaika za rok</th><th>Proti maximu</th></tr>"
+    body = "".join(f'<tr><td>{r["jmeno"]}</td><td class="n">{r["vitr"]}</td><td class="n">{r["vitr_rok"]}</td><td class="n">{r["vitr_krat"]}</td><td class="n">{r["fve"]}</td><td class="n">{r["fve_rok"]}</td><td class="n">{r["fve_krat"]}</td></tr>' for r in rows)
+    return f'<table class="grades">{head}{body}</table>'
+
+
+def html_rezerva(table):
+    hours = list(next(iter(table.values())))
+    head = "<tr><th>Podíl zatížení</th>" + "".join(f"<th>{h}</th>" for h in hours) + "</tr>"
+    body = "".join(f"<tr><td>{k}</td>" + "".join(f'<td class="n">{v[h]}</td>' for h in hours) + "</tr>" for k, v in table.items())
+    return f'<table class="grades">{head}{body}</table>'
+
+
+def fill_numbers(template):
+    """Čísla z hodinového výpočtu jdou do textu stránky z jednoho souboru, který píše 60_prepocet_zprava.py."""
+    data = json.loads((NUMBERS / "stranka_cisla.json").read_text(encoding="utf-8"))
+    values = dict(data["T"], html_must=html_must(data["must"]), html_tempo=html_tempo(data["tempo"]), html_rezerva=html_rezerva(data["rezerva"]))
+    out = re.sub(r"\{\{([a-z0-9_]+)\}\}", lambda m: values[m.group(1)], template)
+    assert "{{" not in out, out[out.index("{{"):][:60]
+    flh = json.loads((NUMBERS / "elektrolyzer_plne_hodiny.json").read_text(encoding="utf-8"))
+    found = re.search(r"ELECTROLYSER_HOURS\s*=\s*([\d.]+), ELECTROLYSER_LOSS\s*=\s*([\d.]+)", template)
+    assert abs(float(found.group(1)) - flh["plne_hodiny"]) < 0.5, ("ELECTROLYSER_HOURS", flh["plne_hodiny"])
+    assert abs(float(found.group(2)) - flh["mira_ztrat"]) < 1e-5, ("ELECTROLYSER_LOSS", flh["mira_ztrat"])
+    return out
 
 
 def text(row, key):
@@ -49,22 +89,26 @@ def build_data():
             battery[route] = {"years": [int(r["rok"]) for r in chosen], "mw": [num(r, "zima_baterie_MW") for r in chosen],
                               "daily": BATTERY_DAILY[route]}
     rng = np.random.default_rng(20261104)
-    items, bands, fit_report = [], {}, []
+    items, bands, fit_report, fit_report_band = [], {}, [], []
     for route in PATHS:
         bands[route] = {}
         for side in ("vyroba", "spotreba"):
             chosen = [(r, m) for r, m in zip(rows, models) if text(r, "cesta") == route and text(r, "strana") == side]
             if chosen:
                 bands[route][side] = simulate([c[0] for c in chosen], [c[1] for c in chosen], rng, RUNS)
+                if side == "spotreba":
+                    bands[route][side], ratio = widen_band(bands[route][side], HINDCAST_WIDTH_2030)
+                    fit_report_band.append(f"{route}: násobek pásma spotřeby 2030 {ratio:.3f}")
     for r, m in zip(rows, models):
         jump = m["jump"]
         plain = popis.get((text(r, "polozka"), text(r, "cesta")), {})
         season = profiles.get((text(r, "polozka"), text(r, "cesta")), {})
-        driver = None if not text(r, "ridic") else [round(float(v), 4) for v in m["driver"]]
+        driver = None if not text(r, "ridic") else [round(float(v), 9) for v in m["driver"]]
         items.append({
             "name": text(r, "polozka"), "side": text(r, "strana"), "path": text(r, "cesta"),
             "base": m["base"], "p10": num(r, "p10_2050"), "p50": num(r, "p50_2050"), "p90": num(r, "p90_2050"),
-            "parts": [{"amp": round(p["amp"], 3), "tm": round(p["tm"], 2), "k": round(p["k"], 3)} for p in m["parts"]],
+            "parts": [dict({"amp": round(p["amp"], 9), "tm": round(p["tm"], 9), "k": round(p["k"], 9)}, **{x: p[x] for x in ("hard", "cap") if x in p}) for p in m["parts"]],
+            "nodes": m["nodes"],
             "driver": driver, "driverName": text(r, "ridic"), "maxRate": num(r, "tempo_max_GWh_rok"),
             "grade": text(r, "stupen"), "how": text(r, "odvozeni"), "src": text(r, "zdroj"), "note": text(r, "poznamka"),
             "page": text(r, "strana_studie"), "quote": text(r, "citace"),
@@ -83,7 +127,7 @@ def build_data():
                 fit_report.append((text(r, "polozka"), text(r, "cesta")[:4], year, round(wanted, 1), round(got, 1)))
     (HERE / "kontrola_krivek.txt").write_text(
         "Položky, kde S-křivka v milníku nesedí na tabulku o více než 10 % a 25 GWh:\n"
-        + "\n".join(f"{a} | {b} | {c} | tabulka {d} | křivka {e}" for a, b, c, d, e in fit_report) + "\n",
+        + "\n".join(f"{a} | {b} | {c} | tabulka {d} | křivka {e}" for a, b, c, d, e in fit_report) + "\n" + "\n".join(fit_report_band) + "\n",
         encoding="utf-8")
     trends = {}
     trend_path = HERE / "ridici_vlivy.csv"
@@ -109,7 +153,7 @@ def fonts_css():
 def main():
     template = (HERE / "sablona.html").read_text(encoding="utf-8")
     payload = json.dumps(build_data(), ensure_ascii=False).replace("</", "<\\/")
-    page = template.replace("/*FONTS*/", fonts_css()).replace("/*DATA*/null", payload)
+    page = fill_numbers(template).replace("/*FONTS*/", fonts_css()).replace("/*DATA*/null", payload)
     (HERE / "index.html").write_text(page, encoding="utf-8")
 
 
