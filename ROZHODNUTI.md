@@ -31,6 +31,7 @@ Zadavatel 2026-11-04 předal všechna rozhodnutí a odhady Claude. Vše zde lze 
 | 25 | Nejistota roku poloviny změny je u plynulých položek P10 až P90 o 3 roky kolem výchozího roku a nezávisí na společných faktorech. Společný faktor má korelaci 0,6. | Vlastní odhad, zdroj nemám. Bez nejistoty načasování by pásmo v letech před 2050 bylo příliš úzké. |
 | 27 | V progresivní cestě je v roce 2050 flotila 50 % vodík a 50 % baterie. Flotilou rozumíme osobní auta, nákladní dopravu a MHD, vlaky zůstávají na trolejích. Vodík se vyrábí v kraji z elektřiny a tato elektřina se počítá do spotřeby. Vodík se nevrací zpět na elektřinu. Konzervativní cesta zůstává na bateriích. | Pokyn zadavatele, rozsah flotily a konzervativní cesta jsou náš výklad. |
 | 28 | Ze studie ZEVO jsou veřejně jen čísla potřebná k výpočtu: výroba, množství odpadu a rok spuštění. Ekonomika a doslovné citace zveřejněné nejsou. Stránka i export uvádějí, že část zdroje je neveřejná. | Pokyn zadavatele, studie je pracovní verze pro klienta. |
+| 29 | Hlavní graf má přepínač Roční energie, Zimní špička a Letní poledne. Výkon v MW se počítá z ročních hodnot a koeficientů v `sezonni_profily.csv`, bez pásma. | Pokyn zadavatele. Sčítání mezí koeficientů by pásmo přehnalo. |
 | 26 | Hodnoty tabulky pro roky 2030 a 2040 už neurčují křivku přímo, jen z nich dopočítáme k a t_m. Kde to nesedí o více než 10 % a 25 GWh, je to v `web/kontrola_krivek.txt`. | Přesné proložení není u každé položky možné. |
 
 ## Vyřešený rozpor: spotřeba 2024

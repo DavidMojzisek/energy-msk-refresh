@@ -22,6 +22,10 @@ HISTORY = [
 ]
 
 
+# Denní nabíjení baterií v MW v letech 2025, 2030, 2040 a 2050, viz sezonni_metodika.md.
+BATTERY_DAILY = {"progresivni": [2.0, 10.0, 60 / 249.9 * 200, 200.0], "konzervativni": [2.0, 5.0, 8 / 21.4 * 20, 20.0]}
+
+
 def text(row, key):
     return (row.get(key) or "").strip()
 
@@ -33,6 +37,15 @@ def build_data():
     models = [item_model(r, drivers) for r in rows]
     popis_path = HERE / "polozky_popis.csv"
     popis = {(text(r, "polozka"), text(r, "cesta")): r for r in read_rows(popis_path)} if popis_path.exists() else {}
+    profile_path = HERE / "sezonni_profily.csv"
+    profiles = {(text(r, "polozka"), text(r, "cesta")): r for r in read_rows(profile_path)} if profile_path.exists() else {}
+    check_path = HERE / "sezonni_kontrola.csv"
+    battery = {}
+    if check_path.exists():
+        for route in PATHS:
+            chosen = [r for r in read_rows(check_path) if text(r, "cesta") == route]
+            battery[route] = {"years": [int(r["rok"]) for r in chosen], "mw": [num(r, "zima_baterie_MW") for r in chosen],
+                              "daily": BATTERY_DAILY[route]}
     rng = np.random.default_rng(20261104)
     items, bands, fit_report = [], {}, []
     for route in PATHS:
@@ -44,6 +57,7 @@ def build_data():
     for r, m in zip(rows, models):
         jump = m["jump"]
         plain = popis.get((text(r, "polozka"), text(r, "cesta")), {})
+        season = profiles.get((text(r, "polozka"), text(r, "cesta")), {})
         driver = None if not text(r, "ridic") else [round(float(v), 4) for v in m["driver"]]
         items.append({
             "name": text(r, "polozka"), "side": text(r, "strana"), "path": text(r, "cesta"),
@@ -57,6 +71,7 @@ def build_data():
             "jumpHigh": num(r, "skok_rok_p90") if jump else None,
             "event": text(r, "udalost").split(",")[0],
             "plain": text(plain, "jak_se_doslo"), "plainSrc": text(plain, "ze_zdroju"), "plainEst": text(plain, "odhad"),
+            "kw": num(season, "zima_koef_p50") or 0, "ks": num(season, "leto_koef_p50") or 0, "flex": text(season, "flexibilni") == "ano",
         })
         value = curve(m)
         for year, key in ((2030, "p50_2030"), (2040, "p50_2040")):
@@ -68,7 +83,7 @@ def build_data():
         "Položky, kde S-křivka v milníku nesedí na tabulku o více než 10 % a 25 GWh:\n"
         + "\n".join(f"{a} | {b} | {c} | tabulka {d} | křivka {e}" for a, b, c, d, e in fit_report) + "\n",
         encoding="utf-8")
-    return {"years": YEARS.tolist(), "history": HISTORY, "items": items, "bands": bands}
+    return {"years": YEARS.tolist(), "history": HISTORY, "items": items, "bands": bands, "battery": battery}
 
 
 def fonts_css():

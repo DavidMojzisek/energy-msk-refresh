@@ -65,6 +65,7 @@ svg .ev{font:600 11px "Saira",sans-serif;fill:var(--ink);paint-order:stroke;stro
 .grades{border-collapse:collapse;margin:8px 0;font-size:14px}
 .grades td,.grades th{border-top:1px solid var(--line);padding:6px 12px 6px 0;text-align:left}
 .grades .grade{margin-left:0}
+.viewnote{color:var(--muted);font-size:12.5px;margin:8px 0 0;max-width:900px}
 .ratewarn{margin:5px 0 0;color:var(--warn);font-size:12.5px}
 .grade{font:600 10.5px "JetBrains Mono",monospace;border:1px solid var(--line);border-radius:4px;padding:0 5px;margin-left:6px;color:var(--muted)}
 .grade.D{border-color:var(--warn);color:var(--warn)}
@@ -105,23 +106,29 @@ footer{color:var(--muted);font-size:12.5px}
 <p class="notice" id="notice"></p>
 <div class="kpi" id="kpi"></div>
 <section class="card">
-  <h2>Výroba a spotřeba</h2>
+  <h2 id="mainTitle">Výroba a spotřeba</h2>
   <div class="toggles" id="toggles">
+    <div class="pills" role="group" aria-label="Co graf ukazuje">
+      <button data-view="energy" aria-pressed="true">Roční energie</button>
+      <button data-view="winter" aria-pressed="false">Zimní špička</button>
+      <button data-view="summer" aria-pressed="false">Letní poledne</button>
+    </div>
     <div class="pills" role="group" aria-label="Zobrazené cesty">
       <button data-show="progresivni" aria-pressed="true">Progresivní</button>
       <button data-show="konzervativni" aria-pressed="true">Konzervativní</button>
     </div>
     <div class="pills" role="group" aria-label="Zobrazené veličiny">
-      <button data-show="vyroba" aria-pressed="true">Výroba</button>
-      <button data-show="spotreba" aria-pressed="true">Spotřeba</button>
+      <button data-show="vyroba" id="showGen" aria-pressed="true">Výroba</button>
+      <button data-show="spotreba" id="showUse" aria-pressed="true">Spotřeba</button>
     </div>
   </div>
   <div class="legend" id="legend"></div>
   <div id="main"></div>
+  <p class="viewnote" id="viewNote" hidden></p>
   <div class="yearrow"><label for="year">Rok</label><input id="year" type="range" min="2025" max="2050" step="1" value="2050"><span class="mono" id="yearv"></span></div>
 </section>
 <section class="card" id="balcard">
-  <h2>Bilance vybrané cesty</h2>
+  <h2 id="balTitle">Bilance vybrané cesty</h2>
   <div id="bal"></div>
 </section>
 <div class="cols" id="lists"></div>
@@ -207,8 +214,16 @@ footer{color:var(--muted);font-size:12.5px}
   </section>
 
   <section class="card">
-    <h2>9. Co model neumí</h2>
-    <p>Hlavní graf počítá s ročním množstvím elektřiny. Z toho nejde poznat, jestli kraj zvládne konkrétní zimní večer. Model nezachycuje hodinový průběh, období bez slunce a větru, omezení sítě ani dostupnost dovozu. Vazby mezi položkami jsou jen tam, kde jsou výslovně popsané.</p>
+    <h2>9. Zimní špička a letní poledne</h2>
+    <p>Roční množství elektřiny neřekne, jestli kraj pokryje nejnáročnější chvíli. Proto přepočítáváme položky na výkon ve dvou okamžicích. Zimní špička je roční maximum zatížení bez slunce. Letní poledne je slunečný víkendový stav s nízkou spotřebou.</p>
+    <div class="eq"><i>P</i> = <span class="frac"><span><i>E</i> · 1000</span><span>8760</span></span> · <i>c</i></div>
+    <p><i>E</i> je roční hodnota položky v GWh a <i>P</i> její výkon v MW. Zlomek dává průměrný výkon za rok a koeficient <i>c</i> říká, kolikrát je výkon v daném okamžiku vyšší nebo nižší než průměr. Koeficienty jsou nastavené tak, aby sedělo zimní zatížení 1 025,5 MW v roce 2023 podle Dopadové studie. Tato hodnota je sama vypočtená, zatížení kraje nikdo přímo neměří. Většina koeficientů je náš odhad.</p>
+    <p>Elektrolýza a elektrokotle se umí přizpůsobit. V zimní špičce jsou vypnuté, v létě dostávají přebytek až po bateriích. U baterií v progresivní cestě předpokládáme výkon 825 MW, tedy 59,4 GWh na 72 hodin. Tento výkon je náš odhad a rozhoduje o tom, jestli zimní bilance vyjde kladně.</p>
+  </section>
+
+  <section class="card">
+    <h2>10. Co model neumí</h2>
+    <p>Dva okamžiky nejsou hodinový průběh. Model nezachycuje několikadenní období bez slunce a větru s vybitými bateriemi, omezení sítě, dostupnost dovozu ani výpadek největšího zdroje. Vazby mezi položkami jsou jen tam, kde jsou výslovně popsané.</p>
     <p>Technický popis je v souboru <a href="METODIKA.md">metodika</a> a všechny volby jsou v <a href="ROZHODNUTI.md">seznamu rozhodnutí</a>.</p>
   </section>
 </article>
@@ -224,7 +239,7 @@ const NF = new Intl.NumberFormat("cs-CZ",{maximumFractionDigits:0});
 const NF1 = new Intl.NumberFormat("cs-CZ",{minimumFractionDigits:1,maximumFractionDigits:1});
 const $ = id => document.getElementById(id);
 const hasItems = DATA.items.length > 0;
-const state = {path:"progresivni", mode:"simple", year:2050, values:{}, jumps:{}, tms:{}, show:{progresivni:true, konzervativni:true, vyroba:true, spotreba:true}};
+const state = {path:"progresivni", mode:"simple", view:"energy", year:2050, values:{}, jumps:{}, tms:{}, show:{progresivni:true, konzervativni:true, vyroba:true, spotreba:true}};
 const NS = "http://www.w3.org/2000/svg";
 
 function key(it){ return it.path + "|" + it.side + "|" + it.name; }
@@ -271,21 +286,47 @@ function itemAt(it, i){
   const value = D * level + (state.values[key(it)] - it.p50) * sigma(t);
   return it.p10 < 0 ? value : Math.max(0, value);
 }
-function totals(path, side){
+/* Hodnota položky v GWh. Ztráty v sítích jdou s ostatní spotřebou. */
+function lossFactor(items, i){
+  const others = items.reduce((sum, it) => it.name === LOSS_ITEM ? sum : sum + itemAt(it, i), 0);
+  const saved = {values:state.values, jumps:state.jumps, tms:state.tms};
+  state.values = DEFAULTS.values; state.jumps = DEFAULTS.jumps; state.tms = DEFAULTS.tms;
+  const reference = items.reduce((sum, it) => it.name === LOSS_ITEM ? sum : sum + itemAt(it, i), 0);
+  Object.assign(state, saved);
+  return reference > 0 ? others / reference : 1;
+}
+function values(path, side, i){
   const items = DATA.items.filter(it => it.path === path && it.side === side);
-  return DATA.years.map((_, i) => {
-    let others = 0, loss = null;
-    for(const it of items){
-      if(it.name === LOSS_ITEM) loss = it; else others += itemAt(it, i);
-    }
-    if(!loss) return others;
-    /* Ztráty v sítích jdou s ostatní spotřebou. */
-    const saved = {values:state.values, jumps:state.jumps, tms:state.tms};
-    state.values = DEFAULTS.values; state.jumps = DEFAULTS.jumps; state.tms = DEFAULTS.tms;
-    const reference = items.reduce((sum, it) => it.name === LOSS_ITEM ? sum : sum + itemAt(it, i), 0);
-    Object.assign(state, saved);
-    return others + itemAt(loss, i) * (reference > 0 ? others / reference : 1);
-  });
+  const factor = items.some(it => it.name === LOSS_ITEM) ? lossFactor(items, i) : 1;
+  return items.map(it => ({it, gwh:itemAt(it, i) * (it.name === LOSS_ITEM ? factor : 1)}));
+}
+function totals(path, side){
+  return DATA.years.map((_, i) => values(path, side, i).reduce((sum, x) => sum + x.gwh, 0));
+}
+/* Výkon v MW: roční GWh × 1000 / 8760 × koeficient okamžiku. */
+function interp(xs, ys, x){
+  for(let j = 1; j < xs.length; j++) if(x <= xs[j]) return ys[j - 1] + (ys[j] - ys[j - 1]) * (x - xs[j - 1]) / (xs[j] - xs[j - 1]);
+  return ys[ys.length - 1];
+}
+function isElectrolysis(name){ return name.startsWith("výroba vodíku") || name === "výroba syntetického plynu"; }
+function moment(path, i){
+  const avg = g => g * 1000 / 8760, winter = state.view === "winter", coef = it => winter ? it.kw : it.ks;
+  let load = 0, avail = 0, electro = 0, boiler = 0;
+  for(const {it, gwh} of values(path, "spotreba", i)){
+    if(winter || !it.flex) load += avg(gwh) * coef(it);
+    if(isElectrolysis(it.name)) electro += avg(gwh) * it.ks;
+    if(it.name === "elektrokotle v teplárnách") boiler = avg(gwh) * it.ks;
+  }
+  for(const {it, gwh} of values(path, "vyroba", i)) avail += avg(gwh) * coef(it);
+  const bat = DATA.battery[path], year = DATA.years[i];
+  const batteryMw = interp(bat.years, bat.mw, year), balance = avail - load, surplus = Math.max(balance, 0);
+  const charge = Math.min(interp(bat.years, bat.daily, year), surplus), heat = Math.min(boiler, surplus - charge);
+  return {load, avail, balance, batteryMw, electro, forH2:Math.min(Math.max(surplus - charge - heat, 0), electro)};
+}
+function curves(path){
+  if(state.view === "energy") return {gen:totals(path, "vyroba"), use:totals(path, "spotreba")};
+  const all = DATA.years.map((_, i) => moment(path, i));
+  return {gen:all.map(m => m.avail), use:all.map(m => m.load)};
 }
 /* Nejrychlejší roční nárůst položky proti historii. */
 function fasterThanHistory(it){
@@ -311,31 +352,32 @@ function drawMain(){
   host.innerHTML = "";
   const svg = mk("svg", {viewBox:`0 0 ${W} ${H}`, role:"img", "aria-label":"Výroba a spotřeba elektřiny po letech"}, host);
   const show = state.show;
-  let top = Math.max(...DATA.history.map(h => Math.max(show.vyroba ? h.gen : 0, show.spotreba ? h.use : 0)));
+  const energy = state.view === "energy";
+  let top = energy ? Math.max(...DATA.history.map(h => Math.max(show.vyroba ? h.gen : 0, show.spotreba ? h.use : 0))) : 0;
   const series = {};
   if(hasItems) for(const p of Object.keys(PATHNAME)){
-    series[p] = {gen:totals(p,"vyroba"), use:totals(p,"spotreba")};
+    series[p] = curves(p);
     if(!show[p]) continue;
     if(show.vyroba) top = Math.max(top, ...series[p].gen);
     if(show.spotreba) top = Math.max(top, ...series[p].use);
     const b = DATA.bands[p];
-    if(p === state.path && show.vyroba && b.vyroba) top = Math.max(top, ...b.vyroba[2]);
-    if(p === state.path && show.spotreba && b.spotreba) top = Math.max(top, ...b.spotreba[2]);
+    if(energy && p === state.path && show.vyroba && b.vyroba) top = Math.max(top, ...b.vyroba[2]);
+    if(energy && p === state.path && show.spotreba && b.spotreba) top = Math.max(top, ...b.spotreba[2]);
   }
-  const step = top > 20000 ? 5000 : 2000, ymax = Math.ceil(top / step) * step;
+  const step = energy ? (top > 20000 ? 5000 : 2000) : 500, ymax = Math.ceil(top / step) * step;
   const yS = v => YB - v / ymax * (YB - Y0);
   for(let v = 0; v <= ymax; v += step){
     mk("line", {x1:X0, x2:X1, y1:yS(v), y2:yS(v), stroke:"var(--line)"}, svg);
-    mk("text", {x:X0 - 9, y:yS(v) + 4, "text-anchor":"end"}, svg, NF.format(v / 1000));
+    mk("text", {x:X0 - 9, y:yS(v) + 4, "text-anchor":"end"}, svg, NF.format(energy ? v / 1000 : v));
   }
-  mk("text", {x:12, y:16}, svg, "TWh za rok");
+  mk("text", {x:12, y:16}, svg, energy ? "TWh za rok" : "MW");
   for(const y of [2023, 2025, 2030, 2035, 2040, 2045, 2050])
     mk("text", {x:xScale(y), y:H - 12, "text-anchor":"middle"}, svg, y);
 
   if(hasItems){
     const b = DATA.bands[state.path], color = state.path === "progresivni" ? "var(--prog)" : "var(--kons)";
     for(const side of ["vyroba", "spotreba"]){
-      if(!b[side] || !show[side] || !show[state.path]) continue;
+      if(!energy || !b[side] || !show[side] || !show[state.path]) continue;
       const up = DATA.years.map((y, i) => [xScale(y), yS(b[side][2][i])]);
       const lo = DATA.years.map((y, i) => [xScale(y), yS(b[side][0][i])]).reverse();
       mk("path", {d:pathD(up.concat(lo)) + "Z", fill:color, opacity:.13}, svg);
@@ -353,12 +395,14 @@ function drawMain(){
       if(show.vyroba) mk("path", {d:pathD(line(series[p].gen)), fill:"none", stroke:c, "stroke-width":width, "stroke-dasharray":"8 5"}, svg);
     }
   }
-  const hx = DATA.history.map(h => xScale(h.y));
-  if(show.spotreba) mk("path", {d:pathD(DATA.history.map((h, i) => [hx[i], yS(h.use)])), fill:"none", stroke:"var(--ink)", "stroke-width":3}, svg);
-  if(show.vyroba) mk("path", {d:pathD(DATA.history.map((h, i) => [hx[i], yS(h.gen)])), fill:"none", stroke:"var(--ink)", "stroke-width":3, "stroke-dasharray":"8 5"}, svg);
-  for(const h of DATA.history){
-    if(show.spotreba) mk("circle", {cx:xScale(h.y), cy:yS(h.use), r:4, fill:"var(--ink)"}, svg);
-    if(show.vyroba) mk("circle", {cx:xScale(h.y), cy:yS(h.gen), r:4, fill:"var(--ink)"}, svg);
+  if(energy){
+    const hx = DATA.history.map(h => xScale(h.y));
+    if(show.spotreba) mk("path", {d:pathD(DATA.history.map((h, i) => [hx[i], yS(h.use)])), fill:"none", stroke:"var(--ink)", "stroke-width":3}, svg);
+    if(show.vyroba) mk("path", {d:pathD(DATA.history.map((h, i) => [hx[i], yS(h.gen)])), fill:"none", stroke:"var(--ink)", "stroke-width":3, "stroke-dasharray":"8 5"}, svg);
+    for(const h of DATA.history){
+      if(show.spotreba) mk("circle", {cx:xScale(h.y), cy:yS(h.use), r:4, fill:"var(--ink)"}, svg);
+      if(show.vyroba) mk("circle", {cx:xScale(h.y), cy:yS(h.gen), r:4, fill:"var(--ink)"}, svg);
+    }
   }
   mk("line", {x1:xScale(state.year), x2:xScale(state.year), y1:Y0, y2:YB, stroke:"var(--muted)"}, svg);
   mk("line", {x1:X0, x2:X1, y1:YB, y2:YB, stroke:"var(--muted)"}, svg);
@@ -372,9 +416,10 @@ function showTip(e, svg, series){
   const y = Math.round(2023 + ((e.clientX - box.left) / box.width * W - X0) / (X1 - X0) * 27);
   const tip = $("tip");
   let html = `<b class="mono">${y}</b>`;
-  const row = (a, v) => `<div><span>${a}</span><span class="mono">${NF.format(v)} GWh</span></div>`;
-  const rows = (gen, use) => (state.show.vyroba ? row("Výroba", gen) : "") + (state.show.spotreba ? row("Spotřeba", use) : "");
-  const past = DATA.history.find(h => h.y === y);
+  const energy = state.view === "energy", unit = energy ? "GWh" : "MW";
+  const row = (a, v) => `<div><span>${a}</span><span class="mono">${NF.format(v)} ${unit}</span></div>`;
+  const rows = (gen, use) => (state.show.vyroba ? row(energy ? "Výroba" : "Dostupný výkon", gen) : "") + (state.show.spotreba ? row(energy ? "Spotřeba" : "Zatížení", use) : "");
+  const past = energy ? DATA.history.find(h => h.y === y) : null;
   if(past) html += rows(past.gen, past.use);
   else if(hasItems && y >= 2025) for(const p of Object.keys(PATHNAME)){
     if(!state.show[p]) continue;
@@ -391,16 +436,17 @@ function drawBalance(){
   const card = $("balcard");
   card.style.display = hasItems ? "" : "none";
   if(!hasItems) return;
-  const H = 190, YB = H - 26, host = $("bal"), gen = totals(state.path, "vyroba"), use = totals(state.path, "spotreba");
+  const H = 190, YB = H - 26, host = $("bal"), energy = state.view === "energy", shown = curves(state.path), gen = shown.gen, use = shown.use;
+  $("balTitle").textContent = energy ? "Bilance vybrané cesty, TWh za rok" : `Bilance vybrané cesty, ${state.view === "winter" ? "zimní špička" : "letní poledne"}, MW`;
   host.innerHTML = "";
   const svg = mk("svg", {viewBox:`0 0 ${W} ${H}`, role:"img", "aria-label":"Bilance po letech"}, host);
   const bal = gen.map((g, i) => g - use[i]);
-  const lim = Math.max(1000, ...bal.map(Math.abs)) * 1.1;
+  const lim = Math.max(energy ? 1000 : 100, ...bal.map(Math.abs)) * 1.1, scale = energy ? 1000 : 1;
   const yS = v => (YB + 10) / 2 - v / lim * (YB - 10) / 2;
   mk("line", {x1:X0, x2:X1, y1:yS(0), y2:yS(0), stroke:"var(--muted)"}, svg);
   mk("text", {x:X0 - 9, y:yS(0) + 4, "text-anchor":"end"}, svg, "0");
-  mk("text", {x:X0 - 9, y:yS(lim * .8) + 4, "text-anchor":"end"}, svg, NF.format(lim * .8 / 1000));
-  mk("text", {x:X0 - 9, y:yS(-lim * .8) + 4, "text-anchor":"end"}, svg, NF.format(-lim * .8 / 1000));
+  mk("text", {x:X0 - 9, y:yS(lim * .8) + 4, "text-anchor":"end"}, svg, NF.format(lim * .8 / scale));
+  mk("text", {x:X0 - 9, y:yS(-lim * .8) + 4, "text-anchor":"end"}, svg, NF.format(-lim * .8 / scale));
   const w = (X1 - X0) / 27 * .72;
   DATA.years.forEach((y, i) => {
     const v = bal[i];
@@ -413,6 +459,18 @@ function drawBalance(){
 
 function drawKpi(){
   const i = state.year - 2025;
+  if(hasItems && state.view !== "energy"){
+    const m = moment(state.path, i), winter = state.view === "winter", name = winter ? "Zimní špička" : "Letní poledne";
+    const cell = (a, v, color) => `<div><small>${a}</small><b${color ? ` style="color:${color}"` : ""}>${NF.format(v)}</b> MW</div>`;
+    const tone = v => v >= 0 ? "var(--ok)" : "var(--crit)";
+    $("kpi").innerHTML =
+      `<div><small>Výběr</small><b style="font-size:15px">${PATHNAME[state.path]}, ${state.year}, ${name}</b></div>` +
+      cell("Dostupný výkon", m.avail) + cell("Zatížení", m.load) + cell("Bilance", m.balance, tone(m.balance)) +
+      (winter ? cell("Bilance s bateriemi", m.balance + m.batteryMw, tone(m.balance + m.batteryMw))
+              : cell("Elektrolýza potřebuje", m.electro) + cell("Zbývá pro vodík", m.forH2));
+    $("yearv").textContent = state.year;
+    return;
+  }
   let gen, use;
   if(hasItems){ gen = totals(state.path,"vyroba")[i]; use = totals(state.path,"spotreba")[i]; }
   else { const h = DATA.history[DATA.history.length - 1]; gen = h.gen; use = h.use; }
@@ -588,12 +646,12 @@ function drawLists(){
 }
 
 function drawLegend(){
-  const color = state.path === "progresivni" ? "var(--prog)" : "var(--kons)";
+  const color = state.path === "progresivni" ? "var(--prog)" : "var(--kons)", energy = state.view === "energy";
   $("legend").innerHTML =
-    `<span><i style="border-color:var(--ink)"></i>Skutečnost</span>` +
+    (energy ? `<span><i style="border-color:var(--ink)"></i>Skutečnost</span>` : "") +
     (hasItems ? `<span><i style="border-color:var(--prog)"></i>Progresivní</span><span><i style="border-color:var(--kons)"></i>Konzervativní</span>` : "") +
-    `<span><i style="border-color:var(--muted)"></i>Spotřeba</span><span><i style="border-color:var(--muted);border-top-style:dashed"></i>Výroba</span>` +
-    (hasItems ? `<span><i style="border-color:${color};border-top-width:8px;opacity:.25"></i>Pásmo výchozího nastavení, P10 až P90</span>` : "");
+    `<span><i style="border-color:var(--muted)"></i>${energy ? "Spotřeba" : "Zatížení"}</span><span><i style="border-color:var(--muted);border-top-style:dashed"></i>${energy ? "Výroba" : "Dostupný výkon"}</span>` +
+    (hasItems && energy ? `<span><i style="border-color:${color};border-top-width:8px;opacity:.25"></i>Pásmo výchozího nastavení, P10 až P90</span>` : "");
 }
 
 function refresh(){ drawMain(); drawBalance(); drawKpi(); }
@@ -602,6 +660,22 @@ document.querySelectorAll("[data-path]").forEach(b => b.addEventListener("click"
   state.path = b.dataset.path;
   document.querySelectorAll("[data-path]").forEach(x => x.setAttribute("aria-pressed", x === b));
   drawLists(); drawLegend(); refresh();
+}));
+const VIEW_NOTE = {
+  winter:"Zimní špička je roční maximum zatížení s nulovým výkonem slunce. Vítr se počítá nulou jako ve studii. Elektrolýza a elektrokotle jsou vypnuté, což předpokládá dost vodíku ve skladu. Baterie jsou jen v bilanci s bateriemi a vydrží omezenou dobu. Hodnoty jsou výchozí odhad bez pásma.",
+  summer:"Letní poledne je slunečný víkendový polední stav. Zatížení je bez elektrolýzy a dalších pružných spotřebičů. Přebytek jde nejdřív do baterií, pak do elektrokotlů a zbytek do elektrolýzy. Hodnoty jsou výchozí odhad bez pásma.",
+};
+document.querySelectorAll("[data-view]").forEach(b => b.addEventListener("click", () => {
+  state.view = b.dataset.view;
+  document.querySelectorAll("[data-view]").forEach(x => x.setAttribute("aria-pressed", x === b));
+  const energy = state.view === "energy";
+  $("mainTitle").textContent = energy ? "Výroba a spotřeba" : (state.view === "winter" ? "Zimní špička: výkon a zatížení" : "Letní poledne: výkon a zatížení");
+  $("showGen").textContent = energy ? "Výroba" : "Dostupný výkon";
+  $("showUse").textContent = energy ? "Spotřeba" : "Zatížení";
+  $("viewNote").hidden = energy;
+  $("viewNote").textContent = energy ? "" : VIEW_NOTE[state.view];
+  drawLegend();
+  refresh();
 }));
 document.querySelectorAll("[data-mode]").forEach(b => b.addEventListener("click", () => {
   state.mode = b.dataset.mode;
