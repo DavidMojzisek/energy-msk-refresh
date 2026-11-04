@@ -111,3 +111,51 @@ Procenta konzervativní cesty, která nejdou použít čistě: OZE 10 % (čteno 
 ## 11. Nezjištěno
 
 Spotřeba Nové hutě, dolů a chemie. Výroba Dětmarovic v 2025. Definice sektoru Energetika u ERÚ. Počet osobních aut v MSK. Ztrátová sazba přímo za MSK. Trakční elektřina železnice v MSK. Technická poznámka: pomocná rešerše vytvořila `work/` a `pdf2txt.sh` v kořeni úkolu, smazání je na vás.
+
+## 12. Řídicí vlivy (revize 2026-11-04)
+
+Nový tvar křivky: y(t) = D(t) · s(t), s(t) = s0 + (s_T − s0) · S(t), D(2025) = 1. D je v `ridici_vlivy.csv`, řádek ho jmenuje ve sloupci `ridic`.
+
+- **Čtení v modelu.** Sloupce p10 až p90 v `polozky.csv` jsou y včetně D. D se na ně znovu nenásobí. Cíl adopce je s_T = y(2050) / D(2050).
+- **Směr mezí.** U vlivů platí P10 ≤ hodnota ≤ P90, P10 tedy znamená nižší spotřebu. Kvantil faktoru se u přímotopů čte obráceně jako dosud.
+- **Meze položky.** P10 = s_P10 × D_P10 a P90 = s_P90 × D_P90, protože jedna položka drží v běhu jeden kvantil (ROZHODNUTÍ 11). Meze kombinovaného vlivu berou vstupy jako nezávislé: D_P10 = D_P50 × exp(−√Σ ln(x_P50 / x_P10)²), u P90 obdobně. Prosté násobení všech P10 by pásmo přehnalo.
+
+| Řádek | Vliv | Progresivní P50 2050, staré | nové | Konzervativní P50 2050, staré | nové |
+|---|---|---|---|---|---|
+| osobní auta | d_auta 0,6879 | 1 334,3 | 938,2 | 266,9 | 187,6 |
+| nákladní doprava | d_nakladni 0,8500 | 1 076,4 | 893,8 | 322,9 | 268,1 |
+| domácnosti bez vytápění | d_domacnosti 0,9770 | 433,6 | 423,6 | 433,6 | 423,6 |
+| vytápění tepelnými čerpadly | d_vytapeni 0,8228 | 1 444,6 | 1 188,6 | 667,5 | 549,2 |
+| přímotopy | d_primotopy 0,8387 | 0 | 0,0 | 747,3 | 626,8 |
+| chlazení | d_chlazeni 0,9903 | 193 | 191,1 | 160 | 158,4 |
+
+Co se změnilo v řádcích kromě D:
+- Osobní auta: počet 625 545 včetně dodávkových (ČSÚ, MD, 31.12.2024) nahradil 850 000 × 72 % = 612 000. Bez D tak P50 2050 vzrostla na 1 363,8.
+- Nákladní doprava: zbytek ze studie je 2 750,0 − 1 435,6 = 1 314,4 místo 1 345,5, protože počet aut je jiný. Dodávky jsou v autech. Objem přepravy držím na 1.
+- Tepelná čerpadla: P10 2030 a 2050 obsahovaly zateplení přímo, teď ho nese jen vliv, jinak by se počítalo dvakrát.
+- Konzervativní auta a nákladní doprava zůstávají 20 % a 30 % progresivní P50 (ROZHODNUTÍ 3). Tepelná čerpadla, přímotopy a chlazení mají v této cestě vlastní hodnoty, násobí se stejným vlivem.
+- Stupeň tepelných čerpadel (progresivní) a přímotopů (obě cesty) klesl z C na D kvůli vlivu.
+- `tempo_max_GWh_rok`: FVE střešní 69,6816; FVE pozemní 13,125 (průměr 2008 až 2012, roční maximum není v tisku); vítr 23,8517; tepelná čerpadla 50,6766; osobní auta 0,3259. Aritmetika je v poznámce řádku. Dělení FVE v historii neexistuje.
+
+Zdroje: ČSÚ projekce krajů do 2080 (obyvatelstvo: 1 182 589,7930 v 2025, 999 144,3026 v 2050), ČSÚ SLDB 2021, Statistická ročenka MSK 2025, Krause et al. 2020 (spotřeba bateriových aut), doc 05 Tab.21 (teplo budov), Oeko 2025 (dnešní hladina nákladních aut).
+
+Co zůstává úsudkem:
+- Meze počtu obyvatel, protože ČSÚ dává kraji jednu variantu.
+- Velikost domácnosti: projekce domácností neexistuje, počet domácností je odvozený.
+- Auta na osobu: dorovnání na dnešní Česko 0,6098 z 0,5280. Tento vliv zvyšuje spotřebu a je největší úsudek v řádku aut.
+- Teplo: P50 je polovina poklesu z doc 05, protože plán svůj scénář sám nazývá ideálním. Celý pokles je P10.
+- Nákladní auta: vývoj spotřeby je čistý odhad, zdroj jsem nenašel.
+- Běžná spotřeba 2,5 MWh na odběrné místo, převzatá z dřívějšího řádku.
+
+Ponecháno záměrně beze změny: služby, vlaky, MHD a ostatní řádky, kde vliv nesedí jasně. Proběh na auto. Spotřebiče domácností, ty jsou v řádku úspory.
+
+Zastaralé po revizi, podle zadání nepřepočítáno:
+- Ztráty v sítích se počítají ze součtu spotřeby. Dopočet by dal progresivní 414,9 místo 446,0 a konzervativní 473,1 místo 497,8.
+- Součet spotřeby P50 2050 bez tohoto dopočtu: progresivní 12 614,8 místo 13 461,4, konzervativní 8 757,1 místo 9 141,6. Oddíl 8 a pořadí v oddílu 9 tedy platí pro stará čísla.
+- Úspory berou 10 % ze staré hodnoty domácností 434, rozdíl je asi 1 GWh.
+- Oddíly 9 a 11: počet aut v MSK je už zjištěn (ČSÚ 625 545 včetně dodávkových), zbytek seznamu v oddílu 11 platí.
+- `grafy_polozek.pdf` a `web/` jsem nepřestavoval.
+
+Rozpor s hlavním zdrojem: doc 01 s.137 píše „nelze předpokládat významnou demografickou změnu“, ČSÚ dává pokles o 15,5 % do 2050. Studie to uvádí jen u odpadu, číslo nedává.
+
+Nezjištěno: vývoj spotřeby těžkých nákladních aut (studie ICCT nešly otevřít), údaje starších edic projekce ČSÚ (jen souhrn vyhledávače), hodnota 2025 v řadě aut na osobu (bráno 2024), objem nákladní přepravy do 2050.
