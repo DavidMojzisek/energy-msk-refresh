@@ -2128,6 +2128,8 @@ Odvozený součet P50 tří řádků vodíku flotily je 3454.2 GWh. Výpočet: v
 | 30 | Nad posuvníky položek je přepínač a posuvníky velkých trendů: obyvatelé, auta na obyvatele, účinnost aut, potřeba tepla budov a počet domácností. Změna trendu se přičítá rovnoměrně od roku 2025. Pásmo se nepřepočítává. | Výchozí křivka zůstává přesně podle tabulky. |
 | 31 | Syntetický plyn je z odpadu, elektřina na jeho výrobu je nula. Množství omezuje dostupný odpad po odečtení spalovny. Jiné zdroje, například důlní nebo koksárenský plyn, nejsou započítané, protože chybí podklad. | Účinnosti přeměny jsou odhad modelu. |
 | 32 | Přepínač „Dorovnat na soběstačnost“ ukazuje schodek a kolik fotovoltaiky nebo větru by ho pokrylo. Výchozí hodnoty položek se nemění, jde o přepočet. | Soběstačnost je zde roční bilance, ne pokrytí v každé hodině. |
+| 33 | SMR se na stránce nastavuje počtem modulů po 500 MW, od 0 do 4. Výchozí je 1 v progresivní cestě a 0 v konzervativní. Jeden modul je 3 942 GWh za rok. Rok spuštění je společný pro všechny moduly. | Výpadek největšího bloku model nepočítá. |
+| 34 | Stránka má záložku Nedostatky se známými problémy, chybějícími podklady a volbami bez opory ve zdrojích. | Je to součást definice cest. |
 | 26 | Hodnoty tabulky pro roky 2030 a 2040 už neurčují křivku přímo, jen z nich dopočítáme k a t_m. Kde to nesedí o více než 10 % a 25 GWh, je to v seznamu selhání proložení v části 4. | Přesné proložení není u každé položky možné. |
 
 ### Vyřešený rozpor: spotřeba 2024

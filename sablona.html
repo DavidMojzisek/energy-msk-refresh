@@ -74,6 +74,8 @@ svg .ev{font:600 11px "Saira",sans-serif;fill:var(--ink);paint-order:stroke;stro
 #fillBtn[aria-pressed=true]{background:var(--ink);color:var(--surface)}
 #fillCard .kpi{margin:8px 0 0}
 .viewnote{color:var(--muted);font-size:12.5px;margin:8px 0 0;max-width:900px}
+.flaws{margin:6px 0;padding-left:20px;font-size:15px;line-height:1.5}
+.flaws li{margin:6px 0}
 .ratewarn{margin:5px 0 0;color:var(--warn);font-size:12.5px}
 .grade{font:600 10.5px "JetBrains Mono",monospace;border:1px solid var(--line);border-radius:4px;padding:0 5px;margin-left:6px;color:var(--muted)}
 .grade.D{border-color:var(--warn);color:var(--warn)}
@@ -105,6 +107,7 @@ footer{color:var(--muted);font-size:12.5px}
 <nav class="tabs" aria-label="Části stránky">
   <button data-tab="bilance" aria-current="page">Bilance</button>
   <button data-tab="metodika">Metodika</button>
+  <button data-tab="nedostatky">Nedostatky</button>
 </nav>
 <div id="tab-bilance">
 <p class="notice" id="notice"></p>
@@ -263,6 +266,73 @@ footer{color:var(--muted);font-size:12.5px}
   </section>
 </article>
 </div>
+<div id="tab-nedostatky" hidden>
+<article class="method">
+  <section class="card">
+    <h2>Na co si dát pozor</h2>
+    <p>Tato stránka je prototyp. Tady je přehled toho, co víme, že není v pořádku, co chybí a kde jsme museli zvolit hodnotu bez opory ve zdrojích. <span id="gradeCount"></span></p>
+  </section>
+  <section class="card">
+    <h2>Co víme, že nesedí</h2>
+    <ul class="flaws">
+      <li><b>Progresivní cesta není soběstačná.</b> Pracovní definice o soběstačném regionu mluví, doložené položky ji ale nesplňují. Výroba v ní pokrývá jen část spotřeby. Rozsah ukazuje tlačítko Dorovnat na soběstačnost.</li>
+      <li><b>Vodík z letních přebytků zatím nevychází.</b> V měsíčním přepočtu nemá přebytek žádný měsíc a polední přebytek pokryje jen část potřeby elektrolýzy. Vodík v modelu proto spotřebovává běžnou elektřinu.</li>
+      <li><b>Přes vodík potřebuje stejná doprava zhruba třikrát víc elektřiny než na baterie.</b> Podíl 50 % je zadání, není výsledkem optimalizace.</li>
+      <li><b>Zimní bilance závisí na bateriích.</b> Kladná vychází jen díky bateriím spočteným jako tři dny spotřeby, a ty vydrží omezenou dobu.</li>
+      <li><b>Baterie nejsou provozně modelované.</b> Úložiště je záloha na tři dny, není dimenzované na přesun přebytků a v modelu se ani hodinově nenabíjí.</li>
+      <li><b>Možné dvojí započtení vodíku.</b> Dopadová studie uvádí 45,8 GWh na vodík bez určení účelu, může se překrývat s flotilou.</li>
+      <li><b>Průmysl a energetika v roce 2025.</b> V datech ERÚ se zřejmě přeřazovaly mezi sebou, spolehlivý je jen jejich součet.</li>
+      <li><b>Křivky některých plynových položek.</b> U konzervativní cesty neprochází S-křivka přesně hodnotami tabulky pro roky 2030 a 2040. Seznam je v <a href="kontrola_krivek.txt">kontrole křivek</a>.</li>
+      <li><b>Koeficienty výkonu míří na rok 2050.</b> U plynových položek jsou starší roky až o 89 MW jinde.</li>
+      <li><b>Trendy nepůsobí všude.</b> Vodík na ně nereaguje a služby, průmysl ani výroba se s nimi nemění.</li>
+      <li><b>Vlastní spotřeba ZEVO</b> není přičtená k položce vlastní spotřeby zdrojů. Zařízení také nemusí vzniknout, což pásmo nezohledňuje.</li>
+    </ul>
+  </section>
+  <section class="card">
+    <h2>Co model neumí</h2>
+    <ul class="flaws">
+      <li>Hodinový průběh roku a několikadenní období bez slunce a větru.</li>
+      <li>Omezení sítě uvnitř kraje a dostupnost dovozu.</li>
+      <li>Výpadek největšího bloku, důležitý hlavně u SMR.</li>
+      <li>Náklady. Stránka srovnává elektřinu a výkon, ne cenu.</li>
+      <li>Nepřepočítává pásmo při změně posuvníků.</li>
+    </ul>
+  </section>
+  <section class="card">
+    <h2>Co je potřeba doplnit</h2>
+    <ul class="flaws">
+      <li>Spotřebu Nové hutě, dolů a chemie, zdroje ji neuvádějí.</li>
+      <li>Počet nákladních aut a autobusů v kraji a jejich proběh.</li>
+      <li>Výrobu Dětmarovic v roce 2025, dnes je odvozená.</li>
+      <li>Konkrétní projekty datacenter v kraji, zatím žádný nebyl nalezen.</li>
+      <li>Hodinové profily spotřeby a výroby za kraj.</li>
+      <li>Zdroje syntetického plynu kromě odpadu, například důlní nebo koksárenský plyn, a podklad k účinnosti přeměny.</li>
+      <li>Kapacitu sítě a výhled tepelných čerpadel a domácností.</li>
+      <li>Míru ztrát přímo za kraj, dnes je za bývalý Severomoravský kraj.</li>
+    </ul>
+  </section>
+  <section class="card">
+    <h2>Volby bez opory ve zdrojích</h2>
+    <table class="grades">
+      <tr><th>Volba</th><th>Hodnota</th></tr>
+      <tr><td>Podíl vodíku ve flotile v progresivní cestě a rozsah flotily</td><td>50 %, auta, nákladní doprava a MHD</td></tr>
+      <tr><td>Výklad „vytápění 300 %“</td><td>energie na vstupu, ne elektřina</td></tr>
+      <tr><td>Výklad „dvojnásobná zátěž sítě“</td><td>míra ztrát 1,7krát vyšší</td></tr>
+      <tr><td>Tři dny akumulace</td><td>spotřeba bez pružných položek, 72 hodin</td></tr>
+      <tr><td>Účinnost a cykly baterií</td><td>88 %, 30 cyklů za rok</td></tr>
+      <tr><td>Přeměna odpadu na plyn a účinnost bloku</td><td>70 % a 55 %</td></tr>
+      <tr><td>Auta na obyvatele, velikost domácností, teplo budov, účinnost nákladních aut</td><td>viz Velké trendy</td></tr>
+      <tr><td>Elektrolýza a elektrokotle v zimní špičce</td><td>vypnuté, předpokládá se zásoba vodíku</td></tr>
+      <tr><td>Nejistota roku poloviny změny</td><td>o 3 roky</td></tr>
+      <tr><td>Korelace položek se stejnou příčinou</td><td>0,6</td></tr>
+      <tr><td>Rychlost velké události</td><td>k = 4</td></tr>
+      <tr><td>Horní a dolní meze položek</td><td>téměř všude náš odhad</td></tr>
+      <tr><td>Koeficienty pro zimní špičku a letní poledne</td><td>většina je náš odhad</td></tr>
+    </table>
+    <p>Tabulka všech rozhodnutí je v <a href="ROZHODNUTI.md">seznamu rozhodnutí</a>.</p>
+  </section>
+</article>
+</div>
 <footer id="foot"></footer>
 </div>
 <div id="tip"></div>
@@ -281,12 +351,20 @@ function key(it){ return it.path + "|" + it.side + "|" + it.name; }
 /* Položky se stejnou událostí sdílejí jeden rok, například pec v Třinci snižuje hutní plyny a zvyšuje spotřebu. */
 function jumpKey(it){ return it.event ? it.path + "|" + it.event : key(it); }
 const LOSS_ITEM = "ztráty v sítích";
+/* SMR se nastavuje počtem modulů po 500 MW. Výroba jednoho modulu je výchozí hodnota progresivní cesty. */
+const SMR_NAME = "SMR", SMR_MW = 500, SMR_MAX = 4;
+const smrProgressive = DATA.items.find(it => it.name === SMR_NAME && it.path === "progresivni");
+const SMR_UNIT = smrProgressive ? smrProgressive.p50 : 0;
+for(const it of DATA.items) if(smrProgressive && it.name === SMR_NAME && it.path !== "progresivni"){
+  it.kw = smrProgressive.kw; it.ks = smrProgressive.ks;
+}
 const DEFAULTS = {values:{}, jumps:{}, tms:{}, trends:{}};
 for(const name of Object.keys(DATA.trends)) DEFAULTS.trends[name] = DATA.trends[name].values[DATA.years.length - 1];
 for(const it of DATA.items){
   DEFAULTS.values[key(it)] = it.p50;
   if(it.jump !== null) DEFAULTS.jumps[jumpKey(it)] = it.jump;
   else if(it.parts.length) DEFAULTS.tms[key(it)] = it.parts[0].tm;
+  if(it.name === SMR_NAME && it.jump === null) DEFAULTS.jumps[jumpKey(it)] = smrProgressive.jump;
 }
 function resetValues(){
   state.values = {...DEFAULTS.values};
@@ -297,7 +375,12 @@ function resetValues(){
 }
 function currentEvents(){
   const seen = new Map();
-  for(const it of DATA.items) if(it.jump !== null && it.event && it.path === state.path) seen.set(it.event, state.jumps[jumpKey(it)]);
+  for(const it of DATA.items){
+    if(it.path !== state.path) continue;
+    if(it.name === SMR_NAME){
+      if(state.values[key(it)] > 0) seen.set("Spuštění SMR", state.jumps[jumpKey(it)]);
+    } else if(it.jump !== null && it.event) seen.set(it.event, state.jumps[jumpKey(it)]);
+  }
   return [...seen].map(([label, year]) => ({label, year})).sort((a, c) => a.year - c.year);
 }
 
@@ -345,6 +428,7 @@ function partTm(it, part){
   return part.tm + state.tms[key(it)] - it.parts[0].tm;
 }
 function itemAt(it, i){
+  if(it.name === SMR_NAME) return state.values[key(it)] * sCurve(DATA.years[i], state.jumps[jumpKey(it)], 4);
   const t = DATA.years[i], D = driverAt(it, i);
   let level = it.base;
   for(const part of it.parts) level += part.amp * sCurve(t, partTm(it, part), part.k);
@@ -603,6 +687,27 @@ function bindJump(input, label, it){
   });
 }
 
+function smrRow(it){
+  const k = key(it), row = document.createElement("div");
+  row.className = "item";
+  row.innerHTML =
+    `<div class="top"><span>SMR, počet modulů po ${SMR_MW} MW<span class="grade ${esc(it.grade)}" title="Stupeň důkazu">${esc(it.grade)}</span></span><span class="val mono"></span></div>` +
+    `<div class="track"><input class="smrin" type="range" min="0" max="${SMR_MAX}" step="1" aria-label="Počet modulů SMR"></div>` +
+    jumpHtml(Object.assign({}, it, {event:"Spuštění SMR"})).replace(/data-jump="[^"]*"/, `data-jump="${esc(jumpKey(it))}"`) +
+    `<details><summary>Jak se došlo k číslu</summary><p>Jeden modul: ${esc(smrProgressive.plain || smrProgressive.how)}</p><p><b>Zdroj:</b> ${link(smrProgressive.src)}</p>${it.note ? `<p>${esc(it.note)}</p>` : ""}</details>`;
+  const input = row.querySelector(".smrin"), val = row.querySelector(".val");
+  const show = () => { const n = Math.round(state.values[k] / SMR_UNIT); val.textContent = `${n} × ${SMR_MW} MW, ${NF.format(state.values[k])} GWh`; };
+  input.value = Math.round(state.values[k] / SMR_UNIT);
+  show();
+  input.addEventListener("input", () => {
+    state.values[k] = Number(input.value) * SMR_UNIT;
+    show();
+    refresh();
+  });
+  bindJump(row.querySelector(".jumpin"), row.querySelector(".jumpv"), it);
+  return row;
+}
+
 function drawGroups(host){
   for(const [side, title] of [["vyroba","Výroba v roce 2050"],["spotreba","Spotřeba v roce 2050"]]){
     const card = document.createElement("section");
@@ -610,6 +715,7 @@ function drawGroups(host){
     card.innerHTML = `<h2>${title}</h2>`;
     for(const g of GROUPS[side]){
       const members = DATA.items.filter(it => it.path === state.path && it.side === side && g.items.includes(it.name));
+      if(g.name === SMR_NAME && members.length){ card.appendChild(smrRow(members[0])); continue; }
       const def = members.reduce((sum, it) => sum + it.p50, 0), now = () => members.reduce((sum, it) => sum + state.values[key(it)], 0);
       if(def === 0) continue;
       const base = members.reduce((sum, it) => sum + it.base, 0), max = Math.max(100, def * 2, base * 1.25);
@@ -656,6 +762,7 @@ function drawLists(){
     card.innerHTML = `<h2>${title}</h2>`;
     const size = x => Math.max(x.p50, x.base);
     for(const it of DATA.items.filter(x => x.path === state.path && x.side === side).sort((a, c) => size(c) - size(a))){
+      if(it.name === SMR_NAME){ card.appendChild(smrRow(it)); continue; }
       const saving = it.p10 < 0, min = saving ? it.p10 * 1.5 : 0, k = key(it);
       const max = saving ? 0 : Math.max(100, it.p90 * 1.5, it.base * 1.25, it.p50 * 1.5);
       const pct = v => ((v - min) / (max - min) * 100).toFixed(2) + "%";
@@ -836,8 +943,7 @@ $("theme").addEventListener("click", () => {
 
 /* Záložky a ukázka S-křivky v metodice. */
 function showTab(name){
-  $("tab-bilance").hidden = name !== "bilance";
-  $("tab-metodika").hidden = name !== "metodika";
+  for(const tab of ["bilance", "metodika", "nedostatky"]) $("tab-" + tab).hidden = name !== tab;
   document.querySelector(".controls").style.visibility = name === "bilance" ? "visible" : "hidden";
   document.querySelectorAll("[data-tab]").forEach(b => {
     if(b.dataset.tab === name) b.setAttribute("aria-current", "page"); else b.removeAttribute("aria-current");
@@ -881,7 +987,11 @@ for(const [id, name] of [["demoTm","tm"],["demoK","k"],["demoD","d"]]){
   $(id).addEventListener("input", e => { demo[name] = Number(e.target.value); drawDemo(); });
 }
 drawDemo();
-if(typeof location !== "undefined" && location.hash === "#metodika") showTab("metodika");
+if(typeof location !== "undefined" && ["#metodika", "#nedostatky"].includes(location.hash)) showTab(location.hash.slice(1));
+{
+  const uniqueRows = DATA.items.length, weak = DATA.items.filter(it => it.grade === "D").length;
+  $("gradeCount").textContent = `Stupeň D, tedy odhad bez publikovaného zdroje, má ${weak} z ${uniqueRows} řádků tabulky.`;
+}
 
 $("notice").textContent = hasItems
   ? "Prototyp. Hodnoty po roce 2025 jsou odhady. Položky se stupněm D jsou odhad bez publikovaného zdroje a čekají na ověření."
