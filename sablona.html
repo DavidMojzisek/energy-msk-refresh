@@ -47,9 +47,24 @@ svg .ev{font:600 11px "Saira",sans-serif;fill:var(--ink);paint-order:stroke;stro
 .track input{position:relative;width:100%;margin:0;accent-color:var(--accent);background:none;display:block}
 .yearline{display:grid;grid-template-columns:1fr auto;gap:2px 10px;margin-top:6px;color:var(--muted);font-size:12.5px}
 .yearline input{grid-column:1/-1;width:100%;margin:0;accent-color:var(--warn)}
-.method p{max-width:820px;margin:6px 0}
-.method h3{font:600 14px "Saira",sans-serif;margin:14px 0 2px}
-.method pre{font:12.5px/1.6 "JetBrains Mono",monospace;background:var(--surface-2);border-radius:6px;padding:10px 12px;margin:8px 0;overflow-x:auto}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin-bottom:16px}
+.tabs button{border:0;background:none;color:var(--muted);font:600 15px "Saira",sans-serif;padding:8px 14px;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-1px}
+.tabs button[aria-current=page]{color:var(--ink);border-bottom-color:var(--accent)}
+.method{max-width:880px;margin:0 auto}
+.method p{margin:8px 0;font-size:15px;line-height:1.55}
+.method .small{font-size:12.5px;color:var(--muted)}
+.eq{font:italic 400 19px/1.5 "Cambria Math","STIX Two Math","Times New Roman",serif;font-style:normal;background:var(--surface-2);border-radius:6px;padding:14px 16px;margin:12px 0;text-align:center;overflow-x:auto}
+.eq i{font-style:italic}
+.frac{display:inline-grid;vertical-align:middle;text-align:center;margin:0 3px}
+.frac>span:first-child{border-bottom:1px solid currentColor;padding:0 6px 2px}
+.frac>span:last-child{padding:2px 6px 0}
+.demo{display:grid;grid-template-columns:minmax(0,2fr) minmax(200px,1fr);gap:16px;align-items:center;margin:12px 0}
+.democtl label{display:flex;justify-content:space-between;font-size:12.5px;color:var(--muted);margin-top:10px}
+.democtl input{width:100%;accent-color:var(--accent)}
+@media (max-width:640px){.demo{grid-template-columns:1fr}}
+.grades{border-collapse:collapse;margin:8px 0;font-size:14px}
+.grades td,.grades th{border-top:1px solid var(--line);padding:6px 12px 6px 0;text-align:left}
+.grades .grade{margin-left:0}
 .ratewarn{margin:5px 0 0;color:var(--warn);font-size:12.5px}
 .grade{font:600 10.5px "JetBrains Mono",monospace;border:1px solid var(--line);border-radius:4px;padding:0 5px;margin-left:6px;color:var(--muted)}
 .grade.D{border-color:var(--warn);color:var(--warn)}
@@ -82,6 +97,11 @@ footer{color:var(--muted);font-size:12.5px}
     <button class="btn" id="theme" aria-label="Přepnout motiv">Motiv</button>
   </div>
 </header>
+<nav class="tabs" aria-label="Části stránky">
+  <button data-tab="bilance" aria-current="page">Bilance</button>
+  <button data-tab="metodika">Metodika</button>
+</nav>
+<div id="tab-bilance">
 <p class="notice" id="notice"></p>
 <div class="kpi" id="kpi"></div>
 <section class="card">
@@ -105,27 +125,94 @@ footer{color:var(--muted);font-size:12.5px}
   <div id="bal"></div>
 </section>
 <div class="cols" id="lists"></div>
-<section class="card method">
-  <h2>Jak se křivky počítají</h2>
-  <p>Křivky ukazují, kolik elektřiny by kraj vyráběl a spotřeboval, pokud by se vydal danou cestou. Nejsou to předpovědi, která z cest nastane. Pásmo vyjadřuje nejistotu uvnitř jedné cesty, rozdíl mezi cestami je volba.</p>
-  <h3>Položka</h3>
-  <p>Každá položka začíná změřenou hodnotou za rok 2025 a míří k cíli v roce 2050:</p>
-  <pre>y(t) = D(t) · s(t)
-s(t) = s₀ + (s_T − s₀) · S(t)
-S(t) = [L(t) − L(2025)] / [L(2050) − L(2025)]
-L(t) = 1 / (1 + e^(−k(t − t_m)))</pre>
-  <p><b>D(t)</b> je vnější vliv, například demografie nebo účinnost, s hodnotou 1 v roce 2025. <b>S(t)</b> je S-křivka, která v roce 2025 začíná na nule a v roce 2050 končí na jedné. <b>t_m</b> je rok, kdy je hotová polovina změny, a <b>k</b> určuje rychlost. Oba se dopočítají z hodnot tabulky pro roky 2030 a 2040. Velká událost, například SMR, je strmá S-křivka v daném roce. Položka, která vzroste a zase klesne, je součet dvou S-křivek.</p>
-  <h3>Vaše změna</h3>
-  <p>Změna cíle se přičítá až od roku 2030, takže blízké roky zůstávají:</p>
-  <pre>y_vaše(t) = y_výchozí(t) + (y_T,vaše − y_T,výchozí) · σ(x)
-x = (t − 2030) / 20, omezeno na 0 až 1
-σ(x) = 3x² − 2x³</pre>
-  <p>Ztráty v sítích se mění úměrně s ostatní spotřebou. Jednoduchá verze mění položky skupiny ve stejném poměru.</p>
-  <h3>Pásmo</h3>
-  <p>Pásmo je interval věrohodnosti 80 %, tedy P10 až P90, ze simulace Monte Carlo s 10 000 běhy. Losuje se cíl v roce 2050 a načasování. Položky se stejnou příčinou se losují společně. Je to odhad nejistoty, ne statistický interval spolehlivosti, a platí jen pro výchozí nastavení.</p>
-  <h3>Důkazy</h3>
-  <p>Stupeň A je měření, B publikovaná studie, C technický výpočet a D odhad bez publikovaného zdroje. Hlavním zdrojem je Dopadová studie energetické bezpečnosti a soběstačnosti MSK. Výpočet a zdroj každé položky jsou v podrobné verzi. Celý postup je v <a href="METODIKA.md">metodice</a> a volby v <a href="ROZHODNUTI.md">seznamu rozhodnutí</a>.</p>
-</section>
+</div>
+<div id="tab-metodika" hidden>
+<article class="method">
+  <section class="card">
+    <h2>Co graf říká a co ne</h2>
+    <p>Křivky ukazují, kolik elektřiny by Moravskoslezský kraj vyráběl a spotřeboval, kdyby se vydal jednou ze dvou cest. Nejsou to předpovědi toho, která cesta nastane. Rozdíl mezi cestami je volba. Pásmo kolem křivky říká, jak moc si nejsme jistí uvnitř jedné cesty.</p>
+    <p>Celkové křivky nevznikají najednou. Skládají se z desítek položek, jako je vítr, SMR, osobní auta nebo vytápění. Každou položku spočítáme zvlášť a potom je sečteme.</p>
+  </section>
+
+  <section class="card">
+    <h2>1. Odkud začínáme</h2>
+    <p>Každá položka začíná změřenou hodnotou za rok 2025. Výroba je z tabulky 6.1 a spotřeba z tabulky 6.3 čtvrtletních zpráv Energetického regulačního úřadu. Ke spotřebě přičítáme ztráty v sítích, protože i ty se musí vyrobit.</p>
+  </section>
+
+  <section class="card">
+    <h2>2. Kam míříme v roce 2050</h2>
+    <p>Cíl položky počítáme tak, že násobíme, kolik se toho děje a kolik elektřiny to potřebuje. Například SMR: 500 MW × 7 884 hodin provozu za rok = 3 942 GWh za rok.</p>
+    <p>Jak se došlo ke každému číslu, je u dané položky pod rozkliknutím. Vidíte tam také, které vstupy jsou ze zdrojů a které jsou náš odhad.</p>
+  </section>
+
+  <section class="card">
+    <h2>3. Jak se k cíli dojde: S-křivka</h2>
+    <p>Známe začátek a cíl, ale potřebujeme i roky mezi nimi. Nové technologie se obvykle šíří pomalu, potom rychle a nakonec se růst zpomalí. Proto používáme S-křivku, která má právě tento tvar.</p>
+    <div class="eq"><i>L</i>(<i>t</i>) = <span class="frac"><span>1</span><span>1 + e<sup>−<i>k</i>(<i>t</i> − <i>t</i><sub>m</sub>)</sup></span></span></div>
+    <p>Rok <i>t</i><sub>m</sub> říká, kdy je hotová polovina změny. Číslo <i>k</i> říká, jak rychle změna proběhne. Obyčejná S-křivka ale začíná a končí jen přibližně. Proto ji upravíme tak, aby v roce 2025 byla přesně nula a v roce 2050 přesně jedna:</p>
+    <div class="eq"><i>S</i>(<i>t</i>) = <span class="frac"><span><i>L</i>(<i>t</i>) − <i>L</i>(2025)</span><span><i>L</i>(2050) − <i>L</i>(2025)</span></span></div>
+    <p>Hodnota položky je potom výchozí stav plus celá změna násobená S-křivkou:</p>
+    <div class="eq"><i>s</i>(<i>t</i>) = <i>s</i><sub>2025</sub> + (<i>s</i><sub>2050</sub> − <i>s</i><sub>2025</sub>) · <i>S</i>(<i>t</i>)</div>
+    <p>Křivka tak vždy projde dnešní hodnotou i cílem. Čísla <i>t</i><sub>m</sub> a <i>k</i> dopočítáme z hodnot pro roky 2030 a 2040. Vyzkoušejte si, co dělají:</p>
+    <div class="demo">
+      <div id="demo"></div>
+      <div class="democtl">
+        <label for="demoTm">Rok poloviny změny <span class="mono" id="demoTmV"></span></label><input id="demoTm" type="range" min="2028" max="2048" step="1">
+        <label for="demoK">Rychlost změny <span class="mono" id="demoKV"></span></label><input id="demoK" type="range" min="0.1" max="1.5" step="0.05">
+        <label for="demoD">Změna cíle posuvníkem <span class="mono" id="demoDV"></span></label><input id="demoD" type="range" min="-300" max="300" step="10">
+      </div>
+    </div>
+    <p class="small">Ukázka je obecná a neukazuje skutečnou položku. Začíná na 100 GWh a míří k 500 GWh.</p>
+  </section>
+
+  <section class="card">
+    <h2>4. Co se mění samo: demografie a účinnost</h2>
+    <p>Některé vlivy nikdo v modelu nenastavuje. V kraji ubývá obyvatel a auta jsou úspornější. Takový vliv zapíšeme jako číslo <i>D</i>(<i>t</i>), které má v roce 2025 hodnotu 1. Když je v roce 2050 například 0,85, znamená to o 15 % méně než dnes.</p>
+    <div class="eq"><i>y</i>(<i>t</i>) = <i>D</i>(<i>t</i>) · <i>s</i>(<i>t</i>)</div>
+    <p>Mezi lety 2030, 2040 a 2050 se <i>D</i>(<i>t</i>) mění rovnoměrně. Používáme ho jen tam, kde dává smysl, tedy hlavně u dopravy, domácností a vytápění.</p>
+  </section>
+
+  <section class="card">
+    <h2>5. Velké události a přechodné zdroje</h2>
+    <p>Spuštění SMR nebo konec uhlí je skok v jednom roce. Počítáme ho stejným vzorcem, jen s velmi strmou S-křivkou s <i>k</i> = 4. V grafu má svislou značku a rok můžete změnit posuvníkem. Položky se stejnou událostí sdílejí jeden rok.</p>
+    <p>Některé položky vzrostou a zase klesnou, třeba plynový zdroj jako přechodné řešení. Ty skládáme ze dvou S-křivek, jedné pro nárůst a druhé pro pokles.</p>
+  </section>
+
+  <section class="card">
+    <h2>6. Když pohnete posuvníkem</h2>
+    <p>Výstavbu do roku 2030 už z velké části určují dnešní projekty. Změna cíle pro rok 2050 proto nemá měnit blízké roky. Vaši změnu přičítáme až od roku 2030 a plynule:</p>
+    <div class="eq"><i>y</i><sub>vaše</sub>(<i>t</i>) = <i>y</i><sub>výchozí</sub>(<i>t</i>) + Δ · <i>σ</i>(<i>x</i>)</div>
+    <div class="eq"><i>σ</i>(<i>x</i>) = 3<i>x</i><sup>2</sup> − 2<i>x</i><sup>3</sup>, &nbsp; <i>x</i> = <span class="frac"><span><i>t</i> − 2030</span><span>20</span></span>, &nbsp; omezeno na 0 až 1</div>
+    <p>Δ je rozdíl mezi vaším a výchozím cílem. Do roku 2030 se křivka nezmění, v roce 2050 přesně trefí váš cíl a nikde nemá zlom. Změnu výchozí křivky ukazuje poslední posuvník v ukázce výše.</p>
+    <p>Ztráty v sítích se mění úměrně s ostatní spotřebou. V jednoduché verzi posuvník skupiny mění všechny její položky ve stejném poměru. Stránka také upozorní, když položka roste rychleji než kdykoli v minulosti.</p>
+  </section>
+
+  <section class="card">
+    <h2>7. Jak vzniká pásmo nejistoty</h2>
+    <p>U každé položky odhadujeme dolní a horní mez cíle. Počítač potom 10 000krát náhodně vybere cíl a načasování pro všechny položky a sečte je. Pásmo v grafu ukazuje rozmezí, do kterého spadá prostředních 80 % výsledků. Odborně je to rozmezí P10 až P90.</p>
+    <p>Meze položek nikdy prostě nesčítáme. Je velmi nepravděpodobné, aby všechny položky vyšly nejhůř zároveň, takže by pásmo vyšlo příliš široké. Položky se stejnou příčinou, třeba tempem elektrifikace, ale losujeme částečně společně, protože se hýbou spolu.</p>
+    <p>Pásmo je náš odhad nejistoty, ne statistický interval spolehlivosti, protože budoucnost nemáme z čeho měřit. Platí jen pro výchozí nastavení posuvníků.</p>
+  </section>
+
+  <section class="card">
+    <h2>8. Jak moc můžete číslům věřit</h2>
+    <table class="grades">
+      <tr><th>Stupeň</th><th>Co znamená</th></tr>
+      <tr><td><span class="grade">A</span></td><td>Změřená data</td></tr>
+      <tr><td><span class="grade">B</span></td><td>Publikovaná studie nebo plán</td></tr>
+      <tr><td><span class="grade">C</span></td><td>Technický výpočet ze známých parametrů</td></tr>
+      <tr><td><span class="grade D">D</span></td><td>Náš odhad bez publikovaného zdroje, čeká na ověření</td></tr>
+    </table>
+    <p>Stupeň je vidět u každé položky a vždy se řídí nejslabším vstupem. Hlavním zdrojem je Dopadová studie energetické bezpečnosti a soběstačnosti MSK. Meze nejistoty jsou téměř všude náš odhad, i když je střední hodnota doložená.</p>
+  </section>
+
+  <section class="card">
+    <h2>9. Co model neumí</h2>
+    <p>Hlavní graf počítá s ročním množstvím elektřiny. Z toho nejde poznat, jestli kraj zvládne konkrétní zimní večer. Model nezachycuje hodinový průběh, období bez slunce a větru, omezení sítě ani dostupnost dovozu. Vazby mezi položkami jsou jen tam, kde jsou výslovně popsané.</p>
+    <p>Technický popis je v souboru <a href="METODIKA.md">metodika</a> a všechny volby jsou v <a href="ROZHODNUTI.md">seznamu rozhodnutí</a>.</p>
+  </section>
+</article>
+</div>
 <footer id="foot"></footer>
 </div>
 <div id="tip"></div>
@@ -529,6 +616,55 @@ $("theme").addEventListener("click", () => {
   const dark = root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme:dark)").matches;
   root.dataset.theme = dark ? "light" : "dark";
 });
+
+/* Záložky a ukázka S-křivky v metodice. */
+function showTab(name){
+  $("tab-bilance").hidden = name !== "bilance";
+  $("tab-metodika").hidden = name !== "metodika";
+  document.querySelector(".controls").style.visibility = name === "bilance" ? "visible" : "hidden";
+  document.querySelectorAll("[data-tab]").forEach(b => {
+    if(b.dataset.tab === name) b.setAttribute("aria-current", "page"); else b.removeAttribute("aria-current");
+  });
+}
+document.querySelectorAll("[data-tab]").forEach(b => b.addEventListener("click", () => {
+  showTab(b.dataset.tab);
+  if(typeof history !== "undefined") history.replaceState(null, "", "#" + b.dataset.tab);
+}));
+const demo = {tm:2038, k:0.3, d:0};
+function drawDemo(){
+  const host = $("demo"), W2 = 620, H2 = 300, L = 48, R = 610, T = 14, B = 262;
+  host.innerHTML = "";
+  const svg = mk("svg", {viewBox:`0 0 ${W2} ${H2}`, role:"img", "aria-label":"Ukázka S-křivky"}, host);
+  const xS = t => L + (t - 2025) / 25 * (R - L), yS = v => B - v / 800 * (B - T);
+  for(const v of [0, 200, 400, 600, 800]){
+    mk("line", {x1:L, x2:R, y1:yS(v), y2:yS(v), stroke:"var(--line)"}, svg);
+    mk("text", {x:L - 8, y:yS(v) + 4, "text-anchor":"end"}, svg, v);
+  }
+  for(const t of [2025, 2030, 2035, 2040, 2045, 2050]) mk("text", {x:xS(t), y:H2 - 16, "text-anchor":"middle"}, svg, t);
+  mk("text", {x:L, y:T - 2}, svg, "GWh za rok");
+  const years = [];
+  for(let t = 2025; t <= 2050; t += 0.25) years.push(t);
+  const base = t => 100 + 400 * sCurve(t, demo.tm, demo.k);
+  mk("line", {x1:xS(demo.tm), x2:xS(demo.tm), y1:T, y2:B, stroke:"var(--muted)", "stroke-dasharray":"2 4"}, svg);
+  mk("text", {class:"ev", x:xS(demo.tm) + 4, y:T + 14}, svg, "polovina změny");
+  mk("path", {d:pathD(years.map(t => [xS(t), yS(base(t))])), fill:"none", stroke:"var(--muted)", "stroke-width":2}, svg);
+  if(demo.d !== 0){
+    mk("line", {x1:xS(2030), x2:xS(2030), y1:T, y2:B, stroke:"var(--warn)", "stroke-dasharray":"2 4"}, svg);
+    mk("text", {class:"ev", x:xS(2030) + 4, y:B - 8}, svg, "od roku 2030");
+    mk("path", {d:pathD(years.map(t => [xS(t), yS(Math.max(0, base(t) + demo.d * sigma(t)))])), fill:"none", stroke:"var(--accent)", "stroke-width":2.8}, svg);
+  }
+  mk("circle", {cx:xS(2025), cy:yS(100), r:4.5, fill:"var(--ink)"}, svg);
+  mk("circle", {cx:xS(2050), cy:yS(500 + demo.d), r:4.5, fill:"var(--ink)"}, svg);
+  $("demoTmV").textContent = demo.tm;
+  $("demoKV").textContent = String(demo.k).replace(".", ",");
+  $("demoDV").textContent = (demo.d > 0 ? "+" : "") + demo.d + " GWh";
+}
+for(const [id, name] of [["demoTm","tm"],["demoK","k"],["demoD","d"]]){
+  $(id).value = demo[name];
+  $(id).addEventListener("input", e => { demo[name] = Number(e.target.value); drawDemo(); });
+}
+drawDemo();
+if(typeof location !== "undefined" && location.hash === "#metodika") showTab("metodika");
 
 $("notice").textContent = hasItems
   ? "Prototyp. Hodnoty po roce 2025 jsou odhady. Položky se stupněm D jsou odhad bez publikovaného zdroje a čekají na ověření."
