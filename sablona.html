@@ -47,6 +47,10 @@ svg .ev{font:600 11px "Saira",sans-serif;fill:var(--ink);paint-order:stroke;stro
 .track input{position:relative;width:100%;margin:0;accent-color:var(--accent);background:none;display:block}
 .yearline{display:grid;grid-template-columns:1fr auto;gap:2px 10px;margin-top:6px;color:var(--muted);font-size:12.5px}
 .yearline input{grid-column:1/-1;width:100%;margin:0;accent-color:var(--warn)}
+.method p{max-width:820px;margin:6px 0}
+.method h3{font:600 14px "Saira",sans-serif;margin:14px 0 2px}
+.method pre{font:12.5px/1.6 "JetBrains Mono",monospace;background:var(--surface-2);border-radius:6px;padding:10px 12px;margin:8px 0;overflow-x:auto}
+.ratewarn{margin:5px 0 0;color:var(--warn);font-size:12.5px}
 .grade{font:600 10.5px "JetBrains Mono",monospace;border:1px solid var(--line);border-radius:4px;padding:0 5px;margin-left:6px;color:var(--muted)}
 .grade.D{border-color:var(--warn);color:var(--warn)}
 details{margin-top:4px;color:var(--muted);font-size:12.5px}
@@ -101,6 +105,27 @@ footer{color:var(--muted);font-size:12.5px}
   <div id="bal"></div>
 </section>
 <div class="cols" id="lists"></div>
+<section class="card method">
+  <h2>Jak se křivky počítají</h2>
+  <p>Křivky ukazují, kolik elektřiny by kraj vyráběl a spotřeboval, pokud by se vydal danou cestou. Nejsou to předpovědi, která z cest nastane. Pásmo vyjadřuje nejistotu uvnitř jedné cesty, rozdíl mezi cestami je volba.</p>
+  <h3>Položka</h3>
+  <p>Každá položka začíná změřenou hodnotou za rok 2025 a míří k cíli v roce 2050:</p>
+  <pre>y(t) = D(t) · s(t)
+s(t) = s₀ + (s_T − s₀) · S(t)
+S(t) = [L(t) − L(2025)] / [L(2050) − L(2025)]
+L(t) = 1 / (1 + e^(−k(t − t_m)))</pre>
+  <p><b>D(t)</b> je vnější vliv, například demografie nebo účinnost, s hodnotou 1 v roce 2025. <b>S(t)</b> je S-křivka, která v roce 2025 začíná na nule a v roce 2050 končí na jedné. <b>t_m</b> je rok, kdy je hotová polovina změny, a <b>k</b> určuje rychlost. Oba se dopočítají z hodnot tabulky pro roky 2030 a 2040. Velká událost, například SMR, je strmá S-křivka v daném roce. Položka, která vzroste a zase klesne, je součet dvou S-křivek.</p>
+  <h3>Vaše změna</h3>
+  <p>Změna cíle se přičítá až od roku 2030, takže blízké roky zůstávají:</p>
+  <pre>y_vaše(t) = y_výchozí(t) + (y_T,vaše − y_T,výchozí) · σ(x)
+x = (t − 2030) / 20, omezeno na 0 až 1
+σ(x) = 3x² − 2x³</pre>
+  <p>Ztráty v sítích se mění úměrně s ostatní spotřebou. Jednoduchá verze mění položky skupiny ve stejném poměru.</p>
+  <h3>Pásmo</h3>
+  <p>Pásmo je interval věrohodnosti 80 %, tedy P10 až P90, ze simulace Monte Carlo s 10 000 běhy. Losuje se cíl v roce 2050 a načasování. Položky se stejnou příčinou se losují společně. Je to odhad nejistoty, ne statistický interval spolehlivosti, a platí jen pro výchozí nastavení.</p>
+  <h3>Důkazy</h3>
+  <p>Stupeň A je měření, B publikovaná studie, C technický výpočet a D odhad bez publikovaného zdroje. Hlavním zdrojem je Dopadová studie energetické bezpečnosti a soběstačnosti MSK. Výpočet a zdroj každé položky jsou v podrobné verzi. Celý postup je v <a href="METODIKA.md">metodice</a> a volby v <a href="ROZHODNUTI.md">seznamu rozhodnutí</a>.</p>
+</section>
 <footer id="foot"></footer>
 </div>
 <div id="tip"></div>
@@ -112,17 +137,23 @@ const NF = new Intl.NumberFormat("cs-CZ",{maximumFractionDigits:0});
 const NF1 = new Intl.NumberFormat("cs-CZ",{minimumFractionDigits:1,maximumFractionDigits:1});
 const $ = id => document.getElementById(id);
 const hasItems = DATA.items.length > 0;
-const state = {path:"progresivni", mode:"simple", year:2050, values:{}, jumps:{}, show:{progresivni:true, konzervativni:true, vyroba:true, spotreba:true}};
+const state = {path:"progresivni", mode:"simple", year:2050, values:{}, jumps:{}, tms:{}, show:{progresivni:true, konzervativni:true, vyroba:true, spotreba:true}};
 const NS = "http://www.w3.org/2000/svg";
 
 function key(it){ return it.path + "|" + it.side + "|" + it.name; }
 /* Položky se stejnou událostí sdílejí jeden rok, například pec v Třinci snižuje hutní plyny a zvyšuje spotřebu. */
 function jumpKey(it){ return it.event ? it.path + "|" + it.event : key(it); }
+const LOSS_ITEM = "ztráty v sítích";
+const DEFAULTS = {values:{}, jumps:{}, tms:{}};
+for(const it of DATA.items){
+  DEFAULTS.values[key(it)] = it.p50;
+  if(it.jump !== null) DEFAULTS.jumps[jumpKey(it)] = it.jump;
+  else if(it.parts.length) DEFAULTS.tms[key(it)] = it.parts[0].tm;
+}
 function resetValues(){
-  for(const it of DATA.items){
-    state.values[key(it)] = it.p50;
-    if(it.jump !== null) state.jumps[jumpKey(it)] = it.jump;
-  }
+  state.values = {...DEFAULTS.values};
+  state.jumps = {...DEFAULTS.jumps};
+  state.tms = {...DEFAULTS.tms};
 }
 function currentEvents(){
   const seen = new Map();
@@ -130,24 +161,51 @@ function currentEvents(){
   return [...seen].map(([label, year]) => ({label, year})).sort((a, c) => a.year - c.year);
 }
 
-/* Křivka položky se posuvníkem přeškáluje a výchozí tvar zůstává. */
+/* Průběh položky podle metodiky: y(t) = D(t) · (s0 + součet amp · S(t)), S(2025) = 0 a S(2050) = 1. */
+function logistic(t, tm, k){ return 1 / (1 + Math.exp(-k * (t - tm))); }
+function sCurve(t, tm, k){
+  tm = Math.min(2050 + 5 / k, Math.max(2025 - 5 / k, tm));
+  const low = logistic(2025, tm, k), high = logistic(2050, tm, k);
+  return (logistic(t, tm, k) - low) / (high - low);
+}
+/* Vaše změna cíle se přičítá až od roku 2030, takže blízké roky zůstávají: σ(x) = 3x² − 2x³. */
+function sigma(t){
+  const x = Math.min(1, Math.max(0, (t - 2030) / 20));
+  return 3 * x * x - 2 * x * x * x;
+}
+function partTm(it, part){
+  if(it.jump !== null) return state.jumps[jumpKey(it)];
+  return part.tm + state.tms[key(it)] - it.parts[0].tm;
+}
 function itemAt(it, i){
-  const set = state.values[key(it)], def = it.p50, base = it.base;
-  if(it.jump !== null){
-    if(DATA.years[i] < state.jumps[jumpKey(it)]) return base;
-    if(set === def) return it.curve[i];
-    if(def === 0) return set;
-    return Math.max(0, it.curve[i] * set / def);
-  }
-  const value = it.curve[i];
-  if(set === def) return value;
-  if(def === base) return base + (set - base) * i / (DATA.years.length - 1);
-  const scaled = base + (value - base) * (set - base) / (def - base);
-  return it.p10 < 0 ? scaled : Math.max(0, scaled);
+  const t = DATA.years[i], D = it.driver ? it.driver[i] : 1;
+  let level = it.base;
+  for(const part of it.parts) level += part.amp * sCurve(t, partTm(it, part), part.k);
+  const value = D * level + (state.values[key(it)] - it.p50) * sigma(t);
+  return it.p10 < 0 ? value : Math.max(0, value);
 }
 function totals(path, side){
   const items = DATA.items.filter(it => it.path === path && it.side === side);
-  return DATA.years.map((_, i) => items.reduce((sum, it) => sum + itemAt(it, i), 0));
+  return DATA.years.map((_, i) => {
+    let others = 0, loss = null;
+    for(const it of items){
+      if(it.name === LOSS_ITEM) loss = it; else others += itemAt(it, i);
+    }
+    if(!loss) return others;
+    /* Ztráty v sítích jdou s ostatní spotřebou. */
+    const saved = {values:state.values, jumps:state.jumps, tms:state.tms};
+    state.values = DEFAULTS.values; state.jumps = DEFAULTS.jumps; state.tms = DEFAULTS.tms;
+    const reference = items.reduce((sum, it) => it.name === LOSS_ITEM ? sum : sum + itemAt(it, i), 0);
+    Object.assign(state, saved);
+    return others + itemAt(loss, i) * (reference > 0 ? others / reference : 1);
+  });
+}
+/* Nejrychlejší roční nárůst položky proti historii. */
+function fasterThanHistory(it){
+  if(it.maxRate === null) return null;
+  let top = 0;
+  for(let i = 1; i < DATA.years.length; i++) top = Math.max(top, itemAt(it, i) - itemAt(it, i - 1));
+  return top > it.maxRate ? top : null;
 }
 function mk(tag, attrs, parent, text){
   const el = document.createElementNS(NS, tag);
@@ -309,6 +367,11 @@ function jumpHtml(it){
   return `<div class="yearline"><label>${esc(it.event || "Rok změny")}</label><span class="mono jumpv"></span>` +
     `<input class="jumpin" type="range" min="2026" max="2050" step="1" data-jump="${esc(jumpKey(it))}" aria-label="Rok: ${esc(it.event || it.name)}"></div>`;
 }
+function tmHtml(it){
+  const low = Math.min(2026, Math.round(it.parts[0].tm)), high = Math.max(2050, Math.round(it.parts[0].tm));
+  return `<div class="yearline"><label>Rok poloviny změny</label><span class="mono tmv"></span>` +
+    `<input class="tmin" type="range" min="${low}" max="${high}" step="1" aria-label="Rok poloviny změny: ${esc(it.name)}"></div>`;
+}
 function bindJump(input, label, it){
   const jk = jumpKey(it);
   input.value = state.jumps[jk];
@@ -388,8 +451,11 @@ function drawLists(){
         `<span class="def" style="left:${pct(it.p50)}"></span>` +
         `<input type="range" min="${min}" max="${max}" step="${Math.max(1, Math.round((max - min) / 200))}" aria-label="${esc(it.name)}"></div>` +
         (it.jump !== null ? jumpHtml(it) : "") +
+        (it.jump === null && it.parts.length === 1 ? tmHtml(it) : "") +
+        `<p class="ratewarn" hidden></p>` +
         `<details><summary>Výpočet a zdroj</summary><p>Rok 2025: ${NF.format(it.base)} GWh. Výchozí hodnota ${NF.format(it.p50)} GWh, pásmo ${NF.format(it.p10)} až ${NF.format(it.p90)} GWh.</p>` +
         (it.jump !== null ? `<p>Výchozí rok změny ${it.jump}, pásmo ${it.jumpLow} až ${it.jumpHigh}.</p>` : "") +
+        (it.driverName ? `<p>Křivka zahrnuje vnější vliv ${esc(it.driverName)}, tedy například demografii nebo účinnost.</p>` : "") +
         `<p><b>Výpočet:</b> ${esc(it.how)}</p><p><b>Zdroj:</b> ${link(it.src)}</p>` +
         (it.page ? `<p><b>Dopadová studie:</b> ${esc(it.page)}${it.quote ? `, „${esc(it.quote)}“` : ""}</p>` : "") +
         `${it.note ? `<p>${esc(it.note)}</p>` : ""}</details>`;
@@ -398,6 +464,25 @@ function drawLists(){
       input.value = state.values[k];
       show();
       if(it.jump !== null) bindJump(row.querySelector(".jumpin"), row.querySelector(".jumpv"), it);
+      const warn = row.querySelector(".ratewarn");
+      const checkRate = () => {
+        const top = fasterThanHistory(it);
+        warn.hidden = top === null;
+        if(top !== null) warn.textContent = `Nárůst až ${NF.format(top)} GWh za rok, v minulosti nejvýše ${NF.format(it.maxRate)} GWh za rok.`;
+      };
+      checkRate();
+      input.addEventListener("input", checkRate);
+      if(it.jump === null && it.parts.length === 1){
+        const tmIn = row.querySelector(".tmin"), tmV = row.querySelector(".tmv");
+        tmIn.value = state.tms[k];
+        tmV.textContent = Math.round(state.tms[k]);
+        tmIn.addEventListener("input", () => {
+          state.tms[k] = Number(tmIn.value);
+          tmV.textContent = tmIn.value;
+          checkRate();
+          refresh();
+        });
+      }
       input.addEventListener("input", () => {
         state.values[k] = Number(input.value);
         show();

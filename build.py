@@ -1,20 +1,15 @@
 """Sestaví index.html ze šablony a dat. Spuštění: python3 build.py"""
-import csv
 import json
 import re
 from pathlib import Path
 
 import numpy as np
-from scipy.interpolate import PchipInterpolator
-from scipy.stats import norm
+
+from model import YEARS, curve, item_model, num, read_drivers, read_rows, simulate
 
 HERE = Path(__file__).resolve().parent
 PATHS = ["progresivni", "konzervativni"]
-YEARS = np.arange(2025, 2051)
-MILESTONES = [2030, 2040, 2050]
 RUNS = 10000
-RHO = 0.6
-Z90 = norm.ppf(0.9)
 
 # Skutečnost v GWh. Výroba je brutto, spotřeba je součet sektorů plus ztráty v sítích.
 # 2023: výroba ERÚ Roční zpráva, sektory Dopadová studie Tab. 6, ztráty 6 018,9 - 5 805,4 z Tab. 1.
@@ -27,91 +22,48 @@ HISTORY = [
 ]
 
 
-def read_items():
-    path = HERE / "polozky.csv"
-    if not path.exists():
-        return []
-    with open(path, encoding="utf-8-sig") as f:
-        return list(csv.DictReader(f))
-
-
-def num(row, key):
-    value = (row.get(key) or "").strip().replace(" ", "").replace(",", ".")
-    return float(value) if value else None
-
-
-def quantile(z, p10, p50, p90):
-    """Hodnota z normálního skóre přes P10, P50 a P90, po částech lineárně."""
-    upper = p50 + z / Z90 * (p90 - p50)
-    lower = p50 + z / Z90 * (p50 - p10)
-    value = np.where(z >= 0, upper, lower)
-    # Úspory jsou záporná položka, ostatní položky nemohou klesnout pod nulu.
-    return np.minimum(value, 0) if p10 < 0 else np.maximum(value, 0)
-
-
-def item_curve(base, levels, jump_years):
-    """Roční křivky položky. levels má tvar (3, n), jump_years je None nebo pole n roků."""
-    n = levels.shape[1]
-    start = np.full(n, base) if jump_years is None else levels[0]
-    knots = np.vstack([start, levels])
-    curve = PchipInterpolator([2025] + MILESTONES, knots, axis=0)(YEARS)
-    if jump_years is not None:
-        curve = np.where(YEARS[:, None] < jump_years[None, :], base, curve)
-    return curve
-
-
-def simulate(rows, rng):
-    """Vrátí P10, P50 a P90 součtů po letech pro jednu stranu a cestu."""
-    total = np.zeros((len(YEARS), RUNS))
-    factors = {name: rng.standard_normal(RUNS) for name in ("elektrifikace", "povolovani", "cena")}
-    for row in rows:
-        own = rng.standard_normal(RUNS)
-        shared = factors.get(row["faktor"].strip())
-        z = own if shared is None else np.sqrt(RHO) * shared + np.sqrt(1 - RHO) * own
-        levels = np.vstack([
-            quantile(z, num(row, f"p10_{m}"), num(row, f"p50_{m}"), num(row, f"p90_{m}"))
-            for m in MILESTONES
-        ])
-        jumps = None
-        if row["prubeh"].strip() == "skok":
-            jumps = np.round(quantile(rng.standard_normal(RUNS), num(row, "skok_rok_p10"),
-                                      num(row, "skok_rok_p50"), num(row, "skok_rok_p90")))
-        total += item_curve(num(row, "zaklad_2025_GWh"), levels, jumps)
-    return [np.percentile(total, q, axis=1).round(1).tolist() for q in (10, 50, 90)]
-
-
-def median_curve(row):
-    """Výchozí křivka položky. U skoku je to hladina po události, rok skoku určuje stránka."""
-    levels = np.array([[num(row, f"p50_{m}")] for m in MILESTONES])
-    jumps = None
-    if row["prubeh"].strip() == "skok":
-        jumps = np.array([2025.0])
-    return item_curve(num(row, "zaklad_2025_GWh"), levels, jumps)[:, 0].round(2).tolist()
+def text(row, key):
+    return (row.get(key) or "").strip()
 
 
 def build_data():
-    rows = read_items()
+    path = HERE / "polozky.csv"
+    rows = read_rows(path) if path.exists() else []
+    drivers = read_drivers(HERE / "ridici_vlivy.csv")
+    models = [item_model(r, drivers) for r in rows]
     rng = np.random.default_rng(20261104)
-    items, bands = [], {}
-    for path in PATHS:
-        bands[path] = {}
+    items, bands, fit_report = [], {}, []
+    for route in PATHS:
+        bands[route] = {}
         for side in ("vyroba", "spotreba"):
-            subset = [r for r in rows if r["cesta"].strip() == path and r["strana"].strip() == side]
-            if subset:
-                bands[path][side] = simulate(subset, rng)
-    for r in rows:
-        p = {k: num(r, k) for k in ("p10_2050", "p50_2050", "p90_2050", "zaklad_2025_GWh")}
+            chosen = [(r, m) for r, m in zip(rows, models) if text(r, "cesta") == route and text(r, "strana") == side]
+            if chosen:
+                bands[route][side] = simulate([c[0] for c in chosen], [c[1] for c in chosen], rng, RUNS)
+    for r, m in zip(rows, models):
+        jump = m["jump"]
+        driver = None if not text(r, "ridic") else [round(float(v), 4) for v in m["driver"]]
         items.append({
-            "name": r["polozka"].strip(), "side": r["strana"].strip(), "path": r["cesta"].strip(),
-            "base": p["zaklad_2025_GWh"], "p10": p["p10_2050"], "p50": p["p50_2050"], "p90": p["p90_2050"],
-            "curve": median_curve(r), "grade": r["stupen"].strip(), "how": r["odvozeni"].strip(),
-            "src": r["zdroj"].strip(), "note": r["poznamka"].strip(),
-            "page": (r.get("strana_studie") or "").strip(), "quote": (r.get("citace") or "").strip(),
-            "jump": num(r, "skok_rok_p50") if r["prubeh"].strip() == "skok" else None,
-            "jumpLow": num(r, "skok_rok_p10") if r["prubeh"].strip() == "skok" else None,
-            "jumpHigh": num(r, "skok_rok_p90") if r["prubeh"].strip() == "skok" else None,
-            "event": r["udalost"].strip().split(",")[0],
+            "name": text(r, "polozka"), "side": text(r, "strana"), "path": text(r, "cesta"),
+            "base": m["base"], "p10": num(r, "p10_2050"), "p50": num(r, "p50_2050"), "p90": num(r, "p90_2050"),
+            "parts": [{"amp": round(p["amp"], 3), "tm": round(p["tm"], 2), "k": round(p["k"], 3)} for p in m["parts"]],
+            "driver": driver, "driverName": text(r, "ridic"), "maxRate": num(r, "tempo_max_GWh_rok"),
+            "grade": text(r, "stupen"), "how": text(r, "odvozeni"), "src": text(r, "zdroj"), "note": text(r, "poznamka"),
+            "page": text(r, "strana_studie"), "quote": text(r, "citace"),
+            "jump": num(r, "skok_rok_p50") if jump else None,
+            "jumpLow": num(r, "skok_rok_p10") if jump else None,
+            "jumpHigh": num(r, "skok_rok_p90") if jump else None,
+            "event": text(r, "udalost").split(",")[0],
         })
+        value = curve(m)
+        for year, key in ((2030, "p50_2030"), (2040, "p50_2040")):
+            wanted = num(r, key)
+            got = float(value[year - 2025])
+            if not jump and abs(got - wanted) > max(25.0, 0.1 * abs(wanted)):
+                fit_report.append((text(r, "polozka"), text(r, "cesta")[:4], year, round(wanted, 1), round(got, 1)))
+    (HERE / "kontrola_krivek.txt").write_text(
+        "Položky, kde S-křivka v milníku nesedí na tabulku o více než 10 % a 25 GWh:\n"
+        + "\n".join(f"{a} | {b} | {c} | tabulka {d} | křivka {e}" for a, b, c, d, e in fit_report) + "\n",
+        encoding="utf-8")
     return {"years": YEARS.tolist(), "history": HISTORY, "items": items, "bands": bands}
 
 
