@@ -65,6 +65,10 @@ svg .ev{font:600 11px "Saira",sans-serif;fill:var(--ink);paint-order:stroke;stro
 .grades{border-collapse:collapse;margin:8px 0;font-size:14px}
 .grades td,.grades th{border-top:1px solid var(--line);padding:6px 12px 6px 0;text-align:left}
 .grades .grade{margin-left:0}
+.trendhead{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;align-items:center}
+.trendhead h2{margin:0}
+.trendgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:4px 24px;margin-top:6px}
+.trendgrid.off{opacity:.45}
 .viewnote{color:var(--muted);font-size:12.5px;margin:8px 0 0;max-width:900px}
 .ratewarn{margin:5px 0 0;color:var(--warn);font-size:12.5px}
 .grade{font:600 10.5px "JetBrains Mono",monospace;border:1px solid var(--line);border-radius:4px;padding:0 5px;margin-left:6px;color:var(--muted)}
@@ -131,6 +135,17 @@ footer{color:var(--muted);font-size:12.5px}
   <h2 id="balTitle">Bilance vybrané cesty</h2>
   <div id="bal"></div>
 </section>
+<section class="card" id="trendCard">
+  <div class="trendhead">
+    <h2>Velké trendy do roku 2050</h2>
+    <div class="pills" role="group" aria-label="Velké trendy">
+      <button id="trendOn" aria-pressed="true">Započítat</button>
+      <button id="trendOff" aria-pressed="false">Vypnout</button>
+    </div>
+  </div>
+  <p class="viewnote">Trendy mění dopravu, domácnosti, vytápění a chlazení. Po vypnutí se počítá s dnešním počtem obyvatel, aut a dnešní účinností. Posuvníky položek níže ukazují cíl při výchozích trendech.</p>
+  <div class="trendgrid" id="trends"></div>
+</section>
 <div class="cols" id="lists"></div>
 </div>
 <div id="tab-metodika" hidden>
@@ -176,7 +191,7 @@ footer{color:var(--muted);font-size:12.5px}
     <h2>4. Co se mění samo: demografie a účinnost</h2>
     <p>Některé vlivy nikdo v modelu nenastavuje. V kraji ubývá obyvatel a auta jsou úspornější. Takový vliv zapíšeme jako číslo <i>D</i>(<i>t</i>), které má v roce 2025 hodnotu 1. Když je v roce 2050 například 0,85, znamená to o 15 % méně než dnes.</p>
     <div class="eq"><i>y</i>(<i>t</i>) = <i>D</i>(<i>t</i>) · <i>s</i>(<i>t</i>)</div>
-    <p>Mezi lety 2030, 2040 a 2050 se <i>D</i>(<i>t</i>) mění rovnoměrně. Používáme ho jen tam, kde dává smysl, tedy hlavně u dopravy, domácností a vytápění.</p>
+    <p>Mezi lety 2030, 2040 a 2050 se <i>D</i>(<i>t</i>) mění rovnoměrně. Používáme ho jen tam, kde dává smysl, tedy hlavně u dopravy, domácností a vytápění. Na stránce Bilance můžete tyto trendy vypnout nebo změnit jejich hodnotu pro rok 2050. Změna se přičítá rovnoměrně od roku 2025 a ostatní křivka položky zůstává.</p>
   </section>
 
   <section class="card">
@@ -239,14 +254,15 @@ const NF = new Intl.NumberFormat("cs-CZ",{maximumFractionDigits:0});
 const NF1 = new Intl.NumberFormat("cs-CZ",{minimumFractionDigits:1,maximumFractionDigits:1});
 const $ = id => document.getElementById(id);
 const hasItems = DATA.items.length > 0;
-const state = {path:"progresivni", mode:"simple", view:"energy", year:2050, values:{}, jumps:{}, tms:{}, show:{progresivni:true, konzervativni:true, vyroba:true, spotreba:true}};
+const state = {path:"progresivni", mode:"simple", view:"energy", year:2050, values:{}, jumps:{}, tms:{}, trends:{}, trendOn:true, show:{progresivni:true, konzervativni:true, vyroba:true, spotreba:true}};
 const NS = "http://www.w3.org/2000/svg";
 
 function key(it){ return it.path + "|" + it.side + "|" + it.name; }
 /* Položky se stejnou událostí sdílejí jeden rok, například pec v Třinci snižuje hutní plyny a zvyšuje spotřebu. */
 function jumpKey(it){ return it.event ? it.path + "|" + it.event : key(it); }
 const LOSS_ITEM = "ztráty v sítích";
-const DEFAULTS = {values:{}, jumps:{}, tms:{}};
+const DEFAULTS = {values:{}, jumps:{}, tms:{}, trends:{}};
+for(const name of Object.keys(DATA.trends)) DEFAULTS.trends[name] = DATA.trends[name].values[DATA.years.length - 1];
 for(const it of DATA.items){
   DEFAULTS.values[key(it)] = it.p50;
   if(it.jump !== null) DEFAULTS.jumps[jumpKey(it)] = it.jump;
@@ -256,6 +272,8 @@ function resetValues(){
   state.values = {...DEFAULTS.values};
   state.jumps = {...DEFAULTS.jumps};
   state.tms = {...DEFAULTS.tms};
+  state.trends = {...DEFAULTS.trends};
+  state.trendOn = true;
 }
 function currentEvents(){
   const seen = new Map();
@@ -275,12 +293,39 @@ function sigma(t){
   const x = Math.min(1, Math.max(0, (t - 2030) / 20));
   return 3 * x * x - 2 * x * x * x;
 }
+/* Velké trendy. Výchozí křivka vlivu se násobí poměrem, takže výchozí nastavení zůstává přesně podle tabulky. */
+const TREND_SHARE = {tc:2.5 / 8.9, pt:2.5 / (922979 / 131000)};
+function driverFormula(name, v){
+  const households = v.pop_msk * v.velikost_dom;
+  if(name === "d_auta") return v.pop_msk * v.auta_na_os * v.eff_auta;
+  if(name === "d_nakladni") return v.eff_nakladni;
+  if(name === "d_domacnosti") return households;
+  if(name === "d_vytapeni") return households * (TREND_SHARE.tc + (1 - TREND_SHARE.tc) * v.teplo_budovy);
+  if(name === "d_primotopy") return households * (TREND_SHARE.pt + (1 - TREND_SHARE.pt) * v.teplo_budovy);
+  if(name === "d_chlazeni") return 81 / 193 * households + 112 / 193;
+  return 1;
+}
+function trendValues(i, custom){
+  const out = {}, x = i / (DATA.years.length - 1);
+  for(const name of Object.keys(DATA.trends)){
+    const values = DATA.trends[name].values;
+    out[name] = values[i] + (custom ? state.trends[name] - values[values.length - 1] : 0) * x;
+  }
+  return out;
+}
+function driverAt(it, i){
+  if(!it.driver) return 1;
+  if(!state.trendOn) return 1;
+  const changed = Object.keys(DATA.trends).some(n => state.trends[n] !== DATA.trends[n].values[DATA.years.length - 1]);
+  if(!changed) return it.driver[i];
+  return it.driver[i] * driverFormula(it.driverName, trendValues(i, true)) / driverFormula(it.driverName, trendValues(i, false));
+}
 function partTm(it, part){
   if(it.jump !== null) return state.jumps[jumpKey(it)];
   return part.tm + state.tms[key(it)] - it.parts[0].tm;
 }
 function itemAt(it, i){
-  const t = DATA.years[i], D = it.driver ? it.driver[i] : 1;
+  const t = DATA.years[i], D = driverAt(it, i);
   let level = it.base;
   for(const part of it.parts) level += part.amp * sCurve(t, partTm(it, part), part.k);
   const value = D * level + (state.values[key(it)] - it.p50) * sigma(t);
@@ -289,8 +334,8 @@ function itemAt(it, i){
 /* Hodnota položky v GWh. Ztráty v sítích jdou s ostatní spotřebou. */
 function lossFactor(items, i){
   const others = items.reduce((sum, it) => it.name === LOSS_ITEM ? sum : sum + itemAt(it, i), 0);
-  const saved = {values:state.values, jumps:state.jumps, tms:state.tms};
-  state.values = DEFAULTS.values; state.jumps = DEFAULTS.jumps; state.tms = DEFAULTS.tms;
+  const saved = {values:state.values, jumps:state.jumps, tms:state.tms, trends:state.trends, trendOn:state.trendOn};
+  state.values = DEFAULTS.values; state.jumps = DEFAULTS.jumps; state.tms = DEFAULTS.tms; state.trends = DEFAULTS.trends; state.trendOn = true;
   const reference = items.reduce((sum, it) => it.name === LOSS_ITEM ? sum : sum + itemAt(it, i), 0);
   Object.assign(state, saved);
   return reference > 0 ? others / reference : 1;
@@ -654,6 +699,43 @@ function drawLegend(){
     (hasItems && energy ? `<span><i style="border-color:${color};border-top-width:8px;opacity:.25"></i>Pásmo výchozího nastavení, P10 až P90</span>` : "");
 }
 
+const TREND_UI = [
+  {name:"pop_msk", label:"Počet obyvatel kraje", min:0.7, max:1.05, show:v => NF.format(Math.round(v * 1182589.793 / 1000) * 1000)},
+  {name:"auta_na_os", label:"Auta na obyvatele, proti dnešku", min:0.8, max:1.45, show:v => NF.format(v * 100) + " %"},
+  {name:"eff_auta", label:"Spotřeba elektroauta na km, proti dnešku", min:0.45, max:1.05, show:v => NF.format(v * 100) + " %"},
+  {name:"eff_nakladni", label:"Spotřeba nákladního auta na km, proti dnešku", min:0.65, max:1.1, show:v => NF.format(v * 100) + " %"},
+  {name:"teplo_budovy", label:"Potřeba tepla budov, proti dnešku", min:0.5, max:1.05, show:v => NF.format(v * 100) + " %"},
+  {name:"velikost_dom", label:"Počet domácností na obyvatele, proti dnešku", min:0.95, max:1.35, show:v => NF.format(v * 100) + " %"},
+];
+function drawTrends(){
+  const host = $("trends");
+  host.innerHTML = "";
+  host.className = "trendgrid" + (state.trendOn ? "" : " off");
+  $("trendOn").setAttribute("aria-pressed", state.trendOn);
+  $("trendOff").setAttribute("aria-pressed", !state.trendOn);
+  for(const ui of TREND_UI){
+    const data = DATA.trends[ui.name];
+    if(!data) continue;
+    const span = ui.max - ui.min, pct = v => ((v - ui.min) / span * 100).toFixed(2) + "%", def = DEFAULTS.trends[ui.name];
+    const row = document.createElement("div");
+    row.className = "item";
+    row.innerHTML =
+      `<div class="top"><span>${esc(ui.label)}<span class="grade ${esc(data.grade)}" title="Stupeň důkazu">${esc(data.grade)}</span></span><span class="val mono"></span></div>` +
+      `<div class="track"><span class="band" style="left:${pct(data.p10)};width:${((data.p90 - data.p10) / span * 100).toFixed(2)}%"></span><span class="def" style="left:${pct(def)}"></span>` +
+      `<input class="trendin" type="range" min="${ui.min}" max="${ui.max}" step="0.005" aria-label="${esc(ui.label)}"></div>` +
+      `<details><summary>Zdroj</summary><p>${link(data.src)}</p></details>`;
+    const input = row.querySelector(".trendin"), val = row.querySelector(".val");
+    input.value = state.trends[ui.name];
+    input.disabled = !state.trendOn;
+    val.textContent = ui.show(state.trends[ui.name]);
+    input.addEventListener("input", () => {
+      state.trends[ui.name] = Number(input.value);
+      val.textContent = ui.show(state.trends[ui.name]);
+      refresh();
+    });
+    host.appendChild(row);
+  }
+}
 function refresh(){ drawMain(); drawBalance(); drawKpi(); }
 
 document.querySelectorAll("[data-path]").forEach(b => b.addEventListener("click", () => {
@@ -690,7 +772,9 @@ document.querySelectorAll("[data-show]").forEach(b => b.addEventListener("click"
   refresh();
 }));
 $("year").addEventListener("input", e => { state.year = Number(e.target.value); refresh(); });
-$("reset").addEventListener("click", () => { resetValues(); drawLists(); refresh(); });
+$("reset").addEventListener("click", () => { resetValues(); drawTrends(); drawLists(); refresh(); });
+$("trendOn").addEventListener("click", () => { state.trendOn = true; drawTrends(); refresh(); });
+$("trendOff").addEventListener("click", () => { state.trendOn = false; drawTrends(); refresh(); });
 $("theme").addEventListener("click", () => {
   const root = document.documentElement;
   const dark = root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme:dark)").matches;
@@ -750,9 +834,9 @@ $("notice").textContent = hasItems
   ? "Prototyp. Hodnoty po roce 2025 jsou odhady. Položky se stupněm D jsou odhad bez publikovaného zdroje a čekají na ověření."
   : "Prototyp. Zatím jen skutečná data za roky 2023 až 2025. Položky, cesty a posuvníky se připravují.";
 $("foot").innerHTML = "Výroba je brutto. Spotřeba je součet sektorů plus ztráty v sítích. Zdroje skutečnosti: Dopadová studie energetické bezpečnosti a soběstačnosti MSK (2024), Tab. 1 a Tab. 6; zprávy ERÚ o provozu elektrizační soustavy, tabulky 6.1 a 6.3, předběžné údaje. Stupně důkazu: A měření, B publikovaná studie, C technický výpočet, D odhad bez publikovaného zdroje. Meze P10 a P90 jsou téměř všude odhad. <a href=\"polozky.csv\">Tabulka položek</a>, <a href=\"polozky_poznamky.md\">poznámky ke zdrojům</a>, <a href=\"grafy_polozek.pdf\">grafy položek</a>.";
-if(!hasItems){ $("year").closest(".yearrow").style.display = "none"; document.querySelector(".controls").style.display = "none"; $("toggles").style.display = "none"; $("reset").style.display = "none"; }
+if(!hasItems){ $("year").closest(".yearrow").style.display = "none"; document.querySelector(".controls").style.display = "none"; $("toggles").style.display = "none"; $("reset").style.display = "none"; $("trendCard").style.display = "none"; }
 resetValues();
-drawLegend(); drawLists(); refresh();
+drawLegend(); drawTrends(); drawLists(); refresh();
 </script>
 </body>
 </html>

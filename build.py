@@ -22,6 +22,8 @@ HISTORY = [
 ]
 
 
+TRENDS = ("pop_msk", "velikost_dom", "auta_na_os", "eff_auta", "eff_nakladni", "teplo_budovy")
+
 # Denní nabíjení baterií v MW v letech 2025, 2030, 2040 a 2050, viz sezonni_metodika.md.
 BATTERY_DAILY = {"progresivni": [2.0, 10.0, 60 / 249.9 * 200, 200.0], "konzervativni": [2.0, 5.0, 8 / 21.4 * 20, 20.0]}
 
@@ -83,7 +85,14 @@ def build_data():
         "Položky, kde S-křivka v milníku nesedí na tabulku o více než 10 % a 25 GWh:\n"
         + "\n".join(f"{a} | {b} | {c} | tabulka {d} | křivka {e}" for a, b, c, d, e in fit_report) + "\n",
         encoding="utf-8")
-    return {"years": YEARS.tolist(), "history": HISTORY, "items": items, "bands": bands, "battery": battery}
+    trends = {}
+    trend_path = HERE / "ridici_vlivy.csv"
+    if trend_path.exists():
+        for r in read_rows(trend_path):
+            if text(r, "vliv") in TRENDS and text(r, "rok") == "2050":
+                trends[text(r, "vliv")] = {"values": [round(float(v), 5) for v in drivers[text(r, "vliv")]], "p10": num(r, "p10"), "p90": num(r, "p90"),
+                                           "grade": text(r, "stupen"), "src": text(r, "zdroj")}
+    return {"years": YEARS.tolist(), "history": HISTORY, "items": items, "bands": bands, "battery": battery, "trends": trends}
 
 
 def fonts_css():
