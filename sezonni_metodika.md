@@ -81,12 +81,12 @@ Zatížení MSK nikdo neměří. Doc 01 s.73 až 74: „Roční maximum zatíže
 |---|---|---|---|
 | Doc 01 očekávaný, Obr. 36 | 7 229,9 / (1 − 0,03547) / 5 869 = 1 277,2 MW | 1 325,4 MW | +48,2 MW |
 | Doc 01 extrémní, Obr. 40, Tab.46 | 1 752,0 MW | 1 731,5 − 378,0 = 1 353,5 MW | −398,5 MW |
-| Progresivní cesta | 1626,3 MW | 566,2 MW | -1060,1 MW; s bateriemi 152,0 MW po 82,3 h; s měřeným větrem -940,3 MW |
+| Progresivní cesta | 1710,0 MW | 566,2 MW | -1143,8 MW; s bateriemi 68,3 MW po 76,3 h; s měřeným větrem -1024,0 MW |
 | Konzervativní cesta | 1226,5 MW | 713,1 MW | -513,4 MW; s bateriemi -392,2 MW; s měřeným větrem -495,6 MW |
 
-Dostupný výkon cest je po odečtení lokální části 115,7 MW, aby šel srovnat se studií. Hlavní příčiny rozdílu jsou v cestách: progresivní cesta má 433 MW plynu místo 683 MW, konzervativní nemá SMR. Přesný rozklad zbytku neumím, doc 01 dosažitelný výkon po zdrojích pro 2050 netiskne. Obr. 36 a 40 Dětmarovice nepočítají, ty přidává až Tab.46. Metoda studie s τ na celé energii by dala progresivní cestě (14332,4 − 886,8) / 5,869 = 2290,9 MW, protože by započetla i elektrolýzu ve špičce.
+Dostupný výkon cest je po odečtení lokální části 115,7 MW, aby šel srovnat se studií. Hlavní příčiny rozdílu jsou v cestách: progresivní cesta má 433 MW plynu místo 683 MW, konzervativní nemá SMR. Přesný rozklad zbytku neumím, doc 01 dosažitelný výkon po zdrojích pro 2050 netiskne. Obr. 36 a 40 Dětmarovice nepočítají, ty přidává až Tab.46. Metoda studie s τ na celé energii by dala progresivní cestě (13243,6 − 886,8) / 5,869 = 2105,4 MW, protože by započetla i elektrolýzu ve špičce.
 
-**Léto 2050.** Progresivní cesta má přebytek 524,5 MW. Po bateriích a elektrokotlích zbývá elektrolýze 279,5 MW z potřebných 1166,7 MW. Polední přebytek sám roční objem vodíku nepokryje, stejně jako měsíční bilance v `vodik_sezonnost.csv`, kde schodek trvá celý rok. Konzervativní cesta má -542,5 MW a přebytek nemá, řízený plyn v záloze je 612,3 MW.
+**Léto 2050.** Progresivní cesta má přebytek 490,1 MW. Po bateriích a elektrokotlích zbývá elektrolýze 245,1 MW z potřebných 668,5 MW. Polední přebytek sám roční objem vodíku nepokryje, stejně jako měsíční bilance v `vodik_sezonnost.csv`, kde schodek trvá celý rok. Konzervativní cesta má -542,5 MW a přebytek nemá, řízený plyn v záloze je 612,3 MW.
 <!-- AUTO-2050 konec -->
 
 ## Co je stupeň D
