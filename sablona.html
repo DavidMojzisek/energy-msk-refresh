@@ -528,13 +528,12 @@ function moment(path, i){
   const batteryMw = interp(bat.years, bat.mw, year), balance = avail - load, surplus = Math.max(balance, 0);
   const charge = Math.min(interp(bat.years, bat.daily, year), surplus), heat = Math.min(boiler, surplus - charge);
   const forH2 = Math.min(Math.max(surplus - charge - heat, 0), electro);
-  return {load, avail, balance, batteryMw, electro, charge, heat, forH2, spare:Math.max(surplus - charge - heat - forH2, 0),
-          loadWithFlex:winter ? load : load + charge + heat + forH2};
+  return {load, avail, balance, batteryMw, electro, charge, heat, forH2, spare:Math.max(surplus - charge - heat - forH2, 0)};
 }
 function curves(path){
   if(state.view === "energy") return {gen:totals(path, "vyroba"), use:totals(path, "spotreba")};
   const all = DATA.years.map((_, i) => moment(path, i));
-  return {gen:all.map(m => m.avail), use:all.map(m => m.loadWithFlex)};
+  return {gen:all.map(m => m.avail), use:all.map(m => m.load)};
 }
 /* Nejrychlejší roční nárůst položky proti historii. */
 function fasterThanHistory(it){
@@ -964,7 +963,7 @@ document.querySelectorAll("[data-path]").forEach(b => b.addEventListener("click"
 }));
 const VIEW_NOTE = {
   winter:"Zimní špička je roční maximum zatížení s nulovým výkonem slunce. Vítr se počítá nulou jako ve studii. Elektrolýza a elektrokotle jsou vypnuté, což předpokládá dost vodíku ve skladu. Baterie jsou jen v bilanci s bateriemi a vydrží omezenou dobu. Hodnoty jsou výchozí odhad bez pásma.",
-  summer:"Letní poledne je slunečný víkendový polední stav. Křivka zatížení zahrnuje i nabíjení baterie, elektrokotle a vodík. Přebytek jde nejdřív do baterie, pak do elektrokotlů a zbytek do elektrolýzy, a když je nad ní ještě přebytek, zůstane nevyužitý. V tomto okamžiku jde hlavně do baterie. Za celý rok vyrobí přebytek po baterii vodík podle karty Návrh baterie a vodíku. Hodnoty jsou výchozí odhad bez pásma.",
+  summer:"Letní poledne je slunečný víkendový polední stav. Křivka zatížení je bez pružných odběrů, takže mezera nad ní je letní přebytek. Ten se neztrácí: jde do baterie, elektrokotlů a do výroby vodíku pro flotilu. Za celý rok vyrobí přebytek po baterii vodík podle karty Návrh baterie a vodíku. Hodnoty jsou výchozí odhad bez pásma.",
 };
 document.querySelectorAll("[data-view]").forEach(b => b.addEventListener("click", () => {
   state.view = b.dataset.view;
