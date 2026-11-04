@@ -406,6 +406,7 @@ function key(it){ return it.path + "|" + it.side + "|" + it.name; }
 /* Položky se stejnou událostí sdílejí jeden rok, například pec v Třinci snižuje hutní plyny a zvyšuje spotřebu. */
 function jumpKey(it){ return it.event ? it.path + "|" + it.event : key(it); }
 const LOSS_ITEM = "ztráty v sítích";
+const ELECTROLYSER_HOURS = 279;
 /* SMR se nastavuje počtem modulů po 500 MW. Výroba jednoho modulu je výchozí hodnota progresivní cesty. */
 const SMR_NAME = "SMR", SMR_MW = 500, SMR_MAX = 4;
 const smrProgressive = DATA.items.find(it => it.name === SMR_NAME && it.path === "progresivni");
@@ -518,19 +519,22 @@ function moment(path, i){
   let load = 0, avail = 0, electro = 0, boiler = 0;
   for(const {it, gwh} of values(path, "spotreba", i)){
     if(winter || !it.flex) load += avg(gwh) * coef(it);
-    if(isElectrolysis(it.name)) electro += avg(gwh) * it.ks;
+    /* Elektrolyzér běží jen na přebytek, podle hodinového výpočtu 279 plných hodin za rok. */
+    if(it.name.startsWith("výroba vodíku: ")) electro += gwh * 1000 / ELECTROLYSER_HOURS;
     if(it.name === "elektrokotle v teplárnách") boiler = avg(gwh) * it.ks;
   }
   for(const {it, gwh} of values(path, "vyroba", i)) avail += avg(gwh) * coef(it);
   const bat = DATA.battery[path], year = DATA.years[i];
   const batteryMw = interp(bat.years, bat.mw, year), balance = avail - load, surplus = Math.max(balance, 0);
   const charge = Math.min(interp(bat.years, bat.daily, year), surplus), heat = Math.min(boiler, surplus - charge);
-  return {load, avail, balance, batteryMw, electro, forH2:Math.min(Math.max(surplus - charge - heat, 0), electro)};
+  const forH2 = Math.min(Math.max(surplus - charge - heat, 0), electro);
+  return {load, avail, balance, batteryMw, electro, charge, heat, forH2, spare:Math.max(surplus - charge - heat - forH2, 0),
+          loadWithFlex:winter ? load : load + charge + heat + forH2};
 }
 function curves(path){
   if(state.view === "energy") return {gen:totals(path, "vyroba"), use:totals(path, "spotreba")};
   const all = DATA.years.map((_, i) => moment(path, i));
-  return {gen:all.map(m => m.avail), use:all.map(m => m.load)};
+  return {gen:all.map(m => m.avail), use:all.map(m => m.loadWithFlex)};
 }
 /* Nejrychlejší roční nárůst položky proti historii. */
 function fasterThanHistory(it){
@@ -674,9 +678,10 @@ function drawKpi(){
     const tone = v => v >= 0 ? "var(--ok)" : "var(--crit)";
     $("kpi").innerHTML =
       `<div><small>Výběr</small><b style="font-size:15px">${PATHNAME[state.path]}, ${state.year}, ${name}</b></div>` +
-      cell("Dostupný výkon", m.avail) + cell("Zatížení", m.load) + cell("Bilance", m.balance, tone(m.balance)) +
-      (winter ? cell("Bilance s bateriemi", m.balance + m.batteryMw, tone(m.balance + m.batteryMw))
-              : cell("Elektrolýza potřebuje", m.electro) + cell("Zbývá pro vodík", m.forH2));
+      cell("Dostupný výkon", m.avail) + cell("Zatížení bez pružných", m.load) +
+      (winter ? cell("Bilance", m.balance, tone(m.balance)) + cell("Bilance s bateriemi", m.balance + m.batteryMw, tone(m.balance + m.batteryMw))
+              : cell("Přebytek", m.balance, tone(m.balance)) + cell("Do baterie", m.charge) + cell("Do elektrokotlů", m.heat) +
+                cell(`Do vodíku, elektrolyzér ${NF.format(m.electro)} MW`, m.forH2) + cell("Nevyužito", m.spare));
     $("yearv").textContent = state.year;
     return;
   }
@@ -959,7 +964,7 @@ document.querySelectorAll("[data-path]").forEach(b => b.addEventListener("click"
 }));
 const VIEW_NOTE = {
   winter:"Zimní špička je roční maximum zatížení s nulovým výkonem slunce. Vítr se počítá nulou jako ve studii. Elektrolýza a elektrokotle jsou vypnuté, což předpokládá dost vodíku ve skladu. Baterie jsou jen v bilanci s bateriemi a vydrží omezenou dobu. Hodnoty jsou výchozí odhad bez pásma.",
-  summer:"Letní poledne je slunečný víkendový polední stav. Zatížení je bez elektrolýzy a dalších pružných spotřebičů. Přebytek jde nejdřív do baterií, pak do elektrokotlů a zbytek do elektrolýzy. Hodnoty jsou výchozí odhad bez pásma.",
+  summer:"Letní poledne je slunečný víkendový polední stav. Křivka zatížení zahrnuje i nabíjení baterie, elektrokotle a vodík. Přebytek jde nejdřív do baterie, pak do elektrokotlů a zbytek do elektrolýzy, a když je nad ní ještě přebytek, zůstane nevyužitý. V tomto okamžiku jde hlavně do baterie. Za celý rok vyrobí přebytek po baterii vodík podle karty Návrh baterie a vodíku. Hodnoty jsou výchozí odhad bez pásma.",
 };
 document.querySelectorAll("[data-view]").forEach(b => b.addEventListener("click", () => {
   state.view = b.dataset.view;
