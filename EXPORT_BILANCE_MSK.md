@@ -112,6 +112,15 @@ P50 simulace a součet výchozích hodnot nejsou totéž. Medián součtu nesyme
 
 Hodnoty jsou odhady pro výchozí nastavení a tabulka nemá pásmo. Bilance je dostupný výkon minus zatížení. Záporná hodnota říká, kolik MW je třeba dovézt, ne zda je to možné. Baterie nejsou v hlavní bilanci, protože nejsou zdroj. Potřeba elektrolýzy vychází z řádků výroby vodíku a výroby syntetického plynu, ten má podle volby modelu č. 31 nulu. Energie v této tabulce vychází z křivek modelu, ne přímo ze sloupců P50 2030 a P50 2040 v části 5, důvod je v úvodu části 5.
 
+### Dorovnání na soběstačnost, rok 2050
+
+Soběstačnost je zde roční bilance, ne pokrytí v každé hodině. Přepočet nemění výchozí hodnoty položek. Používá 1 051,2 hodiny ročně u fotovoltaiky a 2 744,7 hodiny u větru. Nejrychlejší nárůst v minulosti byl 82,8 GWh za rok u fotovoltaiky a 23,9 GWh za rok u větru. Potenciál větru v kraji je podle Dopadové studie 2 014 MW. Slunce a vítr se v zimní špičce počítají nulou, takže dorovnání roční energie zimní schodek neřeší.
+
+| Cesta | Výroba, GWh | Spotřeba, GWh | Schodek, GWh | Jen fotovoltaika navíc, GWp | Jen vítr navíc, GW | Tempo navíc, GWh za rok |
+|---|---|---|---|---|---|---|
+| Progresivní | 8 331,8 | 14 332,4 | 6 000,6 | 5,7 | 2,2 | 240,0 |
+| Konzervativní | 4 138,7 | 8 320,0 | 4 181,3 | 4,0 | 1,5 | 167,3 |
+
 ## 4. Metoda
 
 ### Rozklad položky a stupeň důkazu
