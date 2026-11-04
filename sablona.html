@@ -65,6 +65,8 @@ svg .ev{font:600 11px "Saira",sans-serif;fill:var(--ink);paint-order:stroke;stro
 .grades{border-collapse:collapse;margin:8px 0;font-size:14px}
 .grades td,.grades th{border-top:1px solid var(--line);padding:6px 12px 6px 0;text-align:left}
 .grades .grade{margin-left:0}
+.modebar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:12px}
+.modebar>span{font:700 18px "Saira",sans-serif}
 .trendhead{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;align-items:center}
 .trendhead h2{margin:0}
 .trendgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:4px 24px;margin-top:6px}
@@ -93,10 +95,6 @@ footer{color:var(--muted);font-size:12.5px}
     <div class="pills" role="group" aria-label="Cesta">
       <button data-path="progresivni" aria-pressed="true">Progresivní</button>
       <button data-path="konzervativni" aria-pressed="false">Konzervativní</button>
-    </div>
-    <div class="pills" role="group" aria-label="Podrobnost posuvníků">
-      <button data-mode="simple" aria-pressed="true">Jednoduchá</button>
-      <button data-mode="detail" aria-pressed="false">Podrobná</button>
     </div>
     <button class="btn" id="reset">Obnovit výchozí</button>
     <button class="btn" id="theme" aria-label="Přepnout motiv">Motiv</button>
@@ -146,6 +144,13 @@ footer{color:var(--muted);font-size:12.5px}
   <p class="viewnote">Trendy mění dopravu, domácnosti, vytápění a chlazení. Po vypnutí se počítá s dnešním počtem obyvatel, aut a dnešní účinností. Posuvníky položek níže ukazují cíl při výchozích trendech.</p>
   <div class="trendgrid" id="trends"></div>
 </section>
+<div class="modebar" id="modebar">
+  <span>Posuvníky položek</span>
+  <div class="pills" role="group" aria-label="Podrobnost posuvníků">
+    <button data-mode="simple" aria-pressed="true">Jednoduchá</button>
+    <button data-mode="detail" aria-pressed="false">Podrobná</button>
+  </div>
+</div>
 <div class="cols" id="lists"></div>
 </div>
 <div id="tab-metodika" hidden>
@@ -834,7 +839,7 @@ $("notice").textContent = hasItems
   ? "Prototyp. Hodnoty po roce 2025 jsou odhady. Položky se stupněm D jsou odhad bez publikovaného zdroje a čekají na ověření."
   : "Prototyp. Zatím jen skutečná data za roky 2023 až 2025. Položky, cesty a posuvníky se připravují.";
 $("foot").innerHTML = "Výroba je brutto. Spotřeba je součet sektorů plus ztráty v sítích. Zdroje skutečnosti: Dopadová studie energetické bezpečnosti a soběstačnosti MSK (2024), Tab. 1 a Tab. 6; zprávy ERÚ o provozu elektrizační soustavy, tabulky 6.1 a 6.3, předběžné údaje. Stupně důkazu: A měření, B publikovaná studie, C technický výpočet, D odhad bez publikovaného zdroje. Meze P10 a P90 jsou téměř všude odhad. <a href=\"polozky.csv\">Tabulka položek</a>, <a href=\"polozky_poznamky.md\">poznámky ke zdrojům</a>, <a href=\"grafy_polozek.pdf\">grafy položek</a>.";
-if(!hasItems){ $("year").closest(".yearrow").style.display = "none"; document.querySelector(".controls").style.display = "none"; $("toggles").style.display = "none"; $("reset").style.display = "none"; $("trendCard").style.display = "none"; }
+if(!hasItems){ $("year").closest(".yearrow").style.display = "none"; document.querySelector(".controls").style.display = "none"; $("toggles").style.display = "none"; $("reset").style.display = "none"; $("trendCard").style.display = "none"; $("modebar").style.display = "none"; }
 resetValues();
 drawLegend(); drawTrends(); drawLists(); refresh();
 </script>
