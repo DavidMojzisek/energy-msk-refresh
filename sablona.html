@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bilance elektřiny MSK</title>
+<style>
+/*FONTS*/
+:root{--bg:#edf2f8;--surface:#fbfcfe;--surface-2:#f0f4fa;--ink:#0b1730;--muted:#4e5f78;--line:#d3dcea;--accent:#0b5fd6;--warn:#b4600c;--ok:#138a55;--crit:#c42b3b;--prog:#0b5fd6;--kons:#d9531e;--grad:linear-gradient(90deg,#1468f0,#0aa7cc 55%,#4fae14);--shadow:0 1px 2px rgba(11,23,48,.05),0 10px 28px -18px rgba(11,23,48,.22)}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#050c19;--surface:#0b1526;--surface-2:#101d32;--ink:#e5eef8;--muted:#8fa3bf;--line:#1d2c44;--accent:#3cc8f5;--warn:#f5a524;--ok:#3ddc97;--crit:#ff6170;--prog:#5aa2ff;--kons:#ff8a5c;--grad:linear-gradient(90deg,#2f7dff,#22d3ee 55%,#a3e635)}}
+:root[data-theme=dark]{--bg:#050c19;--surface:#0b1526;--surface-2:#101d32;--ink:#e5eef8;--muted:#8fa3bf;--line:#1d2c44;--accent:#3cc8f5;--warn:#f5a524;--ok:#3ddc97;--crit:#ff6170;--prog:#5aa2ff;--kons:#ff8a5c;--grad:linear-gradient(90deg,#2f7dff,#22d3ee 55%,#a3e635)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 "DM Sans",system-ui,sans-serif}
+.wrap{max-width:1240px;margin:0 auto;padding:0 16px 40px}
+header{border-bottom:2px solid;border-image:var(--grad) 1;margin-bottom:16px;padding:20px 0 14px;display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;justify-content:space-between}
+h1{font:800 clamp(26px,3.6vw,40px)/1 "Saira",sans-serif;font-stretch:112%;margin:0}
+h2{font:700 18px/1.2 "Saira",sans-serif;margin:0 0 10px}
+.sub{color:var(--muted);margin:6px 0 0;max-width:720px}
+.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.pills{display:inline-flex;background:var(--surface-2);border-radius:999px;padding:3px}
+.pills button{border:0;background:none;color:var(--muted);font:600 13px "DM Sans",sans-serif;padding:6px 13px;border-radius:999px;cursor:pointer}
+.pills button[aria-pressed=true]{background:var(--ink);color:var(--surface)}
+.btn{border:1px solid var(--line);background:var(--surface);color:var(--ink);font:600 13px "DM Sans",sans-serif;padding:7px 12px;border-radius:6px;cursor:pointer}
+.btn:hover{border-color:var(--accent)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow);padding:14px 16px 16px;margin-bottom:16px}
+.notice{border-left:4px solid var(--warn);padding:9px 13px;background:var(--surface);border-radius:4px;margin-bottom:16px}
+.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-bottom:16px}
+.kpi div{background:var(--surface);padding:10px 14px}
+.kpi small{display:block;color:var(--muted);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:600}
+.kpi b{font:500 21px "JetBrains Mono",monospace;font-variant-numeric:tabular-nums}
+.yearrow{display:flex;gap:12px;align-items:center;margin:10px 0 2px}
+.yearrow input{flex:1;accent-color:var(--accent)}
+.mono{font-family:"JetBrains Mono",monospace;font-variant-numeric:tabular-nums}
+svg{display:block;width:100%;height:auto}
+svg text{font:11.5px "JetBrains Mono",monospace;fill:var(--muted)}
+svg .ev{font:600 11px "Saira",sans-serif;fill:var(--ink);paint-order:stroke;stroke:var(--surface);stroke-width:3px}
+.legend{display:flex;flex-wrap:wrap;gap:14px;color:var(--muted);font-size:12.5px;margin-bottom:6px}
+.legend i{display:inline-block;width:24px;border-top:2.5px solid;vertical-align:middle;margin-right:6px}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:16px}
+.item{border-top:1px solid var(--line);padding:9px 0}
+.item .top{display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.item .val{white-space:nowrap}
+.track{position:relative;margin-top:5px}
+.track .band{position:absolute;top:50%;height:6px;margin-top:-3px;background:var(--accent);opacity:.22;border-radius:3px;pointer-events:none}
+.track .def{position:absolute;top:50%;height:14px;margin-top:-7px;width:2px;background:var(--muted);pointer-events:none}
+.track input{position:relative;width:100%;margin:0;accent-color:var(--accent);background:none;display:block}
+.grade{font:600 10.5px "JetBrains Mono",monospace;border:1px solid var(--line);border-radius:4px;padding:0 5px;margin-left:6px;color:var(--muted)}
+.grade.D{border-color:var(--warn);color:var(--warn)}
+details{margin-top:4px;color:var(--muted);font-size:12.5px}
+summary{cursor:pointer}
+details p{margin:4px 0;overflow-wrap:anywhere}
+#tip{position:fixed;display:none;background:var(--surface);border:1px solid var(--ink);border-radius:4px;padding:8px 10px;font-size:12px;box-shadow:0 6px 18px rgb(0 0 0/.12);min-width:190px;pointer-events:none;z-index:5}
+#tip div{display:flex;justify-content:space-between;gap:14px}
+footer{color:var(--muted);font-size:12.5px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div>
+    <h1>Bilance elektřiny MSK</h1>
+    <p class="sub">Výroba a spotřeba elektřiny v Moravskoslezském kraji do roku 2050 ve dvou možných cestách.</p>
+  </div>
+  <div class="controls">
+    <div class="pills" role="group" aria-label="Cesta">
+      <button data-path="progresivni" aria-pressed="true">Progresivní</button>
+      <button data-path="konzervativni" aria-pressed="false">Konzervativní</button>
+    </div>
+    <button class="btn" id="reset">Obnovit výchozí</button>
+    <button class="btn" id="theme" aria-label="Přepnout motiv">Motiv</button>
+  </div>
+</header>
+<p class="notice" id="notice"></p>
+<div class="kpi" id="kpi"></div>
+<section class="card">
+  <h2>Výroba a spotřeba</h2>
+  <div class="legend" id="legend"></div>
+  <div id="main"></div>
+  <div class="yearrow"><label for="year">Rok</label><input id="year" type="range" min="2025" max="2050" step="1" value="2050"><span class="mono" id="yearv"></span></div>
+</section>
+<section class="card" id="balcard">
+  <h2>Bilance vybrané cesty</h2>
+  <div id="bal"></div>
+</section>
+<div class="cols" id="lists"></div>
+<footer id="foot"></footer>
+</div>
+<div id="tip"></div>
+<script>
+"use strict";
+const DATA = /*DATA*/null;
+const PATHNAME = {progresivni:"Progresivní", konzervativni:"Konzervativní"};
+const NF = new Intl.NumberFormat("cs-CZ",{maximumFractionDigits:0});
+const NF1 = new Intl.NumberFormat("cs-CZ",{minimumFractionDigits:1,maximumFractionDigits:1});
+const $ = id => document.getElementById(id);
+const hasItems = DATA.items.length > 0;
+const state = {path:"progresivni", year:2050, values:{}};
+const NS = "http://www.w3.org/2000/svg";
+
+function key(it){ return it.path + "|" + it.side + "|" + it.name; }
+function resetValues(){ for(const it of DATA.items) state.values[key(it)] = it.p50; }
+
+/* Křivka položky se posuvníkem přeškáluje a výchozí tvar zůstává. */
+function itemAt(it, i){
+  const set = state.values[key(it)], def = it.p50, base = it.base, value = it.curve[i];
+  if(set === def) return value;
+  if(def === base) return base + (set - base) * i / (DATA.years.length - 1);
+  return Math.max(0, base + (value - base) * (set - base) / (def - base));
+}
+function totals(path, side){
+  const items = DATA.items.filter(it => it.path === path && it.side === side);
+  return DATA.years.map((_, i) => items.reduce((sum, it) => sum + itemAt(it, i), 0));
+}
+function mk(tag, attrs, parent, text){
+  const el = document.createElementNS(NS, tag);
+  for(const k in attrs) el.setAttribute(k, attrs[k]);
+  if(text !== undefined) el.textContent = text;
+  if(parent) parent.appendChild(el);
+  return el;
+}
+function pathD(points){ return points.map((p, i) => (i ? "L" : "M") + p[0].toFixed(1) + " " + p[1].toFixed(1)).join(""); }
+
+const X0 = 62, X1 = 985, Y0 = 26, W = 1000;
+function xScale(y){ return X0 + (y - 2023) / 27 * (X1 - X0); }
+
+function drawMain(){
+  const H = 430, YB = H - 34, host = $("main");
+  host.innerHTML = "";
+  const svg = mk("svg", {viewBox:`0 0 ${W} ${H}`, role:"img", "aria-label":"Výroba a spotřeba elektřiny po letech"}, host);
+  let top = Math.max(...DATA.history.map(h => Math.max(h.gen, h.use)));
+  const series = {};
+  if(hasItems) for(const p of Object.keys(PATHNAME)){
+    series[p] = {gen:totals(p,"vyroba"), use:totals(p,"spotreba")};
+    top = Math.max(top, ...series[p].gen, ...series[p].use);
+    const b = DATA.bands[p];
+    if(b.vyroba) top = Math.max(top, ...b.vyroba[2]);
+    if(b.spotreba) top = Math.max(top, ...b.spotreba[2]);
+  }
+  const step = top > 20000 ? 5000 : 2000, ymax = Math.ceil(top / step) * step;
+  const yS = v => YB - v / ymax * (YB - Y0);
+  for(let v = 0; v <= ymax; v += step){
+    mk("line", {x1:X0, x2:X1, y1:yS(v), y2:yS(v), stroke:"var(--line)"}, svg);
+    mk("text", {x:X0 - 9, y:yS(v) + 4, "text-anchor":"end"}, svg, NF.format(v / 1000));
+  }
+  mk("text", {x:12, y:16}, svg, "TWh za rok");
+  for(const y of [2023, 2025, 2030, 2035, 2040, 2045, 2050])
+    mk("text", {x:xScale(y), y:H - 12, "text-anchor":"middle"}, svg, y);
+
+  if(hasItems){
+    const b = DATA.bands[state.path], color = state.path === "progresivni" ? "var(--prog)" : "var(--kons)";
+    for(const side of ["vyroba", "spotreba"]){
+      if(!b[side]) continue;
+      const up = DATA.years.map((y, i) => [xScale(y), yS(b[side][2][i])]);
+      const lo = DATA.years.map((y, i) => [xScale(y), yS(b[side][0][i])]).reverse();
+      mk("path", {d:pathD(up.concat(lo)) + "Z", fill:color, opacity:.13}, svg);
+    }
+    for(const ev of DATA.events.filter(e => e.path === state.path)){
+      mk("line", {x1:xScale(ev.year), x2:xScale(ev.year), y1:Y0, y2:YB, stroke:color, "stroke-dasharray":"2 4"}, svg);
+    }
+    const shown = DATA.events.filter(e => e.path === state.path).sort((a, c) => a.year - c.year);
+    shown.forEach((ev, i) => mk("text", {class:"ev", x:xScale(ev.year) + 4, y:Y0 + 12 + (i % 4) * 14}, svg, ev.label));
+    for(const p of Object.keys(PATHNAME)){
+      const c = p === "progresivni" ? "var(--prog)" : "var(--kons)", width = p === state.path ? 2.8 : 1.6;
+      const start = DATA.history[DATA.history.length - 1];
+      const line = (arr) => DATA.years.map((y, i) => [xScale(y), yS(arr[i])]);
+      mk("path", {d:pathD(line(series[p].use)), fill:"none", stroke:c, "stroke-width":width}, svg);
+      mk("path", {d:pathD(line(series[p].gen)), fill:"none", stroke:c, "stroke-width":width, "stroke-dasharray":"8 5"}, svg);
+    }
+  }
+  const hx = DATA.history.map(h => xScale(h.y));
+  mk("path", {d:pathD(DATA.history.map((h, i) => [hx[i], yS(h.use)])), fill:"none", stroke:"var(--ink)", "stroke-width":3}, svg);
+  mk("path", {d:pathD(DATA.history.map((h, i) => [hx[i], yS(h.gen)])), fill:"none", stroke:"var(--ink)", "stroke-width":3, "stroke-dasharray":"8 5"}, svg);
+  for(const h of DATA.history){
+    mk("circle", {cx:xScale(h.y), cy:yS(h.use), r:4, fill:"var(--ink)"}, svg);
+    mk("circle", {cx:xScale(h.y), cy:yS(h.gen), r:4, fill:"var(--ink)"}, svg);
+  }
+  mk("line", {x1:xScale(state.year), x2:xScale(state.year), y1:Y0, y2:YB, stroke:"var(--muted)"}, svg);
+  mk("line", {x1:X0, x2:X1, y1:YB, y2:YB, stroke:"var(--muted)"}, svg);
+  const hit = mk("rect", {x:X0, y:Y0, width:X1 - X0, height:YB - Y0, fill:"transparent"}, svg);
+  hit.addEventListener("mousemove", e => showTip(e, svg, series));
+  hit.addEventListener("mouseleave", () => { $("tip").style.display = "none"; });
+}
+
+function showTip(e, svg, series){
+  const box = svg.getBoundingClientRect();
+  const y = Math.round(2023 + ((e.clientX - box.left) / box.width * W - X0) / (X1 - X0) * 27);
+  const tip = $("tip");
+  let html = `<b class="mono">${y}</b>`;
+  const row = (a, v) => `<div><span>${a}</span><span class="mono">${NF.format(v)} GWh</span></div>`;
+  const past = DATA.history.find(h => h.y === y);
+  if(past) html += row("Výroba", past.gen) + row("Spotřeba", past.use);
+  else if(hasItems && y >= 2025) for(const p of Object.keys(PATHNAME)){
+    const i = y - 2025;
+    html += `<div style="margin-top:4px"><b>${PATHNAME[p]}</b></div>` + row("Výroba", series[p].gen[i]) + row("Spotřeba", series[p].use[i]);
+  } else return;
+  tip.innerHTML = html;
+  tip.style.display = "block";
+  tip.style.left = Math.min(e.clientX + 14, innerWidth - 230) + "px";
+  tip.style.top = (e.clientY + 14) + "px";
+}
+
+function drawBalance(){
+  const card = $("balcard");
+  card.style.display = hasItems ? "" : "none";
+  if(!hasItems) return;
+  const H = 190, YB = H - 26, host = $("bal"), gen = totals(state.path, "vyroba"), use = totals(state.path, "spotreba");
+  host.innerHTML = "";
+  const svg = mk("svg", {viewBox:`0 0 ${W} ${H}`, role:"img", "aria-label":"Bilance po letech"}, host);
+  const bal = gen.map((g, i) => g - use[i]);
+  const lim = Math.max(1000, ...bal.map(Math.abs)) * 1.1;
+  const yS = v => (YB + 10) / 2 - v / lim * (YB - 10) / 2;
+  mk("line", {x1:X0, x2:X1, y1:yS(0), y2:yS(0), stroke:"var(--muted)"}, svg);
+  mk("text", {x:X0 - 9, y:yS(0) + 4, "text-anchor":"end"}, svg, "0");
+  mk("text", {x:X0 - 9, y:yS(lim * .8) + 4, "text-anchor":"end"}, svg, NF.format(lim * .8 / 1000));
+  mk("text", {x:X0 - 9, y:yS(-lim * .8) + 4, "text-anchor":"end"}, svg, NF.format(-lim * .8 / 1000));
+  const w = (X1 - X0) / 27 * .72;
+  DATA.years.forEach((y, i) => {
+    const v = bal[i];
+    mk("rect", {x:xScale(y) - w / 2, y:Math.min(yS(v), yS(0)), width:w, height:Math.abs(yS(v) - yS(0)), rx:2,
+      fill:v >= 0 ? "var(--ok)" : "var(--crit)", opacity:y === state.year ? 1 : .55}, svg);
+  });
+  for(const y of [2025, 2030, 2035, 2040, 2045, 2050])
+    mk("text", {x:xScale(y), y:H - 6, "text-anchor":"middle"}, svg, y);
+}
+
+function drawKpi(){
+  const i = state.year - 2025;
+  let gen, use;
+  if(hasItems){ gen = totals(state.path,"vyroba")[i]; use = totals(state.path,"spotreba")[i]; }
+  else { const h = DATA.history[DATA.history.length - 1]; gen = h.gen; use = h.use; }
+  const bal = gen - use, label = hasItems ? `${PATHNAME[state.path]}, ${state.year}` : "Skutečnost, 2025";
+  $("kpi").innerHTML =
+    `<div><small>Výběr</small><b style="font-size:15px">${label}</b></div>` +
+    `<div><small>Výroba</small><b>${NF.format(gen)}</b> GWh</div>` +
+    `<div><small>Spotřeba</small><b>${NF.format(use)}</b> GWh</div>` +
+    `<div><small>Bilance</small><b style="color:${bal >= 0 ? "var(--ok)" : "var(--crit)"}">${NF.format(bal)}</b> GWh</div>` +
+    `<div><small>Výroba vůči spotřebě</small><b>${NF.format(gen / use * 100)}</b> %</div>`;
+  $("yearv").textContent = state.year;
+}
+
+function esc(s){ return String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+function link(s){ return esc(s).replace(/https?:\/\/[^\s;,]+/g, u => `<a href="${u}" target="_blank" rel="noopener">${u}</a>`); }
+
+function drawLists(){
+  const host = $("lists");
+  host.innerHTML = "";
+  if(!hasItems) return;
+  for(const [side, title] of [["vyroba","Výroba v roce 2050"],["spotreba","Spotřeba v roce 2050"]]){
+    const card = document.createElement("section");
+    card.className = "card";
+    card.innerHTML = `<h2>${title}</h2>`;
+    for(const it of DATA.items.filter(x => x.path === state.path && x.side === side)){
+      const max = Math.max(100, it.p90 * 1.5, it.base * 1.25, it.p50 * 1.5), k = key(it);
+      const pct = v => (v / max * 100).toFixed(2) + "%";
+      const row = document.createElement("div");
+      row.className = "item";
+      row.innerHTML =
+        `<div class="top"><span>${esc(it.name)}<span class="grade ${esc(it.grade)}" title="Stupeň důkazu">${esc(it.grade)}</span></span>` +
+        `<span class="val mono"></span></div>` +
+        `<div class="track"><span class="band" style="left:${pct(it.p10)};width:${((it.p90 - it.p10) / max * 100).toFixed(2)}%"></span>` +
+        `<span class="def" style="left:${pct(it.p50)}"></span>` +
+        `<input type="range" min="0" max="${max}" step="${Math.max(1, Math.round(max / 200))}" aria-label="${esc(it.name)}"></div>` +
+        `<details><summary>Výpočet a zdroj</summary><p>Rok 2025: ${NF.format(it.base)} GWh. Výchozí hodnota ${NF.format(it.p50)} GWh, pásmo ${NF.format(it.p10)} až ${NF.format(it.p90)} GWh.</p>` +
+        `<p><b>Výpočet:</b> ${esc(it.how)}</p><p><b>Zdroj:</b> ${link(it.src)}</p>${it.note ? `<p>${esc(it.note)}</p>` : ""}</details>`;
+      const input = row.querySelector("input"), val = row.querySelector(".val");
+      const show = () => { val.textContent = NF.format(state.values[k]) + " GWh"; };
+      input.value = state.values[k];
+      show();
+      input.addEventListener("input", () => {
+        state.values[k] = Number(input.value);
+        show();
+        refresh();
+      });
+      card.appendChild(row);
+    }
+    host.appendChild(card);
+  }
+}
+
+function drawLegend(){
+  const color = state.path === "progresivni" ? "var(--prog)" : "var(--kons)";
+  $("legend").innerHTML =
+    `<span><i style="border-color:var(--ink)"></i>Skutečnost</span>` +
+    (hasItems ? `<span><i style="border-color:var(--prog)"></i>Progresivní</span><span><i style="border-color:var(--kons)"></i>Konzervativní</span>` : "") +
+    `<span><i style="border-color:var(--muted)"></i>Spotřeba</span><span><i style="border-color:var(--muted);border-top-style:dashed"></i>Výroba</span>` +
+    (hasItems ? `<span><i style="border-color:${color};border-top-width:8px;opacity:.25"></i>Pásmo výchozího nastavení, P10 až P90</span>` : "");
+}
+
+function refresh(){ drawMain(); drawBalance(); drawKpi(); }
+
+document.querySelectorAll("[data-path]").forEach(b => b.addEventListener("click", () => {
+  state.path = b.dataset.path;
+  document.querySelectorAll("[data-path]").forEach(x => x.setAttribute("aria-pressed", x === b));
+  drawLists(); drawLegend(); refresh();
+}));
+$("year").addEventListener("input", e => { state.year = Number(e.target.value); refresh(); });
+$("reset").addEventListener("click", () => { resetValues(); drawLists(); refresh(); });
+$("theme").addEventListener("click", () => {
+  const root = document.documentElement;
+  const dark = root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme:dark)").matches;
+  root.dataset.theme = dark ? "light" : "dark";
+});
+
+$("notice").textContent = hasItems
+  ? "Prototyp. Hodnoty po roce 2025 jsou odhady. Položky se stupněm D jsou odhad bez publikovaného zdroje a čekají na ověření."
+  : "Prototyp. Zatím jen skutečná data za roky 2023 až 2025. Položky, cesty a posuvníky se připravují.";
+$("foot").innerHTML = "Zdroje skutečnosti: Dopadová studie energetické bezpečnosti a soběstačnosti MSK (2024); čtvrtletní zprávy ERÚ o provozu elektrizační soustavy, roky 2024 a 2025, tabulky 6.1 a 6.3, předběžné údaje. Stupně důkazu: A měření, B publikovaná studie, C technický výpočet, D odborný odhad.";
+if(!hasItems){ $("year").closest(".yearrow").style.display = "none"; document.querySelector(".pills").style.display = "none"; $("reset").style.display = "none"; }
+resetValues();
+drawLegend(); drawLists(); refresh();
+</script>
+</body>
+</html>
