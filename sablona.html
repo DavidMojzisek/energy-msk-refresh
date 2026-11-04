@@ -493,12 +493,14 @@ function drawGroups(host){
         `<div class="track"><span class="def" style="left:${(def / max * 100).toFixed(2)}%"></span>` +
         `<input class="groupin" type="range" min="0" max="${max}" step="${Math.max(1, Math.round(max / 200))}" aria-label="${esc(g.name)}"></div>` +
         years.map(jumpHtml).join("") +
-        `<details><summary>Co je uvnitř</summary><p class="inside"></p></details>`;
+        `<details><summary>Co je uvnitř a jak se došlo k číslům</summary><p class="inside"></p>` +
+        members.filter(it => it.plain).map(it => `<p><b>${esc(it.name)}:</b> ${esc(it.plain)}${it.plainEst ? ` <b>Odhad:</b> ${esc(it.plainEst)}` : ""}</p>`).join("") +
+        `</details>`;
       const input = row.querySelector(".groupin"), val = row.querySelector(".val"), inside = row.querySelector(".inside");
       const show = () => {
         val.textContent = NF.format(now()) + " GWh";
         inside.textContent = `Rok 2025: ${NF.format(base)} GWh. Výchozí hodnota ${NF.format(def)} GWh. ` +
-          members.map(it => `${it.name} ${NF.format(state.values[key(it)])}`).join(", ") + ". Zdroje jsou v podrobné verzi.";
+          members.map(it => `${it.name} ${NF.format(state.values[key(it)])}`).join(", ") + ". Zdroje a citace jsou v podrobné verzi.";
       };
       input.value = now();
       show();
@@ -540,12 +542,16 @@ function drawLists(){
         (it.jump !== null ? jumpHtml(it) : "") +
         (it.jump === null && it.parts.length === 1 ? tmHtml(it) : "") +
         `<p class="ratewarn" hidden></p>` +
-        `<details><summary>Výpočet a zdroj</summary><p>Rok 2025: ${NF.format(it.base)} GWh. Výchozí hodnota ${NF.format(it.p50)} GWh, pásmo ${NF.format(it.p10)} až ${NF.format(it.p90)} GWh.</p>` +
+        `<details><summary>Jak se došlo k číslu</summary>` +
+        (it.plain ? `<p>${esc(it.plain)}</p>` : "") +
+        (it.plainSrc ? `<p><b>Ze zdrojů:</b> ${esc(it.plainSrc)}</p>` : "") +
+        (it.plainEst ? `<p><b>Odhad:</b> ${esc(it.plainEst)}</p>` : "") +
+        `<details><summary>Podrobný výpočet a zdroj</summary><p>Rok 2025: ${NF.format(it.base)} GWh. Výchozí hodnota ${NF.format(it.p50)} GWh, pásmo ${NF.format(it.p10)} až ${NF.format(it.p90)} GWh.</p>` +
         (it.jump !== null ? `<p>Výchozí rok změny ${it.jump}, pásmo ${it.jumpLow} až ${it.jumpHigh}.</p>` : "") +
         (it.driverName ? `<p>Křivka zahrnuje vnější vliv ${esc(it.driverName)}, tedy například demografii nebo účinnost.</p>` : "") +
         `<p><b>Výpočet:</b> ${esc(it.how)}</p><p><b>Zdroj:</b> ${link(it.src)}</p>` +
         (it.page ? `<p><b>Dopadová studie:</b> ${esc(it.page)}${it.quote ? `, „${esc(it.quote)}“` : ""}</p>` : "") +
-        `${it.note ? `<p>${esc(it.note)}</p>` : ""}</details>`;
+        `${it.note ? `<p>${esc(it.note)}</p>` : ""}</details></details>`;
       const input = row.querySelector("input"), val = row.querySelector(".val");
       const show = () => { val.textContent = NF.format(state.values[k]) + " GWh"; };
       input.value = state.values[k];

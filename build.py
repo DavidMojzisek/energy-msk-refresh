@@ -31,6 +31,8 @@ def build_data():
     rows = read_rows(path) if path.exists() else []
     drivers = read_drivers(HERE / "ridici_vlivy.csv")
     models = [item_model(r, drivers) for r in rows]
+    popis_path = HERE / "polozky_popis.csv"
+    popis = {(text(r, "polozka"), text(r, "cesta")): r for r in read_rows(popis_path)} if popis_path.exists() else {}
     rng = np.random.default_rng(20261104)
     items, bands, fit_report = [], {}, []
     for route in PATHS:
@@ -41,6 +43,7 @@ def build_data():
                 bands[route][side] = simulate([c[0] for c in chosen], [c[1] for c in chosen], rng, RUNS)
     for r, m in zip(rows, models):
         jump = m["jump"]
+        plain = popis.get((text(r, "polozka"), text(r, "cesta")), {})
         driver = None if not text(r, "ridic") else [round(float(v), 4) for v in m["driver"]]
         items.append({
             "name": text(r, "polozka"), "side": text(r, "strana"), "path": text(r, "cesta"),
@@ -53,6 +56,7 @@ def build_data():
             "jumpLow": num(r, "skok_rok_p10") if jump else None,
             "jumpHigh": num(r, "skok_rok_p90") if jump else None,
             "event": text(r, "udalost").split(",")[0],
+            "plain": text(plain, "jak_se_doslo"), "plainSrc": text(plain, "ze_zdroju"), "plainEst": text(plain, "odhad"),
         })
         value = curve(m)
         for year, key in ((2030, "p50_2030"), (2040, "p50_2040")):
