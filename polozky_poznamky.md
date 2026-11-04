@@ -1,7 +1,11 @@
 # Poznámky k tabulce polozky.csv (2026-11-04)
 
 Čísla ve sloupcích CSV mají desetinnou tečku a nemají oddělovač tisíců, aby je šlo strojově načíst. Texty používají čárku jako zdroje.
-Stupeň se vztahuje ke vstupům P50. Meze P10 a P90 jsou téměř všude úsudek, i u řádků B a C, pokud citace neříká jinak.
+Stupeň se vztahuje ke vstupům P50. Meze P10 a P90 jsou téměř všude úsudek, i u řádků B a C, pokud citace neříká jinak. Stupeň A nemá žádný řádek, protože každý obsahuje výhled; základy z ERÚ jsou změřené.
+
+Pro model:
+- Vysoký los faktoru znamená rychlejší elektrifikaci, rychlejší povolování a vyšší cenu energií. U řádků hutní plyny, zemní plyn: stávající kogenerace, přímotopy a úspory a účinnost se kvantil faktoru čte obráceně.
+- U skokových řádků Třinecké železárny, hutní plyny a energetické využití odpadu se hladina mezi milníky mění. Čtení: základ do skok_rok, potom skok na první milník v roce skok_rok nebo později, dále plynule mezi milníky.
 
 ## 1. Výchozí stav
 
@@ -23,7 +27,7 @@ ERÚ Roční zpráva 2025 (tab. 4.1, 4.3) uvádí vyšší hodnoty: výroba 2 81
 
 ## 3. Rozsah 7 090 GWh proti tab. 6.3
 
-Ano, je to stejná řada. Doc 01 Tab. 6 s. 40 (7 090 283,3 MWh, 2023) a ERÚ 6.3 za 2023 Q1, Q2, Q4 dávají 5 438 907,3 MWh. Zbývá 1 651 376,0 MWh na Q3, což je věrohodné proti Q2 a Q4 (1 739 196,9 a 1 760 864,5), a odpovídá to i po sektorech (Průmysl 802,3, Energetika 253,2 GWh). Přímý důkaz chybí, protože zpráva za Q3 2023 v podkladech není. Pokles z 7 090 na 6 810 GWh je tedy skutečná změna ve stejné řadě.
+Ano, je to stejná řada. Doc 01 Tab. 6 s. 40 (7 090 283,3 MWh, 2023) a ERÚ 6.3 za 2023 Q1, Q2, Q4 dávají 5 438 907,3 MWh. Zbývá 1 651 376,0 MWh na Q3, což je věrohodné proti Q2 a Q4 (1 739 196,9 a 1 760 864,5), a odpovídá to i po sektorech (Průmysl 802,3, Energetika 253,2 GWh). Sezónnost sedí: Q3/Q2 je v 2024 0,949 a dopočtené v 2023 0,950. Přímý důkaz chybí, protože zpráva za Q3 2023 v podkladech není. ERÚ Roční zpráva 2025 (4.6.8) uvádí 2023 netto 5 805 315,2 MWh, takže doc 01 Tab. 1 a Obr. 28 a 38 patří k řadě 6.2. Pokles z 7 090 na 6 810 GWh je tedy skutečná změna ve stejné řadě.
 Doc 01 s. 40: sektorový pohled „zahrnuje kromě spotřeby podle kategorizace spotřeb navíc spotřebu provozovatelů přenosové a distribuční soustavy, lokální spotřebu a technologickou vlastní spotřebu“. Studie sama počítá bilanci z užšího čísla 5 805,4 GWh, takže její výhledy (Obr. 28, 38) jsou na jiné bázi než tab. 6.3.
 
 ## 4. Energetika a Průmysl v 2025
@@ -75,7 +79,7 @@ Progresivní P50 2050: výroba 8 995 GWh, spotřeba 13 461 GWh včetně ztrát. 
 1. ostatní průmysl a chemie, 1 992 (rozvojové plochy z extrémního scénáře, držení v čase)
 2. osobní auta, 1 334 (podíl 72 %, počet aut v MSK neověřen)
 3. Třinecké železárny progresivní, 1 231 (plná elektrifikace je naše čtení, intenzita viz 10)
-4. výroba syntetického plynu, 1 076 (účinnosti a podíl v kraji bez zdroje)
+4. výroba syntetického plynu, 1 076 (účinnosti a podíl v kraji bez zdroje). Otázka na zadavatele: KONTEXT píše „syntetický- využívání odpadu“. Pokud jde o plyn z odpadu, tento řádek klesne k nule.
 5. nákladní doprava, 1 076 (podíl osobních aut 72 % a baterií 80 %)
 6. fotovoltaika střešní, 1 058 (dělení střecha a pozem)
 7. ostatní energetika, 1 001 (obsah neznámý)

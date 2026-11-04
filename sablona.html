@@ -308,7 +308,7 @@ $("theme").addEventListener("click", () => {
 $("notice").textContent = hasItems
   ? "Prototyp. Hodnoty po roce 2025 jsou odhady. Položky se stupněm D jsou odhad bez publikovaného zdroje a čekají na ověření."
   : "Prototyp. Zatím jen skutečná data za roky 2023 až 2025. Položky, cesty a posuvníky se připravují.";
-$("foot").innerHTML = "Výroba je brutto. Spotřeba je součet sektorů plus ztráty v sítích. Zdroje skutečnosti: Dopadová studie energetické bezpečnosti a soběstačnosti MSK (2024), Tab. 1 a Tab. 6; zprávy ERÚ o provozu elektrizační soustavy, tabulky 6.1 a 6.3, předběžné údaje. Stupně důkazu: A měření, B publikovaná studie, C technický výpočet, D odhad bez publikovaného zdroje. Meze P10 a P90 jsou téměř všude odhad. <a href=\"polozky.csv\">Tabulka položek</a>, <a href=\"polozky_poznamky.md\">poznámky ke zdrojům</a>.";
+$("foot").innerHTML = "Výroba je brutto. Spotřeba je součet sektorů plus ztráty v sítích. Zdroje skutečnosti: Dopadová studie energetické bezpečnosti a soběstačnosti MSK (2024), Tab. 1 a Tab. 6; zprávy ERÚ o provozu elektrizační soustavy, tabulky 6.1 a 6.3, předběžné údaje. Stupně důkazu: A měření, B publikovaná studie, C technický výpočet, D odhad bez publikovaného zdroje. Meze P10 a P90 jsou téměř všude odhad. <a href=\"polozky.csv\">Tabulka položek</a>, <a href=\"polozky_poznamky.md\">poznámky ke zdrojům</a>, <a href=\"grafy_polozek.pdf\">grafy položek</a>.";
 if(!hasItems){ $("year").closest(".yearrow").style.display = "none"; document.querySelector(".pills").style.display = "none"; $("reset").style.display = "none"; }
 resetValues();
 drawLegend(); drawLists(); refresh();
