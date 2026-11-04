@@ -250,7 +250,8 @@ function drawLists(){
     const card = document.createElement("section");
     card.className = "card";
     card.innerHTML = `<h2>${title}</h2>`;
-    for(const it of DATA.items.filter(x => x.path === state.path && x.side === side)){
+    const size = x => Math.max(x.p50, x.base);
+    for(const it of DATA.items.filter(x => x.path === state.path && x.side === side).sort((a, c) => size(c) - size(a))){
       const max = Math.max(100, it.p90 * 1.5, it.base * 1.25, it.p50 * 1.5), k = key(it);
       const pct = v => (v / max * 100).toFixed(2) + "%";
       const row = document.createElement("div");
@@ -262,7 +263,9 @@ function drawLists(){
         `<span class="def" style="left:${pct(it.p50)}"></span>` +
         `<input type="range" min="0" max="${max}" step="${Math.max(1, Math.round(max / 200))}" aria-label="${esc(it.name)}"></div>` +
         `<details><summary>Výpočet a zdroj</summary><p>Rok 2025: ${NF.format(it.base)} GWh. Výchozí hodnota ${NF.format(it.p50)} GWh, pásmo ${NF.format(it.p10)} až ${NF.format(it.p90)} GWh.</p>` +
-        `<p><b>Výpočet:</b> ${esc(it.how)}</p><p><b>Zdroj:</b> ${link(it.src)}</p>${it.note ? `<p>${esc(it.note)}</p>` : ""}</details>`;
+        `<p><b>Výpočet:</b> ${esc(it.how)}</p><p><b>Zdroj:</b> ${link(it.src)}</p>` +
+        (it.page ? `<p><b>Dopadová studie:</b> ${esc(it.page)}${it.quote ? `, „${esc(it.quote)}“` : ""}</p>` : "") +
+        `${it.note ? `<p>${esc(it.note)}</p>` : ""}</details>`;
       const input = row.querySelector("input"), val = row.querySelector(".val");
       const show = () => { val.textContent = NF.format(state.values[k]) + " GWh"; };
       input.value = state.values[k];
@@ -305,7 +308,7 @@ $("theme").addEventListener("click", () => {
 $("notice").textContent = hasItems
   ? "Prototyp. Hodnoty po roce 2025 jsou odhady. Položky se stupněm D jsou odhad bez publikovaného zdroje a čekají na ověření."
   : "Prototyp. Zatím jen skutečná data za roky 2023 až 2025. Položky, cesty a posuvníky se připravují.";
-$("foot").innerHTML = "Zdroje skutečnosti: Dopadová studie energetické bezpečnosti a soběstačnosti MSK (2024); čtvrtletní zprávy ERÚ o provozu elektrizační soustavy, roky 2024 a 2025, tabulky 6.1 a 6.3, předběžné údaje. Stupně důkazu: A měření, B publikovaná studie, C technický výpočet, D odborný odhad.";
+$("foot").innerHTML = "Výroba je brutto. Spotřeba je součet sektorů plus ztráty v sítích. Zdroje skutečnosti: Dopadová studie energetické bezpečnosti a soběstačnosti MSK (2024), Tab. 1 a Tab. 6; zprávy ERÚ o provozu elektrizační soustavy, tabulky 6.1 a 6.3, předběžné údaje. Stupně důkazu: A měření, B publikovaná studie, C technický výpočet, D odhad bez publikovaného zdroje. Meze P10 a P90 jsou téměř všude odhad. <a href=\"polozky.csv\">Tabulka položek</a>, <a href=\"polozky_poznamky.md\">poznámky ke zdrojům</a>.";
 if(!hasItems){ $("year").closest(".yearrow").style.display = "none"; document.querySelector(".pills").style.display = "none"; $("reset").style.display = "none"; }
 resetValues();
 drawLegend(); drawLists(); refresh();

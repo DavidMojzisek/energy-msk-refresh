@@ -16,11 +16,14 @@ RUNS = 10000
 RHO = 0.6
 Z90 = norm.ppf(0.9)
 
-# Skutečnost v GWh. Spotřeba je součet sektorů, výroba je brutto.
+# Skutečnost v GWh. Výroba je brutto, spotřeba je součet sektorů plus ztráty v sítích.
+# 2023: výroba ERÚ Roční zpráva, sektory Dopadová studie Tab. 6, ztráty 6 018,9 - 5 805,4 z Tab. 1.
+# 2024 a 2025: čtvrtletní zprávy ERÚ, ztráty jsou netto z tab. 6.2 × 3,547 % / (1 - 3,547 %).
+LOSS = 0.03547 / (1 - 0.03547)
 HISTORY = [
-    {"y": 2023, "gen": 3630.1, "use": 7090.0},
-    {"y": 2024, "gen": 3052.3406, "use": 6810.1894},
-    {"y": 2025, "gen": 2805.1634, "use": 6850.6486},
+    {"y": 2023, "gen": 3703.2208, "use": 7090.2833 + 213.5},
+    {"y": 2024, "gen": 3052.3406, "use": 6810.1894 + 5931.2084 * LOSS},
+    {"y": 2025, "gen": 2805.1634, "use": 7069.9644},
 ]
 
 
@@ -100,9 +103,13 @@ def build_data():
             "base": p["zaklad_2025_GWh"], "p10": p["p10_2050"], "p50": p["p50_2050"], "p90": p["p90_2050"],
             "curve": median_curve(r), "grade": r["stupen"].strip(), "how": r["odvozeni"].strip(),
             "src": r["zdroj"].strip(), "note": r["poznamka"].strip(),
+            "page": (r.get("strana_studie") or "").strip(), "quote": (r.get("citace") or "").strip(),
         })
         if r["prubeh"].strip() == "skok" and r["udalost"].strip():
-            events.append({"path": r["cesta"].strip(), "year": num(r, "skok_rok_p50"), "label": r["udalost"].strip()})
+            label = r["udalost"].strip().split(",")[0]
+            event = {"path": r["cesta"].strip(), "year": num(r, "skok_rok_p50"), "label": label}
+            if event not in events:
+                events.append(event)
     return {"years": YEARS.tolist(), "history": HISTORY, "items": items, "bands": bands, "events": events}
 
 
