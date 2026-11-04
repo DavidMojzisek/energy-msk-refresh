@@ -21,7 +21,7 @@ Tento soubor popisuje model roční výroby a spotřeby elektřiny v Moravskosle
 | C | Technický výpočet ze známých parametrů. |
 | D | Odhad bez publikovaného zdroje, který čeká na ověření. Nikdo ho zatím nezávisle nepotvrdil. |
 
-V tabulce položek je 56 řádků se stupněm D, 23 se stupněm C, 15 se stupněm B a žádný se stupněm A, protože každý řádek obsahuje výhled. Základy za rok 2025 z ERÚ jsou změřené. Tyto počty jsou odvozené sečtením řádků tabulky.
+V tabulce položek je 54 řádků se stupněm D, 25 se stupněm C, 15 se stupněm B a žádný se stupněm A, protože každý řádek obsahuje výhled. Základy za rok 2025 z ERÚ jsou změřené. Tyto počty jsou odvozené sečtením řádků tabulky.
 
 **Zápis čísel.** Hodnoty převzaté z datových tabulek mají desetinnou tečku a nemají oddělovač tisíců, přesně jako v datových souborech stránky. Texty, odvození a citace mají desetinnou čárku a mezeru mezi tisíci, jako zdroje. Čísla jsou převzata skriptem z datových tabulek modelu a nejsou zaokrouhlena. Jednotky jsou GWh za rok, pokud není uvedeno jinak. Odvozené součty jsou výslovně označené.
 
@@ -63,11 +63,11 @@ Progresivní a konzervativní jsou pracovní názvy dvou cest pro kraj. Nejsou t
 | Cesta | Strana | Základ 2025 | P10 simulace | P50 simulace | P90 simulace | Součet výchozích hodnot |
 |---|---|---|---|---|---|---|
 | progresivní | výroba | 2805.1634 | 4500.8 | 8110.9 | 10807.8 | 8331.812 |
-| progresivní | spotřeba | 7069.9644 | 11185.9 | 14558.5 | 18123.1 | 14332.4 |
+| progresivní | spotřeba | 7069.9644 | 10414.8 | 13458.8 | 16605.6 | 13243.6 |
 | konzervativní | výroba | 2805.1634 | 2755.4 | 4249.6 | 5686.2 | 4138.712 |
 | konzervativní | spotřeba | 7069.9644 | 7130.3 | 8466.6 | 10043.3 | 8320 |
 
-Pásmo P10, P50 a P90 je z výpočtu zveřejněného na stránce. Součet výchozích hodnot je odvozený součet sloupce P50 2050 z části 5. Odvozený rozdíl výroby a spotřeby z těchto součtů je -6000.588 GWh v progresivní cestě a -4181.288 GWh v konzervativní cestě.
+Pásmo P10, P50 a P90 je z výpočtu zveřejněného na stránce. Součet výchozích hodnot je odvozený součet sloupce P50 2050 z části 5. Odvozený rozdíl výroby a spotřeby z těchto součtů je -4911.788 GWh v progresivní cestě a -4181.288 GWh v konzervativní cestě.
 
 P50 simulace a součet výchozích hodnot nejsou totéž. Medián součtu nesymetricky rozdělených položek se nerovná součtu jejich mediánů. Ve výrobě progresivní cesty k tomu přispívá SMR: rok spuštění má P90 2055, takže v části běhů do roku 2050 nic nevyrobí. Výroba a spotřeba se simulují zvlášť, proto z pásem nelze odvodit pásmo jejich rozdílu.
 
@@ -76,9 +76,9 @@ P50 simulace a součet výchozích hodnot nejsou totéž. Medián součtu nesyme
 | Cesta | Rok | Zatížení | Dostupný výkon | Bilance | Baterie | Bilance s bateriemi | Výdrž baterií, h | Vítr při měřeném mediánu | Bilance s měřeným větrem |
 |---|---|---|---|---|---|---|---|---|---|
 | progresivní | 2025 | 1186.0 | 1062.0 | -123.9 | 10 | -113.9 | 1.0 | 6.4 | -117.5 |
-| progresivní | 2030 | 1284.0 | 496.3 | -787.7 | 50 | -737.7 | 1.0 | 18.4 | -769.3 |
-| progresivní | 2040 | 1596.7 | 508.2 | -1088.5 | 207.7 | -880.8 | 72.0 | 76.2 | -1012.3 |
-| progresivní | 2050 | 1742.0 | 681.9 | -1060.1 | 1212.1 | 152.0 | 82.3 | 119.8 | -940.3 |
+| progresivní | 2030 | 1283.7 | 496.3 | -787.4 | 50 | -737.4 | 1.0 | 18.4 | -769.0 |
+| progresivní | 2040 | 1630.2 | 508.2 | -1121.9 | 207.7 | -914.3 | 72.0 | 76.2 | -1045.7 |
+| progresivní | 2050 | 1825.6 | 681.9 | -1143.8 | 1212.1 | 68.3 | 76.3 | 119.8 | -1024.0 |
 | konzervativní | 2025 | 1186.0 | 1062.0 | -123.9 | 10 | -113.9 | 1.0 | 6.4 | -117.5 |
 | konzervativní | 2030 | 1234.0 | 655.0 | -578.9 | 25 | -553.9 | 1.0 | 7.6 | -571.3 |
 | konzervativní | 2040 | 1337.3 | 667.0 | -670.3 | 30.9 | -639.4 | 72.0 | 13.4 | -656.9 |
@@ -89,9 +89,9 @@ P50 simulace a součet výchozích hodnot nejsou totéž. Medián součtu nesyme
 | Cesta | Rok | Zatížení bez flexibilních | Dostupný výkon | Bilance před flexibilními | Rezerva v řízeném plynu | Nabíjení baterií | Elektrokotle | Potřeba elektrolýzy | Zbývá pro vodík |
 |---|---|---|---|---|---|---|---|---|---|
 | progresivní | 2025 | 783.4 | 364.8 | -418.6 | 0.0 | 0 | 0.0 | 0.0 | 0.0 |
-| progresivní | 2030 | 828.3 | 550.9 | -277.4 | 133.2 | 0 | 0 | 8.4 | 0 |
-| progresivní | 2040 | 1042.8 | 927.0 | -115.8 | 342.1 | 0 | 0 | 310.4 | 0 |
-| progresivní | 2050 | 1153.0 | 1677.4 | 524.5 | 104.0 | 200.0 | 45.0 | 1166.7 | 279.5 |
+| progresivní | 2030 | 828.1 | 550.9 | -277.2 | 133.2 | 0 | 0 | 8.1 | 0 |
+| progresivní | 2040 | 1056.6 | 927.0 | -129.7 | 342.1 | 0 | 0 | 127.3 | 0 |
+| progresivní | 2050 | 1187.4 | 1677.4 | 490.1 | 104.0 | 200.0 | 45.0 | 668.5 | 245.1 |
 | konzervativní | 2025 | 783.4 | 364.8 | -418.6 | 0.0 | 0 | 0.0 | 0.0 | 0.0 |
 | konzervativní | 2030 | 807.5 | 421.1 | -386.5 | 171.5 | 0 | 0 | 1.7 | 0 |
 | konzervativní | 2040 | 917.7 | 383.5 | -534.2 | 456.3 | 0 | 0 | 3.7 | 0 |
@@ -102,9 +102,9 @@ P50 simulace a součet výchozích hodnot nejsou totéž. Medián součtu nesyme
 | Cesta | Rok | Zimní zatížení v rozsahu Dopadové studie, MW | Spotřeba podle křivek, GWh | Výroba podle křivek, GWh |
 |---|---|---|---|---|
 | progresivní | 2025 | 1070.3 | 7070.0 | 2805.2 |
-| progresivní | 2030 | 1168.3 | 7512.0 | 3015.8 |
-| progresivní | 2040 | 1481.0 | 10431.9 | 4499.3 |
-| progresivní | 2050 | 1626.3 | 14332.4 | 8331.8 |
+| progresivní | 2030 | 1168.0 | 7509.1 | 3015.8 |
+| progresivní | 2040 | 1514.5 | 10045.4 | 4499.3 |
+| progresivní | 2050 | 1710.0 | 13243.6 | 8331.8 |
 | konzervativní | 2025 | 1070.3 | 7070.0 | 2805.2 |
 | konzervativní | 2030 | 1118.3 | 7289.6 | 3145.1 |
 | konzervativní | 2040 | 1221.6 | 8119.6 | 3468.7 |
@@ -118,7 +118,7 @@ Soběstačnost je zde roční bilance, ne pokrytí v každé hodině. Přepočet
 
 | Cesta | Výroba, GWh | Spotřeba, GWh | Schodek, GWh | Jen fotovoltaika navíc, GWp | Jen vítr navíc, GW | Tempo navíc, GWh za rok |
 |---|---|---|---|---|---|---|
-| Progresivní | 8 331,8 | 14 332,4 | 6 000,6 | 5,7 | 2,2 | 240,0 |
+| Progresivní | 8 331,8 | 13 243,6 | 4 911,8 | 4,7 | 1,8 | 196,5 |
 | Konzervativní | 4 138,7 | 8 320,0 | 4 181,3 | 4,0 | 1,5 | 167,3 |
 
 ## 4. Metoda
@@ -254,12 +254,12 @@ Jde jen o kontrolu proti jiným scénářům. Cílem není se s nimi shodovat.
 |---|---|---|---|
 | Dopadová studie očekávaný, Obr. 36 | 7 229,9 / (1 − 0,03547) / 5 869 = 1 277,2 MW | 1 325,4 MW | +48,2 MW |
 | Dopadová studie extrémní, Obr. 40, Tab.46 | 1 752,0 MW | 1 731,5 − 378,0 = 1 353,5 MW | −398,5 MW |
-| Progresivní cesta | 1626,3 MW | 566,2 MW | -1060,1 MW; s bateriemi 152,0 MW po 82,3 h; s měřeným větrem -940,3 MW |
+| Progresivní cesta | 1710,0 MW | 566,2 MW | -1143,8 MW; s bateriemi 68,3 MW po 76,3 h; s měřeným větrem -1024,0 MW |
 | Konzervativní cesta | 1226,5 MW | 713,1 MW | -513,4 MW; s bateriemi -392,2 MW; s měřeným větrem -495,6 MW |
 
-Dostupný výkon cest je po odečtení lokální části 115,7 MW, aby šel srovnat se studií. Hlavní příčiny rozdílu jsou v cestách: progresivní cesta má 433 MW plynu místo 683 MW, konzervativní nemá SMR. Přesný rozklad zbytku není k dispozici, Dopadová studie dosažitelný výkon po zdrojích pro 2050 netiskne. Obr. 36 a 40 Dětmarovice nepočítají, ty přidává až Tab.46. Metoda studie s τ na celé energii by dala progresivní cestě (14332,4 − 886,8) / 5,869 = 2290,9 MW, protože by započetla i elektrolýzu ve špičce.
+Dostupný výkon cest je po odečtení lokální části 115,7 MW, aby šel srovnat se studií. Hlavní příčiny rozdílu jsou v cestách: progresivní cesta má 433 MW plynu místo 683 MW, konzervativní nemá SMR. Přesný rozklad zbytku není k dispozici, Dopadová studie dosažitelný výkon po zdrojích pro 2050 netiskne. Obr. 36 a 40 Dětmarovice nepočítají, ty přidává až Tab.46. Metoda studie s τ na celé energii by dala progresivní cestě (13243,6 − 886,8) / 5,869 = 2105,4 MW, protože by započetla i elektrolýzu ve špičce.
 
-**Léto 2050.** Progresivní cesta má přebytek 524,5 MW. Po bateriích a elektrokotlích zbývá elektrolýze 279,5 MW z potřebných 1166,7 MW. Polední přebytek sám roční objem vodíku nepokryje, stejně jako měsíční bilance v měsíční tabulce (část 8), kde schodek trvá celý rok. Konzervativní cesta má -542,5 MW a přebytek nemá, řízený plyn v záloze je 612,3 MW.
+**Léto 2050.** Progresivní cesta má přebytek 490,1 MW. Po bateriích a elektrokotlích zbývá elektrolýze 245,1 MW z potřebných 668,5 MW. Polední přebytek sám roční objem vodíku nepokryje, stejně jako měsíční bilance v měsíční tabulce (část 8), kde schodek trvá celý rok. Konzervativní cesta má -542,5 MW a přebytek nemá, řízený plyn v záloze je 612,3 MW.
 
 Dopadová studie netto 2050: očekávaný 7 229,9 GWh (Obr. 28), extrémní 9 917,3 GWh (Obr. 38, přiřazení barvy je výklad modelu), obojí bez 887 GWh lokální části a ztrát. Spotřeba progresivní cesty je výrazně vyšší. Hlavní důvody jsou výroba vodíku pro flotilu, datacentra a plná elektrifikace oceli, které studie nemá nebo má méně.
 
@@ -1276,28 +1276,28 @@ Každá položka má tabulku pro obě cesty v GWh za rok a pod ní odrážky. Po
 
 | Cesta | Základ 2025 | P10 2050 | P50 2050 | P90 2050 | P50 2030 | P50 2040 | Stupeň |
 |---|---|---|---|---|---|---|---|
-| progresivní | 6.0772 | 230.0 | 493.8 | 721.3 | 42.8 | 350.2 | D |
+| progresivní | 6.0772 | 460.1 | 938.2 | 1442.7 | 42.8 | 525.3 | D |
 | konzervativní | 6.0772 | 59.5 | 187.6 | 502.4 | 24.0 | 105.1 | D |
 
-- **Meze 2030 a 2040, progresivní:** 2030 P10 22.5, P90 71.3; 2040 P10 126.6, P90 579.7
+- **Meze 2030 a 2040, progresivní:** 2030 P10 22.5, P90 71.3; 2040 P10 189.9, P90 869.6
 - **Meze 2030 a 2040, konzervativní:** 2030 P10 15.8, P90 40.0; 2040 P10 39.7, P90 302.9
 - **Průběh:** plynule
 - **Společný faktor:** elektrifikace
 - **Řídicí vliv:** d_auta
 - **Historické maximum tempa, GWh za rok:** 0.3259
-- **Jak se došlo, progresivní:** 625 545 aut × 2,295 MWh na auto za rok = 1 435,6 GWh, × 50 % na baterie × 0,6879 úbytek obyvatel, více aut na osobu a účinnost = 493,8 GWh.
+- **Jak se došlo, progresivní:** 625 545 aut × 0,8449 obyvatelé × 1,1548 aut na osobu = 610 338 aut v roce 2050, z toho 95 % elektrických, × 2,295 MWh na auto za rok × 0,705 účinnost = 938,2 GWh.
 - **Jak se došlo, konzervativní:** 20 % z předchozí bateriové hodnoty progresivní cesty 938,2 GWh (1 363,8 × 0,6879) = 187,6 GWh.
 - **Ze zdrojů, progresivní:** ČSÚ Statistická ročenka MSK 2025, tab. 17.1 (625 545 aut); Dopadová studie, s. 110 až 111 (13 500 km, 17 kWh/100 km); ČSÚ projekce obyvatel krajů; Krause et al. 2020, Tab. 4 a Tab. 6
 - **Ze zdrojů, konzervativní:** ČSÚ Statistická ročenka MSK 2025, tab. 17.1 (625 545 aut); Dopadová studie, s. 110 až 111; ČSÚ projekce obyvatel krajů; Krause et al. 2020, Tab. 4 a Tab. 6
-- **Odhad, progresivní:** 50 % je volba modelu (volba modelu č. 27), ne zdroj. Dorovnání aut na osobu na dnešní Česko a přenos účinnosti nových aut na celý park jsou úsudek.
+- **Odhad, progresivní:** 50 % je dáno definicí cesty, ne zdroj. Dorovnání aut na osobu na dnešní Česko a přenos účinnosti nových aut na celý park jsou úsudek.
 - **Odhad, konzervativní:** 20 % je dáno definicí cesty, ne zdroj. 938,2 GWh stojí na úsudku 95 % aut na baterie a na odhadnutých vlivech.
-- **Podrobné odvození, progresivní:** Ze studie: km, kWh, vozidla, 9,4 %. Vlastní krok a jiné zdroje: intenzita 13,5 tis. km × 17 kWh/100 km = 2,295 MWh. Základ 2 648 BEV × 2,295 = 6,0772. 2030: 119 000 až 330 000 × 9,4 %; P50 20 000 aut. Počet aut 625 545 včetně dodávkových (ČSÚ, 31.12.2024) místo 850 000 × 72 %. Bez vlivu 2050 P50: 625 545 × 95 % × 2,295 MWh = 1 363,8. Revize: y = d_auta × s, kde s je řádek s dnešními vstupy a d_auta je v tabulce řídicích vlivů (část 6). 2030: P10 25,7 × 0,8774 = 22,5; P50 45,9 × 0,9335 = 42,8; P90 71,2 × 1,0010 = 71,3. 2040: P10 287,1 × 0,6614 = 189,9; P50 646,0 × 0,8131 = 525,3; P90 861,4 × 1,0095 = 869,6. 2050: P10 1 004,9 × 0,4578 = 460,1; P50 1 363,8 × 0,6879 = 938,2; P90 1 435,6 × 1,0049 = 1 442,7. Revize vodík (volba modelu č. 27): 2030 beze změny, vodíkových aut je málo. 2040: třetina tehdy čistých aut jede na vodík, baterie je 2/3 z 287,1, 646,0 a 861,4; × 0,6614, 0,8131, 1,0095 = 126,6, 350,2, 579,7. 2050: plná flotila 625 545 × 2,295 MWh = 1 435,6; × 50 % = 717,8; × 0,6879 = 493,8. P10 35 % = 502,5 × 0,4578 = 230,0. P90 50 % = 717,8 × 1,0049 = 721,3. Nahrazuje 95 % výše.
+- **Podrobné odvození, progresivní:** Ze studie: km, kWh, vozidla, 9,4 %. Vlastní krok a jiné zdroje: intenzita 13,5 tis. km × 17 kWh/100 km = 2,295 MWh. Základ 2 648 BEV × 2,295 = 6,0772. 2030: 119 000 až 330 000 × 9,4 %; P50 20 000 aut. Počet aut 625 545 včetně dodávkových (ČSÚ, 31.12.2024) místo 850 000 × 72 %. Bez vlivu 2050 P50: 625 545 × 95 % × 2,295 MWh = 1 363,8. Revize: y = d_auta × s, kde s je řádek s dnešními vstupy a d_auta je v tabulce řídicích vlivů (část 6). 2030: P10 25,7 × 0,8774 = 22,5; P50 45,9 × 0,9335 = 42,8; P90 71,2 × 1,0010 = 71,3. 2040: P10 287,1 × 0,6614 = 189,9; P50 646,0 × 0,8131 = 525,3; P90 861,4 × 1,0095 = 869,6. 2050: P10 1 004,9 × 0,4578 = 460,1; P50 1 363,8 × 0,6879 = 938,2; P90 1 435,6 × 1,0049 = 1 442,7.
 - **Podrobné odvození, konzervativní:** Ze studie: km, kWh, vozidla, 9,4 %. Vlastní krok a jiné zdroje: 20 % × progresivní P50, nová čísla viz Revize. 2030: dolní mez plánu 119 000 × 9,4 % × 2,295 MWh. Revize: y = d_auta × s, kde s je řádek s dnešními vstupy a d_auta je v tabulce řídicích vlivů (část 6). 2030: P10 18,0 × 0,8774 = 15,8; P50 25,7 × 0,9335 = 24,0; P90 40,0 × 1,0010 = 40,0. 2040: P10 60,0 × 0,6614 = 39,7; P50 20 % × progresivní P50 525,3 = 105,1; P90 300,0 × 1,0095 = 302,9. 2050: P10 130,0 × 0,4578 = 59,5; P50 20 % × progresivní P50 938,2 = 187,6; P90 500,0 × 1,0049 = 502,4.
 - **Zdroj, progresivní:** https://cdv.gov.cz/file/tz-nejvice-elektromobilu-je-v-praze-plynovych-aut-v-moravskoslezskem-kraji; Dopadová studie s.110-111; Vnitrostátní plán Tab.32 s.106, s.339; ČSÚ, Projekce obyvatelstva v krajích ČR do roku 2080, kód 130052-24, 12.12.2024, Tab. 4_CZ080, řádek Počet obyvatel: celkem, https://csu.gov.cz/produkty/projekce-obyvatelstva-v-krajich-cr-do-roku-2080; ČSÚ, Statistická ročenka Moravskoslezského kraje 2025, tab. 17.1, 17.102 a 27.102 (zdroj dat Ministerstvo dopravy), https://csu.gov.cz/produkty/statisticka-rocenka-moravskoslezskeho-kraje-2025; Krause et al., EU road vehicle energy consumption and CO2 emissions by 2050, Energy Policy 138 (2020) 111224, Tab.4 a Tab.6, doi 10.1016/j.enpol.2019.111224
 - **Zdroj, konzervativní:** Definice cest (část 2); volba modelu č. 3; Vnitrostátní plán Tab.32; ČSÚ, Projekce obyvatelstva v krajích ČR do roku 2080, kód 130052-24, 12.12.2024, Tab. 4_CZ080, řádek Počet obyvatel: celkem, https://csu.gov.cz/produkty/projekce-obyvatelstva-v-krajich-cr-do-roku-2080; ČSÚ, Statistická ročenka Moravskoslezského kraje 2025, tab. 17.1, 17.102 a 27.102 (zdroj dat Ministerstvo dopravy), https://csu.gov.cz/produkty/statisticka-rocenka-moravskoslezskeho-kraje-2025; Krause et al., EU road vehicle energy consumption and CO2 emissions by 2050, Energy Policy 138 (2020) 111224, Tab.4 a Tab.6, doi 10.1016/j.enpol.2019.111224
 - **Strana:** s.110-111
 - **Citace:** očekávaný: 13,5 tis. km, „17 kWh / 100 km“, „850 tisíc vozidel“, „9,4 %“, „2,75 TWh“; tab. 17.1 „Osobní automobily včetně dodávkových | 600223 | 615713 | 625545“ (2022, 2023, 2024, k 31.12.); tab. 27.102 „Střední stav obyvatel“ Česko 10886531; tab. 27.3 „Střední stav obyvatel | osoby | 1187776 | 1190143 | 1184662“; tab. 17.102 „Česko / Czechia | 6638172“; Tab.4 „Small car 2015 (Baseline)“ 155 Wh/km, „Large Car 2015 (Baseline)“ 189 Wh/km; Tab.6 „Small Car 2050, Pessimistic“ 109, 0.30; „Small Car 2050, Optimistic“ 74, 0.52; „Large Car 2050, Pessimistic“ 135, 0.29; „Large Car 2050, Optimistic“ 96, 0.49
-- **Poznámka, progresivní:** P50 v tomto řádku nebo jeho část nepodporuje žádný zdroj, je to úsudek bez zdroje. Měřítko: 9,4 % = 850 000 / 9 mil. vozidel (s.111). Počet aut v MSK je změřený (ČSÚ, včetně dodávkových); 72 % vypadlo. Počet BEV je zřejmě z konce 2024. Základ je dělení z Dopravy, ačkoli domácí nabíjení je ve skutečnosti v Domácnostech. Tempo: Dopadová studie Tab.19 s.110, 2019 638,0, 2020 963,9 MWh; rozdíl 325,9 MWh = 0,3259 GWh/rok. Historie v Dopadové studii končí 9/2021 a je před rozjezdem trhu. Mimo Dopadovou studii: (2 648 − 487) BEV / 3,25 roku × 2,295 MWh = 1,526 GWh/rok, CDV, datum 2 648 nejisté. Hodnoty ve sloupcích jsou y včetně d_auta, znovu nenásobit. Vliv d_auta má stupeň D, viz řídicí vlivy (část 6). Podíl 50 % je volba modelu a nahradil 95 %. Spolu s vodíkem je tedy v P50 2050 100 % čistých aut. Vodíková část je v řádku výroba vodíku: osobní auta.
+- **Poznámka, progresivní:** P50 v tomto řádku nebo jeho část nepodporuje žádný zdroj, je to úsudek bez zdroje. Měřítko: 9,4 % = 850 000 / 9 mil. vozidel (s.111). Počet aut v MSK je změřený (ČSÚ, včetně dodávkových); 72 % vypadlo. Počet BEV je zřejmě z konce 2024. Základ je dělení z Dopravy, ačkoli domácí nabíjení je ve skutečnosti v Domácnostech. Tempo: Dopadová studie Tab.19 s.110, 2019 638,0, 2020 963,9 MWh; rozdíl 325,9 MWh = 0,3259 GWh/rok. Historie v Dopadové studii končí 9/2021 a je před rozjezdem trhu. Mimo Dopadovou studii: (2 648 − 487) BEV / 3,25 roku × 2,295 MWh = 1,526 GWh/rok, CDV, datum 2 648 nejisté. Hodnoty ve sloupcích jsou y včetně d_auta, znovu nenásobit. Vliv d_auta má stupeň D, viz řídicí vlivy (část 6).
 - **Poznámka, konzervativní:** P50 v tomto řádku nebo jeho část nepodporuje žádný zdroj, je to úsudek bez zdroje. Procento lze použít čistě. Tempo: Dopadová studie Tab.19 s.110, 2019 638,0, 2020 963,9 MWh; rozdíl 325,9 MWh = 0,3259 GWh/rok. Historie v Dopadové studii končí 9/2021 a je před rozjezdem trhu. Mimo Dopadovou studii: (2 648 − 487) BEV / 3,25 roku × 2,295 MWh = 1,526 GWh/rok, CDV, datum 2 648 nejisté. Hodnoty ve sloupcích jsou y včetně d_auta, znovu nenásobit. Vliv d_auta má stupeň D, viz řídicí vlivy (část 6). Hodnoty beze změny. Cesta zůstává na bateriích a procento z definice cesty se vztahuje k předchozí bateriové hodnotě progresivní cesty (525,3 a 938,2), ne k nové 50% části.
 - **Koeficient, progresivní:** zima P10 0.9882, P50 1.7788, P90 2.9646; léto P10 0.3241, P50 0.7562, P90 2.1606; flexibilní ne; stupeň D
 - **Koeficient, konzervativní:** zima P10 0.9882, P50 1.7788, P90 2.9646; léto P10 0.3241, P50 0.7562, P90 2.1606; flexibilní ne; stupeň D
@@ -1322,7 +1322,7 @@ Každá položka má tabulku pro obě cesty v GWh za rok a pod ní odrážky. Po
 - **Jak se došlo, progresivní:** (2,75 TWh vozidla ze studie − 1 435,6 GWh osobní auta) × 50 % na baterie × 0,85 úspornější nákladní auta = 558,6 GWh.
 - **Jak se došlo, konzervativní:** 30 % z předchozí bateriové hodnoty progresivní cesty 893,8 GWh (1 051,5 × 0,85) = 268,1 GWh.
 - **Ze zdrojů:** Dopadová studie, s. 111 (2,75 TWh); ČSÚ Statistická ročenka MSK 2025, tab. 17.1 (625 545 aut)
-- **Odhad, progresivní:** 50 % je volba modelu (volba modelu č. 27), ne zdroj. 0,85 je úsudek bez zdroje. Dělení 2,75 TWh je náš dopočet.
+- **Odhad, progresivní:** 50 % je dáno definicí cesty, ne zdroj. 0,85 je úsudek bez zdroje. Dělení 2,75 TWh je náš dopočet.
 - **Odhad, konzervativní:** 30 % je dáno definicí cesty, ne zdroj. 893,8 GWh stojí na úsudku 80 % na baterie a úsudku 0,85.
 - **Podrobné odvození, progresivní:** Ze studie: 2,75 TWh. Vlastní krok a jiné zdroje: základ = reziduum: Doprava 54,8917 − auta 6,0772 − vlaky 25,08 − MHD 19,464 = 4,2705 GWh. 2050: studie 2,75 TWh − osobní 625 545 × 2,295 MWh = 2 750,0 − 1 435,6 = 1 314,4 GWh plné bateriové spotřeby; × 80 % baterie = 1 051,5, zbytek vodík. Revize: y = d_nakladni × s, kde s je řádek s dnešními vstupy a d_nakladni je v tabulce řídicích vlivů (část 6). 2030: P10 5,0 × 0,9500 = 4,8; P50 10,0 × 0,9700 = 9,7; P90 30,0 × 1,0000 = 30,0. 2040: P10 100,0 × 0,8500 = 85,0; P50 300,0 × 0,9100 = 273,0; P90 500,0 × 1,0000 = 500,0. 2050: P10 500,0 × 0,7500 = 375,0; P50 1 051,5 × 0,8500 = 893,8; P90 1 314,4 × 1,0000 = 1 314,4. Revize vodík (volba modelu č. 27): 2030 beze změny. 2040: 2/3 z 100, 300 a 500; × 0,85, 0,91, 1 = 56,7, 182,0, 333,3. 2050: 1 314,4 × 50 % = 657,2; × 0,85 = 558,6. P10: 657,2 × 500 / 1 051,5 = 312,5; × 0,75 = 234,4. P90: 657,2 × 1 = 657,2. Nahrazuje 80 % výše.
 - **Podrobné odvození, konzervativní:** Ze studie: 2,75 TWh. Vlastní krok a jiné zdroje: 30 % × progresivní P50, nová čísla viz Revize. Revize: y = d_nakladni × s, kde s je řádek s dnešními vstupy a d_nakladni je v tabulce řídicích vlivů (část 6). 2030: P10 5,0 × 0,9500 = 4,8; P50 8,0 × 0,9700 = 7,8; P90 20,0 × 1,0000 = 20,0. 2040: P10 30,0 × 0,8500 = 25,5; P50 30 % × progresivní P50 273,0 = 81,9; P90 200,0 × 1,0000 = 200,0. 2050: P10 150,0 × 0,7500 = 112,5; P50 30 % × progresivní P50 893,8 = 268,1; P90 600,0 × 1,0000 = 600,0.
@@ -1330,7 +1330,7 @@ Každá položka má tabulku pro obě cesty v GWh za rok a pod ní odrážky. Po
 - **Zdroj, konzervativní:** Definice cest (část 2); volba modelu č. 3; ČSÚ, Statistická ročenka Moravskoslezského kraje 2025, tab. 17.1, 17.102 a 27.102 (zdroj dat Ministerstvo dopravy), https://csu.gov.cz/produkty/statisticka-rocenka-moravskoslezskeho-kraje-2025; Le Corguillé, Hacker, Dolinga, Real-world data analysis of battery electric trucks operating in Germany, EVS38 (2025), https://www.oeko.de//fileadmin/oekodoc/Real-world-data-analysis-of-battery-electric-trucks-operating-in-Germany.pdf
 - **Strana:** s.111
 - **Citace:** očekávaný: „2,75 TWh“ pro celý vozový park; tab. 17.1 „Osobní automobily včetně dodávkových | 600223 | 615713 | 625545“ (2022, 2023, 2024, k 31.12.); tab. 27.102 „Střední stav obyvatel“ Česko 10886531; tab. 27.3 „Střední stav obyvatel | osoby | 1187776 | 1190143 | 1184662“; tab. 17.102 „Česko / Czechia | 6638172“; „The average consumption is 0.96 kWh/km.“; nic k vývoji v čase
-- **Poznámka, progresivní:** P50 v tomto řádku nebo jeho část nepodporuje žádný zdroj, je to úsudek bez zdroje. Dělení 2,75 TWh je dopočtené z počtu aut ČSÚ, který obsahuje i dodávky. Podíl 50 % je volba modelu a nahradil úsudek 80 %. Vodíková část je v řádku výroba vodíku: nákladní doprava. Hodnoty ve sloupcích jsou y včetně d_nakladni, znovu nenásobit. Vliv d_nakladni má stupeň D, viz řídicí vlivy (část 6).
+- **Poznámka, progresivní:** P50 v tomto řádku nebo jeho část nepodporuje žádný zdroj, je to úsudek bez zdroje. Dělení 2,75 TWh je dopočtené z počtu aut ČSÚ, který obsahuje i dodávky. Podíl 50 % je dáno definicí cesty a nahradil úsudek 80 %. Vodíková část je v řádku výroba vodíku: nákladní doprava. Hodnoty ve sloupcích jsou y včetně d_nakladni, znovu nenásobit. Vliv d_nakladni má stupeň D, viz řídicí vlivy (část 6).
 - **Poznámka, konzervativní:** P50 v tomto řádku nebo jeho část nepodporuje žádný zdroj, je to úsudek bez zdroje. Procento lze použít čistě. Hodnoty ve sloupcích jsou y včetně d_nakladni, znovu nenásobit. Vliv d_nakladni má stupeň D, viz řídicí vlivy (část 6). Hodnoty beze změny. Cesta zůstává na bateriích a procento z definice cesty se vztahuje k předchozí bateriové hodnotě progresivní cesty (273,0 a 893,8), ne k nové 50% části.
 - **Koeficient, progresivní:** zima P10 0.6918, P50 1.0870, P90 1.5811; léto P10 0.4321, P50 0.7562, P90 1.2964; flexibilní ne; stupeň D
 - **Koeficient, konzervativní:** zima P10 0.6918, P50 1.0870, P90 1.5811; léto P10 0.4321, P50 0.7562, P90 1.2964; flexibilní ne; stupeň D
@@ -1386,7 +1386,7 @@ Každá položka má tabulku pro obě cesty v GWh za rok a pod ní odrážky. Po
 - **Jak se došlo, progresivní:** 50 % z 23,702 GWh spotřeby ze studie = 11,9 GWh.
 - **Jak se došlo, konzervativní:** 80 % z 23,702 GWh bateriové hodnoty progresivní cesty = 19,0 GWh.
 - **Ze zdrojů:** Dopadová studie, Tab. 23 s. 116
-- **Odhad, progresivní:** 50 % je volba modelu (volba modelu č. 27), ne zdroj. Bere se z celého řádku včetně tramvají, proto hodnota klesá pod dnešek.
+- **Odhad, progresivní:** 50 % je dáno definicí cesty, ne zdroj. Bere se z celého řádku včetně tramvají, proto hodnota klesá pod dnešek.
 - **Odhad, konzervativní:** 80 % je dáno definicí cesty, ne zdroj. Výsledek je pod dnešními 19,464 GWh.
 - **Podrobné odvození, progresivní:** Ze studie: 19,464 a 23,702 GWh. Vlastní krok a jiné zdroje: základ 19 464 MWh (Tab.23, 2025). 2030 až 2050 P50: 23 702 MWh. P90 2050: 23,702 + 40 mil. km × 1,1 kWh/km = 67,7. Revize vodík (volba modelu č. 27): 2030: 23,702 − 800 000 km × 1,1 kWh/km = 22,822, protože Dopadová studie s.116 počítá 10 vodíkových vozidel v Tab.23. 2040: 75 % z 23,702 a z 60 = 17,8, 45,0. 2050: 50 % z 23,702 a z 67,702 = 11,9, 33,9.
 - **Podrobné odvození, konzervativní:** Ze studie: 19,464 a 23,702 GWh. Vlastní krok a jiné zdroje: 80 % × 23,702 = 18,9616.
@@ -1394,7 +1394,7 @@ Každá položka má tabulku pro obě cesty v GWh za rok a pod ní odrážky. Po
 - **Zdroj, konzervativní:** Dopadová studie Tab.23; definice cest (část 2)
 - **Strana:** Tab.23 s.116
 - **Citace:** očekávaný: 19 464 (2025), 23 702 (2030 až 2050) [MWh]
-- **Poznámka, progresivní:** Řádek zahrnuje MHD i linkové autobusy. P50 je z Tab.23 a plnou elektrifikaci z definice cest neobsahuje, ta je jen v P90; 40 mil. km je úsudek bez zdroje. Zlepší: výkony od Odboru dopravy MSK a DPO. Podíl 50 % je volba modelu, podíl 2040 je úsudek. Řádek obsahuje tramvaje, 50 % se bere z celého řádku a P50 2050 proto klesá pod základ 19,464. Je to záměrné zjednodušení. Vodíková část je v řádku výroba vodíku: MHD.
+- **Poznámka, progresivní:** Řádek zahrnuje MHD i linkové autobusy. P50 je z Tab.23 a plnou elektrifikaci z definice cest neobsahuje, ta je jen v P90; 40 mil. km je úsudek bez zdroje. Zlepší: výkony od Odboru dopravy MSK a DPO. Podíl 50 % je dáno definicí cesty, podíl 2040 je úsudek. Řádek obsahuje tramvaje, 50 % se bere z celého řádku a P50 2050 proto klesá pod základ 19,464. Je to záměrné zjednodušení. Vodíková část je v řádku výroba vodíku: MHD.
 - **Poznámka, konzervativní:** 80 % z Tab.23 je pod základem 19,464 GWh, tedy méně než dnes. Doslovné čtení ponecháno; alternativa je držet základ. Hodnoty beze změny. Cesta zůstává na bateriích a procento z definice cesty se vztahuje k předchozí bateriové hodnotě progresivní cesty (23,702), ne k nové 50% části.
 - **Koeficient, progresivní:** zima P10 1.0870, P50 1.5811, P90 2.1741; léto P10 0.4321, P50 0.6482, P90 0.9723; flexibilní ne; stupeň D
 - **Koeficient, konzervativní:** zima P10 1.0870, P50 1.5811, P90 2.1741; léto P10 0.4321, P50 0.6482, P90 0.9723; flexibilní ne; stupeň D
@@ -1470,29 +1470,19 @@ Každá položka má tabulku pro obě cesty v GWh za rok a pod ní odrážky. Po
 
 | Cesta | Základ 2025 | P10 2050 | P50 2050 | P90 2050 | P50 2030 | P50 2040 | Stupeň |
 |---|---|---|---|---|---|---|---|
-| progresivní | 0 | 824.2 | 1494.6 | 2295.2 | 0.9 | 549.3 | D |
-| konzervativní | 0 | 0 | 0 | 0 | 0 | 0 | D |
+| progresivní | 0 | 0 | 0 | 0 | 0 | 0 | C |
+| konzervativní | 0 | 0 | 0 | 0 | 0 | 0 | C |
 
-- **Meze 2030 a 2040, progresivní:** 2030 P10 0.0, P90 3.5; 2040 P10 229.2, P90 818.0
+- **Meze 2030 a 2040, progresivní:** 2030 P10 0, P90 0; 2040 P10 0, P90 0
 - **Meze 2030 a 2040, konzervativní:** 2030 P10 0, P90 0; 2040 P10 0, P90 0
 - **Průběh:** plynule
 - **Společný faktor:** elektrifikace
-- **Jak se došlo, progresivní:** 625 545 aut × 0,8449 obyvatelé × 1,1548 aut na osobu × 50 % × 13 500 km × 1,00 kg/100 km × 0,705 účinnost = 29 044,5 t vodíku × (48,26 výroba + 3,2 stlačení) kWh/kg = 1 494,6 GWh.
-- **Jak se došlo, konzervativní:** Konzervativní cesta zůstává na bateriích, proto 0 GWh.
-- **Ze zdrojů, progresivní:** ČSÚ Statistická ročenka MSK 2025, tab. 17.1 (625 545 aut); ČSÚ projekce obyvatel krajů; Dopadová studie, s. 110 až 111 (13 500 km); Krause et al. 2020, Tab. 4 a Tab. 6; IEA Global Hydrogen Review 2024 (48,26 kWh/kg); US DOE záznam 9013
-- **Ze zdrojů, konzervativní:** žádný (volba modelu č. 27)
-- **Odhad, progresivní:** 50 % je volba modelu (volba modelu č. 27). 1,00 kg/100 km, dorovnání aut na osobu a dosažení 48,26 kWh/kg až v 2050 jsou úsudek.
-- **Odhad, konzervativní:** Žádné číslo, jen rozhodnutí cesty.
-- **Podrobné odvození, progresivní:** 2030: NAP CM (4 000 + 1 200) × 9,4 % = 488,8 aut je P90, P50 je čtvrtina = 122,2, P10 nula. 122,2 × 13 500 km × 0,941 kg/100 km = 15,5 t; × 55,20 kWh/kg = 0,9 GWh. 2040: 625 545 × 0,9040 (pop_msk) × 1,0929 (auta_na_os) × 15,0 % = 92 704 aut; × 13 500 km × 1,00 kg/100 km × 0,823 (eff_auta) = 10 299,9 t; × (50,13 + 3,2) kWh/kg = 549,3 GWh. 2050: 625 545 × 0,8449 (pop_msk) × 1,1548 (auta_na_os) × 50,0 % = 305 169 aut; × 13 500 km × 1,00 kg/100 km × 0,705 (eff_auta) = 29 044,5 t; × (48,26 + 3,2) kWh/kg = 1 494,6 GWh.
-- **Podrobné odvození, konzervativní:** Nula. Konzervativní cesta zůstává na bateriích.
-- **Zdroj, progresivní:** Dopadová studie s.119 (55 MWh/t); US DOE, Technical Targets for Proton Exchange Membrane Electrolysis, https://www.energy.gov/eere/fuelcells/technical-targets-proton-exchange-membrane-electrolysis; IEA, Global Hydrogen Review 2024, Assumptions Annex, tabulka Hydrogen, https://iea.blob.core.windows.net/assets/36017d2f-747b-4993-b06d-33209fe143fa/GHR24AssumptionsAnnex.pdf; US DOE Hydrogen Program Record 9013 (2009), https://www.hydrogen.energy.gov/pdfs/9013_energy_requirements_for_hydrogen_gas_compression.pdf; Vnitrostátní plán tištěná s.107 (NAP CM); volba modelu č. 27; Dopadová studie s.110-111 (13,5 tis. km); ČSÚ, Statistická ročenka Moravskoslezského kraje 2025, tab. 17.1, https://csu.gov.cz/produkty/statisticka-rocenka-moravskoslezskeho-kraje-2025; Krause et al., Energy Policy 138 (2020) 111224, Tab.4 a Tab.6; https://h2.live/en/fuelcell-cars/toyota-mirai/
-- **Zdroj, konzervativní:** volba modelu č. 27; definice cest (část 2)
-- **Strana, progresivní:** s.110-111; s.119
-- **Strana, konzervativní:** s.119
-- **Citace, progresivní:** Dopadová studie s.119 „pro výrobu jedné tuny vodíku je zapotřebí 55 MWh elektrické energie“; DOE PEM „System, Energy Efficiency“ „55 (61%)“ (2022), „51 (65%)“ (2026), „46 (72%)“ (konečný cíl); IEA „Efficiency (LHV)“ „66%“ (2023), „69%“ (NZE 2030); DOE 9013 „2.23 and 3.0 kWh/kg H2 for compression to 440 bar and 880 bar“, „0.2 kWh/kg H2 for cooling“, „average compression energy of 3.1 kWh/kg H2“, „(1.7-6.4 kWh/kg H2)“, „2 to 4 kWh/kg H2“; Vnitrostátní plán „NAP CM počítá s v roce 2030 s možným nasazením 4 000 osobních automobilů na vodík, 1 200 lehkých užitkových automobilů, 250 autobusů, 600 nákladních vozidel“; tab. 17.1 „Osobní automobily včetně dodávkových | 600223 | 615713 | 625545“; Krause Tab.4 „Baseline 2050 Vehicle Specifications used for BEV and FCHEV“; h2.live „0.76 kg/100 km“
-- **Citace, konzervativní:** Dopadová studie s.119 „Využití vodíku v osobní dopravě a železniční dopravě zatím nenabírá velkých obrátek“
-- **Poznámka, progresivní:** P50 v tomto řádku nebo jeho část nepodporuje žádný zdroj, je to úsudek bez zdroje. Sloupec ridic je prázdný, protože d_auta a d_nakladni jsou odvozené pro bateriové řádky. Vlivy jsou v odvození vypsané a hodnoty je už obsahují. Spotřeba 1,0 kg/100 km je úsudek mezi udávanými 0,76 (h2.live) a 0,79 až 0,89 (WLTP) a skutečnými asi 1,1; WLTP a 1,1 jsou známy jen ze souhrnu vyhledávače, stránky nešly otevřít. Zlepšení do 2050 bere eff_auta, protože Krause Tab.4 a Tab.6 platí pro BEV i FCHEV. Podíl vodíku 2040 je třetina tehdy čistých aut, úsudek. Podíl 50 % je volba modelu a dává 100 % čistých aut místo dřívějších 95 %. Vnitrostátní plán, tištěná s.46 očekává, že u osobních aut převáží elektromobilita. Dopadová studie s.119 píše, že v osobní dopravě jsou tyto projekty utlumovány. Elektrolyzér kWh/kg: dnes 55 (Dopadová studie, DOE stav 2022). 2030 P50 52 je úsudek mezi 55 a cílem DOE 51; P10 33,3 / 0,69 = 48,26 (IEA NZE 2030). 2050 P50 48,26 je tatáž hodnota dosažená později, P10 46 konečný cíl DOE, P90 55 bez zlepšení jako Dopadová studie. 2040 je polovina cesty. Komprese se nezlepšuje, záznam DOE 9013 je z roku 2009. Meze skládají vstupy jako nezávislé, stejně jako oddíl 12 poznámek.
-- **Poznámka, konzervativní:** Nula z rozhodnutí o cestě, ne z měření. Řádek existuje, protože stránka čeká obě cesty.
+- **Jak se došlo:** Osobní auta nejezdí na vodík, proto nula.
+- **Ze zdrojů:** Volba modelu.
+- **Odhad:** žádný
+- **Podrobné odvození:** Osobní auta nejezdí na vodík, proto nula.
+- **Zdroj:** Volba modelu
+- **Poznámka:** Vodík se v modelu používá jen pro nákladní dopravu a MHD.
 - **Koeficient, progresivní:** zima P10 0.0000, P50 0.0000, P90 0.3000; léto P10 2.1900, P50 2.9200, P90 4.3800; flexibilní ano; stupeň D
 - **Koeficient, konzervativní:** zima P10 0.0000, P50 0.0000, P90 0.3000; léto P10 2.1900, P50 2.9200, P90 4.3800; flexibilní ano; stupeň D
 - **Koeficient, odvození:** Zima vypnuto, sklad přečká špičku. Léto: běh na plný výkon, koef = 8 760 / plné hodiny: 4 000 h = 2,19, 3 000 h = 2,92, 2 000 h = 4,38.
@@ -1516,7 +1506,7 @@ Každá položka má tabulku pro obě cesty v GWh za rok a pod ní odrážky. Po
 - **Jak se došlo, konzervativní:** Konzervativní cesta zůstává na bateriích, proto 0 GWh.
 - **Ze zdrojů, progresivní:** Dopadová studie, s. 111 (2,75 TWh); Oeko 2025 (1,3187 kWh/km); ICCT 2022 (9 kg/100 km, jen souhrn vyhledávače); IEA Global Hydrogen Review 2024 (48,26 kWh/kg); US DOE záznam 9013
 - **Ze zdrojů, konzervativní:** žádný (volba modelu č. 27)
-- **Odhad, progresivní:** 50 % je volba modelu (volba modelu č. 27). 0,850 a dosažení 48,26 kWh/kg až v 2050 jsou úsudek. Počet nákladních aut v kraji neznáme, kilometry jsou dopočtené.
+- **Odhad, progresivní:** 50 % je dáno definicí cesty. 0,850 a dosažení 48,26 kWh/kg až v 2050 jsou úsudek. Počet nákladních aut v kraji neznáme, kilometry jsou dopočtené.
 - **Odhad, konzervativní:** Žádné číslo, jen rozhodnutí cesty.
 - **Podrobné odvození, progresivní:** Vozokilometry nejsou v řádku přímo: 1 314,4 GWh plné bateriové spotřeby / 1,3187 kWh/km = 996,8 mil. km. 1,3187 = 0,96 + 0,183 × (40 − 20,4) / 10 podle Oeko, aby spotřeba bateriového auta odpovídala 40t soupravě, ke které patří 9 kg/100 km. 2030: NAP CM 600 × 9,4 % = 56,4 aut je P90, P50 je čtvrtina = 14,1, P10 nula. 14,1 × 60 000 km × 8,73 kg/100 km = 73,9 t; × 54,23 kWh/kg = 4,0 GWh. 2040: 996,8 mil. km × 7,61 % = 75,8 mil. km; × 9,00 kg/100 km × 0,910 (eff_nakladni) = 6 210,8 t; × (50,13 + 2,23) kWh/kg = 325,2 GWh. 2050: 996,8 mil. km × 50,00 % = 498,4 mil. km; × 9,00 kg/100 km × 0,850 (eff_nakladni) = 38 125,9 t; × (48,26 + 2,23) kWh/kg = 1 925,0 GWh.
 - **Podrobné odvození, konzervativní:** Nula. Konzervativní cesta zůstává na bateriích.
@@ -1526,7 +1516,7 @@ Každá položka má tabulku pro obě cesty v GWh za rok a pod ní odrážky. Po
 - **Strana, konzervativní:** s.119
 - **Citace, progresivní:** Dopadová studie s.119 „pro výrobu jedné tuny vodíku je zapotřebí 55 MWh elektrické energie“; DOE PEM „System, Energy Efficiency“ „55 (61%)“ (2022), „51 (65%)“ (2026), „46 (72%)“ (konečný cíl); IEA „Efficiency (LHV)“ „66%“ (2023), „69%“ (NZE 2030); DOE 9013 „2.23 and 3.0 kWh/kg H2 for compression to 440 bar and 880 bar“, „0.2 kWh/kg H2 for cooling“, „average compression energy of 3.1 kWh/kg H2“, „(1.7-6.4 kWh/kg H2)“, „2 to 4 kWh/kg H2“; Vnitrostátní plán „NAP CM počítá s v roce 2030 s možným nasazením 4 000 osobních automobilů na vodík, 1 200 lehkých užitkových automobilů, 250 autobusů, 600 nákladních vozidel“; Oeko „The average consumption is 0.96 kWh/km.“; „If the vehicle weight is increased by 10 tonnes, consumption increases by an average of 0.183 kWh/km.“; hydronews „7.5 kg of H2“, „has travelled 70,000 km“ (leden 2021 až březen 2022)
 - **Citace, konzervativní:** Dopadová studie s.119 „Využití vodíku v osobní dopravě a železniční dopravě zatím nenabírá velkých obrátek“
-- **Poznámka, progresivní:** P50 v tomto řádku nebo jeho část nepodporuje žádný zdroj, je to úsudek bez zdroje. Sloupec ridic je prázdný, protože d_auta a d_nakladni jsou odvozené pro bateriové řádky. Vlivy jsou v odvození vypsané a hodnoty je už obsahují. Počet nákladních aut v MSK není znám, proto vozokilometry z řádku nákladní doprava. Hodnota ICCT 9 kg/100 km dnes a +20 % při plném nákladu jsou jen ze souhrnu vyhledávače, stránka vrací 403, a je to model, ne měření. ICCT čeká 6,6 až 6,7 kg/100 km už v 2030, řádek bere 7,65 v 2050, aby seděl s eff_nakladni. P90 zahrnuje i čtení 0,96 kWh/km, tedy 1 369,2 mil. km. Nájezd 60 000 km je úsudek z 70 000 km za asi 14 měsíců. Čtvrtina NAP CM v 2030 je úsudek. Podíl 50 % je volba modelu. Elektrolyzér kWh/kg: dnes 55 (Dopadová studie, DOE stav 2022). 2030 P50 52 je úsudek mezi 55 a cílem DOE 51; P10 33,3 / 0,69 = 48,26 (IEA NZE 2030). 2050 P50 48,26 je tatáž hodnota dosažená později, P10 46 konečný cíl DOE, P90 55 bez zlepšení jako Dopadová studie. 2040 je polovina cesty. Komprese se nezlepšuje, záznam DOE 9013 je z roku 2009. Meze skládají vstupy jako nezávislé, stejně jako oddíl 12 poznámek.
+- **Poznámka, progresivní:** P50 v tomto řádku nebo jeho část nepodporuje žádný zdroj, je to úsudek bez zdroje. Sloupec ridic je prázdný, protože d_auta a d_nakladni jsou odvozené pro bateriové řádky. Vlivy jsou v odvození vypsané a hodnoty je už obsahují. Počet nákladních aut v MSK není znám, proto vozokilometry z řádku nákladní doprava. Hodnota ICCT 9 kg/100 km dnes a +20 % při plném nákladu jsou jen ze souhrnu vyhledávače, stránka vrací 403, a je to model, ne měření. ICCT čeká 6,6 až 6,7 kg/100 km už v 2030, řádek bere 7,65 v 2050, aby seděl s eff_nakladni. P90 zahrnuje i čtení 0,96 kWh/km, tedy 1 369,2 mil. km. Nájezd 60 000 km je úsudek z 70 000 km za asi 14 měsíců. Čtvrtina NAP CM v 2030 je úsudek. Podíl 50 % je dáno definicí cesty. Elektrolyzér kWh/kg: dnes 55 (Dopadová studie, DOE stav 2022). 2030 P50 52 je úsudek mezi 55 a cílem DOE 51; P10 33,3 / 0,69 = 48,26 (IEA NZE 2030). 2050 P50 48,26 je tatáž hodnota dosažená později, P10 46 konečný cíl DOE, P90 55 bez zlepšení jako Dopadová studie. 2040 je polovina cesty. Komprese se nezlepšuje, záznam DOE 9013 je z roku 2009. Meze skládají vstupy jako nezávislé, stejně jako oddíl 12 poznámek.
 - **Poznámka, konzervativní:** Nula z rozhodnutí o cestě, ne z měření. Řádek existuje, protože stránka čeká obě cesty.
 - **Koeficient, progresivní:** zima P10 0.0000, P50 0.0000, P90 0.3000; léto P10 2.1900, P50 2.9200, P90 4.3800; flexibilní ano; stupeň D
 - **Koeficient, konzervativní:** zima P10 0.0000, P50 0.0000, P90 0.3000; léto P10 2.1900, P50 2.9200, P90 4.3800; flexibilní ano; stupeň D
@@ -1551,7 +1541,7 @@ Každá položka má tabulku pro obě cesty v GWh za rok a pod ní odrážky. Po
 - **Jak se došlo, konzervativní:** Konzervativní cesta zůstává na bateriích, proto 0 GWh.
 - **Ze zdrojů, progresivní:** Dopadová studie, Tab. 23 s. 116, s. 115 (1,1 kWh/km); JIVE 2 (7,49 kg/100 km); IEA Global Hydrogen Review 2024 (48,26 kWh/kg); US DOE záznam 9013
 - **Ze zdrojů, konzervativní:** žádný (volba modelu č. 27)
-- **Odhad, progresivní:** 50 % je volba modelu (volba modelu č. 27), bere se z celého řádku včetně tramvají. 0,850 je náhrada z nákladní dopravy, úsudek. Dosažení 48,26 kWh/kg až v 2050 je úsudek.
+- **Odhad, progresivní:** 50 % je dáno definicí cesty, bere se z celého řádku včetně tramvají. 0,850 je náhrada z nákladní dopravy, úsudek. Dosažení 48,26 kWh/kg až v 2050 je úsudek.
 - **Odhad, konzervativní:** Žádné číslo, jen rozhodnutí cesty.
 - **Podrobné odvození, progresivní:** Vozokilometry: 23,702 GWh z Dopadové studie Tab.23 / 1,1 kWh/km = 21,547 mil. km. 2030: P50 10 vozidel a 800 000 km z Dopadové studie s.116, P90 NAP CM 250 × 9,4 % = 23,5 vozidla × 80 000 km = 1,88 mil. km, P10 nula. 800 000 km × 7,265 kg/100 km = 58,1 t; × 54,23 kWh/kg = 3,15 GWh. 2040: 21,547 mil. km × 25 % = 5,387 mil. km; × 7,49 kg/100 km × 0,910 (eff_nakladni jako náhrada) = 367,2 t; × (50,13 + 2,23) kWh/kg = 19,2 GWh. 2050: 21,547 mil. km × 50 % = 10,774 mil. km; × 7,49 kg/100 km × 0,850 (eff_nakladni jako náhrada) = 685,9 t; × (48,26 + 2,23) kWh/kg = 34,6 GWh.
 - **Podrobné odvození, konzervativní:** Nula. Konzervativní cesta zůstává na bateriích.
@@ -1659,19 +1649,19 @@ Každá položka má tabulku pro obě cesty v GWh za rok a pod ní odrážky. Po
 
 | Cesta | Základ 2025 | P10 2050 | P50 2050 | P90 2050 | P50 2030 | P50 2040 | Stupeň |
 |---|---|---|---|---|---|---|---|
-| progresivní | 219.3158 | 428.6 | 476.9 | 611.1 | 267.5 | 330.2 | C |
+| progresivní | 219.3158 | 393.9 | 438.3 | 561.6 | 267.5 | 316.5 | C |
 | konzervativní | 219.3158 | 337.7 | 448.2 | 533.3 | 440.7 | 435.2 | D |
 
-- **Meze 2030 a 2040, progresivní:** 2030 P10 240.4, P90 342.7; 2040 P10 296.8, P90 423.2
+- **Meze 2030 a 2040, progresivní:** 2030 P10 240.4, P90 342.7; 2040 P10 284.5, P90 405.6
 - **Meze 2030 a 2040, konzervativní:** 2030 P10 332.0, P90 524.5; 2040 P10 327.9, P90 517.8
 - **Průběh:** plynule
 - **Společný faktor:** zadny
-- **Jak se došlo, progresivní:** 12 968,7 GWh spotřeby v síti × 3,547 % / (100 % − 3,547 %) = 476,9 GWh.
+- **Jak se došlo, progresivní:** 11 918,5 GWh spotřeby v síti × 3,547 % / (100 % − 3,547 %) = 438,3 GWh.
 - **Jak se došlo, konzervativní:** 6 985,0 GWh spotřeby v síti × 6,030 % (1,7 × 3,547 %) / (100 % − 6,030 %) = 448,2 GWh.
 - **Ze zdrojů:** Dopadová studie, Tab. 1 s. 27 a rov. 7 s. 74 (3,547 %)
 - **Odhad, progresivní:** Míra je za bývalý Severomoravský kraj. Spotřeba v síti nese odhady ostatních položek.
 - **Odhad, konzervativní:** Míra je za bývalý Severomoravský kraj. Spotřeba v síti nese odhady ostatních položek. Násobek 1,7 je náš odhad.
-- **Podrobné odvození, progresivní:** Ze studie: míra a báze. Vlastní krok a jiné zdroje: základ: 6.2 5 963,8184 × 3,547 % / (1 − 3,547 %) = 219,3158 GWh. Výhled: (součet položek spotřeby P50 − lokální část 886,8302) × r / (1 − r); 2050 síť 12 968,7 GWh, r 3,547 %.
+- **Podrobné odvození, progresivní:** Ze studie: míra a báze. Vlastní krok a jiné zdroje: základ: 6.2 5 963,8184 × 3,547 % / (1 − 3,547 %) = 219,3158 GWh. Výhled: (součet položek spotřeby P50 − lokální část 886,8302) × r / (1 − r); 2050 síť 11 918,5 GWh, r 3,547 %.
 - **Podrobné odvození, konzervativní:** Ze studie: míra a báze. Vlastní krok a jiné zdroje: základ: 6.2 5 963,8184 × 3,547 % / (1 − 3,547 %) = 219,3158 GWh. Výhled: (součet položek spotřeby P50 − lokální část 886,8302) × r / (1 − r); 2050 síť 6 985,0 GWh, r 6,030 %.
 - **Zdroj:** Dopadová studie Tab.1 s.27, rov.7 s.74; ERÚ, čtvrtletní zprávy 2025 Q1 až Q4, tab. 6.3, řádek MSK; tab. 6.2; ERÚ, čtvrtletní zpráva 2025 Q4 kap. 1 a 3.2
 - **Strana:** Tab.1 s.27; s.27; rov.7 s.74
@@ -2012,29 +2002,29 @@ SMR má událost jen v progresivní cestě, konzervativní cesta ho nemá. Roky 
 
 Tato část platí pro progresivní cestu v roce 2050. Výpočet je měsíční a přibližný.
 
-**Výsledek.** V měsíční tabulce při výchozích hodnotách není v létě žádný měsíční přebytek, a to ani bez vodíku. Podle ní nelze vodík flotily vyrobit z letního přebytku kraje. Jeho elektřina by musela přijít ze sítě mimo kraj nebo z vyšší výroby. Měsíc s nejmenším schodkem je srpen, bilance bez vodíku -22.8322 GWh.
+**Výsledek.** V měsíční tabulce při výchozích hodnotách není v létě žádný měsíční přebytek, a to ani bez vodíku. Podle ní nelze vodík flotily vyrobit z letního přebytku kraje. Jeho elektřina by musela přijít ze sítě mimo kraj nebo z vyšší výroby. Měsíc s nejmenším schodkem je srpen, bilance bez vodíku -51.9395 GWh.
 
-**Vztah k letnímu poledni.** Tabulka v části 3 ukazuje v progresivní cestě 2050 polední přebytek 524.5 MW. Po bateriích a elektrokotlích z něj zbývá 279.5 MW z potřebných 1166.7 MW. Měsíční výsledek a polední výsledek si neodporují. Měsíční data krátké přebytky neukazují a polední přebytek roční objem vodíku nepokryje.
+**Vztah k letnímu poledni.** Tabulka v části 3 ukazuje v progresivní cestě 2050 polední přebytek 490.1 MW. Po bateriích a elektrokotlích z něj zbývá 245.1 MW z potřebných 668.5 MW. Měsíční výsledek a polední výsledek si neodporují. Měsíční data krátké přebytky neukazují a polední přebytek roční objem vodíku nepokryje.
 
-**Starší roční součty.** Měsíční tabulka vychází z ročního součtu výroby 8331.8120 GWh a spotřeby s vodíkem 14332.4000 GWh (odvozený součet tří hodnot: spotřeba bez vodíku, vodík flotily a 45.8 GWh vodíku mimo flotilu). Aktuální součty v části 3 jsou 8331.812 a 14332.4 GWh. Rozdíl tabulky proti aktuálním součtům je 0 GWh u výroby a 0 GWh u spotřeby (odvozené rozdíly). Přepočet by schodky mírně prohloubil, takže závěr o chybějícím přebytku při výchozích hodnotách platí. Čísla níže nejsou přepočítána.
+**Starší roční součty.** Měsíční tabulka vychází z ročního součtu výroby 8331.8120 GWh a spotřeby s vodíkem 13243.6000 GWh (odvozený součet tří hodnot: spotřeba bez vodíku, vodík flotily a 45.8 GWh vodíku mimo flotilu). Aktuální součty v části 3 jsou 8331.812 a 13243.6 GWh. Rozdíl tabulky proti aktuálním součtům je 0 GWh u výroby a 0 GWh u spotřeby (odvozené rozdíly). Přepočet by schodky mírně prohloubil, takže závěr o chybějícím přebytku při výchozích hodnotách platí. Čísla níže nejsou přepočítána.
 
 ### Měsíční tabulka, GWh
 
 | Měsíc | SMR | FVE | Vítr | Ostatní | Výroba | Spotřeba bez vodíku | Bilance bez vodíku | Vodík rovnoměrně | Bilance s vodíkem |
 |---|---|---|---|---|---|---|---|---|---|
-| leden | 334.8000 | 47.6863 | 221.4841 | 77.7388 | 681.7093 | 1037.2363 | -355.5270 | 293.3704 | -648.8974 |
-| únor | 302.4000 | 87.9249 | 100.5610 | 70.2157 | 561.1017 | 916.4095 | -355.3079 | 264.9797 | -620.2876 |
-| březen | 334.8000 | 154.1550 | 149.5958 | 77.7388 | 716.2896 | 971.1588 | -254.8692 | 293.3704 | -548.2396 |
-| duben | 324.0000 | 205.3427 | 167.2988 | 75.2311 | 771.8726 | 886.5783 | -114.7057 | 283.9068 | -398.6126 |
-| květen | 334.8000 | 204.2541 | 103.3095 | 77.7388 | 720.1024 | 882.4138 | -162.3114 | 293.3704 | -455.6818 |
-| červen | 324.0000 | 249.6958 | 111.7783 | 75.2311 | 760.7052 | 859.1441 | -98.4389 | 283.9068 | -382.3457 |
-| červenec | 334.8000 | 216.7171 | 97.0901 | 77.7388 | 726.3460 | 828.0133 | -101.6672 | 293.3704 | -395.0376 |
-| srpen | 334.8000 | 245.4230 | 96.1944 | 77.7388 | 754.1563 | 776.9885 | -22.8322 | 293.3704 | -316.2026 |
-| září | 324.0000 | 141.6589 | 138.7360 | 75.2311 | 679.6260 | 810.3877 | -130.7617 | 283.9068 | -414.6686 |
-| říjen | 334.8000 | 111.6528 | 179.4937 | 77.7388 | 703.6853 | 948.1665 | -244.4812 | 293.3704 | -537.8516 |
-| listopad | 324.0000 | 63.0298 | 186.1768 | 75.2311 | 648.4377 | 958.1882 | -309.7505 | 283.9068 | -593.6574 |
-| prosinec | 334.8000 | 36.4595 | 158.7815 | 77.7388 | 607.7799 | 957.7151 | -349.9352 | 293.3704 | -643.3056 |
-| rok | 3942.0000 | 1764.0000 | 1710.5000 | 915.3120 | 8331.8120 | 10832.4000 | -2500.5880 | 3454.2000 | -5954.7880 |
+| leden | 334.8000 | 47.6863 | 221.4841 | 77.7388 | 681.7093 | 1076.0929 | -394.3836 | 166.4318 | -560.8154 |
+| únor | 302.4000 | 87.9249 | 100.5610 | 70.2157 | 561.1017 | 950.7398 | -389.6381 | 150.3255 | -539.9636 |
+| březen | 334.8000 | 154.1550 | 149.5958 | 77.7388 | 716.2896 | 1007.5400 | -291.2504 | 166.4318 | -457.6822 |
+| duben | 324.0000 | 205.3427 | 167.2988 | 75.2311 | 771.8726 | 919.7910 | -147.9184 | 161.0630 | -308.9815 |
+| květen | 334.8000 | 204.2541 | 103.3095 | 77.7388 | 720.1024 | 915.4705 | -195.3681 | 166.4318 | -361.7999 |
+| červen | 324.0000 | 249.6958 | 111.7783 | 75.2311 | 760.7052 | 891.3291 | -130.6239 | 161.0630 | -291.6869 |
+| červenec | 334.8000 | 216.7171 | 97.0901 | 77.7388 | 726.3460 | 859.0320 | -132.6860 | 166.4318 | -299.1178 |
+| srpen | 334.8000 | 245.4230 | 96.1944 | 77.7388 | 754.1563 | 806.0958 | -51.9395 | 166.4318 | -218.3713 |
+| září | 324.0000 | 141.6589 | 138.7360 | 75.2311 | 679.6260 | 840.7462 | -161.1202 | 161.0630 | -322.1832 |
+| říjen | 334.8000 | 111.6528 | 179.4937 | 77.7388 | 703.6853 | 983.6864 | -280.0011 | 166.4318 | -446.4329 |
+| listopad | 324.0000 | 63.0298 | 186.1768 | 75.2311 | 648.4377 | 994.0836 | -345.6459 | 161.0630 | -506.7089 |
+| prosinec | 334.8000 | 36.4595 | 158.7815 | 77.7388 | 607.7799 | 993.5927 | -385.8128 | 166.4318 | -552.2446 |
+| rok | 3942.0000 | 1764.0000 | 1710.5000 | 915.3120 | 8331.8120 | 11238.2000 | -2906.3880 | 1959.6000 | -4865.9880 |
 
 ### Předpoklady a citlivost
 
@@ -2064,15 +2054,15 @@ Sezónní zásobník, hypotéza pro případ výroby jen v létě a rovnoměrné
 
 | Položka | P10 2050 | P50 2050 | P90 2050 | Stupeň |
 |---|---|---|---|---|
-| osobní auta | 230.0 | 493.8 | 721.3 | D |
+| osobní auta | 460.1 | 938.2 | 1442.7 | D |
 | nákladní doprava | 234.4 | 558.6 | 657.2 | D |
 | MHD | 11.9 | 11.9 | 33.9 | D |
-| výroba vodíku: osobní auta | 824.2 | 1494.6 | 2295.2 | D |
+| výroba vodíku: osobní auta | 0 | 0 | 0 | C |
 | výroba vodíku: nákladní doprava | 884.5 | 1925.0 | 2958.5 | D |
 | výroba vodíku: MHD | 16.1 | 34.6 | 103.1 | D |
 | výroba vodíku | 20 | 45.8 | 260.4 | B |
 
-Odvozený součet P50 tří řádků vodíku flotily je 3454.2 GWh. Výpočet: vozidla × km × kg H2/100 km × kWh/kg. Elektřina na vodík flotily odpovídá 67 856 t H2 za rok. Konzervativní cesta má v nových řádcích nulu.
+Odvozený součet P50 tří řádků vodíku flotily je 1959.6 GWh. Výpočet: vozidla × km × kg H2/100 km × kWh/kg. Elektřina na vodík flotily odpovídá 67 856 t H2 za rok. Konzervativní cesta má v nových řádcích nulu.
 
 ### Vstupy výpočtu vodíku
 
@@ -2203,8 +2193,8 @@ Pokles je jeden krok v březnu 2026, ne mezi prosincem a červnem. ERÚ neudáv�
 2. **Co s vodíkem, když není letní přebytek (část 8)?** Možnosti jsou čtyři. Nechat řádky beze změny a rozpor uvést. Postavit více zdrojů. Část vodíku dovézt. Snížit podíl vodíku ve flotile. Model žádnou z nich nevybírá.
 3. **Možný překryv 45,8 GWh s vodíkem flotily.** Dopadová studie neříká, pro koho je 45 760 MWh. Není to tedy prokazatelně vodík flotily a řádek výroba vodíku zůstává. Překryv nelze vyloučit a nejvýš je to 45,8 GWh. Odkaz [45] ve studii vede na nesouvisející dokument.
 4. **Vlastní spotřeba zařízení ZEVO není přičtena.** Výroba 44.212 GWh je brutto a obsahuje vlastní spotřebu 12 600 MWh. Řádek vlastní spotřeba zdrojů tuto hodnotu zvlášť nepřičítá.
-5. **Výkon baterií je stále předpoklad a mění znaménko zimní bilance.** V progresivní cestě 2050 je zimní bilance -1060.1 MW a s bateriemi 152.0 MW po 82.3 h. Výkon 1212.1 MW je odvozen z 87,3 GWh / 72 h a je to stupeň D. Dopadová studie s.145 uvažuje 1 GW a 1 GWh, tedy jinou dobu. Baterie také pokryjí špičku jen po omezenou dobu a model nesleduje, zda jsou nabité.
-6. **Zimní vítr je počítán jako nula.** P10 a P50 jsou nula podle pravidla Dopadové studie s.73, není to medián. Změřený medián při 14 zimních maximech ČR je 0,192 instalovaného výkonu. S touto hodnotou je zimní bilance 2050 -940.3 MW v progresivní cestě a -495.6 MW v konzervativní cestě.
+5. **Výkon baterií je stále předpoklad a mění znaménko zimní bilance.** V progresivní cestě 2050 je zimní bilance -1143.8 MW a s bateriemi 68.3 MW po 76.3 h. Výkon 1212.1 MW je odvozen z 87,3 GWh / 72 h a je to stupeň D. Dopadová studie s.145 uvažuje 1 GW a 1 GWh, tedy jinou dobu. Baterie také pokryjí špičku jen po omezenou dobu a model nesleduje, zda jsou nabité.
+6. **Zimní vítr je počítán jako nula.** P10 a P50 jsou nula podle pravidla Dopadové studie s.73, není to medián. Změřený medián při 14 zimních maximech ČR je 0,192 instalovaného výkonu. S touto hodnotou je zimní bilance 2050 -1024.0 MW v progresivní cestě a -495.6 MW v konzervativní cestě.
 7. **Hodiny plynových řádků podle roku.** Koeficient je jeden na položku a cestu a míří na rok 2050, ale hodiny plynových řádků se mění podle roku. Nové plynové bloky v progresivní cestě 2030 vycházejí asi o 50 MW výš než 93 MW × 0,9.
 
 ## 12. Seznam zdrojů
@@ -2251,7 +2241,6 @@ Strany u položek jsou strany PDF. Část zdrojů je neveřejná, a to studie ZE
 | Článek o větrných elektrárnách u Břidličné | Ekonomický deník | neuvedeno | https://ekonomickydenik.cz/investor-chce-u-bridlicne-postavit-az-27-vetrnych-elektraren-cast-mistnich-ziska-elektrinu-zdarma/ |
 | Článek o přechodu ostravské teplárny z uhlí na zemní plyn | Ekonomický deník | neuvedeno | https://ekonomickydenik.cz/uhli-zemni-plyn-teplarna-ostrava/ |
 | Článek o paroplynovém zdroji v Třinci | GMK Center | 17.6.2026 | https://gmk.center/en/news/trinecke-zelezarny-is-investing-over-180-million-in-a-combined-cycle-power-station/ |
-| Údaje o spotřebě vodíku u Toyoty Mirai | H2.LIVE | neuvedeno | https://h2.live/en/fuelcell-cars/toyota-mirai/ |
 | Článek o malém modulárním reaktoru v MSK | oEnergetice | 14.5.2026 | https://oenergetice.cz/jaderne-elektrarny/prvni-maly-modularni-reaktor-muze-stat-v-moravskoslezskem-kraji-uz-v-roce-2035 |
 | Článek o modernizaci teplárny Karviná | oEnergetice | neuvedeno | https://oenergetice.cz/teplarenstvi/veolia-energie-chysta-modernizaci-teplarny-karvina-za-miliardu-kc |
 | Článek o konci těžby na dole ČSM | oEnergetice | neuvedeno | https://oenergetice.cz/uhli/dul-csm-se-chysta-na-ukonceni-tezby-a-likvidaci-okd-na-to-ma-33-miliardy-korun |
