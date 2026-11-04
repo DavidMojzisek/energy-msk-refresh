@@ -34,6 +34,7 @@ h2{font:700 18px/1.2 "Saira",sans-serif;margin:0 0 10px}
 svg{display:block;width:100%;height:auto}
 svg text{font:11.5px "JetBrains Mono",monospace;fill:var(--muted)}
 svg .ev{font:600 11px "Saira",sans-serif;fill:var(--ink);paint-order:stroke;stroke:var(--surface);stroke-width:3px}
+.toggles{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
 .legend{display:flex;flex-wrap:wrap;gap:14px;color:var(--muted);font-size:12.5px;margin-bottom:6px}
 .legend i{display:inline-block;width:24px;border-top:2.5px solid;vertical-align:middle;margin-right:6px}
 .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:16px}
@@ -44,6 +45,8 @@ svg .ev{font:600 11px "Saira",sans-serif;fill:var(--ink);paint-order:stroke;stro
 .track .band{position:absolute;top:50%;height:6px;margin-top:-3px;background:var(--accent);opacity:.22;border-radius:3px;pointer-events:none}
 .track .def{position:absolute;top:50%;height:14px;margin-top:-7px;width:2px;background:var(--muted);pointer-events:none}
 .track input{position:relative;width:100%;margin:0;accent-color:var(--accent);background:none;display:block}
+.yearline{display:grid;grid-template-columns:1fr auto;gap:2px 10px;margin-top:6px;color:var(--muted);font-size:12.5px}
+.yearline input{grid-column:1/-1;width:100%;margin:0;accent-color:var(--warn)}
 .grade{font:600 10.5px "JetBrains Mono",monospace;border:1px solid var(--line);border-radius:4px;padding:0 5px;margin-left:6px;color:var(--muted)}
 .grade.D{border-color:var(--warn);color:var(--warn)}
 details{margin-top:4px;color:var(--muted);font-size:12.5px}
@@ -75,6 +78,16 @@ footer{color:var(--muted);font-size:12.5px}
 <div class="kpi" id="kpi"></div>
 <section class="card">
   <h2>Výroba a spotřeba</h2>
+  <div class="toggles" id="toggles">
+    <div class="pills" role="group" aria-label="Zobrazené cesty">
+      <button data-show="progresivni" aria-pressed="true">Progresivní</button>
+      <button data-show="konzervativni" aria-pressed="true">Konzervativní</button>
+    </div>
+    <div class="pills" role="group" aria-label="Zobrazené veličiny">
+      <button data-show="vyroba" aria-pressed="true">Výroba</button>
+      <button data-show="spotreba" aria-pressed="true">Spotřeba</button>
+    </div>
+  </div>
   <div class="legend" id="legend"></div>
   <div id="main"></div>
   <div class="yearrow"><label for="year">Rok</label><input id="year" type="range" min="2025" max="2050" step="1" value="2050"><span class="mono" id="yearv"></span></div>
@@ -95,18 +108,38 @@ const NF = new Intl.NumberFormat("cs-CZ",{maximumFractionDigits:0});
 const NF1 = new Intl.NumberFormat("cs-CZ",{minimumFractionDigits:1,maximumFractionDigits:1});
 const $ = id => document.getElementById(id);
 const hasItems = DATA.items.length > 0;
-const state = {path:"progresivni", year:2050, values:{}};
+const state = {path:"progresivni", year:2050, values:{}, jumps:{}, show:{progresivni:true, konzervativni:true, vyroba:true, spotreba:true}};
 const NS = "http://www.w3.org/2000/svg";
 
 function key(it){ return it.path + "|" + it.side + "|" + it.name; }
-function resetValues(){ for(const it of DATA.items) state.values[key(it)] = it.p50; }
+/* Položky se stejnou událostí sdílejí jeden rok, například pec v Třinci snižuje hutní plyny a zvyšuje spotřebu. */
+function jumpKey(it){ return it.event ? it.path + "|" + it.event : key(it); }
+function resetValues(){
+  for(const it of DATA.items){
+    state.values[key(it)] = it.p50;
+    if(it.jump !== null) state.jumps[jumpKey(it)] = it.jump;
+  }
+}
+function currentEvents(){
+  const seen = new Map();
+  for(const it of DATA.items) if(it.jump !== null && it.event && it.path === state.path) seen.set(it.event, state.jumps[jumpKey(it)]);
+  return [...seen].map(([label, year]) => ({label, year})).sort((a, c) => a.year - c.year);
+}
 
 /* Křivka položky se posuvníkem přeškáluje a výchozí tvar zůstává. */
 function itemAt(it, i){
-  const set = state.values[key(it)], def = it.p50, base = it.base, value = it.curve[i];
+  const set = state.values[key(it)], def = it.p50, base = it.base;
+  if(it.jump !== null){
+    if(DATA.years[i] < state.jumps[jumpKey(it)]) return base;
+    if(set === def) return it.curve[i];
+    if(def === 0) return set;
+    return Math.max(0, it.curve[i] * set / def);
+  }
+  const value = it.curve[i];
   if(set === def) return value;
   if(def === base) return base + (set - base) * i / (DATA.years.length - 1);
-  return Math.max(0, base + (value - base) * (set - base) / (def - base));
+  const scaled = base + (value - base) * (set - base) / (def - base);
+  return it.p10 < 0 ? scaled : Math.max(0, scaled);
 }
 function totals(path, side){
   const items = DATA.items.filter(it => it.path === path && it.side === side);
@@ -128,14 +161,17 @@ function drawMain(){
   const H = 430, YB = H - 34, host = $("main");
   host.innerHTML = "";
   const svg = mk("svg", {viewBox:`0 0 ${W} ${H}`, role:"img", "aria-label":"Výroba a spotřeba elektřiny po letech"}, host);
-  let top = Math.max(...DATA.history.map(h => Math.max(h.gen, h.use)));
+  const show = state.show;
+  let top = Math.max(...DATA.history.map(h => Math.max(show.vyroba ? h.gen : 0, show.spotreba ? h.use : 0)));
   const series = {};
   if(hasItems) for(const p of Object.keys(PATHNAME)){
     series[p] = {gen:totals(p,"vyroba"), use:totals(p,"spotreba")};
-    top = Math.max(top, ...series[p].gen, ...series[p].use);
+    if(!show[p]) continue;
+    if(show.vyroba) top = Math.max(top, ...series[p].gen);
+    if(show.spotreba) top = Math.max(top, ...series[p].use);
     const b = DATA.bands[p];
-    if(b.vyroba) top = Math.max(top, ...b.vyroba[2]);
-    if(b.spotreba) top = Math.max(top, ...b.spotreba[2]);
+    if(p === state.path && show.vyroba && b.vyroba) top = Math.max(top, ...b.vyroba[2]);
+    if(p === state.path && show.spotreba && b.spotreba) top = Math.max(top, ...b.spotreba[2]);
   }
   const step = top > 20000 ? 5000 : 2000, ymax = Math.ceil(top / step) * step;
   const yS = v => YB - v / ymax * (YB - Y0);
@@ -150,30 +186,30 @@ function drawMain(){
   if(hasItems){
     const b = DATA.bands[state.path], color = state.path === "progresivni" ? "var(--prog)" : "var(--kons)";
     for(const side of ["vyroba", "spotreba"]){
-      if(!b[side]) continue;
+      if(!b[side] || !show[side] || !show[state.path]) continue;
       const up = DATA.years.map((y, i) => [xScale(y), yS(b[side][2][i])]);
       const lo = DATA.years.map((y, i) => [xScale(y), yS(b[side][0][i])]).reverse();
       mk("path", {d:pathD(up.concat(lo)) + "Z", fill:color, opacity:.13}, svg);
     }
-    for(const ev of DATA.events.filter(e => e.path === state.path)){
+    const shown = show[state.path] ? currentEvents() : [];
+    for(const ev of shown){
       mk("line", {x1:xScale(ev.year), x2:xScale(ev.year), y1:Y0, y2:YB, stroke:color, "stroke-dasharray":"2 4"}, svg);
     }
-    const shown = DATA.events.filter(e => e.path === state.path).sort((a, c) => a.year - c.year);
     shown.forEach((ev, i) => mk("text", {class:"ev", x:xScale(ev.year) + 4, y:Y0 + 12 + (i % 4) * 14}, svg, ev.label));
     for(const p of Object.keys(PATHNAME)){
+      if(!show[p]) continue;
       const c = p === "progresivni" ? "var(--prog)" : "var(--kons)", width = p === state.path ? 2.8 : 1.6;
-      const start = DATA.history[DATA.history.length - 1];
       const line = (arr) => DATA.years.map((y, i) => [xScale(y), yS(arr[i])]);
-      mk("path", {d:pathD(line(series[p].use)), fill:"none", stroke:c, "stroke-width":width}, svg);
-      mk("path", {d:pathD(line(series[p].gen)), fill:"none", stroke:c, "stroke-width":width, "stroke-dasharray":"8 5"}, svg);
+      if(show.spotreba) mk("path", {d:pathD(line(series[p].use)), fill:"none", stroke:c, "stroke-width":width}, svg);
+      if(show.vyroba) mk("path", {d:pathD(line(series[p].gen)), fill:"none", stroke:c, "stroke-width":width, "stroke-dasharray":"8 5"}, svg);
     }
   }
   const hx = DATA.history.map(h => xScale(h.y));
-  mk("path", {d:pathD(DATA.history.map((h, i) => [hx[i], yS(h.use)])), fill:"none", stroke:"var(--ink)", "stroke-width":3}, svg);
-  mk("path", {d:pathD(DATA.history.map((h, i) => [hx[i], yS(h.gen)])), fill:"none", stroke:"var(--ink)", "stroke-width":3, "stroke-dasharray":"8 5"}, svg);
+  if(show.spotreba) mk("path", {d:pathD(DATA.history.map((h, i) => [hx[i], yS(h.use)])), fill:"none", stroke:"var(--ink)", "stroke-width":3}, svg);
+  if(show.vyroba) mk("path", {d:pathD(DATA.history.map((h, i) => [hx[i], yS(h.gen)])), fill:"none", stroke:"var(--ink)", "stroke-width":3, "stroke-dasharray":"8 5"}, svg);
   for(const h of DATA.history){
-    mk("circle", {cx:xScale(h.y), cy:yS(h.use), r:4, fill:"var(--ink)"}, svg);
-    mk("circle", {cx:xScale(h.y), cy:yS(h.gen), r:4, fill:"var(--ink)"}, svg);
+    if(show.spotreba) mk("circle", {cx:xScale(h.y), cy:yS(h.use), r:4, fill:"var(--ink)"}, svg);
+    if(show.vyroba) mk("circle", {cx:xScale(h.y), cy:yS(h.gen), r:4, fill:"var(--ink)"}, svg);
   }
   mk("line", {x1:xScale(state.year), x2:xScale(state.year), y1:Y0, y2:YB, stroke:"var(--muted)"}, svg);
   mk("line", {x1:X0, x2:X1, y1:YB, y2:YB, stroke:"var(--muted)"}, svg);
@@ -188,11 +224,13 @@ function showTip(e, svg, series){
   const tip = $("tip");
   let html = `<b class="mono">${y}</b>`;
   const row = (a, v) => `<div><span>${a}</span><span class="mono">${NF.format(v)} GWh</span></div>`;
+  const rows = (gen, use) => (state.show.vyroba ? row("Výroba", gen) : "") + (state.show.spotreba ? row("Spotřeba", use) : "");
   const past = DATA.history.find(h => h.y === y);
-  if(past) html += row("Výroba", past.gen) + row("Spotřeba", past.use);
+  if(past) html += rows(past.gen, past.use);
   else if(hasItems && y >= 2025) for(const p of Object.keys(PATHNAME)){
+    if(!state.show[p]) continue;
     const i = y - 2025;
-    html += `<div style="margin-top:4px"><b>${PATHNAME[p]}</b></div>` + row("Výroba", series[p].gen[i]) + row("Spotřeba", series[p].use[i]);
+    html += `<div style="margin-top:4px"><b>${PATHNAME[p]}</b></div>` + rows(series[p].gen[i], series[p].use[i]);
   } else return;
   tip.innerHTML = html;
   tip.style.display = "block";
@@ -252,17 +290,21 @@ function drawLists(){
     card.innerHTML = `<h2>${title}</h2>`;
     const size = x => Math.max(x.p50, x.base);
     for(const it of DATA.items.filter(x => x.path === state.path && x.side === side).sort((a, c) => size(c) - size(a))){
-      const max = Math.max(100, it.p90 * 1.5, it.base * 1.25, it.p50 * 1.5), k = key(it);
-      const pct = v => (v / max * 100).toFixed(2) + "%";
+      const saving = it.p10 < 0, min = saving ? it.p10 * 1.5 : 0, k = key(it);
+      const max = saving ? 0 : Math.max(100, it.p90 * 1.5, it.base * 1.25, it.p50 * 1.5);
+      const pct = v => ((v - min) / (max - min) * 100).toFixed(2) + "%";
       const row = document.createElement("div");
       row.className = "item";
       row.innerHTML =
         `<div class="top"><span>${esc(it.name)}<span class="grade ${esc(it.grade)}" title="Stupeň důkazu">${esc(it.grade)}</span></span>` +
         `<span class="val mono"></span></div>` +
-        `<div class="track"><span class="band" style="left:${pct(it.p10)};width:${((it.p90 - it.p10) / max * 100).toFixed(2)}%"></span>` +
+        `<div class="track"><span class="band" style="left:${pct(it.p10)};width:${((it.p90 - it.p10) / (max - min) * 100).toFixed(2)}%"></span>` +
         `<span class="def" style="left:${pct(it.p50)}"></span>` +
-        `<input type="range" min="0" max="${max}" step="${Math.max(1, Math.round(max / 200))}" aria-label="${esc(it.name)}"></div>` +
+        `<input type="range" min="${min}" max="${max}" step="${Math.max(1, Math.round((max - min) / 200))}" aria-label="${esc(it.name)}"></div>` +
+        (it.jump !== null ? `<div class="yearline"><label>${esc(it.event || "Rok změny")}</label><span class="mono jumpv"></span>` +
+          `<input class="jumpin" type="range" min="2026" max="2050" step="1" data-jump="${esc(jumpKey(it))}" aria-label="Rok: ${esc(it.event || it.name)}"></div>` : "") +
         `<details><summary>Výpočet a zdroj</summary><p>Rok 2025: ${NF.format(it.base)} GWh. Výchozí hodnota ${NF.format(it.p50)} GWh, pásmo ${NF.format(it.p10)} až ${NF.format(it.p90)} GWh.</p>` +
+        (it.jump !== null ? `<p>Výchozí rok změny ${it.jump}, pásmo ${it.jumpLow} až ${it.jumpHigh}.</p>` : "") +
         `<p><b>Výpočet:</b> ${esc(it.how)}</p><p><b>Zdroj:</b> ${link(it.src)}</p>` +
         (it.page ? `<p><b>Dopadová studie:</b> ${esc(it.page)}${it.quote ? `, „${esc(it.quote)}“` : ""}</p>` : "") +
         `${it.note ? `<p>${esc(it.note)}</p>` : ""}</details>`;
@@ -270,6 +312,21 @@ function drawLists(){
       const show = () => { val.textContent = NF.format(state.values[k]) + " GWh"; };
       input.value = state.values[k];
       show();
+      if(it.jump !== null){
+        const jk = jumpKey(it), jumpIn = row.querySelector(".jumpin"), jumpV = row.querySelector(".jumpv");
+        jumpIn.value = state.jumps[jk];
+        jumpV.textContent = state.jumps[jk];
+        jumpIn.addEventListener("input", () => {
+          state.jumps[jk] = Number(jumpIn.value);
+          document.querySelectorAll(".jumpin").forEach(other => {
+            if(other.dataset.jump !== jk) return;
+            other.value = jumpIn.value;
+            other.previousElementSibling.textContent = jumpIn.value;
+          });
+          jumpV.textContent = jumpIn.value;
+          refresh();
+        });
+      }
       input.addEventListener("input", () => {
         state.values[k] = Number(input.value);
         show();
@@ -297,6 +354,13 @@ document.querySelectorAll("[data-path]").forEach(b => b.addEventListener("click"
   document.querySelectorAll("[data-path]").forEach(x => x.setAttribute("aria-pressed", x === b));
   drawLists(); drawLegend(); refresh();
 }));
+document.querySelectorAll("[data-show]").forEach(b => b.addEventListener("click", () => {
+  const name = b.dataset.show, other = {progresivni:"konzervativni", konzervativni:"progresivni", vyroba:"spotreba", spotreba:"vyroba"}[name];
+  if(state.show[name] && !state.show[other]) return;
+  state.show[name] = !state.show[name];
+  b.setAttribute("aria-pressed", state.show[name]);
+  refresh();
+}));
 $("year").addEventListener("input", e => { state.year = Number(e.target.value); refresh(); });
 $("reset").addEventListener("click", () => { resetValues(); drawLists(); refresh(); });
 $("theme").addEventListener("click", () => {
@@ -309,7 +373,7 @@ $("notice").textContent = hasItems
   ? "Prototyp. Hodnoty po roce 2025 jsou odhady. Položky se stupněm D jsou odhad bez publikovaného zdroje a čekají na ověření."
   : "Prototyp. Zatím jen skutečná data za roky 2023 až 2025. Položky, cesty a posuvníky se připravují.";
 $("foot").innerHTML = "Výroba je brutto. Spotřeba je součet sektorů plus ztráty v sítích. Zdroje skutečnosti: Dopadová studie energetické bezpečnosti a soběstačnosti MSK (2024), Tab. 1 a Tab. 6; zprávy ERÚ o provozu elektrizační soustavy, tabulky 6.1 a 6.3, předběžné údaje. Stupně důkazu: A měření, B publikovaná studie, C technický výpočet, D odhad bez publikovaného zdroje. Meze P10 a P90 jsou téměř všude odhad. <a href=\"polozky.csv\">Tabulka položek</a>, <a href=\"polozky_poznamky.md\">poznámky ke zdrojům</a>, <a href=\"grafy_polozek.pdf\">grafy položek</a>.";
-if(!hasItems){ $("year").closest(".yearrow").style.display = "none"; document.querySelector(".pills").style.display = "none"; $("reset").style.display = "none"; }
+if(!hasItems){ $("year").closest(".yearrow").style.display = "none"; document.querySelector(".pills").style.display = "none"; $("toggles").style.display = "none"; $("reset").style.display = "none"; }
 resetValues();
 drawLegend(); drawLists(); refresh();
 </script>

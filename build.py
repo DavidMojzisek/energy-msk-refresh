@@ -44,7 +44,9 @@ def quantile(z, p10, p50, p90):
     """Hodnota z normálního skóre přes P10, P50 a P90, po částech lineárně."""
     upper = p50 + z / Z90 * (p90 - p50)
     lower = p50 + z / Z90 * (p50 - p10)
-    return np.maximum(np.where(z >= 0, upper, lower), 0)
+    value = np.where(z >= 0, upper, lower)
+    # Úspory jsou záporná položka, ostatní položky nemohou klesnout pod nulu.
+    return np.minimum(value, 0) if p10 < 0 else np.maximum(value, 0)
 
 
 def item_curve(base, levels, jump_years):
@@ -79,17 +81,18 @@ def simulate(rows, rng):
 
 
 def median_curve(row):
+    """Výchozí křivka položky. U skoku je to hladina po události, rok skoku určuje stránka."""
     levels = np.array([[num(row, f"p50_{m}")] for m in MILESTONES])
     jumps = None
     if row["prubeh"].strip() == "skok":
-        jumps = np.array([num(row, "skok_rok_p50")])
+        jumps = np.array([2025.0])
     return item_curve(num(row, "zaklad_2025_GWh"), levels, jumps)[:, 0].round(2).tolist()
 
 
 def build_data():
     rows = read_items()
     rng = np.random.default_rng(20261104)
-    items, bands, events = [], {}, []
+    items, bands = [], {}
     for path in PATHS:
         bands[path] = {}
         for side in ("vyroba", "spotreba"):
@@ -104,13 +107,12 @@ def build_data():
             "curve": median_curve(r), "grade": r["stupen"].strip(), "how": r["odvozeni"].strip(),
             "src": r["zdroj"].strip(), "note": r["poznamka"].strip(),
             "page": (r.get("strana_studie") or "").strip(), "quote": (r.get("citace") or "").strip(),
+            "jump": num(r, "skok_rok_p50") if r["prubeh"].strip() == "skok" else None,
+            "jumpLow": num(r, "skok_rok_p10") if r["prubeh"].strip() == "skok" else None,
+            "jumpHigh": num(r, "skok_rok_p90") if r["prubeh"].strip() == "skok" else None,
+            "event": r["udalost"].strip().split(",")[0],
         })
-        if r["prubeh"].strip() == "skok" and r["udalost"].strip():
-            label = r["udalost"].strip().split(",")[0]
-            event = {"path": r["cesta"].strip(), "year": num(r, "skok_rok_p50"), "label": label}
-            if event not in events:
-                events.append(event)
-    return {"years": YEARS.tolist(), "history": HISTORY, "items": items, "bands": bands, "events": events}
+    return {"years": YEARS.tolist(), "history": HISTORY, "items": items, "bands": bands}
 
 
 def fonts_css():
