@@ -114,30 +114,30 @@ canvas{display:block;width:100%;height:300px}
 <div id="f1main"></div>
 <p class="small" id="f1sum"></p>
 <p class="small" id="f1read" style="min-height:36px"></p>
-<figcaption><b>Co je vykresleno.</b> Dva týdny hodinového provozu. Horní pás ukazuje denní rozdíl dovozu přes celý rok a kliknutím do něj se okno přesune. <b>Jak se počítá.</b> Pravidlo je hodinový výpočet z této stránky. Program minimalizuje roční dovoz. Optimum není jednoznačné, proto se mezi plány se stejným dovozem bere ten nejbližší pravidlu v součtu absolutních odchylek. Rok je ten z pěti, jehož rozdíl leží nejblíž průměru. Výchozí okna jsou letní a zimní dva týdny s největším součtem absolutního rozdílu dovozu, tedy vybraná tak, aby rozdíl byl vidět. Řady jsou zaokrouhlené na 1 MW. <b>Zjištění.</b> Na pozdějším stavu tabulky pravidlo v zobrazeném roce omezí 388,9 GWh a v těchto hodinách je baterie plná a elektrolyzér na maximu. Program má v týchž hodinách baterii v průměru jen z 1 328 MWh z 3 000 MWh nabitou a uloží do ní 238,6 GWh, pravidlo jen 12,9 GWh. Program pak neběží s elektrolyzérem v žádné hodině s dovozem, pravidlo bere na vodík 213,4 GWh ze sítě. To je právě rozdíl dovozu v tom roce. <b>Data.</b> <code>laborator/neuronove/data/lp_rozvrhy.npz</code>, <code>data/presny_float32.bin</code>.</figcaption>
+<figcaption><b>Co je vykresleno.</b> Dva týdny hodinového provozu. Horní pás ukazuje denní rozdíl dovozu v GWh přes celý rok, popisky jsou měsíce, a kliknutím do něj se okno přesune. <b>Jak se počítá.</b> Pravidlo je hodinový výpočet z této stránky. Program minimalizuje roční dovoz. Optimum není jednoznačné, proto se mezi plány se stejným dovozem bere ten nejbližší pravidlu v součtu absolutních odchylek. Rok je ten z pěti, jehož rozdíl leží nejblíž průměru. Výchozí okna jsou letní a zimní dva týdny s největším součtem absolutního rozdílu dovozu, tedy vybraná tak, aby rozdíl byl vidět. Řady jsou zaokrouhlené na 1 MW. <b>Zjištění.</b> Na pozdějším stavu tabulky pravidlo v zobrazeném roce omezí 388,9 GWh a v těchto hodinách je baterie plná a elektrolyzér na maximu. Zobrazený plán programu má v týchž hodinách v baterii v průměru 1 328 MWh z 3 000 MWh a uloží do ní 238,6 GWh, pravidlo 12,9 GWh. Program pak nepustí elektrolyzér v žádné hodině s dovozem, kdežto pravidlo bere na vodík 213,4 GWh ze sítě, tedy přesně rozdíl dovozu v tom roce. Jde o baterii plnou v nevhodnou chvíli, ne o její velikost. <b>Data.</b> <code>laborator/neuronove/data/lp_rozvrhy.npz</code>, <code>data/presny_float32.bin</code>.</figcaption>
 </figure>
 
 <figure>
 <div id="f2dec"></div>
-<figcaption><b>Co je vykresleno.</b> Odkud se bere rozdíl ročního dovozu u obou mixů a obou stavů tabulky. <b>Jak se počítá.</b> Spotřeba, výroba a dodaný vodík jsou v obou plánech stejné a baterie končí rok tam, kde začala, takže přesně platí: rozdíl dovozu = rozdíl omezené výroby + rozdíl ztrát baterie − rozdíl plynu. Průměr 5 let, kladná hodnota znamená, že pravidlo má víc. <b>Zjištění.</b> Na pozdějším stavu tvoří rozdíl 218,8 GWh u bohatšího mixu skoro celý nižší omezení, 228,5 GWh. U dnešního mixu je malý, protože přebytku je málo a vodíku málo, tam jde hlavně o ztráty baterie. Na tabulce sítí zbývá u bohatšího mixu jen 36,3 GWh a z toho 30,5 GWh tvoří plyn: pravidlo nevyčerpá roční limit, protože plyn smí jen v hodinách s nedostatkem a s omezeným výkonem, program si takové hodiny zařídí. Přebytek v tomto případě pokryje 99,9 % vodíku. <b>Data.</b> <code>laborator/neuronove/data/lp_zmrazeny.json</code>.</figcaption>
+<figcaption><b>Co je vykresleno.</b> Odkud se bere rozdíl ročního dovozu u obou mixů a obou stavů tabulky. <b>Jak se počítá.</b> Spotřeba, výroba a dodaný vodík jsou v obou plánech stejné a baterie končí rok tam, kde začala, takže přesně platí: rozdíl dovozu = rozdíl omezené výroby + rozdíl ztrát baterie − rozdíl plynu. Průměr 5 let, kladná hodnota znamená, že pravidlo má víc. <b>Zjištění.</b> Na pozdějším stavu tvoří rozdíl 218,8 GWh u bohatšího mixu skoro celý nižší omezení, 228,5 GWh. Na tabulce sítí zbývá u bohatšího mixu jen 36,3 GWh a z toho 30,5 GWh tvoří plyn. Pravidlo pálí plyn jen v hodinách, kdy by jinak dováželo, a roční limit nevyčerpá, program ano. Přebytek tam pokryje 99,9 % vodíku, takže na přesun elektrolyzéru skoro nic nezbývá. <b>Data.</b> <code>laborator/neuronove/data/lp_zmrazeny.json</code>.</figcaption>
 </figure>
 
 <figure>
 <div class="two" style="grid-template-columns:minmax(0,620px)"><div id="f3heat"></div></div>
 <p class="small" id="f3key"></p>
-<figcaption><b>Co je vykresleno.</b> Průměrný rozdíl dovozu mezi pravidlem a programem podle měsíce (řádky) a hodiny dne (sloupce) pro případ zvolený výše. <b>Jak se počítá.</b> Hodinové rozdíly přes všech 5 let, zprůměrované v každé buňce. Barevná škála se mění podle případu. <b>Zjištění.</b> Na pozdějším stavu leží rozdíl v březnu až listopadu, po 19 až 25 GWh měsíčně, a skoro nic v prosinci až únoru. Zima tedy k rozdílu přispívá málo. Na tabulce sítí je rozložení rovnoměrnější a celkově menší. <b>Data.</b> <code>laborator/neuronove/data/lp_rozvrhy.npz</code>.</figcaption>
+<figcaption><b>Co je vykresleno.</b> Průměrný rozdíl dovozu mezi pravidlem a programem podle měsíce (řádky) a hodiny dne (sloupce) pro případ zvolený výše. <b>Jak se počítá.</b> Hodinové rozdíly přes všech 5 let, zprůměrované v každé buňce. Barevná škála se mění podle případu. <b>Zjištění.</b> Na pozdějším stavu v zobrazeném roce leží rozdíl v březnu až listopadu, po 19,4 až 25,4 GWh měsíčně, a v prosinci až únoru jen 2,3 až 4,9 GWh. Zima tedy k rozdílu přispívá málo. Během dne je rozdíl v ročním průměru 17 až 31 MW ve všech hodinách, protože pravidlo bere vodík ze sítě rozprostřeně přes celé dny. Na tabulce sítí je měsíční rozdíl u tohoto mixu 1,0 až 6,5 GWh bez jasné sezóny. U dnešního mixu je to polední plus a večerní minus, jen do 2 MW. <b>Data.</b> <code>laborator/neuronove/data/lp_rozvrhy.npz</code>.</figcaption>
 </figure>
 
 <figure>
 <div class="ctl"><span class="seg" id="f4set"></span> <span class="seg" id="f4ver"></span> <span class="seg" id="f4m"></span></div>
 <div id="f4gap"></div>
-<figcaption><b>Co je vykresleno.</b> Rozdíl dovozu podle přidané výroby z FVE a větru, 33 mixů se 3 hladinami větru a 11 hladinami FVE. Kosočtverec je mix 1 SMR + 2,9 GWp + 1,1 GW. <b>Jak se počítá.</b> Lineární program pro každý mix a každý z 5 let, 685 výpočtů, průměr 5 let. Přidaná výroba: GWp krát 1 051,2 h plus GW krát 2 744,7 h. Baterie, vodík a elektrolyzér stojí na hodnotách zvoleného mixu. Přepínač vrstev mění základní výrobu OZE. <b>Zjištění.</b> Rozdíl není rostoucí funkcí přidané výroby. Při větru 1 GW a tabulce sítí stoupá na 231,1 GWh při 2,5 GWp, kde přebytek pokryje 89 % vodíku, a při 3,5 GWp klesá na 32,7 GWh, kde pokryje 100 %. Největší spočítaný rozdíl je 305,9 GWh (15,0 %) bez větru a s 5 GWp. Bohatší mix leží na tabulce sítí těsně za tímto srázem a na pozdějším stavu těsně před ním, proto vychází 7,3 % nebo 30,2 %. Číslo 30 % proto není vlastnost mixu, ale jeho polohy vůči srázu. Při vodíku dnešního mixu je rozdíl po přidání 0,5 GWp nebo 1 GW větru nulový na zobrazené přesnosti. <b>Data.</b> <code>laborator/neuronove/data/lp_zmrazeny.json</code>.</figcaption>
+<figcaption><b>Co je vykresleno.</b> Rozdíl dovozu podle přidané výroby z FVE a větru, 33 mixů se 3 hladinami větru a 11 hladinami FVE. Kosočtverec je mix 1 SMR + 2,9 GWp + 1,1 GW. <b>Jak se počítá.</b> Lineární program pro každý mix a každý z 5 let, 165 výpočtů na jeden graf, průměr 5 let. Přidaná výroba: GWp krát 1 051,2 h plus GW krát 2 744,7 h. Baterie, vodík a elektrolyzér stojí na hodnotách zvoleného mixu. Přepínač stavu tabulky mění základní výrobu OZE a platí jen pro vodík a baterii mixu 2,9 GWp, vodík dnešního mixu je spočítán jen na tabulce sítí. <b>Zjištění.</b> Rozdíl není rostoucí funkcí přidané výroby. Při větru 1 GW a tabulce sítí stoupá na 231,1 GWh při 2,5 GWp, kde přebytek pokryje 89 % vodíku, a při 3,5 GWp klesá na 32,7 GWh, kde pokryje 100 %. Největší spočítaný rozdíl je 305,9 GWh (15,0 %) bez větru a s 5 GWp. Bohatší mix leží na tabulce sítí těsně za tímto srázem a na pozdějším stavu těsně před ním, proto vychází 7,3 % nebo 30,2 %. Číslo 30 % proto není vlastnost mixu, ale jeho polohy vůči srázu. Při vodíku dnešního mixu je rozdíl po přidání 0,5 GWp nebo 1 GW větru nulový na zobrazené přesnosti. <b>Data.</b> <code>laborator/neuronove/data/lp_zmrazeny.json</code>.</figcaption>
 </figure>
 
 <figure>
 <div class="legend"><span><span class="dot" style="background:var(--s1)"></span>mixy, tabulka sítí</span><span><span class="dot" style="background:var(--s2)"></span>mixy, pozdější stav tabulky</span><span><span class="dot" style="background:var(--muted)"></span>30 náhodných nastavení z testu</span></div>
 <div id="f5share"></div>
-<figcaption><b>Co je vykresleno.</b> Rozdíl dovozu podle toho, jakou část elektřiny na vodík pravidlo pokryje z přebytku. Jeden bod je jedno nastavení. <b>Jak se počítá.</b> Průměr 5 let, jen nastavení s nenulovým vodíkem, 137 bodů. <b>Zjištění.</b> Když přebytek pokryje všechen vodík, je medián rozdílu nula a největší rozdíl 66,1 GWh. Největší rozdíly leží mezi 50 a 90 % krytí. Podíl sám ale rozdíl neurčuje: při stejném podílu se rozdíly liší podle velikosti vodíku a baterie. <b>Data.</b> <code>laborator/neuronove/data/lp_zmrazeny.json</code>.</figcaption>
+<figcaption><b>Co je vykresleno.</b> Rozdíl dovozu podle toho, jakou část elektřiny na vodík pravidlo pokryje z přebytku. Jeden bod je jedno nastavení. <b>Jak se počítá.</b> Průměr 5 let, jen nastavení s nenulovým vodíkem, 137 bodů. <b>Zjištění.</b> Když přebytek pokryje skoro všechen vodík, od 99,5 %, je medián rozdílu nula a největší rozdíl 66,1 GWh. Největší rozdíly leží mezi 50 a 90 % krytí, až 305,9 GWh. Podíl sám rozdíl neurčuje, protože body se stejným podílem mají různě velký vodík a baterii. <b>Data.</b> <code>laborator/neuronove/data/lp_zmrazeny.json</code>.</figcaption>
 </figure>
 </section>
 
@@ -149,7 +149,7 @@ canvas{display:block;width:100%;height:300px}
 <div id="f6graph"></div>
 <p class="small" id="f6round"></p>
 <div class="two"><div id="f6read"></div><div id="f6plane"></div></div>
-<figcaption><b>Co je vykresleno.</b> Skutečný graf toků a jeden průchod sítí. Tloušťka hrany je velikost zprávy v daném kole a v tomto scénáři. Výplň uzlu je první hlavní komponenta stavu, modrá kladná a oranžová záporná. Tři pruhy v uzlu jsou první tři komponenty. Levý graf ukazuje, co by řekla výstupní hlava ze součtu stavů po každém kole, proti přesnému modelu. Pravý graf ukazuje dráhu uzlů v rovině prvních dvou komponent. <b>Jak se počítá.</b> Hlavní komponenty pochází z 500 scénářů testu, všech uzlů a kol, a vysvětlují 58 % rozptylu stavů. Výstupní hlava byla trénovaná jen na stav po 3. kole, dřívější čtení tedy není předpověď sítě, jen pohled na její mezistav. Váhy jsou na stránce uložené v polovičním rozlišení, na testu to mění odpověď na dovoz nejvýše o 10,4 GWh a souhrnnou chybu méně než o 0,0001. <b>Zjištění.</b> Stav uzlů se s každým kolem vzdaluje a norma zpráv roste, medián součtu přes hrany 11,7, 14,5 a 17,1 v kolech 1, 2 a 3. Mezi kolem 0 a 3 se čtení výstupní hlavy mění velmi výrazně a teprve po 3. kole se blíží modelu, což odpovídá tomu, že na něj byla trénovaná. Hlavní komponenty nesou jen část rozptylu, pohled je tedy jen přibližný. <b>Data.</b> <code>laborator/neuronove/data/vahy_sit.pkl</code>.</figcaption>
+<figcaption><b>Co je vykresleno.</b> Skutečný graf toků a jeden průchod sítí. Tloušťka hrany je velikost zprávy v daném kole a v tomto scénáři. Výplň uzlu je první hlavní komponenta stavu, modrá kladná a oranžová záporná. Tři pruhy v uzlu jsou první tři komponenty. Levý graf ukazuje, co by řekla výstupní hlava ze součtu stavů po každém kole, proti přesnému modelu. Pravý graf ukazuje dráhu uzlů v rovině prvních dvou komponent. <b>Jak se počítá.</b> Hlavní komponenty pochází z 500 scénářů testu, všech uzlů a kol, a vysvětlují 58 % rozptylu stavů. Výstupní hlava byla trénovaná jen na stav po 3. kole, dřívější čtení tedy není předpověď sítě, jen pohled na její mezistav. Váhy jsou na stránce uložené v polovičním rozlišení, na testu to mění odpověď na dovoz nejvýše o 10,4 GWh a souhrnnou chybu méně než o 0,0001. <b>Zjištění.</b> Předpověď vzniká až v posledním kole. U mixu 1 SMR + 2,9 GWp + 1,1 GW čte hlava po kolech 2 163, 2 974, 2 702 a 569 GWh proti 499 GWh modelu, u dnešního mixu 2 737, 3 958, 3 944 a 3 225 GWh proti 3 301 GWh. Průměrná velikost zpráv přes test s koly roste: součet přes hrany 11,7, 14,5 a 17,1, medián přes starty. <b>Data.</b> <code>laborator/neuronove/data/vahy_sit.pkl</code>.</figcaption>
 </figure>
 <figure>
 <div class="two"><div id="f7edges"></div><div><div id="f7abl"></div><div id="f7perm"></div></div></div>
@@ -171,7 +171,7 @@ canvas{display:block;width:100%;height:300px}
 <div class="sl" id="f9sl"></div>
 <div class="bar"><button id="f9reset" type="button">Výchozí nastavení</button></div>
 <div id="f9grid"></div>
-<figcaption><b>Co je vykresleno.</b> Dovoz, vývoz a omezení, dovoz v zimě podle baterie, FVE a elektrolyzéru. Svislá čára je hodnota posuvníku. <b>Jak se počítá.</b> Přesný model ve 13 bodech každé křivky, sítě v 17 bodech, pás je rozsah přes 5 startů, čára medián. MLP 256 a GNN jsou uložené v polovičním rozlišení, MLP 64 v plném. Posuvník osy, kterou daný sloupec prochází, se v tom sloupci neuplatní. <b>Zjištění.</b> Sítě sledují velké trendy dovozu a vývozu podle FVE. Slabina je v malých sklonech. Podél baterie a nad nasyceným elektrolyzérem je změna modelu stejně velká jako rozptyl mezi starty, takže tvar křivky neznamená nic. Přesný model má navíc zlomy, kde elektrolyzér přestane stačit a část vodíku se nedodá, a sítě je vyhlazují. <b>Data.</b> <code>laborator/neuronove/data/vahy_sit.pkl</code>, <code>data/presny_float32.bin</code>.</figcaption>
+<figcaption><b>Co je vykresleno.</b> Dovoz, vývoz a omezení, dovoz v zimě podle baterie, FVE a elektrolyzéru. Svislá čára je hodnota posuvníku. <b>Jak se počítá.</b> Přesný model ve 13 bodech každé křivky, sítě v 17 bodech, pás je rozsah přes 5 startů, čára medián. Každý panel má vlastní svislou osu, aby byly vidět malé sklony. MLP 256 a GNN jsou uložené v polovičním rozlišení, MLP 64 v plném. Posuvník osy, kterou daný sloupec prochází, se v tom sloupci neuplatní. <b>Zjištění.</b> Při výchozím nastavení sítě sledují velké trendy, dovoz podle FVE i skok u malého elektrolyzéru. Slabina je tam, kde model skoro nereaguje. Elektrolyzér nad 1 400 MW dovoz v modelu vůbec nemění, 4 584 GWh, ale pás sítí je tam široký 29,1 až 151,2 GWh. Baterie mění dovoz o 64,5 GWh a pás je široký až 248,3 GWh. Zlom modelu kolem 2,9 GWp sítě vyhlazují: při 2,5 GWp má model 2 349 GWh a mediány sítí 2 366 až 2 401 GWh. <b>Data.</b> <code>laborator/neuronove/data/vahy_sit.pkl</code>, <code>data/presny_float32.bin</code>.</figcaption>
 </figure>
 </section>
 
@@ -181,7 +181,7 @@ canvas{display:block;width:100%;height:300px}
 <div class="ctl"><span class="seg" id="f10set"></span> <span class="seg" id="f10m"></span></div>
 <div id="f10learn"></div>
 <div class="tw" style="margin-top:8px"><table id="f10tab"></table></div>
-<figcaption><b>Co je vykresleno.</b> Chyba všech systémů podle počtu běhů modelu. Tabulka má stejné hodnoty. <b>Jak se počítá.</b> Běhy jsou začátek téže Sobolovy řady. Čára je medián přes 5 startů, pás rozsah, deterministické systémy mají jediný bod. Tabulka s interpolací používá 3, 4 a 5 uzlů na osu. Průměr tréninku je jen měřítko. <b>Zjištění.</b> MLP 256 klesá nejvíc, z 0,0343 na 0,0096, a nejmenší rozpočet je pro něj příliš malý. GNN je při nejmenším rozpočtu nejlepší (0,0261, rozsahy se s MLP 64 překrývají), ale od 12 288 běhů se téměř nezlepšuje: 0,0204 a 0,0197. Na mřížce s rohy je chyba všech sítí asi dvojnásobná. Tabulka je stále o řád horší, protože 7 os spotřebuje běhy na hrubou mřížku. <b>Data.</b> <code>laborator/neuronove/vysledky.json</code>.</figcaption>
+<figcaption><b>Co je vykresleno.</b> Chyba všech systémů podle počtu běhů modelu. Tabulka má stejné hodnoty. <b>Jak se počítá.</b> Běhy jsou začátek téže Sobolovy řady. Čára je medián přes 5 startů, pás rozsah, deterministické systémy mají jediný bod. Tabulka s interpolací používá 3, 4 a 5 uzlů na osu. Průměr tréninku je jen měřítko. <b>Zjištění.</b> MLP 256 klesá nejvíc, z 0,0343 na 0,0096, a při nejmenším rozpočtu je z neuronových sítí nejhorší. GNN je při nejmenším rozpočtu nejlepší (0,0261, rozsahy se s MLP 64 překrývají), ale od 12 288 běhů se téměř nezlepšuje: 0,0204 a 0,0197. Na mřížce s rohy je chyba všech sítí asi dvojnásobná. Tabulka s interpolací zůstává několikanásobně horší než sítě při stejném počtu běhů. <b>Data.</b> <code>laborator/neuronove/vysledky.json</code>.</figcaption>
 </figure>
 <figure>
 <div class="ctl"><label for="f11o">Výstup</label> <select id="f11o"></select> <span class="seg" id="f11m"></span></div>
@@ -190,18 +190,18 @@ canvas{display:block;width:100%;height:300px}
 <div><p class="small" id="f11t1" style="min-height:36px;margin:0"></p><canvas id="f11c1" aria-label="Předpověď MLP 256 proti modelu na testu"></canvas></div>
 <div><p class="small" id="f11t2" style="min-height:36px;margin:0"></p><canvas id="f11c2" aria-label="Předpověď GNN proti modelu na testu"></canvas></div>
 </div>
-<figcaption><b>Co je vykresleno.</b> Předpověď proti modelu na 3 000 scénářích testu, vodorovně hodnota modelu. Přepínač ukáže chybu místo předpovědi, protože na velkém rozsahu dovozu leží body téměř na přímce. <b>Jak se počítá.</b> Bod je medián předpovědí 5 startů, největší rozpočet. Text nad grafem je průměrná absolutní chyba, medián a rozsah přes starty. Medián pěti předpovědí bývá přesnější než jednotlivý start. <b>Zjištění.</b> Na celém rozsahu leží všechny tři sítě blízko přímky. Pohled na chybu ukazuje, že MLP 256 má chybu asi poloviční proti MLP 64 a GNN. Největší chyby leží u nízkého dovozu kolem nedodaného vodíku, ne u vysokého dovozu. <b>Data.</b> <code>laborator/neuronove/data/vahy_sit.pkl</code>, <code>data/behy.npz</code>.</figcaption>
+<figcaption><b>Co je vykresleno.</b> Předpověď proti modelu na 3 000 scénářích testu, vodorovně hodnota modelu. Přepínač ukáže chybu místo předpovědi, protože na velkém rozsahu dovozu leží body téměř na přímce. <b>Jak se počítá.</b> Bod je medián předpovědí 5 startů, největší rozpočet. Text nad grafem je průměrná absolutní chyba, medián a rozsah přes starty. Medián pěti předpovědí bývá přesnější než jednotlivý start. <b>Zjištění.</b> Na celém rozsahu leží všechny tři sítě blízko přímky. Pohled na chybu ukazuje, že MLP 256 má chybu asi poloviční proti MLP 64 a GNN. Chyba mediánu předpovědí je nejmenší v nejnižší čtvrtině dovozu, pod 153 GWh: 9,8 GWh u MLP 64, 5,0 GWh u MLP 256 a 11,9 GWh u GNN. V ostatních čtvrtinách je zhruba dvojnásobná a dál už s dovozem neroste. <b>Data.</b> <code>laborator/neuronove/data/vahy_sit.pkl</code>, <code>data/behy.npz</code>.</figcaption>
 </figure>
 <figure>
 <div class="ctl"><label for="f12o">Výstup</label> <select id="f12o"></select></div>
 <div id="f12bins"></div>
 <p class="small" id="f12key"></p>
-<figcaption><b>Co je vykresleno.</b> Průměrná absolutní chyba podle pásma každého vstupu. <b>Jak se počítá.</b> Chyba každého startu v pásmu na testu, potom medián přes 5 startů. <b>Zjištění.</b> Chyba dovozu je největší u nejmenšího elektrolyzéru, 100 až 587,5 MW: MLP 64 40,9 GWh proti 23,9 GWh uprostřed, GNN 54,9 proti 25,5 GWh. Dále roste bez SMR a u 1 SMR proti 2 SMR. Podél baterie se chyba mění málo, i když právě tam síť nejvíc mýlí sklon: malá průměrná chyba tedy nezaručuje správnou citlivost. <b>Data.</b> <code>laborator/neuronove/data/vahy_sit.pkl</code>, <code>data/behy.npz</code>.</figcaption>
+<figcaption><b>Co je vykresleno.</b> Průměrná absolutní chyba podle pásma každého vstupu. <b>Jak se počítá.</b> Chyba každého startu v pásmu na testu, potom medián přes 5 startů. <b>Zjištění.</b> Chyba dovozu je největší u nejmenšího elektrolyzéru, 100 až 587,5 MW: MLP 64 40,9 GWh proti 23,9 GWh uprostřed, GNN 54,9 proti 25,5 GWh. S 0 a 1 SMR je větší než se 2 SMR. Podél baterie se chyba mění málo, i když tam sítě mýlí sklon. Malá průměrná chyba tedy nezaručuje správnou citlivost. <b>Data.</b> <code>laborator/neuronove/data/vahy_sit.pkl</code>, <code>data/behy.npz</code>.</figcaption>
 </figure>
 <figure>
 <div class="two" style="grid-template-columns:minmax(0,620px)"><div id="f13corners"></div></div>
 <div class="tw"><table><tr><th>Síť</th><th class="n">Model dodá všechen vodík, chyba dovozu GWh</th><th class="n">Část vodíku nedodá, chyba dovozu GWh</th><th class="n">99. percentil chyby dovozu, GWh</th></tr><tr><td>MLP 64</td><td class="n">26,0 (24,1 až 29,5)</td><td class="n">51,9 (45,5 až 56,2)</td><td class="n">113,8 (108,8 až 138,5)</td></tr><tr><td>MLP 256</td><td class="n">12,9 (12,8 až 13,2)</td><td class="n">30,7 (30,0 až 35,5)</td><td class="n">63,3 (62,2 až 69,4)</td></tr><tr><td>GNN</td><td class="n">30,6 (29,0 až 35,2)</td><td class="n">62,6 (54,7 až 76,6)</td><td class="n">153,9 (140,9 až 170,7)</td></tr></table></div>
-<figcaption><b>Co je vykresleno.</b> Chyba dovozu na mřížce 3 888 bodů podle počtu vstupů na kraji rozsahu, a chyba na testu podle toho, zda model nedodá část vodíku. <b>Jak se počítá.</b> Kraj znamená SMR 0 nebo 2, FVE 0 nebo 5, vítr 0 nebo 2, baterii 0 nebo 20, vodík 0 nebo 100 %, elektrolyzér 4 000 MW. Medián a rozsah přes 5 startů. <b>Zjištění.</b> Chyba roste s každým vstupem na kraji rozsahu: MLP 64 z 20,4 na 74,2 GWh, MLP 256 z 13,3 na 33,7 GWh, GNN z 26,8 na 100,0 GWh. Rohy tvoří malou část trénovacího rozsahu a síť tam extrapoluje. Scénáře s nedodaným vodíkem jsou 4,3 % testu a chyba je v nich asi dvojnásobná. <b>Data.</b> <code>laborator/neuronove/data/vahy_sit.pkl</code>, <code>data/behy.npz</code>.</figcaption>
+<figcaption><b>Co je vykresleno.</b> Chyba dovozu na mřížce 3 888 bodů podle počtu vstupů na kraji rozsahu, a chyba na testu podle toho, zda model nedodá část vodíku. <b>Jak se počítá.</b> Kraj znamená SMR 0 nebo 2, FVE 0 nebo 5, vítr 0 nebo 2, baterii 0 nebo 20, vodík 0 nebo 100 %, elektrolyzér 4 000 MW. Medián a rozsah přes 5 startů. <b>Zjištění.</b> Chyba roste s každým vstupem na kraji rozsahu: MLP 64 z 20,4 na 74,2 GWh, MLP 256 z 13,3 na 33,7 GWh, GNN z 26,8 na 100,0 GWh. Scénáře s nedodaným vodíkem jsou 4,3 % testu a chyba je v nich asi dvojnásobná. <b>Data.</b> <code>laborator/neuronove/data/vahy_sit.pkl</code>, <code>data/behy.npz</code>.</figcaption>
 </figure>
 </section>
 
@@ -261,7 +261,8 @@ canvas{display:block;width:100%;height:300px}
 <section class="card">
 <h2>Co se nepodařilo a co zůstává otevřené</h2>
 <ul class="z">
-<li>Stránka nebyla otevřena v prohlížeči. Logika je ověřena mimo prohlížeč, vzhled zkontrolovat nelze.</li>
+<li>Stránka nebyla otevřena v prohlížeči. Logika je ověřena mimo prohlížeč. Rozložení grafů SVG bylo zkontrolováno jen převodem jednotlivých grafů mimo stránku, celou stránku, animaci, posuvníky a grafy na plátně nikdo neviděl.</li>
+<li>Váhy MLP 256 a GNN se při prvním běhu neukládaly. Běhy byly zopakovány se stejnými startovacími hodnotami, souhrnná chyba všech 15 sítí na testu se shoduje přesně.</li>
 <li>Rychlost výpočtu byla měřena mimo prohlížeč, v dlouhé sérii scénářů. První výpočet je pomalejší a v prohlížeči a na slabším telefonu bude čas jiný. Stránka skutečný čas ukazuje.</li>
 <li>Grafy kraje a data uzlů se nestahovaly. U stejnosměrného toku a grafových měr proto není změřený výsledek. Veřejnou mapu přenosové soustavy se nepodařilo ověřit u zdroje.</li>
 <li>Grafová síť je základní návrh bez ladění, stejně jako ostatní systémy. Jiný návrh by mohl dopadnout jinak.</li>
@@ -655,9 +656,10 @@ const LABBIN="eNoUmIc/128Xxo1kRtmjsouKpCG+n3MkQkO0hCitX1vDaGrYMkJmJKSsMhrC93Nukj
   const svg = (w, h, body, aria) => `<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="${esc(aria)}">${body}</svg>`;
   const path = (xs, ys) => { let s = ''; for (let i = 0; i < xs.length; i++) s += (i ? 'L' : 'M') + xs[i].toFixed(1) + ' ' + ys[i].toFixed(1); return s; };
   const band = (xs, lo, hi) => { let s = ''; for (let i = 0; i < xs.length; i++) s += (i ? 'L' : 'M') + xs[i].toFixed(1) + ' ' + hi[i].toFixed(1); for (let i = xs.length - 1; i >= 0; i--) s += 'L' + xs[i].toFixed(1) + ' ' + lo[i].toFixed(1); return s + 'Z'; };
-  function spread(items, gap) { // items {y}, pushed apart so direct labels do not collide
+  function spread(items, gap, limit) { // items {y}, pushed apart so direct labels do not collide
     items.sort((a, b) => a.y - b.y);
     for (let i = 1; i < items.length; i++) if (items[i].y - items[i - 1].y < gap) items[i].y = items[i - 1].y + gap;
+    if (limit !== undefined) for (let i = items.length - 1; i >= 0; i--) items[i].y = Math.min(items[i].y, limit - (items.length - 1 - i) * gap);
     return items;
   }
   function seg(id, opts, cur, cb) {
@@ -794,13 +796,14 @@ const LABBIN="eNoUmIc/128Xxo1kRtmjsouKpCG+n3MkQkO0hCitX1vDaGrYMkJmJKSsMhrC93Nukj
     el('f3key').textContent = `Nejsytější modrá ${sg(mx, 1)} MW: pravidlo dováží víc než program. Oranžová: program dováží víc. Případ: ${c.label}.`;
   }
   function drawDecomp() {
-    const R = L.decomp, W = 960, rowH = 96, l = 250, r = 80;
+    const R = L.decomp, W = 960, rowH = 100, l = 270, r = 150;
     let mn = 0, mx = 1;
     R.forEach(q => { [q.gap, q.dcurt, q.dloss, -q.dgas].forEach(v => { mn = Math.min(mn, v); mx = Math.max(mx, v); }); });
     const px = v => l + (W - l - r) * (v - mn) / (mx - mn);
     let s = '', y = 6;
     R.forEach(q => {
-      s += `<text class="l" x="0" y="${y + 12}">${q.label}</text><text x="0" y="${y + 28}">dovoz ${cz(q.model, 0)} a ${cz(q.lp, 0)} GWh, rozdíl ${cz(q.pct, 1)} %</text><text x="0" y="${y + 44}">vodík z přebytku ${cz(q.h2share, 0)} %</text>`;
+      const nm = q.label.split(', ');
+      s += `<text class="l" x="0" y="${y + 12}">${nm.slice(0, -1).join(', ')}</text><text class="l" x="0" y="${y + 28}" style="font-weight:500">${nm[nm.length - 1]}</text><text x="0" y="${y + 46}">dovoz ${cz(q.model, 0)} a ${cz(q.lp, 0)} GWh, ${cz(q.pct, 1)} %</text><text x="0" y="${y + 62}">vodík z přebytku ${cz(q.h2share, 1)} %</text>`;
       [['Dovoz, rozdíl', q.gap, '--ink'], ['Omezení, rozdíl', q.dcurt, '--s4'], ['Ztráty baterie, rozdíl', q.dloss, '--s3'], ['Plyn, rozdíl se znaménkem', -q.dgas, '--muted']].forEach((b, i) => {
         const yy = y + i * 21 + 2, x0 = px(0), x1 = px(b[1]);
         s += `<rect x="${Math.min(x0, x1).toFixed(1)}" y="${yy}" width="${Math.max(Math.abs(x1 - x0), 1).toFixed(1)}" height="15" rx="2" fill="var(${b[2]})" data-t="${b[0]}: ${sg(b[1], 1)} GWh za rok, průměr 5 let"/>`;
@@ -813,14 +816,14 @@ const LABBIN="eNoUmIc/128Xxo1kRtmjsouKpCG+n3MkQkO0hCitX1vDaGrYMkJmJKSsMhrC93Nukj
   }
   const GAP = { set: 'b', ver: 'zmrazeny', m: 'gap' };
   function drawGap() {
-    const key = GAP.set + (GAP.set === 'b' ? '|' + GAP.ver : ''), rows = L.sweep[key], W = 960, Hh = 330, l = 62, r = 110, t = 12, b = 42;
+    const key = GAP.set + (GAP.set === 'b' ? '|' + GAP.ver : ''), rows = L.sweep[key], W = 960, Hh = 340, l = 62, r = 110, t = 24, b = 42;
     const v = q => (GAP.m === 'gap' ? q.gap : q.pct), lab = GAP.m === 'gap' ? 'Rozdíl dovozu, GWh za rok' : 'Rozdíl dovozu, % dovozu pod pravidlem';
     let mxx = 1, mxy = 1;
     rows.forEach(q => { mxx = Math.max(mxx, q.add); mxy = Math.max(mxy, v(q)); });
     const tx = ticks(0, mxx, 6), ty = ticks(0, mxy, 4), topY = Math.max(mxy, ty[ty.length - 1]);
     const px = a => l + (W - l - r) * a / mxx, py = a => t + (Hh - t - b) * (1 - a / topY);
     let s = '';
-    ty.forEach(a => { s += `<line x1="${l}" x2="${W - r}" y1="${py(a).toFixed(1)}" y2="${py(a).toFixed(1)}" stroke="var(--line)"/><text x="${l - 6}" y="${(py(a) + 4).toFixed(1)}" text-anchor="end">${cz(a, dec(a) > 1 ? 1 : 0)}</text>`; });
+    ty.forEach(a => { s += `<line x1="${l}" x2="${W - r}" y1="${py(a).toFixed(1)}" y2="${py(a).toFixed(1)}" stroke="var(--line)"/><text x="${l - 6}" y="${(py(a) + 4).toFixed(1)}" text-anchor="end">${cz(a, ty[1] - ty[0] < 1 ? 1 : 0)}</text>`; });
     tx.forEach(a => { s += `<text x="${px(a).toFixed(1)}" y="${Hh - 24}" text-anchor="middle">${cz(a, 0)}</text>`; });
     s += `<text x="${(l + W - r) / 2}" y="${Hh - 6}" text-anchor="middle">Přidaná výroba z FVE a větru, GWh za rok</text><text x="${l}" y="10">${lab}</text>`;
     const cols = { 0: '--s1', 1: '--s3', 2: '--s4' }, labs = [];
@@ -829,9 +832,9 @@ const LABBIN="eNoUmIc/128Xxo1kRtmjsouKpCG+n3MkQkO0hCitX1vDaGrYMkJmJKSsMhrC93Nukj
       s += `<path d="${path(q.map(a => px(a.add)), q.map(a => py(v(a))))}" fill="none" stroke="var(${cols[w]})" stroke-width="2"/>`;
       q.forEach(a => { s += `<circle cx="${px(a.add).toFixed(1)}" cy="${py(v(a)).toFixed(1)}" r="4" fill="var(${cols[w]})" stroke="var(--surface)" stroke-width="2" data-t="FVE ${cz(a.pv, 1)} GWp, vítr ${w} GW: rozdíl ${cz(a.gap, 1)} GWh (${cz(a.pct, 1)} %), vodík z přebytku ${cz(a.share, 0)} %"/>`; });
       const e = q[q.length - 1];
-      labs.push({ y: py(v(e)) + 4, x: px(e.add) + 8, t: `vítr ${w} GW` });
+      labs.push({ y: py(v(e)) + 4, c: cols[w], t: `vítr ${w} GW` });
     });
-    spread(labs, 14).forEach(a => { s += `<text class="l" x="${a.x.toFixed(1)}" y="${a.y.toFixed(1)}">${a.t}</text>`; });
+    spread(labs, 16, Hh - b + 4).forEach(a => { s += `<line x1="${W - r + 6}" x2="${W - r + 20}" y1="${(a.y - 4).toFixed(1)}" y2="${(a.y - 4).toFixed(1)}" stroke="var(${a.c})" stroke-width="2.5"/><text class="l" x="${W - r + 25}" y="${a.y.toFixed(1)}">${a.t}</text>`; });
     if (GAP.set === 'b') {
       const m = L.decomp[GAP.ver === 'zmrazeny' ? 2 : 3], ax = 2.9 * 1051.2 + 1.1 * 2744.7, ay = GAP.m === 'gap' ? m.gap : m.pct, X = px(ax), Y = py(ay);
       s += `<polygon points="${X},${Y - 8} ${X + 8},${Y} ${X},${Y + 8} ${X - 8},${Y}" fill="var(--ink)" stroke="var(--surface)" stroke-width="2" data-t="1 SMR + 2,9 GWp + 1,1 GW: rozdíl ${cz(m.gap, 1)} GWh (${cz(m.pct, 1)} %), vodík z přebytku ${cz(m.h2share, 1)} %"/>`;
@@ -839,7 +842,7 @@ const LABBIN="eNoUmIc/128Xxo1kRtmjsouKpCG+n3MkQkO0hCitX1vDaGrYMkJmJKSsMhrC93Nukj
     el('f4gap').innerHTML = svg(W, Hh, s, 'Rozdíl dovozu mezi pravidlem a programem podle přidané výroby z obnovitelných zdrojů.');
   }
   function drawShare() {
-    const P = L.shareScatter, W = 960, Hh = 300, l = 62, r = 14, t = 12, b = 42;
+    const P = L.shareScatter, W = 960, Hh = 310, l = 62, r = 14, t = 24, b = 42;
     let my = 1; P.forEach(q => { my = Math.max(my, q[1]); });
     const ty = ticks(0, my, 4), top = Math.max(my, ty[ty.length - 1]), px = a => l + (W - l - r) * a / 100, py = a => t + (Hh - t - b) * (1 - a / top);
     let s = '';
@@ -852,7 +855,7 @@ const LABBIN="eNoUmIc/128Xxo1kRtmjsouKpCG+n3MkQkO0hCitX1vDaGrYMkJmJKSsMhrC93Nukj
   }
 
   // ---------- 2. graph network ----------
-  const POS = [[62, 42], [62, 112], [62, 182], [62, 252], [340, 147], [618, 42], [618, 112], [618, 182], [618, 252]];
+  const POS = [[62, 42], [62, 112], [62, 182], [62, 252], [340, 147], [618, 112], [618, 42], [618, 182], [618, 252]];
   const G = { scen: 0, r: 0, play: true, out: 0, run: null, phase: 0, last: 0 };
   const PCOUT = [[0, 'Roční dovoz, GWh'], [1, 'Omezená nebo vyvezená výroba, GWh'], [4, 'Dovoz v zimě, GWh']];
   function gnnScenario() {
@@ -869,7 +872,7 @@ const LABBIN="eNoUmIc/128Xxo1kRtmjsouKpCG+n3MkQkO0hCitX1vDaGrYMkJmJKSsMhrC93Nukj
     drawGraphRound();
   }
   function drawGraphStatic() {
-    const W = 720, Hh = 296;
+    const W = 680, Hh = 296;
     let s = '';
     EDGES.forEach((e, i) => {
       const a = POS[e[0]], b = POS[e[1]], dx = b[0] - a[0], dy = b[1] - a[1], n = Math.hypot(dx, dy), ox = -dy / n * 3, oy = dx / n * 3;
@@ -922,17 +925,23 @@ const LABBIN="eNoUmIc/128Xxo1kRtmjsouKpCG+n3MkQkO0hCitX1vDaGrYMkJmJKSsMhrC93Nukj
     el('f6read').innerHTML = svg(W, Hh, s, 'Odpověď výstupní hlavy po jednotlivých kolech proti přesnému modelu.');
   }
   function drawPlane() {
-    const W = 330, Hh = 214, cx = W / 2, cy = Hh / 2 + 6;
+    const W = 330, Hh = 214, cx = (W - 44) / 2, cy = Hh / 2 + 6;
     let mx = 1e-6; G.proj.forEach(a => a.forEach(p => { mx = Math.max(mx, Math.abs(p[0]), Math.abs(p[1])); }));
-    const X = v => cx + v / mx * (W / 2 - 30), Y = v => cy - v / mx * (Hh / 2 - 26);
-    let s = `<text class="l" x="0" y="12">Hlavní komponenty 1 a 2, stopa uzlů</text><line x1="10" x2="${W - 10}" y1="${cy}" y2="${cy}" stroke="var(--line)"/><line x1="${cx}" x2="${cx}" y1="20" y2="${Hh - 4}" stroke="var(--line)"/>`;
-    const SHORT = ['FVE', 'V', 'SMR', 'Ost', 'Bil', 'Spo', 'Bat', 'El', 'Síť'];
+    const X = v => cx + v / mx * (cx - 12), Y = v => cy - v / mx * (Hh / 2 - 26);
+    let s = `<text class="l" x="0" y="12">Hlavní komponenty 1 a 2, stopa uzlů</text><line x1="4" x2="${W - 44}" y1="${cy}" y2="${cy}" stroke="var(--line)"/><line x1="${cx}" x2="${cx}" y1="20" y2="${Hh - 4}" stroke="var(--line)"/>`;
+    const SHORT = ['FVE', 'Vítr', 'SMR', 'Ost', 'Bil', 'Spo', 'Bat', 'El', 'Síť'], labs = [];
     for (let n = 0; n < 9; n++) {
       const xs = [], ys = [];
       for (let r = 0; r <= G.r; r++) { xs.push(X(G.proj[r][n][0])); ys.push(Y(G.proj[r][n][1])); }
       s += `<path d="${path(xs, ys)}" fill="none" stroke="var(--muted)" stroke-opacity=".6"/>`;
-      s += `<circle cx="${xs[xs.length - 1].toFixed(1)}" cy="${ys[ys.length - 1].toFixed(1)}" r="4" fill="var(--s3)" stroke="var(--surface)" stroke-width="2" data-t="${NODE[n]}, kolo ${G.r}"/><text x="${(xs[xs.length - 1] + 6).toFixed(1)}" y="${(ys[ys.length - 1] - 5).toFixed(1)}">${SHORT[n]}</text>`;
+      s += `<circle cx="${xs[xs.length - 1].toFixed(1)}" cy="${ys[ys.length - 1].toFixed(1)}" r="4" fill="var(--s3)" stroke="var(--surface)" stroke-width="2" data-t="${NODE[n]}, kolo ${G.r}"/>`;
+      labs.push({ x: xs[xs.length - 1] + 7, y: ys[ys.length - 1] + 3, t: SHORT[n] });
     }
+    // labels in one column at the right, each tied to its node by a thin line, ordered by height so the lines do not tangle
+    labs.sort((a, b) => a.y - b.y).forEach((a, i) => {
+      const ly = 30 + i * 20;
+      s += `<line x1="${(a.x - 3).toFixed(1)}" y1="${(a.y - 3).toFixed(1)}" x2="${W - 36}" y2="${ly - 4}" stroke="var(--muted)" stroke-opacity=".35"/><text x="${W - 33}" y="${ly}">${a.t}</text>`;
+    });
     el('f6plane').innerHTML = svg(W, Hh, s, 'Poloha uzlů v rovině prvních dvou hlavních komponent po jednotlivých kolech.');
   }
   function gnnAnimate(ts) {
@@ -962,21 +971,21 @@ const LABBIN="eNoUmIc/128Xxo1kRtmjsouKpCG+n3MkQkO0hCitX1vDaGrYMkJmJKSsMhrC93Nukj
     E.forEach((q, j) => {
       s += `<text class="l" x="${l - 8}" y="${t + j * rowH + 12}" text-anchor="end" style="font-weight:500">${q.n}</text>`;
       q.r.forEach((c, i) => {
-        s += `<rect x="${l + i * cw + 1}" y="${t + j * rowH + 1}" width="${cw - 2}" height="${rowH - 2}" rx="2" fill="var(--s3)" fill-opacity="${(c[0] / mx * .9 + .03).toFixed(2)}" data-t="${esc(q.n)}, kolo ${i + 1}: medián ${cz(c[0], 1)}, rozsah ${cz(c[1], 1)} až ${cz(c[2], 1)}"/><text x="${l + i * cw + cw / 2}" y="${t + j * rowH + 12}" text-anchor="middle">${cz(c[0], 1)}</text>`;
+        s += `<rect x="${l + i * cw + 1}" y="${t + j * rowH + 1}" width="${cw - 2}" height="${rowH - 2}" rx="2" fill="var(--s3)" fill-opacity="${(c[0] / mx * .55 + .03).toFixed(2)}" data-t="${esc(q.n)}, kolo ${i + 1}: medián ${cz(c[0], 1)}, rozsah ${cz(c[1], 1)} až ${cz(c[2], 1)}"/><text x="${l + i * cw + cw / 2}" y="${t + j * rowH + 12}" text-anchor="middle" style="fill:var(--ink)">${cz(c[0], 1)}</text>`;
       });
     });
     el('f7edges').innerHTML = svg(W, Hh, s, 'Velikost zpráv na každé orientované hraně v každém kole, medián přes starty.');
   }
   function rangeDots(id, rows, title, unit, W0) {
-    const W = W0 || 460, rowH = 22, l = 120, r = 56, t = 22, Hh = t + rows.length * rowH + 26;
+    const W = W0 || 460, rowH = W > 500 ? 15 : 22, l = W > 500 ? 170 : 120, r = 56, t = 22, Hh = t + rows.length * rowH + 26;
     let mx = 1e-9, mn = 0;
     rows.forEach(q => { mx = Math.max(mx, q.v[2]); mn = Math.min(mn, q.v[1]); });
     const px = v => l + (W - l - r) * (v - mn) / (mx - mn), tk = ticks(mn, mx, 3);
     let s = `<text class="l" x="0" y="12">${title}</text>`;
     tk.forEach(v => { s += `<line x1="${px(v).toFixed(1)}" x2="${px(v).toFixed(1)}" y1="${t}" y2="${Hh - 22}" stroke="var(--line)"/><text x="${px(v).toFixed(1)}" y="${Hh - 8}" text-anchor="middle">${cz(v, dec(mx))}</text>`; });
     rows.forEach((q, j) => {
-      const y = t + j * rowH + 11;
-      s += `<text x="${l - 8}" y="${y + 4}" text-anchor="end" style="fill:var(--ink)">${q.n}</text><line x1="${px(q.v[1]).toFixed(1)}" x2="${px(q.v[2]).toFixed(1)}" y1="${y}" y2="${y}" stroke="var(${q.c || '--s3'})" stroke-width="3" stroke-opacity=".45"/><circle cx="${px(q.v[0]).toFixed(1)}" cy="${y}" r="5" fill="var(${q.c || '--s3'})" stroke="var(--surface)" stroke-width="2" data-t="${esc(q.n)}: medián ${cz(q.v[0], 4)}, rozsah ${cz(q.v[1], 4)} až ${cz(q.v[2], 4)} ${unit}"/>`;
+      const y = t + j * rowH + rowH / 2;
+      s += `<text x="${l - 8}" y="${y + 4}" text-anchor="end" style="fill:var(--ink)">${q.n}</text><line x1="${px(q.v[1]).toFixed(1)}" x2="${px(q.v[2]).toFixed(1)}" y1="${y}" y2="${y}" stroke="var(${q.c || '--s3'})" stroke-width="3" stroke-opacity=".45"/><circle cx="${px(q.v[0]).toFixed(1)}" cy="${y}" r="${rowH < 20 ? 4 : 5}" fill="var(${q.c || '--s3'})" stroke="var(--surface)" stroke-width="2" data-t="${esc(q.n)}: medián ${cz(q.v[0], 4)}, rozsah ${cz(q.v[1], 4)} až ${cz(q.v[2], 4)} ${unit}"/>`;
     });
     el(id).innerHTML = svg(W, Hh, s, title);
   }
@@ -1031,24 +1040,21 @@ const LABBIN="eNoUmIc/128Xxo1kRtmjsouKpCG+n3MkQkO0hCitX1vDaGrYMkJmJKSsMhrC93Nukj
   }
   function drawResp() {
     if (!RS.nets) return;
-    const W = 960, Hh = 590, l = 58, gapX = 26, r = 8, t = 24, rowH = 170, cw = (W - l - r - 2 * gapX) / 3;
+    const W = 960, Hh = 628, l = 46, gapX = 54, r = 8, t = 24, rowH = 166, cw = (W - l - r - 2 * gapX) / 3;
     let s = '';
     ROWS.forEach((rw, ri) => {
       const o = rw[0];
-      let lo = Infinity, hi = -Infinity;
-      COLS.forEach(c => {
-        const col = RS.nets[c[0]];
-        SYS.forEach(sy => col.sys[sy[0]].forEach(p => p.forEach(a => { lo = Math.min(lo, a[o]); hi = Math.max(hi, a[o]); })));
-        if (RS.ex) RS.ex[c[0]].y.forEach(a => { lo = Math.min(lo, a[o]); hi = Math.max(hi, a[o]); });
-      });
-      if (hi - lo < 1) hi = lo + 1;
-      const pd = (hi - lo) * .06; lo = Math.max(0, lo - pd); hi += pd;
-      const y0 = t + ri * (rowH + 18), py = v => y0 + rowH * (1 - (v - lo) / (hi - lo)), tk = ticks(lo, hi, 4);
-      s += `<text class="l" x="0" y="${y0 - 8}">${rw[1]}</text>`;
+      const y0 = t + ri * (rowH + 30);
+      s += `<text class="l" x="0" y="${y0 - 10}">${rw[1]}</text>`;
       COLS.forEach((c, ci) => {
+        let lo = Infinity, hi = -Infinity;
+        SYS.forEach(sy => RS.nets[c[0]].sys[sy[0]].forEach(p => p.forEach(a => { lo = Math.min(lo, a[o]); hi = Math.max(hi, a[o]); })));
+        if (RS.ex) RS.ex[c[0]].y.forEach(a => { lo = Math.min(lo, a[o]); hi = Math.max(hi, a[o]); });
+        if (hi - lo < 1) hi = lo + 1;
+        const pd = (hi - lo) * .06; lo = Math.max(0, lo - pd); hi += pd;
+        const py = v => y0 + rowH * (1 - (v - lo) / (hi - lo)), tk = ticks(lo, hi, 4);
         const x0 = l + ci * (cw + gapX), mnx = c[3](0), mxx = c[3](1), px = v => x0 + cw * (v - mnx) / (mxx - mnx), col = RS.nets[c[0]];
-        tk.forEach(v => { s += `<line x1="${x0}" x2="${(x0 + cw).toFixed(1)}" y1="${py(v).toFixed(1)}" y2="${py(v).toFixed(1)}" stroke="var(--line)"/>`; if (ci === 0) s += `<text x="${x0 - 6}" y="${(py(v) + 4).toFixed(1)}" text-anchor="end">${cz(v, 0)}</text>`; });
-        if (ri === 0) s += `<text class="l" x="${x0}" y="${y0 - 8}" style="font-weight:500" dx="${ci === 0 ? 150 : 0}">${ci === 0 ? '' : c[1]}</text>`;
+        tk.forEach(v => { s += `<line x1="${x0}" x2="${(x0 + cw).toFixed(1)}" y1="${py(v).toFixed(1)}" y2="${py(v).toFixed(1)}" stroke="var(--line)"/>`; s += `<text x="${x0 - 5}" y="${(py(v) + 4).toFixed(1)}" text-anchor="end">${cz(v, 0)}</text>`; });
         if (ri === ROWS.length - 1) { [0, .5, 1].forEach(f => { const v = mnx + (mxx - mnx) * f; s += `<text x="${px(v).toFixed(1)}" y="${y0 + rowH + 14}" text-anchor="${f === 0 ? 'start' : f === 1 ? 'end' : 'middle'}">${c[2](v)}</text>`; }); s += `<text x="${(x0 + cw / 2).toFixed(1)}" y="${y0 + rowH + 30}" text-anchor="middle">${c[1]}</text>`; }
         const X = col.xs.map(px);
         SYS.forEach(sy => {
@@ -1214,7 +1220,7 @@ const LABBIN="eNoUmIc/128Xxo1kRtmjsouKpCG+n3MkQkO0hCitX1vDaGrYMkJmJKSsMhrC93Nukj
     el('f12key').textContent = `Plná barva odpovídá chybě ${cz(mx, 1)}. Sloupce: osm stejných pásem škálovaného rozsahu vstupu, zleva od nejmenší hodnoty. SMR má tři hladiny. Baterie je dělená v odmocnině kapacity, jako při tréninku.`;
   }
   function drawCorners() {
-    const W = 620, Hh = 280, l = 58, r = 96, t = 12, b = 42, K = L.corners;
+    const W = 620, Hh = 290, l = 58, r = 96, t = 24, b = 42, K = L.corners;
     let mx = 1;
     SYS.forEach(sy => K[sy[0]].forEach(p => { mx = Math.max(mx, p[2]); }));
     const px = k => l + (W - l - r) * k / (K.mlp64.length - 1), tk = ticks(0, mx, 4), top = Math.max(mx, tk[tk.length - 1]), py = v => t + (Hh - t - b) * (1 - v / top);
