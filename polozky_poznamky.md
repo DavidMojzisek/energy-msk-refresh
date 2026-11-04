@@ -159,3 +159,70 @@ Zastaralé po revizi, podle zadání nepřepočítáno:
 Rozpor s hlavním zdrojem: doc 01 s.137 píše „nelze předpokládat významnou demografickou změnu“, ČSÚ dává pokles o 15,5 % do 2050. Studie to uvádí jen u odpadu, číslo nedává.
 
 Nezjištěno: vývoj spotřeby těžkých nákladních aut (studie ICCT nešly otevřít), údaje starších edic projekce ČSÚ (jen souhrn vyhledávače), hodnota 2025 v řadě aut na osobu (bráno 2024), objem nákladní přepravy do 2050.
+
+## 13. Flotila 50 % vodík a 50 % baterie, progresivní cesta 2050 (ROZHODNUTÍ 27)
+
+Výsledek: měsíční přebytek v létě v progresivní cestě při P50 není, ani bez vodíku. Vodík tedy nelze vyrobit z letního přebytku kraje. Jeho elektřina by musela přijít ze sítě mimo kraj nebo z vyšší výroby.
+
+| Řádek, progresivní | P50 2050, staré | nové | P10 až P90, nové | Stupeň |
+|---|---|---|---|---|
+| osobní auta | 938,2 | 493,8 | 230,0 až 721,3 | D |
+| nákladní doprava | 893,8 | 558,6 | 234,4 až 657,2 | D |
+| MHD | 23,7 | 11,9 | 11,9 až 33,9 | D, dříve B |
+| výroba vodíku: osobní auta | nový | 1 494,6 | 824,2 až 2 295,2 | D |
+| výroba vodíku: nákladní doprava | nový | 1 925,0 | 884,5 až 2 958,5 | D |
+| výroba vodíku: MHD | nový | 34,6 | 16,1 až 103,1 | D |
+| výroba vodíku, mimo flotilu | 45,8 (P90 551,5) | 45,8 (P90 260,4) | 20 až 260,4 | B |
+
+Elektřina na vodík flotily je 3 454,2 GWh, 67 856 t H2 za rok. Součet spotřeby P50 2050 stoupl z 12 614,8 na 15 277,6 GWh, tedy 6 283,0 GWh nad výrobou 8 994,6 GWh. Konzervativní cesta má hodnoty beze změny, nové řádky mají nulu. Základy 7 069,9644 a 2 805,1634 GWh sedí.
+
+Výpočet: vozidla × km × kg H2/100 km × kWh/kg. Celá aritmetika je ve sloupci odvozeni.
+
+| Vstup | P50 | P10 až P90 | Zdroj |
+|---|---|---|---|
+| Osobní auto dnes, kg/100 km | 1,0 | 0,79 až 1,10 | úsudek; h2.live 0,76; WLTP 0,79 až 0,89 a skutečnost 1,1 jen ze souhrnu vyhledávače |
+| Těžké auto dnes, kg/100 km | 9,0 | 7,5 až 10,8 | ICCT 2022 jen ze souhrnu vyhledávače, model; XCIENT 7,5 |
+| Autobus dnes, kg/100 km | 7,49 | 5,6 až 9,1 | JIVE 2, CORDIS; 9,1 jen ze souhrnu vyhledávače |
+| Zlepšení vozidla do 2050 | 0,705 auta, 0,85 ostatní | viz ridici_vlivy.csv | eff_auta (Krause platí pro BEV i FCHEV), eff_nakladni (úsudek) |
+| Elektrolyzér dnes, kWh/kg | 55 | | doc 01 s.119, DOE stav 2022 |
+| Elektrolyzér 2050, kWh/kg | 48,26 | 46 až 55 | 33,3 / 0,69, IEA; DOE konečný cíl; doc 01 |
+| Komprese, kWh/kg | 3,2 pro 700 bar, 2,23 pro 350 bar | 1,7 až 6,4 a 1,7 až 4 | DOE záznam 9013 z roku 2009 |
+
+Co jsem rozhodl a zadání to neříká:
+- 50 % se bere z celé flotily, takže P50 2050 má 100 % čistých aut místo dřívějších 95 %.
+- Ve 2040 je vodík třetina čistých vozidel. Je to úsudek. Z toho plyne strmý růst: u aut z 92 704 vozidel v 2040 na 305 169 v 2050.
+- Vozokilometry nákladní dopravy: 1 314,4 GWh / 1,3187 kWh/km = 996,8 mil. km. Hodnota 1,3187 je Oeko přepočtené na 40 t, aby seděla k 9 kg/100 km pro tutéž soupravu. S 0,96 kWh/km by P50 vyšlo o 37,4 % víc, to je zahrnuto v P90.
+- MHD obsahuje tramvaje, 50 % se bere z celého řádku. Je to záměrné zjednodušení, P50 baterií proto klesá pod základ 19,464.
+- `ridic` je u nových řádků prázdný, vlivy jsou přímo v hodnotách.
+
+45 760 MWh z doc 01: studie neříká, pro koho je. Není to tedy prokazatelně vodík flotily a řádek zůstává. Překryv nelze vyloučit a nejvýš je to 45,8 GWh. Číslo sedí na 3 025 + 7 × 6 105, tedy malou variantu Tab. 25; dopočet je můj. Dřívější P90 551,5 vycházelo z 64 PJ vodíku v dopravě, to už vodík flotily je, a proto jsem ho nahradil 16 665 + 7 × 34 815 = 260 370 MWh.
+
+### Sezónnost
+
+Data: ERÚ čtvrtletní zprávy 2025, oddíl 7.8. Technologie dávají 2 805 163,5 MWh, netto spotřeba 5 963 818,3 MWh, obojí sedí na tab. 6.1 a 6.2. Rozsah 7.8 je netto, používám jen tvar. Měsíce jsou v `vodik_sezonnost.csv`.
+
+Předpoklady: SMR a ostatní zdroje rovnoměrně podle dnů, FVE a vítr podle tvaru 2025, spotřeba podle tvaru netto 2025. Tvar 2025 neobsahuje růst tepelných čerpadel a elektromobilů, takže letní spotřeba je přibližná. Vodík rovnoměrně znamená 394,3 MW po celý rok. Spotřeba bez vodíku je 11 777,6 GWh a vynechává tři nové řádky i 45,8 GWh mimo flotilu.
+
+| Případ | Rok bez vodíku, GWh | Přebytek, GWh za rok | Podíl z 3 454,2 | Měsíc s nejmenším schodkem |
+|---|---|---|---|---|
+| Základ 2025 | −2 783,0 | 0,0 | 0 % | srpen −34,3 |
+| Základ s vodíkem | −6 237,2 | 0,0 | 0 % | srpen −327,7 |
+| FVE na instalovaný MW | −2 783,0 | 0,0 | 0 % | srpen −45,8 |
+| Tvary 2024 | −2 783,0 | 0,0 | 0 % | srpen −92,0 |
+| Vytápění v zimě, chlazení v létě | −2 783,0 | 0,9 | 0,0 % | srpen +0,9 |
+| FVE a vítr oba na P90 | +77,4 | 837,3 | 24,2 % | srpen +232,4 |
+| Totéž a vytápění v zimě | +77,4 | 987,9 | 28,6 % | srpen +267,7 |
+
+Vodík v případech P90 přebytek po odečtení rovnoměrného zatížení vyčerpá na nulu. Měsíční data neukazují krátké přebytky: polední slunce při nízké spotřebě nebo větrné dny mohou přebytek dát i v měsíci se schodkem. Velikost těchto přebytků z dat nezjistím, potřeboval by hodinový profil. Výsledek také neříká nic o přebytcích mimo kraj.
+
+Sezónní zásobník, hypotéza pro případ výroby jen v létě a rovnoměrné spotřeby, odvozeno:
+- Výroba duben až září, 4 392 hodin. Zásoba 67 856 t × (1 − 4 392 / 8 760) = 33 835 t, 1 126,7 GWh při 33,3 kWh/kg.
+- Objem 1,45 mil. m³ při 350 bar a 23,3 kg/m³, 0,87 mil. m³ při 700 bar a 39 kg/m³. Hustoty nejsou z podkladů, ověřit.
+- Příkon elektrolyzérů 3 454,2 GWh / 4 392 h = 786,5 MW, tedy víc než SMR 500 MW. Toto zatížení by letní schodek prohloubilo.
+- Výroba jen květen až srpen, 2 952 hodin: 44 990 t, 1 170,1 MW.
+
+Zastaralé po revizi, nepřepočítáno: řádek ztráty v sítích (446,0) nereaguje na nové zatížení a část elektrolyzérů může být přímo na vn nebo vvn. Oddíly 8 a 9 platí pro stará čísla, progresivní cesta je teď daleko nad extrémním scénářem doc 01. `web/` a skupiny stránky jsem neměnil.
+
+Nezjištěno: účel 45 760 MWh, protože odkaz [45] v doc 01 vede na nesouvisející dokument a Strategii MSK 2021 jsem nenašel. Počet nákladních aut a autobusů v MSK. Podíl tramvají v Tab. 23. Hodinové přebytky. Místo pro sezónní zásobník v kraji.
+
+Rozpor se zdroji: doc 01 s.119 píše, že v osobní a železniční dopravě „jsou tyto projekty spíše utlumovány“. Doc 05 tištěná s.46 čeká, že „u osobních automobilů zřejmě převáží elektromobilita“. Polovina osobních aut na vodík je tedy pokyn scénáře, ne závěr zdrojů.
