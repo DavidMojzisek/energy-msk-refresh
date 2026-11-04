@@ -15,6 +15,8 @@ TM_SPREAD = 3.0
 RHO = 0.6
 FACTORS = ("elektrifikace", "povolovani", "cena")
 LOSS_ITEM = "ztráty v sítích"
+# Tyto položky jdou proti společnému faktoru: rychlejší elektrifikace je snižuje.
+REVERSED = {"hutní plyny (vysokopecní a koksárenský)", "zemní plyn: stávající kogenerace", "přímotopy", "úspory a účinnost"}
 
 
 def num(row, key):
@@ -157,7 +159,8 @@ def simulate(rows, models, rng, runs):
     for row, model in zip(rows, models):
         own = rng.standard_normal(runs)
         shared = factors.get(row["faktor"].strip())
-        z = own if shared is None else np.sqrt(RHO) * shared + np.sqrt(1 - RHO) * own
+        sign = -1.0 if row["polozka"].strip() in REVERSED else 1.0
+        z = own if shared is None else sign * np.sqrt(RHO) * shared + np.sqrt(1 - RHO) * own
         z_time = rng.standard_normal(runs)
         runs_value = simulate_item(row, model, z, z_time, runs)
         if row["polozka"].strip() == LOSS_ITEM:
