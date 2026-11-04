@@ -230,7 +230,7 @@ footer{color:var(--muted);font-size:12.5px}
       <tr><td><span class="grade">C</span></td><td>Technický výpočet ze známých parametrů</td></tr>
       <tr><td><span class="grade D">D</span></td><td>Náš odhad bez publikovaného zdroje, čeká na ověření</td></tr>
     </table>
-    <p>Stupeň je vidět u každé položky a vždy se řídí nejslabším vstupem. Hlavním zdrojem je Dopadová studie energetické bezpečnosti a soběstačnosti MSK. Meze nejistoty jsou téměř všude náš odhad, i když je střední hodnota doložená.</p>
+    <p>Stupeň je vidět u každé položky a vždy se řídí nejslabším vstupem. Hlavním zdrojem je Dopadová studie energetické bezpečnosti a soběstačnosti MSK. Část zdrojů je neveřejná, u nich uvádíme jen čísla potřebná k výpočtu. Jiné zdroje syntetického plynu, například důlní nebo koksárenský plyn, nejsou započítané, protože chybí podklad. Meze nejistoty jsou téměř všude náš odhad, i když je střední hodnota doložená.</p>
   </section>
 
   <section class="card">
@@ -542,7 +542,7 @@ const GROUPS = {
   vyroba:[
     {name:"Slunce, vítr a voda", years:false, items:["fotovoltaika střešní","fotovoltaika pozemní","vítr","malé vodní elektrárny","geotermální energie"]},
     {name:"SMR", years:true, items:["SMR"]},
-    {name:"Plyny", years:false, items:["zemní plyn: stávající kogenerace","nové plynové bloky","syntetický plyn a biometan","hutní plyny (vysokopecní a koksárenský)","důlní plyn"]},
+    {name:"Plyny", years:false, items:["zemní plyn: stávající kogenerace","nové plynové bloky","syntetický plyn z odpadu","hutní plyny (vysokopecní a koksárenský)","důlní plyn"]},
     {name:"Biomasa a bioplyn", years:false, items:["biomasa","bioplyn"]},
     {name:"Uhlí, odpad a ostatní", years:true, items:["černé uhlí: Dětmarovice","černé uhlí: teplárny a průmysl","hnědé uhlí","energetické využití odpadu","ostatní paliva a odpadní teplo (přidaná položka)","baterie","jiné skladování","vodík zpět na elektřinu"]},
   ],

@@ -1,5 +1,3 @@
 Položky, kde S-křivka v milníku nesedí na tabulku o více než 10 % a 25 GWh:
 nové plynové bloky | konz | 2030 | tabulka 896.8 | křivka 671.0
 nové plynové bloky | konz | 2040 | tabulka 1372.1 | křivka 1632.8
-syntetický plyn a biometan | konz | 2030 | tabulka 99.6 | křivka 74.5
-syntetický plyn a biometan | konz | 2040 | tabulka 152.5 | křivka 181.4
