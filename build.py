@@ -25,7 +25,7 @@ HISTORY = [
 TRENDS = ("pop_msk", "velikost_dom", "auta_na_os", "eff_auta", "eff_nakladni", "teplo_budovy")
 
 # Denní nabíjení baterií v MW v letech 2025, 2030, 2040 a 2050, viz sezonni_metodika.md.
-BATTERY_DAILY = {"progresivni": [2.0, 10.0, 60 / 350.2 * 200, 200.0], "konzervativni": [2.0, 5.0, 8 / 31.4 * 20, 20.0]}
+BATTERY_DAILY = {"progresivni": [2.0, 10.0, 212.5, 375.0], "konzervativni": [2.0, 2.0, 2.0, 2.0]}
 
 
 def text(row, key):

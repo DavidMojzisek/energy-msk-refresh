@@ -74,6 +74,8 @@ svg .ev{font:600 11px "Saira",sans-serif;fill:var(--ink);paint-order:stroke;stro
 #fillBtn[aria-pressed=true]{background:var(--ink);color:var(--surface)}
 #fillCard .kpi{margin:8px 0 0}
 .viewnote{color:var(--muted);font-size:12.5px;margin:8px 0 0;max-width:900px}
+.tablewrap{overflow-x:auto;margin:8px 0}
+.tablewrap td,.tablewrap th{white-space:nowrap}
 .flaws{margin:6px 0;padding-left:20px;font-size:15px;line-height:1.5}
 .flaws li{margin:6px 0}
 .ratewarn{margin:5px 0 0;color:var(--warn);font-size:12.5px}
@@ -143,6 +145,18 @@ footer{color:var(--muted);font-size:12.5px}
 <section class="card" id="balcard">
   <h2 id="balTitle">Bilance vybrané cesty</h2>
   <div id="bal"></div>
+</section>
+<section class="card" id="planCard">
+  <h2>Návrh baterie a vodíku</h2>
+  <p class="viewnote">Cílem je co nejmenší rozdíl mezi výrobou a spotřebou v každé hodině a udržet energii v kraji. Baterie je krátkodobá a tak velká, aby se ještě vyplatila. Přebytek, který se do ní nevejde, vyrábí vodík na sezónní zásobu pro kamiony a MHD. Výsledek hodinového výpočtu pro progresivní cestu v roce 2050, výchozí nastavení.</p>
+  <div class="tablewrap"><table class="grades">
+    <tr><th>Mix zdrojů</th><th>Baterie</th><th>Vodík MHD</th><th>Vodík kamiony</th><th>Elektrolyzér</th><th>Zásoba vodíku</th><th>Roční mezera</th><th>Dovoz</th><th>Podíl OZE</th></tr>
+    <tr><td><b>Dnešní, 1 SMR (na stránce)</b></td><td>1,5 GWh, 375 MW</td><td>50 %</td><td>4,1 %</td><td>688 MW</td><td>1 160 t</td><td>3 285 GWh</td><td>3 304 GWh</td><td>34,4 %</td></tr>
+    <tr><td>2 SMR</td><td>1 GWh, 250 MW</td><td>50 %</td><td>41,5 %</td><td>972 MW</td><td>5 407 t</td><td>388 GWh</td><td>490 GWh</td><td>31,0 %</td></tr>
+    <tr><td>1 SMR, navíc 2,34 GWp a 0,89 GW</td><td>4 GWh, 1 000 MW</td><td>50 %</td><td>75 %</td><td>2 190 MW</td><td>7 230 t</td><td>450 GWh</td><td>630 GWh</td><td>63,9 %</td></tr>
+  </table></div>
+  <p class="viewnote"><b>Zima:</b> kdyby kamiony jely z 50 % na vodík, byla by zimní bilance v dnešním mixu se sezónní zásobou −938 GWh, s výrobou vodíku rovnoměrně po celý rok −1 410 GWh a s flotilou jen na baterie −1 059 GWh. Zásoba tedy zimu zlepšuje, ale roční dovoz stoupne z 3 359 na 4 611 GWh, protože většina vodíku se pak vyrábí z dovážené elektřiny mimo zimu.</p>
+  <p class="viewnote">Do položek je dosazený první řádek. Pro další varianty nastavte posuvníky ručně. Hodnoty jsou odhad a jsou průměrem 5 povětrnostních let. <a href="hodinovy/VYSLEDKY.md">Úplné výsledky</a>.</p>
 </section>
 <section class="card" id="trendCard">
   <div class="trendhead">
@@ -249,7 +263,7 @@ footer{color:var(--muted);font-size:12.5px}
     <p>Roční množství elektřiny neřekne, jestli kraj pokryje nejnáročnější chvíli. Proto přepočítáváme položky na výkon ve dvou okamžicích. Zimní špička je roční maximum zatížení bez slunce. Letní poledne je slunečný víkendový stav s nízkou spotřebou.</p>
     <div class="eq"><i>P</i> = <span class="frac"><span><i>E</i> · 1000</span><span>8760</span></span> · <i>c</i></div>
     <p><i>E</i> je roční hodnota položky v GWh a <i>P</i> její výkon v MW. Zlomek dává průměrný výkon za rok a koeficient <i>c</i> říká, kolikrát je výkon v daném okamžiku vyšší nebo nižší než průměr. Koeficienty jsou nastavené tak, aby sedělo zimní zatížení 1 025,5 MW v roce 2023 podle Dopadové studie. Tato hodnota je sama vypočtená, zatížení kraje nikdo přímo neměří. Většina koeficientů je náš odhad.</p>
-    <p>Elektrolýza a elektrokotle se umí přizpůsobit. V zimní špičce jsou vypnuté, v létě dostávají přebytek až po bateriích. Baterie v progresivní cestě pokrývají tři dny spotřeby bez pružných položek, tedy 87,3 GWh. Za 72 hodin to dává výkon 1 212,1 MW. Tento výkon je náš odhad a rozhoduje o tom, jestli zimní bilance vyjde kladně.</p>
+    <p>Elektrolýza a elektrokotle se umí přizpůsobit. V zimní špičce jsou vypnuté, v létě dostávají přebytek až po bateriích. Baterie v progresivní cestě má 1,5 GWh a 375 MW podle hodinového výpočtu. Je krátkodobá, takže zimní špičku pokryje jen několik hodin.</p>
   </section>
 
   <section class="card">
@@ -268,7 +282,8 @@ footer{color:var(--muted);font-size:12.5px}
       <li><b>Vodík je sezónní zásoba pro dopravu.</b> Vozidla ho tankují po celý rok.</li>
       <li><b>Zásoba z léta zlepší zimu.</b> V zimě se vodík skoro nemusí vyrábět, takže odpadá velká spotřeba elektřiny právě tehdy, kdy chybí.</li>
     </ol>
-    <p><b>Stav výpočtu:</b> čísla na stránce tento postup zatím nepočítají. Podíl vodíku je zatím pevných 50 % a baterie jsou záloha na tři dny. Velikost baterie a podíl vodíku v MHD a nákladní dopravě určí připravovaný hodinový výpočet podle toho, kolik přebytku po nabití baterie skutečně zbude.</p>
+    <p><b>Jak se to počítá:</b> hodinový výpočet na 5 povětrnostních letech 2015 až 2019 prochází každou hodinu roku. Přebytek jde nejdřív do baterie, potom do elektrolyzéru a zbytek se omezí nebo vyveze. Baterie je největší velikost, u které přidaná GWh dává aspoň 100 plných cyklů za rok. Podíl vodíku je největší, který přebytek po baterii v průměru pokryje bez výroby ze sítě. Osobní auta na vodík nejezdí.</p>
+    <p>Výsledek je v kartě Návrh baterie a vodíku na stránce Bilance. Podrobnosti jsou v <a href="hodinovy/VYSLEDKY.md">úplných výsledcích</a>. Grafy: <a href="hodinovy/koleno_mezni_cykly.pdf">velikost baterie</a>, <a href="hodinovy/zasoba_vodiku.pdf">zásoba vodíku</a>, <a href="hodinovy/zimni_bilance.pdf">zimní bilance</a>, <a href="hodinovy/kompromis_baterie_vodik.pdf">kompromis baterie a vodíku</a>.</p>
   </section>
 
   <section class="card">
@@ -291,8 +306,10 @@ footer{color:var(--muted);font-size:12.5px}
       <tr><td>Ztráty v sítích 3,547 %</td><td>míra ztrát v roce 2023, za bývalý Severomoravský kraj</td><td>Tab. 1, s. 27; s. 74</td></tr>
       <tr><td>Zimní zatížení 1 025,5 MW</td><td>6 018,9 GWh / 5 869 h, cíl kalibrace, není to měření</td><td>Tab. 1, s. 27; s. 7</td></tr>
       <tr><td>Obyvatelé 999 144 v roce 2050</td><td>projekce kraje, ČSÚ má jen jednu variantu</td><td>ČSÚ</td></tr>
-      <tr><td>Akumulace 72 hodin</td><td>tři dny z definice cesty, spotřeba bez pružných položek</td><td>pracovní zadání, výklad náš</td></tr>
-      <tr><td>Účinnost baterie 88 %, 30 cyklů</td><td>běžný řád hodnot, zdroj zatím chybí</td><td>náš odhad</td></tr>
+      <tr><td>Baterie 1,5 GWh a 375 MW</td><td>největší velikost, kde přidaná GWh dává aspoň 100 cyklů za rok, trvání 4 hodiny</td><td>hodinový výpočet, práh je náš odhad</td></tr>
+      <tr><td>Účinnost baterie 88 %</td><td>běžný řád hodnot, zdroj zatím chybí</td><td>náš odhad</td></tr>
+      <tr><td>Cena baterie, asi 242 USD za přesunutou MWh na mezi</td><td>střední cena pro rok 2050</td><td>NREL 2025</td></tr>
+      <tr><td>Tvary slunce a větru, spotřeby a teploty</td><td>povětrnostní roky 2015 až 2019</td><td>PVGIS, OPSD, OTE</td></tr>
       <tr><td>Změna cíle od roku 2030</td><td>výstavbu do roku 2030 určují už dnešní projekty</td><td>náš odhad</td></tr>
       <tr><td>Událost k = 4</td><td>změna proběhne zhruba do jednoho roku</td><td>náš odhad</td></tr>
       <tr><td>Pásmo 80 %</td><td>širší pásmo by u odhadů předstíralo přesnost</td><td>volba modelu</td></tr>
@@ -313,10 +330,11 @@ footer{color:var(--muted);font-size:12.5px}
     <h2>Co víme, že nesedí</h2>
     <ul class="flaws">
       <li><b>Progresivní cesta není soběstačná.</b> Pracovní definice o soběstačném regionu mluví, doložené položky ji ale nesplňují. Výroba v ní pokrývá jen část spotřeby. Rozsah ukazuje tlačítko Dorovnat na soběstačnost.</li>
-      <li><b>Vodík z letních přebytků zatím nevychází.</b> V měsíčním přepočtu nemá přebytek žádný měsíc a polední přebytek pokryje jen část potřeby elektrolýzy. Vodík v modelu proto spotřebovává běžnou elektřinu.</li>
-      <li><b>Přes vodík potřebuje stejná doprava zhruba třikrát víc elektřiny než na baterie.</b> Podíl 50 % je zadání, není výsledkem optimalizace.</li>
-      <li><b>Zimní bilance závisí na bateriích.</b> Kladná vychází jen díky bateriím spočteným jako tři dny spotřeby, a ty vydrží omezenou dobu.</li>
-      <li><b>Baterie a vodík zatím nefungují podle záměru.</b> Baterie má být krátkodobá a jen tak velká, aby se vyplatila, a přebytek navíc má vyrábět vodík na sezónní zásobu. Na stránce jsou zatím baterie jako záloha na tři dny, která se téměř jistě nevyplatí, a pevných 50 % vodíku. Opraví to připravovaný hodinový výpočet, viz bod 11 v Metodice.</li>
+      <li><b>Přebytku je v dnešním mixu málo.</b> Před baterií je ho 474 GWh za rok a po ní 211 GWh. Vodík z něj pokryje 50 % MHD a jen 4,1 % nákladní dopravy a roční schodek neřeší. Větší podíl vodíku vyžaduje další zdroje.</li>
+      <li><b>Podle čisté roční mezery vychází v dnešním mixu 0 % vodíku.</b> Nákladní doprava potřebuje na vodíku 3 850 GWh a na bateriích 1 117 GWh. Vodík má smysl jako využití přebytku a sezónní zásoba, ne pro snížení ročního schodku.</li>
+      <li><b>Zimní bilance je záporná.</b> Baterie je krátkodobá a zimu nezachrání. Sezónní zásoba vodíku zimu zlepší, ale jen tím, že výrobu vodíku přesune do jiných měsíců.</li>
+      <li><b>Tři dny akumulace ze zadání cesty nejsou v návrhu.</b> Záloha 87,3 GWh by se plně protočila jen asi pětkrát za rok a přesun MWh by stál řádově 3 000 USD. Jako přesun přebytku se nevyplatí. Jako záloha pro výpadek ji tento model neocení, proto rozhodnutí zůstává otevřené. V konzervativní cestě je to stejné.</li>
+      <li><b>Bilance na stránce a v hodinovém výpočtu se liší zaokrouhlením a okrajovými položkami.</b> Posuvníky hodinový výpočet nespouštějí, návrh platí pro výchozí nastavení.</li>
       <li><b>Možné dvojí započtení vodíku.</b> Dopadová studie uvádí 45,8 GWh na vodík bez určení účelu, může se překrývat s flotilou.</li>
       <li><b>Průmysl a energetika v roce 2025.</b> V datech ERÚ se zřejmě přeřazovaly mezi sebou, spolehlivý je jen jejich součet.</li>
       <li><b>Křivky některých plynových položek.</b> U konzervativní cesty neprochází S-křivka přesně hodnotami tabulky pro roky 2030 a 2040. Seznam je v <a href="kontrola_krivek.txt">kontrole křivek</a>.</li>
@@ -328,7 +346,7 @@ footer{color:var(--muted);font-size:12.5px}
   <section class="card">
     <h2>Co model neumí</h2>
     <ul class="flaws">
-      <li>Hodinový průběh roku a několikadenní období bez slunce a větru.</li>
+      <li>Stránka hodinový průběh nepočítá živě. Hodinový výpočet je samostatný a používá tvary za ČR a Ostravu, ne měření za kraj.</li>
       <li>Omezení sítě uvnitř kraje a dostupnost dovozu.</li>
       <li>Výpadek největšího bloku, důležitý hlavně u SMR.</li>
       <li>Náklady. Stránka srovnává elektřinu a výkon, ne cenu.</li>
@@ -342,7 +360,7 @@ footer{color:var(--muted);font-size:12.5px}
       <li>Počet nákladních aut a autobusů v kraji a jejich proběh.</li>
       <li>Výrobu Dětmarovic v roce 2025, dnes je odvozená.</li>
       <li>Konkrétní projekty datacenter v kraji, zatím žádný nebyl nalezen.</li>
-      <li>Hodinové profily spotřeby a výroby za kraj.</li>
+      <li>Hodinové profily spotřeby a výroby přímo za kraj, hodnotu přesunuté MWh a cenu zásobníků vodíku.</li>
       <li>Zdroje syntetického plynu kromě odpadu, například důlní nebo koksárenský plyn, a podklad k účinnosti přeměny.</li>
       <li>Kapacitu sítě a výhled tepelných čerpadel a domácností.</li>
       <li>Míru ztrát přímo za kraj, dnes je za bývalý Severomoravský kraj.</li>
@@ -352,11 +370,11 @@ footer{color:var(--muted);font-size:12.5px}
     <h2>Volby bez opory ve zdrojích</h2>
     <table class="grades">
       <tr><th>Volba</th><th>Hodnota</th></tr>
-      <tr><td>Podíl vodíku ve flotile v progresivní cestě a rozsah flotily</td><td>50 %, nákladní doprava a MHD</td></tr>
+      <tr><td>Práh velikosti baterie</td><td>100 plných cyklů za rok na přidanou GWh</td></tr>
+      <tr><td>Pořadí vodíku</td><td>MHD do 50 %, potom nákladní doprava, potom zbytek MHD</td></tr>
       <tr><td>Výklad „vytápění 300 %“</td><td>energie na vstupu, ne elektřina</td></tr>
       <tr><td>Výklad „dvojnásobná zátěž sítě“</td><td>míra ztrát 1,7krát vyšší</td></tr>
-      <tr><td>Tři dny akumulace</td><td>spotřeba bez pružných položek, 72 hodin</td></tr>
-      <tr><td>Účinnost a cykly baterií</td><td>88 %, 30 cyklů za rok</td></tr>
+            <tr><td>Účinnost baterií</td><td>88 %</td></tr>
       <tr><td>Přeměna odpadu na plyn a účinnost bloku</td><td>70 % a 55 %</td></tr>
       <tr><td>Auta na obyvatele, velikost domácností, teplo budov, účinnost nákladních aut</td><td>viz Velké trendy</td></tr>
       <tr><td>Elektrolýza a elektrokotle v zimní špičce</td><td>vypnuté, předpokládá se zásoba vodíku</td></tr>
@@ -1034,7 +1052,7 @@ $("notice").textContent = hasItems
   ? "Prototyp. Hodnoty po roce 2025 jsou odhady. Položky se stupněm D jsou odhad bez publikovaného zdroje a čekají na ověření."
   : "Prototyp. Zatím jen skutečná data za roky 2023 až 2025. Položky, cesty a posuvníky se připravují.";
 $("foot").innerHTML = "Výroba je brutto. Spotřeba je součet sektorů plus ztráty v sítích. Zdroje skutečnosti: Dopadová studie energetické bezpečnosti a soběstačnosti MSK (2024), Tab. 1 a Tab. 6; zprávy ERÚ o provozu elektrizační soustavy, tabulky 6.1 a 6.3, předběžné údaje. Stupně důkazu: A měření, B publikovaná studie, C technický výpočet, D odhad bez publikovaného zdroje. Meze P10 a P90 jsou téměř všude odhad. <a href=\"polozky.csv\">Tabulka položek</a>, <a href=\"polozky_poznamky.md\">poznámky ke zdrojům</a>, <a href=\"grafy_polozek.pdf\">grafy položek</a>, <a href=\"EXPORT_BILANCE_MSK.md\">souhrnný export všech čísel</a>. Část zdrojů je neveřejná, u nich uvádíme jen čísla potřebná k výpočtu.";
-if(!hasItems){ $("year").closest(".yearrow").style.display = "none"; document.querySelector(".controls").style.display = "none"; $("toggles").style.display = "none"; $("reset").style.display = "none"; $("trendCard").style.display = "none"; $("modebar").style.display = "none"; }
+if(!hasItems){ $("year").closest(".yearrow").style.display = "none"; document.querySelector(".controls").style.display = "none"; $("toggles").style.display = "none"; $("reset").style.display = "none"; $("trendCard").style.display = "none"; $("planCard").style.display = "none"; $("modebar").style.display = "none"; }
 resetValues();
 drawLegend(); drawTrends(); drawLists(); refresh();
 </script>

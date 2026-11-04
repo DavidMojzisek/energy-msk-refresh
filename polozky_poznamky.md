@@ -230,3 +230,7 @@ Rozpor se zdroji: doc 01 s.119 píše, že v osobní a železniční dopravě �
 ## Syntetický plyn z odpadu
 
 Syntetický plyn se vyrábí z odpadu, ne z elektřiny. Dostupný odpad je 360 000 t za rok (Dopadová studie, s. 137) minus 120 000 t pro spalovnu. Výroba elektřiny v roce 2050 je 231.0 GWh místo 866,0 GWh a konzervativně místo 240,5 GWh. Spotřeba elektřiny na výrobu plynu je nula místo 1 076,4 a 397,5 GWh. Jiné zdroje syntetického plynu, například důlní nebo koksárenský plyn, nejsou započítané, protože chybí podklad.
+
+## Návrh z hodinového výpočtu
+
+Dosazeno: baterie 1,5 GWh a 375 MW, vodík v MHD 50 %, v nákladní dopravě 4,1 %, auta 0 %. Řádky nákladní doprava, výroba vodíku pro nákladní dopravu a ztráty baterií jsou přepočítané. Úplné výsledky jsou v hodinovém výpočtu.
