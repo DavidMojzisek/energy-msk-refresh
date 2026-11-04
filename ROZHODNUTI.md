@@ -37,6 +37,7 @@ Zadavatel 2026-11-04 předal všechna rozhodnutí a odhady Claude. Vše zde lze 
 | 32 | Přepínač „Dorovnat na soběstačnost“ ukazuje schodek a kolik fotovoltaiky nebo větru by ho pokrylo. Výchozí hodnoty položek se nemění, jde o přepočet. | Pokyn zadavatele. Soběstačnost je zde roční bilance, ne pokrytí v každé hodině. |
 | 33 | SMR se na stránce nastavuje počtem modulů po 500 MW, od 0 do 4. Výchozí je 1 v progresivní cestě a 0 v konzervativní. Jeden modul je 3 942 GWh za rok. Rok spuštění je společný pro všechny moduly. | Pokyn zadavatele. Výpadek největšího bloku model nepočítá. |
 | 34 | Stránka má záložku Nedostatky se známými problémy, chybějícími podklady a volbami bez opory ve zdrojích. | Pokyn zadavatele. |
+| 35 | Záměr vodíku: přebytek, který se nevejde do baterie, vyrábí vodík pro dopravu a energie zůstává v kraji. Vodík uskladněný v létě sníží výrobu vodíku v zimě, a tím zlepší zimní bilanci. Baterie je krátkodobá a její velikost se určí podle toho, kde se ještě vyplatí. Hodinový model tento postup počítá. | Pokyn zadavatele. Velikost přebytku je nutné ověřit výpočtem. |
 | 26 | Hodnoty tabulky pro roky 2030 a 2040 už neurčují křivku přímo, jen z nich dopočítáme k a t_m. Kde to nesedí o více než 10 % a 25 GWh, je to v `web/kontrola_krivek.txt`. | Přesné proložení není u každé položky možné. |
 
 ## Vyřešený rozpor: spotřeba 2024

@@ -310,7 +310,19 @@ footer{color:var(--muted);font-size:12.5px}
   </section>
 
   <section class="card">
-    <h2>11. Co model neumí</h2>
+    <h2>11. Baterie a vodík: k čemu který slouží</h2>
+    <p>Cílem je co nejmenší rozdíl mezi výrobou a spotřebou a udržet energii v kraji. Baterie a vodík mají různé úlohy, protože baterie neudrží energii dlouho.</p>
+    <ol class="flaws">
+      <li><b>Baterie je krátkodobá.</b> Slouží hlavně k přesunu energie v rámci dne. Její velikost má být taková, aby se ještě vyplatila, tedy aby se dost často nabíjela a vybíjela.</li>
+      <li><b>Přebytek, který se do baterie nevejde, vyrábí vodík.</b> Místo aby se ztratil nebo vyvezl, uskladní se.</li>
+      <li><b>Vodík je sezónní zásoba pro dopravu.</b> Vozidla ho tankují po celý rok.</li>
+      <li><b>Zásoba z léta zlepší zimu.</b> V zimě se vodík skoro nemusí vyrábět, takže odpadá velká spotřeba elektřiny právě tehdy, kdy chybí.</li>
+    </ol>
+    <p><b>Stav výpočtu:</b> čísla na stránce tento postup zatím nepočítají. Podíl vodíku je zatím pevných 50 % a baterie jsou záloha na tři dny. Velikost baterie a podíl vodíku v MHD, nákladní dopravě a autech určí připravovaný hodinový výpočet podle toho, kolik přebytku po nabití baterie skutečně zbude.</p>
+  </section>
+
+  <section class="card">
+    <h2>12. Co model neumí</h2>
     <p>Dva okamžiky nejsou hodinový průběh. Model nezachycuje několikadenní období bez slunce a větru s vybitými bateriemi, omezení sítě, dostupnost dovozu ani výpadek největšího zdroje. Vazby mezi položkami jsou jen tam, kde jsou výslovně popsané.</p>
     <p>Technický popis je v souboru <a href="METODIKA.md">metodika</a> a všechny volby jsou v <a href="ROZHODNUTI.md">seznamu rozhodnutí</a>.</p>
   </section>
@@ -329,7 +341,7 @@ footer{color:var(--muted);font-size:12.5px}
       <li><b>Vodík z letních přebytků zatím nevychází.</b> V měsíčním přepočtu nemá přebytek žádný měsíc a polední přebytek pokryje jen část potřeby elektrolýzy. Vodík v modelu proto spotřebovává běžnou elektřinu.</li>
       <li><b>Přes vodík potřebuje stejná doprava zhruba třikrát víc elektřiny než na baterie.</b> Podíl 50 % je zadání, není výsledkem optimalizace.</li>
       <li><b>Zimní bilance závisí na bateriích.</b> Kladná vychází jen díky bateriím spočteným jako tři dny spotřeby, a ty vydrží omezenou dobu.</li>
-      <li><b>Baterie nejsou provozně modelované.</b> Úložiště je záloha na tři dny, není dimenzované na přesun přebytků a v modelu se ani hodinově nenabíjí.</li>
+      <li><b>Baterie a vodík zatím nefungují podle záměru.</b> Baterie má být krátkodobá a jen tak velká, aby se vyplatila, a přebytek navíc má vyrábět vodík na sezónní zásobu. Na stránce jsou zatím baterie jako záloha na tři dny, která se téměř jistě nevyplatí, a pevných 50 % vodíku. Opraví to připravovaný hodinový výpočet, viz bod 11 v Metodice.</li>
       <li><b>Možné dvojí započtení vodíku.</b> Dopadová studie uvádí 45,8 GWh na vodík bez určení účelu, může se překrývat s flotilou.</li>
       <li><b>Průmysl a energetika v roce 2025.</b> V datech ERÚ se zřejmě přeřazovaly mezi sebou, spolehlivý je jen jejich součet.</li>
       <li><b>Křivky některých plynových položek.</b> U konzervativní cesty neprochází S-křivka přesně hodnotami tabulky pro roky 2030 a 2040. Seznam je v <a href="kontrola_krivek.txt">kontrole křivek</a>.</li>
