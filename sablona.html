@@ -1840,13 +1840,24 @@ const FLOW = (() => {
     tank:'<rect x="3" y="8" width="18" height="9" rx="4.5"/><path d="M8 17v3M16 17v3M12 8V5M10 5h4"/>',
     truck:'<path d="M2.5 16V7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v9"/><path d="M14.5 10h4l3 3.5V16"/><path d="M2.5 16h2M9.5 16h5.5M20 16h1.5"/><circle cx="7" cy="17" r="2.2"/><circle cx="17.5" cy="17" r="2.2"/>',
   };
-  const VIEW_TEXT = {energy:"roční energie v GWh", winter:"zimní špička v MW", summer:"letní poledne v MW"};
+  const VIEW_TEXT = {energy:"roční energie, podíly v %", winter:"zimní špička, podíly v %", summer:"letní poledne, podíly v %"};
   const LUT = 24, MAX_SPARKS = 110, FLAKES = 24, HIDE_BELOW = 0.5;
   const E = FLOW_EDGES.length, cur = new Float64Array(E), geom = [], sparks = [], bands = [], els = {}, boxes = {}, refs = {};
   const flakes = [];
   let built = false, last = null, sw = 0, sh = 540, R = 60, HX = 0, HY = 0, narrow = false, dpr = 1, ctx = null;
   let visible = typeof IntersectionObserver === "undefined", reduced = false, running = false, rafId = 0, lastT = 0, sunAngle = 0, tipFor = null;
   const fv = v => (v > 0 && v < 10 ? NF1 : NF).format(v);
+  const fp = p => (p > 0 && p < 1 ? "pod 1" : NF.format(p)) + " %";
+  /* Podíl uzlu v procentech: zdroje a dovoz z toho, co do kraje přichází, odběry z toho, co kraj odebírá. Přebytek z výroby. */
+  function share(node, t){
+    if(node.kind === "source") return (t.gen + t.imports) > 0 ? node.value / (t.gen + t.imports) * 100 : 0;
+    if(node.kind === "grid"){
+      if(t.surplus > t.imports) return t.gen > 0 ? node.value / t.gen * 100 : 0;
+      return (t.gen + t.imports) > 0 ? node.value / (t.gen + t.imports) * 100 : 0;
+    }
+    const served = last.nodes.filter(x => x.kind === "consumer" || x.id === "elektrolyzer" || x.id === "baterie").reduce((sum, x) => sum + x.value, 0);
+    return served > 0 ? node.value / served * 100 : 0;
+  }
 
   /* Měřítko pruhů je pro každý pohled pevné, aby šířka porovnávala roky a cesty. Odvozené z výchozího stavu, posuvníky ho mohou jen zmenšit. */
   function computeRefs(){
@@ -1889,6 +1900,9 @@ const FLOW = (() => {
       stage.appendChild(el);
       els[g.id] = el;
     }
+    const hub = $("flowHub");
+    for(const type of ["pointerenter", "pointerdown"]) hub.addEventListener(type, () => showNodeTip("hub", hub));
+    hub.addEventListener("pointerleave", hideNodeTip);
     for(let k = 0; k < FLAKES; k++) flakes.push({x:Math.random(), y:Math.random(), v:.012 + Math.random() * .02, r:1.6 + Math.random() * 1.8, p:Math.random() * 6.28, a:.18 + Math.random() * .22});
     const query = typeof matchMedia !== "undefined" ? matchMedia("(prefers-reduced-motion:reduce)") : null;
     reduced = !!(query && query.matches);
@@ -1984,18 +1998,19 @@ const FLOW = (() => {
     for(const node of s.nodes){
       const el = els[node.id], off = node.value < HIDE_BELOW;
       el.nameEl.textContent = narrow ? node.short : node.label;
-      el.valEl.textContent = fv(node.value) + " " + unit;
+      el.valEl.textContent = fp(share(node, t));
       el.noteEl.textContent = node.note;
-      el.setAttribute("aria-label", `${node.label}: ${fv(node.value)} ${unit}${node.note ? ", " + node.note : ""}`);
+      el.setAttribute("aria-label", `${node.label}: ${fp(share(node, t))}, ${fv(node.value)} ${unit}${node.note ? ", " + node.note : ""}`);
       el.style.setProperty("--c", node.color);
       const cls = off ? "fnode off" : "fnode";
       if(el.className !== cls) el.className = cls;
     }
-    $("flowHubKey").textContent = s.view === "energy" ? "Spotřeba" : "Zatížení";
-    $("flowHubVal").textContent = fv(t.use);
-    $("flowHubUnit").textContent = unit;
-    $("flowHubS1").textContent = "výroba " + fv(t.gen);
-    $("flowHubS2").textContent = t.surplus > t.imports ? "přebytek " + fv(t.surplus) : "dovoz " + fv(t.imports);
+    const covered = (t.gen + t.imports) > 0 ? t.gen / (t.gen + t.imports) * 100 : 0;
+    $("flowHubKey").textContent = "Vlastní výroba";
+    $("flowHubVal").textContent = fp(covered);
+    $("flowHubUnit").textContent = t.surplus > t.imports ? "přebytek " + fp(t.gen > 0 ? t.surplus / t.gen * 100 : 0) : "dovoz " + fp(100 - covered);
+    $("flowHubS1").textContent = "";
+    $("flowHubS2").textContent = "";
     const C = 2 * Math.PI * 46, supply = t.gen + t.imports || 1, own = t.gen / supply, ring = (el, start, share) => {
       el.setAttribute("stroke-dasharray", `${(share * C).toFixed(2)} ${((1 - share) * C).toFixed(2)}`);
       el.setAttribute("stroke-dashoffset", (-start * C).toFixed(2));
@@ -2006,6 +2021,11 @@ const FLOW = (() => {
     if(tipFor) writeTip();
   }
   function writeTip(){
+    if(tipFor.id === "hub"){
+      const t = last.totals, line = (a, v) => `<div><span>${a}</span><span class="mono">${fv(v)} ${last.unit}</span></div>`;
+      $("tip").innerHTML = `<b>Kraj celkem</b>` + line(last.view === "energy" ? "Výroba" : "Dostupný výkon", t.gen) + line(last.view === "energy" ? "Spotřeba" : "Zatížení", t.use) + (t.surplus > t.imports ? line("Přebytek", t.surplus) : line("Dovoz", t.imports));
+      return;
+    }
     const node = last.nodes.find(x => x.id === tipFor.id), tip = $("tip"), unit = last.unit;
     const rows = node.items.map(r => `<div><span>${esc(r.name)}</span><span class="mono">${fv(r.value)} ${unit}</span></div>`).join("");
     tip.innerHTML = `<b>${esc(node.label)}</b>` + rows + (node.items.length > 1 ? `<div style="margin-top:3px;font-weight:600"><span>Celkem</span><span class="mono">${fv(node.value)} ${unit}</span></div>` : node.items.length ? "" : `<div><span>Tok</span><span class="mono">${fv(node.value)} ${unit}</span></div>`) + (node.detail ? `<div style="margin-top:4px">${esc(node.detail)}</div>` : "");
@@ -2161,7 +2181,8 @@ const FLOW = (() => {
     last = flowState();
     const color = last.path === "progresivni" ? "var(--prog)" : "var(--kons)";
     $("flowCaption").innerHTML = `Toky elektřiny v kraji, ${VIEW_TEXT[last.view]}, <b style="color:${color}">${PATHNAME[last.path].toLowerCase()} cesta</b>, rok ${last.year}. ` +
-      (last.compare ? "Graf sleduje nastavení výše a při porovnání cest ukazuje jen vybranou." : "Graf sleduje nastavení výše a šířka pruhu odpovídá velikosti toku.");
+      (last.compare ? "Graf sleduje nastavení výše a při porovnání cest ukazuje jen vybranou." : "Graf sleduje nastavení výše a šířka pruhu odpovídá velikosti toku.") +
+      " Zdroje a dovoz dávají dohromady 100 %, odběry také. Přesná čísla ukáže najetí na bublinu nebo klepnutí.";
     paint();
   }
   return {draw};
