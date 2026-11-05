@@ -2337,14 +2337,14 @@ Třetí křivka mezi pevnými cestami, není to předpověď. Plynulá položka:
 | Demografie | Lidský kapitál a demografie | 0,31 | vysoká | váha 0 |
 | Vzdělávání a lidský kapitál | Lidský kapitál a demografie | 0,32 | střední | ano |
 | Atraktivita regionu | Lidský kapitál a demografie | 0,31 | střední | ano |
-| Trh práce | Lidský kapitál a demografie | 0,32 | střední | váha 0 |
+| Trh práce | Lidský kapitál a demografie | 0,32 | střední | ano |
 | Průmyslový rozvoj | Ekonomická transformace a investice | 0,46 | nízká | ano |
 | Pilotní projekty | Ekonomická transformace a investice | 0,4 | střední | ano |
-| Časová náročnost implementace nových technologií | Ekonomická transformace a investice | 0,33 | střední | váha 0 |
-| Souvislost mezi populací a investicemi do energetické infrastruktury | Ekonomická transformace a investice | 0,65 | nízká | váha 0 |
+| Časová náročnost implementace nových technologií | Ekonomická transformace a investice | 0,33 | střední | ano |
+| Souvislost mezi populací a investicemi do energetické infrastruktury | Ekonomická transformace a investice | 0,65 | nízká | ano |
 | Sociální soudržnost | Sociální soudržnost a distribuce přínosů | 0,5 | odhad | ano |
 | Energetická chudoba | Sociální soudržnost a distribuce přínosů | 0,32 | nízká | ano |
-| Sociální nerovnosti | Sociální soudržnost a distribuce přínosů | 0,24 | střední | váha 0 |
+| Sociální nerovnosti | Sociální soudržnost a distribuce přínosů | 0,24 | střední | ano |
 | Energetická bezpečnost | Energetická infrastruktura a decentralizace | 0,271 | střední | váha 0 |
 | Komunitní energetika | Energetická infrastruktura a decentralizace | 0,26 | odhad | ano |
 | Krizová připravenost domácností | Energetická infrastruktura a decentralizace | 0,34 | odhad | váha 0 |
@@ -2352,7 +2352,7 @@ Třetí křivka mezi pevnými cestami, není to předpověď. Plynulá položka:
 | Spolehlivost predikčních modelů využítých k prosazování energetické tranzice | Informační prostředí a epistemická odolnost | 0,53 | nízká | váha 0 |
 | Informační pokrytí havarijních situací | Informační prostředí a epistemická odolnost | 0,58 | nízká | váha 0 |
 | Regionální identita a vize | Regionální identita a symbolický rámec | 0,367 | nízká | ano |
-| Symbolická pozice regionu v ČR | Regionální identita a symbolický rámec | 0,154 | nízká | váha 0 |
+| Symbolická pozice regionu v ČR | Regionální identita a symbolický rámec | 0,154 | nízká | ano |
 | Kulturně-historický narativ | Regionální identita a symbolický rámec | 0,217 | nízká | ano |
 | Zdraví a kvalita života | Environmentální a zdravotní dopady | 0,51 | střední | váha 0 |
 | Vnímání odpadu | Environmentální a zdravotní dopady | 0,625 | nízká | ano |
