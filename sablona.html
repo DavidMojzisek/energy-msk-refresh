@@ -10,6 +10,10 @@
 @media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0e141c;--surface:#151c26;--surface-2:#1d2632;--ink:#e8edf3;--muted:#9aa7b8;--line:#2a3442;--accent:#3F9BE0;--warn:#e3a23c;--ok:#14A898;--crit:#9aa7b8;--prog:#3F9BE0;--kons:#E3701E;--shadow:none}}
 :root[data-theme=dark]{--bg:#0e141c;--surface:#151c26;--surface-2:#1d2632;--ink:#e8edf3;--muted:#9aa7b8;--line:#2a3442;--accent:#3F9BE0;--warn:#e3a23c;--ok:#14A898;--crit:#9aa7b8;--prog:#3F9BE0;--kons:#E3701E;--shadow:none}
 :root[data-path=konzervativni]{--accent:var(--kons)}
+:root{color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){color-scheme:dark}:root:not([data-theme=light]) a{color:var(--prog)}}
+:root[data-theme=dark]{color-scheme:dark}
+:root[data-theme=dark] a{color:var(--prog)}
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 "DM Sans",system-ui,sans-serif}
@@ -29,7 +33,9 @@ h2{font:700 19px/1.25 "Saira",sans-serif;margin:0 0 10px}
 .tipwrap{position:relative;display:inline-block}
 .bubble{display:none;position:absolute;left:0;top:calc(100% + 6px);z-index:20;width:max-content;max-width:min(240px,70vw);pointer-events:none;padding:8px 10px;border-radius:8px;background:var(--ink);color:var(--surface);font:500 12.5px/1.4 "DM Sans",sans-serif;white-space:normal}
 .bubble.r{left:auto;right:0}
-.tipwrap:hover .bubble,.tipwrap:has(:focus-visible) .bubble{display:block}
+.tipwrap:hover .bubble{display:block}
+.tipwrap:has(:focus-visible) .bubble{display:block}
+@media (max-width:680px){.tipwrap{position:static}.toggles,.legend{position:relative}.bubble,.bubble.r{left:0;right:0;width:auto;max-width:none}}
 .card{margin-bottom:40px}
 .answer{margin:12px 0 18px}
 .question{color:var(--muted);margin:0 0 4px;font-size:14px}
@@ -74,7 +80,7 @@ svg .lab{font:600 12px "DM Sans",sans-serif;fill:var(--ink)}
 .track input{position:relative;width:100%;margin:0;accent-color:var(--accent);background:none;display:block}
 .yearline{display:grid;grid-template-columns:1fr auto;gap:2px 10px;margin-top:6px;color:var(--muted);font-size:12.5px}
 .yearline input{grid-column:1/-1;width:100%;margin:0;accent-color:var(--muted)}
-.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin-bottom:20px}
+.tabs{display:flex;flex-wrap:wrap;gap:4px;border-bottom:1px solid var(--line);margin-bottom:20px}
 .tabs button{border:0;background:none;color:var(--muted);font:600 15px "Saira",sans-serif;padding:8px 14px;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-1px}
 .tabs button[aria-current=page]{color:var(--ink);border-bottom-color:var(--accent)}
 .method{max-width:800px;margin:0 auto}
@@ -86,7 +92,8 @@ svg .lab{font:600 12px "DM Sans",sans-serif;fill:var(--ink)}
 .democtl label{display:flex;justify-content:space-between;font-size:12.5px;color:var(--muted);margin-top:10px}
 .democtl input{width:100%;accent-color:var(--accent)}
 @media (max-width:640px){.demo{grid-template-columns:1fr}}
-.figsvg{margin:12px 0}.figsvg svg{display:block;width:100%;height:auto}
+.figsvg{margin:12px 0}.figsvg svg{display:block;width:100%;height:auto;overflow:visible}
+#demo svg,#bal svg{overflow:visible}
 .zdroj{color:var(--muted);font-size:12.5px}
 .rozpory tr.skupina td{font-weight:600;padding-top:14px;border-top:0}
 .rozpory tr.otevreny td:first-child{border-left:3px solid var(--warn);padding-left:8px;font-weight:600}
@@ -387,7 +394,7 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
       <p>Přebytek bere elektrolyzér podle rozvrhu malé nádrže, elektrokotle do {{kotle_mw}} MW a baterie, zbytek je vývoz. Těch {{kotle_mw}} MW je náš součet z údajů studie, ne její mez. Schodek kryje baterie, potom plyn do ročního rozpočtu a zbytek dovoz. Doprava na vodík odebírá rovnoměrně a malá nádrž výrobu posouvá o hodiny.</p>
       <p>Velikost baterie je naše pravidlo, ne převzatá metoda. Vychází z denního výkyvu, ne z ceny ani z cíle: v mediánovém dni je to energie nad denním průměrem, navýšená o účinnost jednoho směru. Každou půlnoc si baterie podle přesné křivky na další den určí nejnižší rovnou hladinu H, kterou udrží. Nad H vybíjí, pod H &minus; 100 MW nabíjí i ze sítě. Odstup 100 MW je úsudek.</p>
       <p>Velikost elektrolyzéru je také naše pravidlo. Je tak velký, aby na vývoz zbylo pod 1 % přebytku, protože hlavní cíl je přebytek využít. Plné hodiny jsou z hodinového výpočtu.</p>
-      <p>Rozvrh plynu, elektrolýzy ze sítě a nádrže zná celý rok dopředu, skutečný provoz by špičku dovozu zvýšil, velikost je v záložce Nedostatky. Graf toků v záložce Bilance počítá ve stránce stejně jako hlavní graf a hodinové výsledky nepoužívá, hodinové běhy mají vlastní stránku <a href="laborator/grafy/">Grafy z hodinového modelu</a>.</p>
+      <p>Rozvrh plynu, elektrolýzy ze sítě a nádrže zná celý rok dopředu, skutečný provoz by špičku dovozu zvýšil, velikost je v záložce Nedostatky. Graf toků v záložce Bilance počítá ve stránce stejně jako hlavní graf a hodinové výsledky nepoužívá, hodinové běhy mají vlastní stránku <a href="laborator/grafy/index.html">Grafy z hodinového modelu</a>.</p>
     </details>
   </section>
 
@@ -748,7 +755,7 @@ function mk(tag, attrs, parent, text){
 function pathD(points){ return points.map((p, i) => (i ? "L" : "M") + p[0].toFixed(1) + " " + p[1].toFixed(1)).join(""); }
 
 /* Na telefonu je souřadnicový prostor užší, aby popisky zůstaly čitelné. */
-const isSmall = () => typeof innerWidth !== "undefined" && innerWidth < 640;
+const isSmall = () => typeof innerWidth !== "undefined" && innerWidth <= 640;
 let X0 = 62, X1 = 838, W = 1000;
 const Y0 = 26;
 function setGeometry(){
@@ -775,7 +782,7 @@ function drawMain(){
     if(energy && p === state.path && show.vyroba && b.vyroba) top = Math.max(top, ...b.vyroba[2]);
     if(energy && p === state.path && show.spotreba && b.spotreba) top = Math.max(top, ...b.spotreba[2]);
   }
-  const step = energy ? (top > 20000 ? 5000 : 2000) : 500, ymax = Math.ceil(top / step) * step;
+  const step = energy ? (top > 20000 ? 5000 : 2000) : 500, ymax = Math.max(step, Math.ceil(top / step) * step);
   const yS = v => YB - v / ymax * (YB - Y0);
   for(let v = 0; v <= ymax; v += step){
     mk("line", {x1:X0, x2:X1, y1:yS(v), y2:yS(v), stroke:"var(--line)"}, svg);
@@ -872,11 +879,11 @@ function showTip(e, svg, series){
     if(!state.show[p]) continue;
     const i = y - 2025;
     html += `<div style="margin-top:4px"><b>${PATHNAME[p]}</b></div>` + rows(series[p].gen[i], series[p].use[i]);
-  } else return;
+  } else { tip.style.display = "none"; return; }
   tip.innerHTML = html;
   tip.style.display = "block";
   tip.style.left = Math.max(4, Math.min(e.clientX + 14, innerWidth - 230)) + "px";
-  tip.style.top = (e.clientY + 14) + "px";
+  tip.style.top = Math.max(4, Math.min(e.clientY + 14, innerHeight - tip.offsetHeight - 4)) + "px";
 }
 
 function drawBalance(){
@@ -1062,7 +1069,7 @@ function drawLists(){
     for(const it of DATA.items.filter(x => x.path === state.path && x.side === side).sort((a, c) => size(c) - size(a))){
       if(it.name === SMR_NAME){ card.appendChild(smrRow(it)); continue; }
       const saving = it.p10 < 0, min = saving ? it.p10 * 1.5 : 0, k = key(it);
-      const max = saving ? 0 : Math.max(100, it.p90 * 1.5, it.base * 1.25, it.p50 * 1.5);
+      const max = saving ? 0 : Math.max(100, it.p90 * 1.5, it.base * 1.25, it.p50 * 1.5, state.values[k]);
       const pct = v => ((v - min) / (max - min) * 100).toFixed(2) + "%";
       const row = document.createElement("div");
       row.className = "item";
@@ -1100,6 +1107,7 @@ function drawLists(){
         if(top !== null) warn.textContent = `Nárůst až ${NF.format(top)} GWh za rok, v minulosti nejvýše ${(it.maxRate < 10 ? NF1 : NF).format(it.maxRate)} GWh za rok.`;
       };
       checkRate();
+      if(it.maxRate !== null) formulaLabels.push(checkRate);
       if(it.jump === null && it.parts.length === 1){
         const tmIn = row.querySelector(".tmin"), tmV = row.querySelector(".tmv");
         tmIn.value = state.tms[k];
@@ -1182,7 +1190,7 @@ function applyPath(){
   const other = state.path === "progresivni" ? "konzervativni" : "progresivni";
   state.show[state.path] = true;
   state.show[other] = state.compare;
-  pressOnly("[data-path]", "path", state.path);
+  pressOnly("button[data-path]", "path", state.path);
   $("compare").setAttribute("aria-pressed", state.compare);
   document.documentElement.dataset.path = state.path;
   drawMust();
@@ -1278,7 +1286,7 @@ $("theme").addEventListener("click", () => {
 });
 if(typeof addEventListener !== "undefined"){
   let wasSmall = isSmall();
-  addEventListener("resize", () => { if(isSmall() !== wasSmall){ wasSmall = isSmall(); refresh(); } });
+  addEventListener("resize", () => { if(isSmall() !== wasSmall){ wasSmall = isSmall(); refresh(); drawFigDen(); } });
 }
 
 /* Graf toků v záložce Bilance. Čísla bere jen z values() a moment(), stejně jako hlavní graf a řádek výsledků. Hodinové výsledky nepoužívá. */
@@ -1491,7 +1499,7 @@ const FLOW = (() => {
   }
   function placeNodes(){
     narrow = sw < 760;
-    const w = narrow ? Math.max(84, Math.min(130, sw * .3)) : sw >= 1000 ? 172 : 118, h = narrow ? 46 : 54;
+    const w = narrow ? Math.max(84, Math.min(130, sw * .3)) : Math.min(172, Math.max(118, sw * .155)), h = narrow ? 46 : 54;
     sh = narrow ? 556 : 560;
     const stage = $("flowStage"), pad = narrow ? 3 : 12, leftX = w / 2 + pad, rightX = sw - leftX, cx = sw / 2;
     const top = narrow ? 30 : 38, colEnd = narrow ? 30 + 7 * 52 : sh - 38, useEnd = narrow ? colEnd : sh * .72;
@@ -1784,7 +1792,7 @@ function drawDemo(){
   for(let t = 2025; t <= 2050; t += 0.25) years.push(t);
   const base = t => 100 + 400 * sCurve(t, demo.tm, demo.k);
   mk("line", {x1:xS(demo.tm), x2:xS(demo.tm), y1:T, y2:B, stroke:"var(--muted)", "stroke-dasharray":"2 4"}, svg);
-  mk("text", {class:"ev", x:xS(demo.tm) + 4, y:T + 14}, svg, "polovina změny");
+  mk("text", {class:"ev", x:xS(demo.tm) + (demo.tm > 2042 ? -4 : 4), y:T + 14, "text-anchor":demo.tm > 2042 ? "end" : "start"}, svg, "polovina změny");
   mk("path", {d:pathD(years.map(t => [xS(t), yS(base(t))])), fill:"none", stroke:"var(--muted)", "stroke-width":2}, svg);
   if(demo.d !== 0){
     mk("line", {x1:xS(2030), x2:xS(2030), y1:T, y2:B, stroke:"var(--warn)", "stroke-dasharray":"2 4"}, svg);
@@ -1830,12 +1838,14 @@ function drawFigDen(){
   mk("line", {x1:L, x2:R, y1:yS(d.hladina_MW), y2:yS(d.hladina_MW), stroke:"var(--muted)", "stroke-dasharray":"5 4", "stroke-width":1.5}, svg);
   mk("path", {d:pathD(d.R.map((r, h) => [xS(h + .5), yS(r)])), fill:"none", stroke:"var(--ink)", "stroke-width":2}, svg);
   /* Legenda v jedné řadě nad grafem, identita není jen barvou. */
-  let lx = L + 40;
-  for(const [label, c, w] of [["zbytkové zatížení", "var(--ink)", 118], [`hladina H ${fmt.format(d.hladina_MW)} MW`, "var(--muted)", 152], ["vybíjení", "var(--ok)", 72], ["nabíjení", "var(--warn)", 72]]){
-    mk("rect", {x:lx, y:6, width:12, height:12, rx:2, fill:c}, svg);
-    mk("text", {x:lx + 16, y:16}, svg, label);
-    lx += w;
-  }
+  const small = isSmall(), charW = small ? 9 : 6.9;
+  let lx = L + 40, ly = small ? 2 : 6;
+  [["zbytkové zatížení", "var(--ink)"], [`hladina H ${fmt.format(d.hladina_MW)} MW`, "var(--muted)"], ["vybíjení", "var(--ok)"], ["nabíjení", "var(--warn)"]].forEach(([label, c], k) => {
+    if(small && k === 2){ lx = L + 40; ly = 20; }
+    mk("rect", {x:lx, y:ly, width:12, height:12, rx:2, fill:c}, svg);
+    mk("text", {x:lx + 16, y:ly + 10}, svg, label);
+    lx += 16 + label.length * charW + 12;
+  });
   const cz1 = v => String(Math.round(v * 100) / 100).replace(".", ",");
   $("figDenCap").textContent = `Co je nakresleno: zbytkové zatížení progresivní cesty ve výchozím nastavení ${d.den} povětrnostního roku ${d.rok}, tedy spotřeba včetně elektrolýzy podle rozvrhu minus neřízené zdroje, po hodinách. Jak se počítá: je to den, jehož denní výkyv ${cz1(d.vykyv_GWh)} GWh je nejblíž mediánu ${cz1(d.median_GWh)} GWh z 5 povětrnostních let. Hladinu H určí baterie o půlnoci jako nejnižší rovnou hladinu, kterou celý den udrží. Co z toho plyne: baterie ten den vybije ${cz1(d.vybito_GWh)} GWh nad hladinou a nabije ${cz1(d.nabito_GWh)} GWh pod ní, takže vyrovnává den.`;
 }

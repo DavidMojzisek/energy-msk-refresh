@@ -126,7 +126,7 @@ function seg(box, items, get, set){
     const b = document.createElement("button");
     b.type = "button"; b.dataset.k = k; b.textContent = label;
     b.setAttribute("aria-pressed", String(get() === k));
-    b.addEventListener("click", () => { set(k); render(); });
+    b.addEventListener("click", () => { set(k); render(); const again = [...box.children].find(x => x.dataset.k === k); if(again && again.focus) again.focus({preventScroll:true}); });
     box.appendChild(b);
   }
 }
@@ -141,7 +141,7 @@ function tipShow(html, ev){
   t.innerHTML = html; t.style.display = "block";
   const w = window.innerWidth || 800;
   t.style.left = Math.max(6, Math.min(w - 270, (ev.clientX || 0) + 14)) + "px";
-  t.style.top = ((ev.clientY || 0) + 12) + "px";
+  t.style.top = Math.max(6, Math.min((ev.clientY || 0) + 12, (window.innerHeight || 1e6) - (t.offsetHeight || 0) - 6)) + "px";
 }
 function tipHide(){ $("tip").style.display = "none"; }
 
@@ -435,7 +435,8 @@ function attach(){
   const w = $("cWeek");
   const near = ev => { const g = w.geom, r = w.getBoundingClientRect(), k = g.W / (r.width || g.W); return Math.max(0, Math.min(g.n - 1, Math.round(((ev.clientX - r.left) * k - g.m.l) / (g.W - g.m.l - g.m.r) * (g.n - 1)))); };
   w.addEventListener("pointermove", ev => weekTip(near(ev), ev));
-  w.addEventListener("pointerleave", tipHide);
+  const weekOut = () => { tipHide(); const c = $("wCross"); if(c) c.setAttribute("visibility", "hidden"); };
+  w.addEventListener("pointerleave", weekOut);
   let wi = 0;
   w.addEventListener("keydown", ev => {
     const s = {ArrowLeft:-1, ArrowRight:1}[ev.key];
@@ -445,7 +446,7 @@ function attach(){
     const r = w.getBoundingClientRect();
     weekTip(wi, {clientX:r.left + 20, clientY:r.top + 20});
   });
-  w.addEventListener("blur", tipHide);
+  w.addEventListener("blur", weekOut);
   let t = null;
   window.addEventListener("resize", () => { clearTimeout(t); t = setTimeout(render, 150); });
 }

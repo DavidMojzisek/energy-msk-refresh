@@ -77,7 +77,7 @@ def html_radky8(rows):
     return "".join(body(*r) for r in rows)
 
 
-NBSP_NUM = re.compile(r"(?<=\d) (?=\d{3}(?!\d))")
+NBSP_NUM = re.compile(r"(?<=\d)(?<!\d{4}) (?=\d{3}(?!\d))")
 NBSP_UNIT = re.compile(r"(?<=\d) (?=(?:%|GWh|TWh|MWh|MWp|MW|GWp|kWh|t\b|h\b|×))")
 
 
@@ -107,6 +107,7 @@ def html_rozpory():
     rows = []
     for line in (HERE / "ROZPORY.md").read_text(encoding="utf-8").splitlines():
         cells = [c.strip() for c in line.strip().strip("|").split("|")] if line.startswith("|") else []
+        assert not cells or len(cells) == 4, line[:80]
         if len(cells) == 4 and cells[0] != ROZ_HEAD[0] and not set(cells[0]) <= {"-"}:
             rows.append(cells)
     assert rows
