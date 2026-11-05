@@ -205,7 +205,7 @@ Baterie 2,6 GWh a 650 MW, elektrolyzér 550 MW, rovnoměrný odběr flotily. Vý
 | 5 000 t | 243 | −1 266 | −2 622 | 765 / 789 | 0,2 | 5 261 |
 | plná sezónní, 10 035 t | 3 | −1 030 | −2 429 | 781 / 794 | 0,6 | 5 266 |
 
-Výchozí zůstává malá nádrž asi 50 t podle stejného pravidla: nejmenší vývoz je prakticky hotový do 50 t. Zimní špička klesá i dál, pomalu. Plná sezónní nádrž je asi 200krát větší a kupuje hlavně přesun výroby ze zimy do zbytku roku. Výhrady k malé nádrži: 50 t je asi 11 h spotřeby flotily, rozvrh zná celý rok a denní tankovací profil část nádrže spotřebuje.
+Výchozí zůstává malá nádrž asi 50 t podle stejného pravidla: nejmenší vývoz je prakticky hotový do 50 t. Zimní špička klesá i dál, pomalu. S velkou sezónní nádrží se nepočítá, je asi 200krát větší, cenově nedává smysl a kupuje hlavně přesun výroby ze zimy do zbytku roku. Výhrady k malé nádrži: 50 t je asi 11 h spotřeby flotily, rozvrh zná celý rok a denní tankovací profil část nádrže spotřebuje.
 
 ## 5. Dvě zimní špičky a jejich smíření
 
