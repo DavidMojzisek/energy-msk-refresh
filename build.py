@@ -38,7 +38,7 @@ def must_rest(text):
 
 
 def html_must(rows):
-    head = ("<tr><th>Období, které má vyjít bez schodku</th><th>Bilance 2050 ve výchozím nastavení, GWh</th><th>Jen vítr navíc</th><th>Jen fotovoltaika navíc</th>"
+    head = ("<tr><th>Období, které má vyjít bez schodku</th><th>Bilance 2050, GWh</th><th>Jen vítr navíc</th><th>Jen fotovoltaika navíc</th>"
             "<th>Jen SMR navíc, moduly po 500 MW, bez podkladu</th><th>Vítr doplněný na mez 2 014 MW a k tomu</th></tr>")
     body = ""
     for r in rows:

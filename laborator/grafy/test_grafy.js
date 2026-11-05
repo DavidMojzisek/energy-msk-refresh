@@ -70,7 +70,7 @@ console.log("INFO  " + page.ids.hTempo.innerHTML.replace(/<[^>]+>/g, "").slice(-
 console.log("INFO  " + page.ids.hSplit.innerHTML.replace(/<[^>]+>/g, "").slice(-200));
 /* Zakázané věci */
 for(const w of [...JSON.parse(fs.readFileSync(path.join(__dirname, "../../../nastroje/zakazana_slova.json"), "utf8")), "http"]) check(!html.toLowerCase().includes(w), `na stránce není „${w}“`);
-for(const c of ["–", "—", "→", "←"]) check(!html.includes(c), `na stránce není znak U+${c.codePointAt(0).toString(16)}`);
+for(const c of ["\u2013", "\u2014", "\u2192", "\u2190"]) check(!html.includes(c), `na stránce není znak U+${c.codePointAt(0).toString(16)}`);
 check(!/<script[^>]+src=/.test(html), "žádné vnější skripty");
 console.log(failures ? `CHYB ${failures}` : "test OK");
 process.exit(failures ? 1 : 0);

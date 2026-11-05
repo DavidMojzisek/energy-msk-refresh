@@ -223,7 +223,7 @@ const clean = html.replace(/@font-face[^}]*}/g, "");
 for(const w of [...JSON.parse(fs.readFileSync(path.join(__dirname, "../../../nastroje/zakazana_slova.json"), "utf8")), "cdn"]){
   check(!clean.toLowerCase().includes(w.toLowerCase()), `na stránce není „${w}“`);
 }
-for(const c of ["–", "—", "→", "←", "⇒"]) check(!clean.includes(c), `na stránce není znak U+${c.codePointAt(0).toString(16)}`);
+for(const c of ["\u2013", "\u2014", "\u2192", "\u2190", "\u21d2"]) check(!clean.includes(c), `na stránce není znak U+${c.codePointAt(0).toString(16)}`);
 check(!/<script[^>]+src=/.test(clean) && !/<link[^>]+stylesheet/.test(clean), "žádné vnější skripty ani styly");
 const gz = require("zlib").gzipSync(html).length;
 check(gz < 2 * 1024 * 1024, `velikost stránky ${Math.round(html.length / 1024)} kB, gzip ${Math.round(gz / 1024)} kB`);

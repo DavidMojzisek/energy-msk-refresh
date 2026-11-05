@@ -116,22 +116,24 @@ Hodnoty jsou odhady pro výchozí nastavení a tabulka nemá pásmo. Bilance je 
 
 **S elektrárnami, které obě cesty předpokládají, kraj v roce 2050 zůstane závislý na dovozu.** Progresivní cesta vyrobí 7 862 GWh a spotřebuje 13 128 GWh, tedy 59,9 %. Chybí 5 266 GWh. Konzervativní cesta vyrobí 3 956 GWh ze 8 244 GWh, tedy 48,0 %, a chybí 4 287 GWh.
 
-**Závislost je důsledek velikosti flotily zdrojů, ne fyzikální mez.** Konzervativní cesta by rok uzavřela 1 766 MW větru navíc, tedy 1 862 MW uvnitř meze studie 2 014 MW. Překážkou je tempo: 73 MW za rok, 8,0krát víc než největší roční přírůstek kraje, a v hodinách i tak zůstane dovoz 766 GWh a 704 GWh přebytku. Progresivní cesta rok uzavře větrem na mezi a 2,2 GWp fotovoltaiky navíc, nebo více než jedním dalším SMR (1,45 čistého bloku), pro který podklad není.
+**Závislost plyne z toho, kolik elektráren cesty předpokládají a kolik elektřiny spotřebují, není to fyzikální mez.** Konzervativní cesta by rok uzavřela 1 766 MW větru navíc, tedy 1 862 MW uvnitř meze studie 2 014 MW. Překážkou je tempo: 73 MW za rok, 8,0krát víc než největší roční přírůstek kraje, a v hodinách i tak zůstane dovoz 766 GWh a 704 GWh přebytku. Progresivní cesta rok uzavře větrem na mezi a 2,2 GWp fotovoltaiky navíc, nebo více než jedním dalším SMR (1,45 čistého bloku), pro který podklad není.
 
 | Úroveň | Progresivní, 1 SMR, flotila 50/50, malá nádrž | Konzervativní, bez SMR |
 |---|---|---|
-| 1, rok | Nesplněno, −5 266 GWh. Podíl běhů pod 10 % | Nesplněno, −4 287 GWh. Podíl běhů pod 1 %. Rok uzavře vítr uvnitř meze, překáží tempo |
-| 2, říjen až březen | Nesplněno, −2 773 GWh. Podíl běhů pod 10 % | Nesplněno, −2 139 GWh. Podíl běhů pod 1 %. Vítr samotný +1 636 MW |
-| 2, prosinec až únor | Nesplněno, −1 512 GWh. Podíl běhů pod 5 % | Nesplněno, −1 058 GWh. Podíl běhů pod 1 %. Vítr samotný +1 601 MW |
-| 3, hodiny | Nesplněno. Bez dovozu 6,8 % hodin, zimní špička dovozu 977 MW v nejhorším roce při nádrži 50 t | Nesplněno. Bez dovozu 0,0 % hodin, špička 543 MW |
+| 1, rok | Nesplněno, −5 266 GWh. Podíl běhů pod 10 % | Nesplněno, −4 287 GWh. Podíl běhů pod 5 %. Rok uzavře vítr uvnitř meze, překáží tempo |
+| 2, říjen až březen | Nesplněno, −2 768 GWh. Podíl běhů pod 10 % | Nesplněno, −2 139 GWh. Podíl běhů pod 1 %. Vítr samotný +1 636 MW |
+| 2, prosinec až únor | Nesplněno, −1 505 GWh. Podíl běhů pod 5 % | Nesplněno, −1 058 GWh. Podíl běhů pod 1 %. Vítr samotný +1 601 MW |
+| 3, hodiny | Nesplněno. Bez dovozu 1,5 % hodin, zimní špička dovozu 977 MW v nejhorším roce při nádrži 50 t, roční špička 1 060 MW | Nesplněno. Bez dovozu 0,0 % hodin, špička 543 MW |
 
-Podíl běhů je pásmo, ne přesné číslo. Závisí na neověřené korelaci a mezích, viz oddíl 7.
+Podíl běhů je pásmo, ne přesné číslo. Závisí na neověřené korelaci a mezích, viz oddíl 7. Úroveň 2 v simulaci počítá s rovnoměrnou elektrolýzou.
 
 ### Přepočet: Baterie a vodík, dnešní mix, 1 SMR
 
 #### Pravidlo
 
-Přebytek má přednost. Každou půlnoc se z křivky zbytkového zatížení na další den a z náboje najde nejnižší rovná hladina, kterou baterie udrží v pořadí hodin. Nad hladinou vybíjí, pod hladinou minus 100 MW nabíjí ze sítě a nechá místo na přebytek, který ten den ještě přijde. Nabíjení končí pod hladinou, takže denní špička nemůže stoupnout, kontrola to hlídá v každém běhu. Rozdíl 100 MW je úsudek: menší rozdíl přidává cykly a ztráty a špičku téměř nemění. Předpověď na den je v základu dokonalá, dříve používané pravidlo jen z přebytku zůstává jako varianta.
+Přebytek má přednost. Každou půlnoc se z křivky zbytkového zatížení na další den a z náboje najde nejnižší rovná hladina, kterou baterie udrží v pořadí hodin. Nad hladinou vybíjí, pod hladinou minus 100 MW nabíjí ze sítě a nechá místo na přebytek, který ten den ještě přijde. Nabíjení končí pod hladinou, takže při přesné předpovědi denní špička nestoupne, kontrola to hlídá v každém běhu. Rozdíl 100 MW je úsudek: menší rozdíl přidává cykly a ztráty a špičku téměř nemění. Pravidlo jen z přebytku zůstává jako varianta.
+
+**Co je známo dopředu.** Baterie zná křivku dalšího dne přesně. Rozvrh plynu, elektrolýzy ze sítě a nádrže zná celý rok. Se včerejší křivkou místo předpovědi baterie ve výchozím nastavení zvedne denní špičku 2 až 7 dnů v roce, nejvýš o 180 MW; při elektrolyzéru mimo prosinec až únor 3 až 8 dnů, nejvýš o 255 MW. Když plyn dostane práh z předchozího povětrnostního roku místo znalosti celého roku, stoupne ve výchozím nastavení zimní špička dovozu v nejhorším roce z 977 na 1 175 MW a po vyčerpání paliva roční špička na 1 493 MW; v roce po chladnějším roce zůstane až 79 GWh plynu nevyužito. Při elektrolyzéru mimo prosinec až únor je to 747 na 834 MW a roční špička 1 088 MW.
 
 #### Velikost bez cíle
 
@@ -174,15 +176,19 @@ Podle velikosti, průměr 5 let, elektrolyzér mimo prosinec až únor. Noc je 1
 | Jen přebytek | 8,0 | 37 | 334 | 0 | 138 | 78 | 9,2 / 24,8 | 0 / 0 | 1 / 0 | 2015: 1, 2016: 2, 2017: 0, 2018: 1, 2019: 1 | 5 226 | 0,0 | 40,1 | 0 |
 | Jen přebytek | 12,0 | 25 | 334 | 0 | 138 | 78 | 9,2 / 24,8 | 0 / 0 | 1 / 0 | 2015: 1, 2016: 2, 2017: 0, 2018: 1, 2019: 1 | 5 226 | 0,0 | 40,1 | 0 |
 
-**Co je ta velikost poctivě.** 2,6 GWh je jeden den výkyvu, ne záloha a ne zdroj energie. Proti pravidlu jen z přebytku nové pravidlo zvedá ztráty z 36,0 na 67,4 GWh a roční dovoz z 5 232 na 5 269 GWh, tedy o 37 GWh. Za to dává pokles zimní špičky 142 / 55 MW před plynem a 94 / 73 MW po plynu, zatímco staré pravidlo prakticky nic (1 / 0 MW). Večer ušetří 129 GWh proti 71 GWh. Celou noc nepokryje skoro nikdy. Pokles špičky přestává růst před plynem už kolem 1 GWh a po plynu kolem 2 až 3 GWh, protože den má jen tolik výkyvu, kolik má: v nejchladnějších dnech je zbytkové zatížení ploché vysoko a žádná baterie pod denní průměr nesjede. Větší baterie tedy zimní špičku neřeší. Bez baterie je dovoz 5 276 GWh, jenže přebytek tehdy bere víc kotlů (81 GWh proti 13 GWh), takže čistý přínos baterie pro dovoz je malý.
+**Co je ta velikost poctivě, při elektrolyzéru mimo prosinec až únor.** 2,6 GWh je jeden den výkyvu, ne záloha a ne zdroj energie. Proti pravidlu jen z přebytku nové pravidlo zvedá ztráty z 36,0 na 67,4 GWh a roční dovoz z 5 232 na 5 269 GWh, tedy o 37 GWh. Za to dává pokles zimní špičky 142 / 55 MW před plynem a 94 / 73 MW po plynu, zatímco staré pravidlo prakticky nic (1 / 0 MW). Večer ušetří 129 GWh proti 71 GWh. Celou noc nepokryje skoro nikdy. Pokles špičky přestává růst před plynem už kolem 1 GWh a po plynu kolem 2 až 3 GWh. Při tomto pravidlu, které plánuje jen jeden den dopředu a začíná každou půlnoc s tím, co v baterii zbylo, větší baterie zimní špičku dál nesnižuje. Je to vlastnost pravidla. Stejná baterie s plánem na dva dny, při přesné předpovědi, dá před plynem 244 / 208 MW místo 142 / 55 MW. Je to zkouška výroku, ne návrh. Bez baterie je dovoz 5 276 GWh, jenže přebytek tehdy bere víc kotlů (81 GWh proti 13 GWh), takže čistý přínos baterie pro dovoz je malý.
 
-**S výchozí malou nádrží 50 t**, kdy elektrolyzér v zimě běží a nádrž ho přesouvá jen o hodiny, je zimní špička po plynu 911 MW s baterií a 969 MW bez ní, pokles medián 60 MW, nejhorší rok 49 MW. Elektrolyzér tu sám vyrovnává den, proto baterie přidá méně.
+**Ve výchozím nastavení s malou nádrží 50 t**, kdy elektrolyzér v zimě běží a nádrž ho přesouvá jen o hodiny, je zimní špička po plynu 911 MW s baterií a 969 MW bez ní, pokles medián 60 MW, nejhorší rok 49 MW. Rozvrh elektrolyzéru vyrovnává nejchladnější den sám, proto baterie špičku před plynem nesnižuje: 0 MW. Pokles po plynu vzniká tím, že baterie uvolní plyn na hodiny špičky. Baterie 5 GWh dá 55 / 46 MW, baterie 12 GWh 55 / 46 MW, baterie 2,6 GWh s plánem na dva dny 86 / 81 MW, obojí s přesnou předpovědí.
 
-**Citlivost na předpověď.** Když hladinu místo předpovědi určí včerejší křivka, tedy jen známá informace, pokles špičky po plynu je 56 / 0 MW a ztráty 59,2 GWh. V roce se studeným náhlým dnem nepředvídaná špička zůstane. Chyba skutečné předpovědi leží mezi oběma případy.
+Přebytek před baterií, kotli a elektrolyzérem je 334 GWh. Z něj jde 309 GWh do vodíku, 13 GWh do kotlů, 12 GWh do baterie a 0,4 GWh je vývoz. Baterie bere ze sítě 521 GWh, ztráty jsou 63,9 GWh. Přebytek do vodíku tu zahrnuje i výrobu v přebytkových hodinách, kterou rozvrh nádrže vede jako výrobu ze sítě. Večer klesne dovoz o 78 GWh, roční dovoz o 13 GWh, zbytek se přesune do jiných hodin. Pravidlo jen z přebytku při stejné nádrži: dovoz 5 232 GWh, ztráty 36,0 GWh, pokles špičky po plynu 2 / 1 MW.
+
+**Citlivost na předpověď.** Když hladinu místo předpovědi určí včerejší křivka, tedy jen známá informace, pokles špičky po plynu je ve výchozím nastavení 28 / 27 MW a při elektrolyzéru mimo prosinec až únor 56 / 0 MW, ztráty 59,2 GWh. V roce se studeným náhlým dnem nepředvídaná špička zůstane. Chyba skutečné předpovědi leží mezi oběma případy.
 
 **Konzervativní cesta** baterii nemá. Stejné pravidlo by tam dalo 0,9 GWh, pokles zimní špičky 0 MW v mediánu a ztráty asi 17 GWh, v nejhorším roce pokles žádný.
 
 #### Elektrolyzér
+
+Velikost určuje běh s elektrolyzérem mimo prosinec až únor, tabulka je z něj.
 
 | Pravidlo | Baterie GWh | Elektrolyzér MW | Plné hodiny | Vývoz GWh | Vývoz z přebytku | Dovoz GWh | Přebytek do H2 GWh | Podíl přebytku na vodíku | Síť do H2 GWh |
 |---|---|---|---|---|---|---|---|---|---|
@@ -224,7 +230,7 @@ Baterie 2,6 GWh a 650 MW, elektrolyzér 550 MW, rovnoměrný odběr flotily. Vý
 | 5 000 t | 243 | −1 266 | −2 622 | 765 / 789 | 0,2 | 5 261 | 240,8 | 409,3 |
 | plná sezónní, 10 035 t | 3 | −1 030 | −2 429 | 781 / 794 | 0,6 | 5 266 | 483,2 | 821,4 |
 
-Výchozí zůstává malá nádrž asi 50 t podle stejného pravidla: nejmenší vývoz je prakticky hotový do 50 t. Zimní špička klesá i dál, pomalu. Plná sezónní nádrž je asi 200krát větší a kupuje hlavně přesun výroby ze zimy do zbytku roku. Výhrady k malé nádrži: 50 t je asi 11 h spotřeby flotily, předvídání 48 h je dokonalé a denní tankovací profil část nádrže spotřebuje.
+Výchozí zůstává malá nádrž asi 50 t podle stejného pravidla: nejmenší vývoz je prakticky hotový do 50 t. Zimní špička klesá i dál, pomalu. Plná sezónní nádrž je asi 200krát větší a kupuje hlavně přesun výroby ze zimy do zbytku roku. Výhrady k malé nádrži: 50 t je asi 11 h spotřeby flotily, rozvrh zná celý rok a denní tankovací profil část nádrže spotřebuje.
 
 ### Přepočet: Dvě zimní špičky a jejich smíření
 
@@ -253,7 +259,7 @@ Výchozí zůstává malá nádrž asi 50 t podle stejného pravidla: nejmenší
 
 **Plyn.** Progresivní bloky mají 433 MW v hodinovém modelu i na stránce, palivo jen 115,2 GWh, tedy 266 h plného výkonu. Dříve z energie vycházelo 115 MW.
 
-**Bilance s baterií na stránce.** Nikdy se nepřičítá celý výkon. Zimní bilance progresivní cesty 2050 je −656 MW; s baterií −514 MW při změřeném poklesu špičky 142 MW v mediánu a −601 MW při 55 MW v nejhorším povětrnostním roce. Čísla jsou před plynem, protože stránka počítá plyn plným výkonem. Konzervativní zimní bilance je −412 MW. Dřívější −1 141,7 a −513,0 MW nesly chybu výkonu plynu a dřívější součet s plným výkonem baterie byl o 750 MW optimistický.
+**Bilance s baterií na stránce.** Nikdy se nepřičítá celý výkon. Zimní bilance progresivní cesty 2050 je −656 MW; s baterií −514 MW při změřeném poklesu špičky 142 MW v mediánu a −601 MW při 55 MW v nejhorším povětrnostním roce. Čísla jsou před plynem, protože stránka počítá plyn plným výkonem. Konzervativní zimní bilance je −412 MW.
 
 **Chlazení.** Stejná intenzita na stupeň ve všech letech a strop řádek / 500 h, tedy 384 MW v progresivní cestě. Dříve se každý rok přeškáloval na stejné GWh a chladné léto 2016 dalo 939 MW. Průměr 5 let sedí na řádek, jednotlivé roky se liší. Strop 500 h je úsudek.
 
@@ -995,10 +1001,10 @@ Každá položka má tabulku pro obě cesty v GWh za rok a pod ní odrážky. Po
 - **Jak se došlo:** Zařízení na 120 000 t odpadu za rok, výroba 44 212 MWh = 44,2 GWh, náš součet z bilance studie.
 - **Ze zdrojů:** Neveřejná studie ZEVO. Zdroj je neveřejná studie, uvedena jsou jen čísla potřebná k výpočtu.
 - **Odhad:** Meze a rok spuštění v konzervativní cestě jsou náš odhad.
-- **Podrobné odvození:** Zařízení na 120 000 t odpadu za rok, výroba 44 212 MWh brutto, náš součet dvou údajů z bilance neveřejné studie. Meze jsou náš úsudek.
+- **Podrobné odvození:** Zařízení na 120 000 t odpadu za rok, výroba 44 212 MWh brutto. Meze jsou náš úsudek.
 - **Zdroj:** Neveřejná studie ZEVO
-- **Poznámka, progresivní:** Zdroj je neveřejná studie, uvedena jsou jen čísla potřebná k výpočtu. Studie uvádí spuštění v roce 2030 i 2031. Rok spuštění v konzervativní cestě a horní meze roku jsou náš odhad, stupeň D. Nahrazuje 72 GWh z Dopadové studie, s. 137. Pásmo nepočítá s tím, že se zařízení nepostaví.
-- **Poznámka, konzervativní:** Zdroj je neveřejná studie, uvedena jsou jen čísla potřebná k výpočtu. Studie uvádí spuštění v roce 2030 i 2031. Rok spuštění v konzervativní cestě a horní meze roku jsou náš odhad, stupeň D. Nahrazuje 72 GWh z Dopadové studie, s. 137. V konzervativní cestě je P10 případ, že se zařízení nepostaví.
+- **Poznámka, progresivní:** Zdroj je neveřejná studie, uvedena jsou jen čísla potřebná k výpočtu. Rok spuštění je 2030 až 2031. Rok spuštění v konzervativní cestě a horní meze roku jsou náš odhad, stupeň D. Nahrazuje 72 GWh z Dopadové studie, s. 137. Pásmo nepočítá s tím, že se zařízení nepostaví.
+- **Poznámka, konzervativní:** Zdroj je neveřejná studie, uvedena jsou jen čísla potřebná k výpočtu. Rok spuštění je 2030 až 2031. Rok spuštění v konzervativní cestě a horní meze roku jsou náš odhad, stupeň D. Nahrazuje 72 GWh z Dopadové studie, s. 137. V konzervativní cestě je P10 případ, že se zařízení nepostaví.
 - **Koeficient, progresivní:** zima P10 0.7500, P50 1.0000, P90 1.1000; léto P10 0.8000, P50 1.0000, P90 1.1000; flexibilní ne; stupeň D
 - **Koeficient, konzervativní:** zima P10 0.7500, P50 1.0000, P90 1.1000; léto P10 0.8000, P50 1.0000, P90 1.1000; flexibilní ne; stupeň D
 - **Koeficient, odvození:** Koeficient je prostý úsudek, stálý provoz. Zdroj je neveřejná studie, uvedena jsou jen čísla potřebná k výpočtu.
@@ -2135,7 +2141,7 @@ SMR má událost jen v progresivní cestě, konzervativní cesta ho nemá. Roky 
 
 Tato část platí pro progresivní cestu v roce 2050. Výpočet je měsíční a přibližný.
 
-**Výsledek.** V měsíční tabulce při výchozích hodnotách není žádný měsíční přebytek, a to ani bez vodíku. Měsíc s nejmenším schodkem je srpen, bilance bez vodíku -86.1507 GWh. Přebytek se objevuje až v hodinách. Hodinový výpočet dává 334 GWh přebytku za rok proti 2 067 GWh elektřiny na vodík flotily, vodík je proto z 98 % z elektřiny ze sítě.
+**Výsledek.** V měsíční tabulce při výchozích hodnotách není žádný měsíční přebytek, a to ani bez vodíku. Měsíc s nejmenším schodkem je srpen, bilance bez vodíku -86.1507 GWh. Přebytek se objevuje až v hodinách. Hodinový výpočet ve výchozím nastavení dává 334 GWh přebytku za rok proti 2 067 GWh elektřiny na vodík flotily, vodík je proto z 85 % z elektřiny ze sítě.
 
 **Vztah k letnímu poledni.** Tabulka v části 3 ukazuje v progresivní cestě 2050 polední přebytek 457.5 MW. Po bateriích a elektrokotlích z něj zbývá 0.0 MW z potřebných 550.0 MW. Měsíční výsledek a polední výsledek si neodporují. Měsíční data krátké přebytky neukazují a polední přebytek roční objem vodíku nepokryje.
 
@@ -2231,10 +2237,10 @@ Odvozený součet P50 tří řádků vodíku flotily je 1993.3 GWh. Výpočet: v
 | 34 | Stránka má záložku Nedostatky se známými problémy, chybějícími podklady a volbami bez opory ve zdrojích. | Slabá místa mají být vidět. |
 | 35 | Přebytek, který se nevejde do baterie, vyrábí vodík pro dopravu a energie zůstává v kraji. Hodinový model tento postup počítá. | Výpočet ukázal, že přebytek flotilu neuživí, viz rozhodnutí 40. |
 | 36 | Nahrazeno rozhodnutími 37 až 40. | Dřívější návrh s menší baterií a malým podílem vodíku neplatí. |
-| 37 | Baterie v progresivní cestě je v roce 2050 2,6 GWh a 650 MW, trvání 4 hodiny. Řádek ztráty baterií je 67,4 GWh, nabito minus vybito. Přebytek má přednost, v hodinách s nízkým zbytkovým zatížením se nabíjí i ze sítě podle křivky na další den, denní špička nestoupne. Pravidlo jen z přebytku zůstává jako varianta. | Základ je medián denního výkyvu zbytkového zatížení 2,64 GWh a 582 MW. Je to základ návrhu, ne nákladové optimum. Změřený pokles zimní špičky před plynem: medián 142 MW, nejhorší rok 55 MW. |
-| 38 | Elektrolyzér je 550 MW a 3 758 plných hodin, vývoz je pod 1 % přebytku. Výkon = řádky vodíku flotily × (1 + míra ztrát sítě) × 1 000 / plné hodiny. Nulový vývoz by stál 1 177 MW. | Tabulka, stránka a hodinový výpočet mají jednu definici a jednu hodnotu. Řádek 45,8 GWh ze studie je rovnoměrná zátěž mimo tento výkon. |
+| 37 | Baterie v progresivní cestě je v roce 2050 2,6 GWh a 650 MW, trvání 4 hodiny. Řádek ztráty baterií je 67,4 GWh, nabito minus vybito při elektrolyzéru mimo prosinec až únor, s malou nádrží 63,9 GWh. Přebytek má přednost, v hodinách s nízkým zbytkovým zatížením se nabíjí i ze sítě podle křivky na další den, denní špička nestoupne jen při přesné předpovědi. Pravidlo jen z přebytku zůstává jako varianta. | Základ je medián denního výkyvu zbytkového zatížení 2,64 GWh a 582 MW. Je to základ návrhu, ne nákladové optimum. Změřený pokles zimní špičky před plynem při elektrolyzéru mimo prosinec až únor: medián 142 MW, nejhorší rok 55 MW. Ve výchozím nastavení s malou nádrží baterie špičku před plynem nesnižuje, pokles po plynu je v přepočtu. |
+| 38 | Elektrolyzér je 550 MW a 3 758 plných hodin, vývoz je pod 1 % přebytku při elektrolyzéru mimo prosinec až únor. Výkon = řádky vodíku flotily × (1 + míra ztrát sítě) × 1 000 / plné hodiny. Nulový vývoz by stál 1 177 MW. | Tabulka, stránka a hodinový výpočet mají jednu definici a jednu hodnotu. Řádek 45,8 GWh ze studie je rovnoměrná zátěž mimo tento výkon. |
 | 39 | Výchozí je malá provozní nádrž asi 50 t. Plná sezónní nádrž 10 035 t zůstává ukázaná jako drahá možnost. | Nejmenší vývoz je prakticky hotový do 50 t. Plná nádrž hlavně přesouvá výrobu ze zimy do zbytku roku. |
-| 40 | Flotila je MHD 50 %, nákladní doprava 50 %, auta 0 %. Stránka přímo říká, že vodík je asi z 98 % z elektřiny ze sítě. | Přebytek je jen 334 GWh za rok, flotila potřebuje 2 067 GWh. |
+| 40 | Flotila je MHD 50 %, nákladní doprava 50 %, auta 0 %. Stránka přímo říká, že vodík je ve výchozím nastavení asi z 85 % z elektřiny ze sítě. | Přebytek je jen 334 GWh za rok, flotila potřebuje 2 067 GWh. |
 | 41 | Místo přepínače dorovnání je na stránce blok Co by muselo platit s ročními a zimními požadavky, mezí větru 2 014 MW a tempem výstavby proti historickému maximu. V grafu zůstává jen decentní výplň schodku. | Dorovnání bylo jen šrafování a neříkalo, zda je to proveditelné. |
 | 42 | Ztráty v sítích se řídí vzorcem ze součtu spotřeby, stejným v obou cestách, r = 3,547 %: 431,8 GWh v progresivní a 267,1 GWh v konzervativní cestě. | Míra rostoucí se zátěží nemá zdroj pro rozdělení 30/70 a vyšší zátěž by šla se zesílením sítě. Účinek varianty je v otevřených rozhodnutích. |
 | 43 | Rezerva pro výpadek nemá přepínač. Metodika má tabulku podílu zatížení krát hodiny. | Rezerva bilanci nemění a žádný zdroj neuvádí kritickou zátěž kraje v MW. |
@@ -2245,7 +2251,7 @@ Odvozený součet P50 tří řádků vodíku flotily je 1993.3 GWh. Výpočet: v
 | 48 | Třinec počítá 300 kWh/t, oblouková pec v obou cestách stejně, stupeň D. | Tiskový údaj dává 180 kWh/t, Nová huť 450 kWh/t. 300 kWh/t je úsudek o čistém nárůstu. |
 | 49 | Syntetický plyn z odpadu je 115,2 GWh, 0,48 MWh/t podle studie s.137. Elektřina na jeho výrobu je viditelně neznámá. | Studie s.169 uvádí vysokou spotřebu bez čísla. |
 | 50 | Vodík počítá 51,36 kWh/kg: elektrolyzér 48,26 a změřená komprese 3,1. | 2,23 kWh/kg je v DOE 9013 modelový údaj. Hodnota 55,1 kWh/kg zůstává otevřená. |
-| 51 | Elektrokotle nejvýš 70 MW podle studie s.166, berou jen přebytek po baterii. | Řádek je výsledek hodinového běhu, ne vstup. |
+| 51 | Elektrokotle nejvýš 70 MW, náš součet: 18 MW (s.121), 12 MW a nejvýš dva další po 20 MW (s.166, extrémní scénář). Předpokládá, že 18 a 12 MW jsou dva různé kotle. Berou jen přebytek po baterii. | Řádek je výsledek hodinového běhu, ne vstup. |
 | 52 | SMR je v progresivní cestě daný. Los mění výkon a rok do 2050, případ bez SMR je samostatný. Podíl běhů se uvádí jako pásmo. | Dřívější podíl bez SMR plynul z jednoho odhadnutého roku 2055. |
 | 53 | Plynové bloky mají výkon z Tab.30 nezávisle na energii: 433 MW v progresivní, 683 MW v konzervativní cestě. Palivo je rozpočet řádků. Biometan řádek nemá. | Studie pro kraj číslo nedává, 635 GWh je v otevřených bodech. |
 | 54 | Vlastní spotřeba zdrojů je vzorec z výroby v každém roce a běhu, včetně SMR. | Jeden blok dá čistě 3 632 GWh. |
