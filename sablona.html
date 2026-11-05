@@ -107,6 +107,7 @@ svg .lab{font:600 12px "DM Sans",sans-serif;fill:var(--ink)}
 .realh{font:700 15px "Saira",sans-serif;margin:16px 0 6px}
 #realDecisions .pills{flex-wrap:wrap;border-radius:14px;margin-top:6px}
 #realCard{--accent:var(--real)}
+#realKpi{grid-template-columns:repeat(auto-fit,minmax(min(460px,100%),1fr))}
 #realCard .item{position:relative}
 .info{width:17px;height:17px;padding:0;margin-left:6px;border:1px solid var(--muted);border-radius:50%;background:none;color:var(--muted);font:600 11px/15px "DM Sans",sans-serif;cursor:help;vertical-align:1px}
 .info:hover,.info:focus-visible{color:var(--ink);border-color:var(--ink)}
@@ -269,13 +270,13 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
   <p class="plain" id="realLead"></p>
   <div class="toggles">
     <div class="pills small" role="group" aria-label="Přednastavení realistického scénáře">
-      <span class="tipwrap"><button id="realDefault" aria-pressed="true">Výchozí</button><span class="bubble" role="tooltip">Hodnoty ze zdrojů a odhadů pro období do roku 2050. Bez SMR, velkých datových center a Nové huti, v Třinci první pec, oteplení +1,2 °C.</span></span>
+      <span class="tipwrap"><button id="realDefault" aria-pressed="true">Výchozí</button><span class="bubble" role="tooltip">Hodnoty ze zdrojů a odhadů pro období do roku 2050. Bez SMR, velkých datových center a Nové huti, plynové bloky jen oznámené, v Třinci první pec, oteplení +1,2 °C.</span></span>
       <span class="tipwrap"><button id="realAllK" aria-pressed="false">Vše konzervativně</button><span class="bubble" role="tooltip">Všechny indikátory na 0 a žádné odchylky. Křivka je přesně konzervativní cesta: bez SMR, plyn 683 MW, v Třinci první pec.</span></span>
       <span class="tipwrap"><button id="realAllP" aria-pressed="false">Vše progresivně</button><span class="bubble" role="tooltip">Všechny indikátory na 1 a žádné odchylky. Křivka je přesně progresivní cesta: SMR od roku 2045, velká datová centra, plná elektrifikace Třince.</span></span>
     </div>
     <div class="controls">
       <span class="tipwrap"><button class="chip" id="realBand" aria-pressed="false">Pásmo nejistoty</button><span class="bubble" role="tooltip">Plocha, kde leží 80 % simulací kolem výroby a spotřeby. Platí pro výchozí nastavení a posuvníky ji nemění.</span></span>
-      <span class="tipwrap"><button class="chip" id="realBranch" aria-pressed="false">Ukázat i s reaktorem</button><span class="bubble" role="tooltip">Reaktor SMR buď stojí celý, nebo vůbec. Křivka jde jednou z těchto možností, tlačítko přidá tenkými čarami tu druhou. S reaktorem se staví méně plynových bloků.</span></span>
+      <span class="tipwrap"><button class="chip" id="realBranch" aria-pressed="false">Ukázat i s reaktorem</button><span class="bubble" role="tooltip">Reaktor SMR buď stojí celý, nebo vůbec. Křivka jde jednou z těchto možností, tlačítko přidá tenkými čarami tu druhou. S reaktorem plynové bloky po spuštění ubývají.</span></span>
       <span class="tipwrap"><button class="chip" id="realCmpP" aria-pressed="false">Přidat progresivní</button><span class="bubble r" role="tooltip">Přidá tenké křivky progresivní cesty pro srovnání. Realistickou křivku neposouvá, k tomu slouží Vše progresivně.</span></span>
       <span class="tipwrap"><button class="chip" id="realCmpK" aria-pressed="false">Přidat konzervativní</button><span class="bubble r" role="tooltip">Přidá tenké křivky konzervativní cesty pro srovnání. Realistickou křivku neposouvá, k tomu slouží Vše konzervativně.</span></span>
     </div>
@@ -388,7 +389,7 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
       <p><b>Váhy.</b> Výchozí váhy jsou neověřený odhad z pracovního podkladu k indikátorům, po opravě. Průměr je normuje, proto součet nad 1 nevadí a položka nepřestřelí druhou cestu. Váhu 0 má deset indikátorů, důvod je u každého z nich. Jádro nebere podporu obnovitelných zdrojů. Nákladní doprava, úspory a rok spuštění využití odpadu v podkladu vazbu nemají, tu je náš úsudek. Váha vyjadřuje směnu mezi indikátory, ne jejich důležitost (OECD a JRC 2008, s. 33; Paruolo a kol. 2013). Jiné váhy jsou porovnané v citlivosti u pásma. Skóre dopadu z tabulky indikátorů je vidět u každého indikátoru, jako váha se nepoužívá, protože význam škály není doložený.</p>
       <p><b>Kategorie.</b> Posuvník kategorie přepočítá její indikátory poměrem vůči výchozím hodnotám. Hodnoty 0 a 1 nastaví všechny na 0 a 1, jiné pořadí nevzniká. Ruční nastavení indikátorů v kategorii tím přepíše.</p>
       <p><b>Velké události.</b> SMR má skóre z indikátorů a to se převádí na odhad pravděpodobnosti tak, že výchozí skóre odpovídá odhadu 25 % z řetězu kroků a konce 0 a 1 zůstávají. Práh pro ano je 50 %. U datových center a plné elektrifikace Třince obhajitelné číslo neexistuje. Skóre u nich není pravděpodobnost, ano dá až od 0,75 a do pásma nevstupují. Křivka nikdy nebere zlomek. Odhady jsou subjektivní a podmíněné. Spuštění po roce 2050 znamená do roku 2050 větev bez SMR.</p>
-      <p><b>Plyn a větve.</b> Reaktor spuštěný v roce 2048 nemůže měnit plyn v roce 2030. Proto mají obě větve společný plyn. S reaktorem klesá až s jeho spuštěním. Bez reaktoru se 10 let před plánovaným spuštěním začne přecházet na výstavbu konzervativní cesty. Těch 10 let je náš úsudek. Větev bez SMR končí na 683 MW z konzervativní cesty, volba ji umí omezit na oznámených 283 MW. Vlastní spotřeba a ztráty v sítích jsou vzorce z vypočtených řádků.</p>
+      <p><b>Plyn a větve.</b> Reaktor spuštěný v roce 2048 nemůže měnit plyn v roce 2030. Proto mají obě větve společný plyn. S reaktorem klesá až s jeho spuštěním. Bez reaktoru se 10 let před plánovaným spuštěním začne přecházet na konečný výkon. Těch 10 let je náš úsudek. Výchozí konečný výkon je oznámených 283 MW, plyn navíc se uměle nepřidává. Volba umí nastavit 683 MW z konzervativní cesty. Vlastní spotřeba a ztráty v sítích jsou vzorce z vypočtených řádků.</p>
       <p><b>Demografie a oteplení.</b> Obě cesty mají stejnou projekci ČSÚ, proto se počítá jen odchylka, stejným vzorcem jako velké trendy. Klima položek odpovídá povětrnostním rokům 2015 až 2019. Další oteplení násobí vytápění a teplárenskou výrobu poměrem z hodinového modelu, s plnou hodnotou v roce 2050. Chlazení násobek nemá, oteplení je už v podílu chlazených domácností.</p>
       <p><b>Pásmo.</b> Simulace pro výchozí nastavení losuje míry naplnění s jedním společným faktorem a faktorem kategorie, váhy, tvar vazby jako a na g, události, oteplení s demografií a rozsah řádků tabulky obou cest. Síly faktorů a rozptyly jsou úsudek. Tabulka zdrojů není rozklad rozptylu, ukazuje každý zdroj samotný a co ubude bez něj, protože zdroje na sebe působí (OECD a JRC 2008, kap. 7).</p>
       <p><b>Hodiny.</b> Výchozí řádky obou větví projdou stejným hodinovým výpočtem jako cesty, s pěti povětrnostními roky. Čísla z ročního a hodinového výpočtu jsou označená zvlášť. Ve výchozím stavu se roční schodek a hodinový dovoz liší jen o jednotky GWh.</p>
@@ -560,7 +561,7 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
       <li>Střední poloha neznamená nejpravděpodobnější vývoj. Pásmo je z velké části rozsah řádků tabulky, který je náš odhad a může se překrývat s indikátory.</li>
       <li>Vítr a pozemní fotovoltaika mají stejnou polohu, i když je přijetí může rozdělovat. Ve sledovaných obcích, kde se hlasovalo, dopadla hlasování většinou proti záměru, hlasuje se ale tam, kde je spor.</li>
       <li>Hodinový výpočet je jen pro výchozí nastavení a zařízení v něm není znovu hledané. Zimní špička podle metody studie a letní poledne se pro tuto křivku nepočítají.</li>
-      <li>Výchozí větev bez SMR bere plynové bloky 683 MW. Oznámené projekty dávají 283 MW a schodek by byl o více než tisíc GWh větší, volba je to umí ukázat.</li>
+      <li>Výchozí větev bez SMR bere jen oznámené plynové bloky 283 MW. Kdyby se bez reaktoru stavělo jako v konzervativní cestě, 683 MW, schodek by byl o více než tisíc GWh menší, volba to umí ukázat.</li>
       <li>Řada ukazatelů měří dnešní stav a jen přibližuje indikátor, například podíl vysokoškoláků místo montážní kapacity. Zpětná kontrola proti skutečnosti neproběhla.</li>
       <li>Model nezachytí, že dostatek elektřiny přiláká investora.</li>
     </ul>
@@ -1262,7 +1263,7 @@ function refresh(){ syncPreset(); drawMain(); drawBalance(); drawKpi(); FLOW.dra
 /* Realistický scénář. Stejný výpočet je v graf_scenare/realisticky/model_realisticky.py. Neupravuje state ani horní graf. */
 const REAL = DATA.real;
 const REAL_LINKS = REAL.links, REAL_GROUP_KEYS = Object.keys(REAL.groupNames);
-const realInit = () => ({x:Object.fromEntries(REAL.ind.map(r => [r.id, Number(r.x)])), smr:"ind", dc:"ind", pec:"ind", huta:"ind", gas:"potrebne", smrYear:REAL.smrYear, dpop:0, dT:REAL.dT.default});
+const realInit = () => ({x:Object.fromEntries(REAL.ind.map(r => [r.id, Number(r.x)])), smr:"ind", dc:"ind", pec:"ind", huta:"ind", gas:"oznamene", smrYear:REAL.smrYear, dpop:0, dT:REAL.dT.default});
 let realCfg = realInit(), realCompare = {progresivni:false, konzervativni:false}, realShowBranch = false, realShowBand = false, realPreset = "def", realPresetCfg = JSON.stringify(realCfg);
 const realWeighted = (x, w) => { let a = 0, b = 0; for(const k in w){ a += w[k] * x[k]; b += w[k]; } return a / b; };
 function realLevels(x){ const out = {}; for(const g in REAL.weights) out[g] = realWeighted(x, REAL.weights[g]); return out; }
@@ -1338,13 +1339,15 @@ function realDraw(){
   const r = realCompute(realCfg), other = realCompute({...realCfg, smr:r.smrOn ? "ne" : "ano", smrYear:r.smrOn ? realCfg.smrYear : Math.min(realCfg.smrYear, 2050)});
   const last = DATA.years.length - 1, cell = (a, v) => `<div><small>${a}</small><b>${NF.format(v)}</b><span class="unit">GWh</span></div>`;
   const row = (name, x) => { const gap = x.use[last] - x.gen[last]; return `<div class="kpirow"><div class="name">${name}, rok 2050. Výroba pokryje ${NF.format(x.gen[last] / x.use[last] * 100)} % spotřeby.</div><div class="cells">${cell("Výroba", x.gen[last])}${cell("Spotřeba", x.use[last])}${cell(gap >= 0 ? "Schodek" : "Přebytek", Math.abs(gap))}</div></div>`; };
-  const branchName = on => on ? "S reaktorem SMR" : realCfg.gas === "oznamene" ? "Bez reaktoru SMR, jen oznámené plynové bloky 283 MW" : "Bez reaktoru SMR, plynové bloky 683 MW";
+  const branchName = on => on ? "S reaktorem SMR" : realCfg.gas === "oznamene" ? "Bez reaktoru SMR, oznámené plynové bloky 283 MW" : "Bez reaktoru SMR, plynové bloky 683 MW";
   let html = row(branchName(r.smrOn), r);
-  if(realShowBranch) html += row("Pro srovnání: " + branchName(other.smrOn).toLowerCase(), other);
+  if(realShowBranch) html += row("Pro srovnání: " + branchName(other.smrOn), other);
   for(const p of Object.keys(PATHNAME)) if(realCompare[p]) html += row(`${PATHNAME[p]} cesta`, {gen:totals(p, "vyroba"), use:totals(p, "spotreba")});
   $("realKpi").innerHTML = html;
   const pct = NF.format(r.prob.smr * 100);
-  $("realLead").textContent = `Křivka není předpověď ani nejpravděpodobnější vývoj, je to důsledek zvolených předpokladů. Odhad pravděpodobnosti SMR v kraji do konce roku 2049 je ${pct} % a křivka ${r.smrOn ? "jde větví s reaktorem" : "jde větví bez reaktoru"}. ${other.smrOn ? "S reaktorem" : "Bez reaktoru"} by byl schodek ${NF.format(other.use[other.use.length - 1] - other.gen[other.gen.length - 1])} GWh. Ve výchozím nastavení je to schodek řádově ${NF1.format(REAL.udalosti[0].schodek / 1000)} TWh a pásmo větve ${NF1.format(REAL.pasmo.vetve.bez.schodek[0][25] / 1000)} až ${NF1.format(REAL.pasmo.vetve.bez.schodek[2][25] / 1000)} TWh. Výchozí křivka je jedna z nejčastějších kombinací stavů událostí, ne střed pásma.`;
+  const gapNow = r.use[last] - r.gen[last], gapP = totals("progresivni", "spotreba")[last] - totals("progresivni", "vyroba")[last], gapK = totals("konzervativni", "spotreba")[last] - totals("konzervativni", "vyroba")[last];
+  const beyond = gapNow > Math.max(gapP, gapK) ? " Schodek je větší než v obou cestách, protože tu chybí reaktor z progresivní cesty i plynové bloky navíc z konzervativní cesty." : "";
+  $("realLead").textContent = `Křivka není předpověď ani nejpravděpodobnější vývoj, je to důsledek zvolených předpokladů. Odhad pravděpodobnosti SMR v kraji do konce roku 2049 je ${pct} % a křivka ${r.smrOn ? "jde větví s reaktorem" : "jde větví bez reaktoru"}. ${other.smrOn ? "S reaktorem" : "Bez reaktoru"} by byl schodek ${NF.format(other.use[other.use.length - 1] - other.gen[other.gen.length - 1])} GWh. Ve výchozím nastavení je to schodek řádově ${NF1.format(REAL.udalosti[0].schodek / 1000)} TWh a pásmo větve ${NF1.format(REAL.pasmo.vetve.bez.schodek[0][25] / 1000)} až ${NF1.format(REAL.pasmo.vetve.bez.schodek[2][25] / 1000)} TWh. Výchozí křivka je jedna z nejčastějších kombinací stavů událostí, ne střed pásma.${beyond}`;
   realChart(r, other);
   realSync(r);
 }
@@ -1431,7 +1434,7 @@ const REAL_CAT_TEXT = {
   "Mobilita a životní styl":["Jak rychle lidé přecházejí na elektromobily a sdílenou dopravu. Škála mění hlavně spotřebu elektřiny osobními auty.", "Elektromobily jsou běžné, rozvíjí se sdílená mobilita a práce na dálku. Spotřeba elektřiny roste.", "Lidé dál jezdí hlavně vlastními auty se spalovacím motorem. Elektřiny se spotřebuje méně."],
 };
 const REAL_DEC_TEXT = {
-  gas:"Kolik plynových bloků se postaví, když reaktor nepřijde. 683 MW je výstavba konzervativní cesty. 283 MW jsou doložené a oznámené projekty, schodek je pak větší.",
+  gas:"Kolik plynových bloků se postaví, když reaktor nepřijde. 283 MW jsou doložené a oznámené projekty, plyn navíc se nepřidává. 683 MW je výstavba konzervativní cesty a schodek je pak menší.",
   smr:"Má v kraji stát malý jaderný reaktor? Ano přidá celou výrobu reaktoru a plynové bloky po spuštění ubývají jako v progresivní cestě. Ne znamená bez reaktoru a s více plynovými bloky, jako v konzervativní cestě. Podle indikátorů rozhodne odhad pravděpodobnosti, ano od 50 %.",
   dc:"Přijdou do kraje velká datová centra? Ano znamená spotřebu podle progresivní cesty, ne jen desetinu této spotřeby. Podle indikátorů dá ano až vysoké skóre, od 0,75. Skóre není pravděpodobnost.",
   pec:"Kolik oceli v Třinci půjde přes elektřinu. Plná elektrifikace je nejvyšší spotřeba a konec hutních plynů. Jen první pec je polovina výroby. Žádná pec nechává dnešní stav.",
@@ -1443,6 +1446,14 @@ const REAL_EFFECT = {...REAL.groupNames, rozhodnuti_smr:"odhad SMR", rozhodnuti_
 function realEffects(ids){
   const out = Object.keys(REAL.weights).filter(g => ids.some(id => REAL.weights[g][id])).map(g => REAL_EFFECT[g]);
   return out.length ? `<br><b>Mění:</b> ${esc(out.join(", "))}.` : "<br><b>Mění:</b> nic, váha 0.";
+}
+/* Kolik indikátor skutečně váží: jeho podíl na poloze každé skupiny, kterou ovlivňuje. */
+function realUse(id){
+  const out = Object.keys(REAL.weights).filter(g => REAL.weights[g][id]).map(g => {
+    const w = REAL.weights[g], total = Object.values(w).reduce((s, v) => s + v, 0);
+    return `${esc(REAL_EFFECT[g])} ${NF.format(w[id] / total * 100)} %`;
+  });
+  return out.length ? out.join(", ") + "." : "nepoužito.";
 }
 function realBindInfo(row){
   const b = row.querySelector(".info");
@@ -1474,15 +1485,16 @@ function realBuild(){
   for(const ind of REAL.ind){
     const zero = !REAL_USED.has(ind.id);
     const more = `<details><summary>Co to znamená a zdroj</summary><p><b>1:</b> ${esc(ind.popis_x1)}</p><p><b>0:</b> ${esc(ind.popis_x0)}</p>` +
+      `<p><b>Pracovní podklad, progresivní cesta:</b> ${esc(ind.podklad.zmeny || "bez změn")}.</p><p><b>Použití v modelu:</b> ${realUse(ind.id)}</p>` +
       (ind.ukazatel ? `<p><b>Ukazatel:</b> ${esc(ind.ukazatel)}${ind.hodnota ? `, ${esc(ind.hodnota)}` : ""}${ind.rok ? ` (${esc(ind.rok)})` : ""}. Kotvy ${esc(ind.kotva_x0)} a ${esc(ind.kotva_x1)} jsou úsudek. Území: ${esc(ind.uzemi)}.</p>` : "") +
       (ind.duvod_prepisu ? `<p>${esc(ind.duvod_prepisu)}</p>` : "") + (ind.zdroj ? `<p><b>Zdroj:</b> ${realLink(ind.zdroj, ind.url)}</p>` : "") + `</details>`;
-    const r = realRow(ind.indikator, realInfo(realEnds("", ind.popis_x1, ind.popis_x0) + realEffects([ind.id]) + `<br><b>Skóre dopadu v tabulce:</b> progresivní ${esc(ind.ps)}, konzervativní ${esc(ind.ks)}.`) + `<span class="grade${ind.jistota === "odhad" ? " D" : ""}">${esc(ind.jistota)}</span>`, 0, 1, .01, v => { realCfg.x[ind.id] = v; realDraw(); },
+    const r = realRow(ind.indikator, realInfo(realEnds("", ind.popis_x1, ind.popis_x0) + realEffects([ind.id]) + `<br><b>Skóre dopadu v tabulce:</b> progresivní ${esc(ind.ps)}, konzervativní ${esc(ind.ks)}.<br><b>Pracovní podklad:</b> působí ${esc(ind.podklad.rezim)}.`) + `<span class="grade${ind.jistota === "odhad" ? " D" : ""}">${esc(ind.jistota)}</span>`, 0, 1, .01, v => { realCfg.x[ind.id] = v; realDraw(); },
       (zero ? `<p class="viewnote">Váha 0. ${esc(ind.vaha0)}</p>` : "") + more);
     if(zero) r.input.disabled = true;
     inds.appendChild(r.row);
     REAL_REFS.inds[ind.id] = r;
   }
-  const opts = {smr:[["ano", "Ano"], ["ne", "Ne"], ["ind", "Podle indikátorů"]], gas:[["potrebne", "Potřebných 683 MW"], ["oznamene", "Jen oznámených 283 MW"]], dc:[["ano", "Ano"], ["ne", "Ne"], ["ind", "Podle indikátorů"]], pec:[["plna", "Plná elektrifikace"], ["prvni", "Jen první pec"], ["zadna", "Žádná pec"], ["ind", "Podle odhadů"]], huta:[["ano", "Ano"], ["ne", "Ne"], ["ind", "Podle odhadu"]]};
+  const opts = {smr:[["ano", "Ano"], ["ne", "Ne"], ["ind", "Podle indikátorů"]], gas:[["oznamene", "Oznámených 283 MW"], ["potrebne", "Jako konzervativní cesta, 683 MW"]], dc:[["ano", "Ano"], ["ne", "Ne"], ["ind", "Podle indikátorů"]], pec:[["plna", "Plná elektrifikace"], ["prvni", "Jen první pec"], ["zadna", "Žádná pec"], ["ind", "Podle odhadů"]], huta:[["ano", "Ano"], ["ne", "Ne"], ["ind", "Podle odhadu"]]};
   for(const d of REAL.rozhodnuti){
     const row = document.createElement("div");
     row.className = "item";
@@ -1512,7 +1524,7 @@ function realBuild(){
   const p = realRow("Obyvatel kraje v roce 2050", realInfo("Kolik lidí bude v kraji žít. Méně lidí znamená menší spotřebu domácností, aut a vytápění. Menší schodek z úbytku lidí není dobrá zpráva."), REAL.pop.min, REAL.pop.max, 1, v => { realCfg.dpop = (v - REAL.pop.default) / REAL.pop.base; realDraw(); }, zdrojeVne(REAL.pop));
   ext.appendChild(t.row); ext.appendChild(p.row);
   REAL_REFS.ext.dT = t; REAL_REFS.ext.pop = p;
-  $("realSrcTable").innerHTML = `<table class="grades"><tr><th>Indikátor</th><th>Výchozí</th><th>Jistota</th><th>Z čeho</th></tr>` + REAL.ind.map(r => `<tr><td>${esc(r.indikator)}</td><td class="n">${NF2.format(Number(r.x))}</td><td>${esc(r.jistota)}</td><td>${r.zdroj ? realLink(r.zdroj, r.url) : "Bez zdroje, odhad"}${REAL_USED.has(r.id) ? "" : `. Váha 0: ${esc(r.vaha0)}`}</td></tr>`).join("") + `</table>`;
+  $("realSrcTable").innerHTML = `<table class="grades"><tr><th>Indikátor</th><th>Výchozí</th><th>Jistota</th><th>Pracovní podklad: průběh a váhy</th><th>Podíl na poloze v modelu</th><th>Z čeho je výchozí hodnota</th></tr>` + REAL.ind.map(r => `<tr><td>${esc(r.indikator)}</td><td class="n">${NF2.format(Number(r.x))}</td><td>${esc(r.jistota)}</td><td>${esc(r.podklad.rezim)}. ${esc(r.podklad.zmeny)}</td><td>${realUse(r.id)}${REAL_USED.has(r.id) ? "" : ` ${esc(r.vaha0)}`}</td><td>${r.zdroj ? realLink(r.zdroj, r.url) : "Bez zdroje, odhad"}</td></tr>`).join("") + `</table><p class="viewnote">Váhy podkladu jsou neověřený odhad a jejich součet může být nad 1, model je normuje. Kde se průběh liší, u velkých událostí rozhoduje model: skokem jsou reaktor, datová centra a pece, ostatní položky jdou plynule.</p>`;
 }
 function realSync(r){
   for(const c of REAL_REFS.cats){ const v = realCatValue(c.cat); c.input.value = v; c.val.textContent = c.cat.used.length ? NF2.format(v) : "bez vlivu"; }
@@ -1522,7 +1534,7 @@ function realSync(r){
     d.buttons.forEach(({b, v}) => b.setAttribute("aria-pressed", realCfg[k] === v));
     if(k === "gas"){ d.val.textContent = realCfg.gas === "oznamene" ? "283 MW" : "683 MW"; continue; }
     const word = k === "pec" ? {plna:"plná", prvni:"první pec", zadna:"žádná"}[r.dec.pec] : r.dec[k] ? "ano" : "ne";
-    d.val.textContent = k === "dc" ? `${word}, skóre ${NF2.format(r.prob.dc)}` : k === "pec" ? `${word}, první pec odhad ${NF.format(r.prob.pecPrvni * 100)} %` : `${word}, odhad ${NF.format(r.prob[k] * 100)} %`;
+    d.val.textContent = k === "dc" ? `${word}, skóre ${NF2.format(r.prob.dc)}` : k === "pec" ? (r.dec.pec === "prvni" ? `první pec, odhad ${NF.format(r.prob.pecPrvni * 100)} %` : word) : `${word}, odhad ${NF.format(r.prob[k] * 100)} %`;
   }
   const e = REAL_REFS.ext;
   e.year.input.value = realCfg.smrYear; e.year.val.textContent = realCfg.smrYear > 2050 ? `${realCfg.smrYear}, bez účinku do 2050` : realCfg.smrYear;
