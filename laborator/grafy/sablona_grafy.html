@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Grafy z hodinového modelu</title>
+<link rel="stylesheet" href="../../fonts.css">
+<style>
+:root{--bg:#f9f9f7;--surface:#fcfcfb;--ink:#0b0b0b;--muted:#52514e;--axis:#898781;--grid:#e1e0d9;--base:#c3c2b7;--line:rgba(11,11,11,.12);--accent:#2a78d6;
+--smr:#2a78d6;--stab:#eb6834;--vitr:#1baf7a;--slunce:#eda100;--plyn:#e87ba4;--bat:#6250d6;--dov:#e34948;--hatch:#7a2020;
+--d0:#f0efec;--n1:#f7c9c4;--n2:#f0a09a;--n3:#e66767;--n4:#d03b3b;--n5:#a82828;--p1:#cde2fb;--p2:#9ec5f4;--p3:#6da7ec;--p4:#2a78d6;--p5:#184f95;
+--h1:#fbe0d3;--h2:#f6b89d;--h3:#ec855a;--h4:#c9551f}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0d0d0d;--surface:#1a1a19;--ink:#f0efec;--muted:#c3c2b7;--axis:#898781;--grid:#2c2c2a;--base:#383835;--line:rgba(255,255,255,.12);--accent:#3987e5;
+--smr:#3987e5;--stab:#d95926;--vitr:#199e70;--slunce:#c98500;--plyn:#d55181;--bat:#9085e9;--dov:#e66767;--hatch:#ffd5d5;
+--d0:#383835;--n1:#5a2b2b;--n2:#7f3535;--n3:#b04545;--n4:#d95a5a;--n5:#f28a8a;--p1:#16335a;--p2:#1c5cab;--p3:#2a78d6;--p4:#5598e7;--p5:#9ec5f4;
+--h1:#4a2a1c;--h2:#7c4124;--h3:#b95a2c;--h4:#ec855a}}
+:root[data-theme=dark]{--bg:#0d0d0d;--surface:#1a1a19;--ink:#f0efec;--muted:#c3c2b7;--axis:#898781;--grid:#2c2c2a;--base:#383835;--line:rgba(255,255,255,.12);--accent:#3987e5;
+--smr:#3987e5;--stab:#d95926;--vitr:#199e70;--slunce:#c98500;--plyn:#d55181;--bat:#9085e9;--dov:#e66767;--hatch:#ffd5d5;
+--d0:#383835;--n1:#5a2b2b;--n2:#7f3535;--n3:#b04545;--n4:#d95a5a;--n5:#f28a8a;--p1:#16335a;--p2:#1c5cab;--p3:#2a78d6;--p4:#5598e7;--p5:#9ec5f4;
+--h1:#4a2a1c;--h2:#7c4124;--h3:#b95a2c;--h4:#ec855a}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 "DM Sans",system-ui,sans-serif}
+.wrap{max-width:980px;margin:0 auto;padding:18px 16px 48px}
+h1{font:800 clamp(25px,3.6vw,36px)/1.08 "Saira",system-ui,sans-serif;margin:0 0 6px}
+h2{font:700 20px/1.2 "Saira",system-ui,sans-serif;margin:0 0 6px}
+p{margin:0 0 10px}
+a{color:var(--accent)}
+.lead{color:var(--muted);max-width:60em}
+.notice{font-size:13px;color:var(--muted);margin:0 0 14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;margin:0 0 18px}
+.seg{display:inline-flex;flex-wrap:wrap;gap:4px;margin:0 8px 10px 0}
+.seg button{all:unset;cursor:pointer;padding:6px 11px;border:1px solid var(--line);border-radius:8px;font:600 13px/1.1 "DM Sans",system-ui,sans-serif;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.seg button:focus-visible,.chart:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.chart{position:relative;width:100%;touch-action:pan-y}
+.chart svg{display:block;width:100%;height:auto;overflow:visible}
+.chart text{font:11px "DM Sans",system-ui,sans-serif;fill:var(--axis)}
+.chart text.lab{fill:var(--ink);font-weight:600}
+.chart text.val{fill:var(--muted)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12.5px;color:var(--muted);margin:8px 0 10px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:2px;margin-right:5px;vertical-align:-2px}
+.how{font-size:13.5px;color:var(--muted);margin:10px 0 0}
+.how b{color:var(--ink)}
+.tip{position:fixed;z-index:9;display:none;pointer-events:none;background:var(--surface);border:1px solid var(--ink);border-radius:5px;padding:7px 9px;font-size:12px;max-width:260px;box-shadow:0 6px 18px rgba(0,0,0,.25)}
+.tip b{display:block;font-size:13px}
+.tip div{display:flex;justify-content:space-between;gap:12px}
+details{margin-top:8px;font-size:13px}
+summary{cursor:pointer;color:var(--muted);font-weight:600}
+.tw{overflow-x:auto}
+table{border-collapse:collapse;margin-top:6px;font-size:12.5px;width:100%;font-variant-numeric:tabular-nums}
+th,td{padding:3px 8px;border-bottom:1px solid var(--grid);text-align:right;white-space:nowrap}
+th:first-child,td:first-child{text-align:left;white-space:normal}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<h1>Čtyři grafy z hodinového modelu</h1>
+<p class="lead">Moravskoslezský kraj v roce 2050, výchozí nastavení obou cest. Každý graf je přímo výsledek hodinového výpočtu na povětrnostních letech 2015 až 2019.</p>
+<p class="notice">Pracovní ukázka. <a href="../../index.html">Hlavní stránka</a>, <a href="../toky/index.html">toky elektřiny</a>.</p>
+</header>
+<div class="seg" role="group" aria-label="Cesta" id="segPath"></div>
+
+<section class="card" id="sHeat">
+<h2>Rok po hodinách</h2>
+<p id="heatTitle"></p>
+<div class="seg" role="group" aria-label="Povětrnostní rok" id="segHeat"></div>
+<div class="chart" id="cHeat" tabindex="0" role="img"></div>
+<div class="legend" id="lHeat"></div>
+<p class="how" id="hHeat"></p>
+<details><summary>Tabulka po měsících</summary><div class="tw" id="tHeat"></div></details>
+</section>
+
+<section class="card" id="sWeek">
+<h2>Bezvětrný týden</h2>
+<p id="weekTitle"></p>
+<div class="seg" role="group" aria-label="Povětrnostní rok" id="segWeek"></div>
+<div class="chart" id="cWeek" tabindex="0" role="img"></div>
+<div class="legend" id="lWeek"></div>
+<p class="how" id="hWeek"></p>
+<details><summary>Tabulka po dnech</summary><div class="tw" id="tWeek"></div></details>
+</section>
+
+<section class="card" id="sSteps">
+<h2>Schody kroků</h2>
+<p id="stepTitle"></p>
+<div class="chart" id="cSteps" role="img"></div>
+<div class="legend" id="lSteps"></div>
+<p class="how" id="hSteps"></p>
+<details><summary>Tabulka kroků</summary><div class="tw" id="tSteps"></div></details>
+</section>
+
+<section class="card" id="sTempo">
+<h2>Tempo výstavby</h2>
+<p id="tempoTitle"></p>
+<div class="chart" id="cTempo" role="img"></div>
+<p class="how" id="hTempo"></p>
+<details><summary>Tabulka tempa</summary><div class="tw" id="tTempo"></div></details>
+<h2 style="margin-top:18px;font-size:17px">Komu dovoz slouží</h2>
+<div class="chart" id="cSplit" role="img"></div>
+<div class="legend" id="lSplit"></div>
+<p class="how" id="hSplit"></p>
+<details><summary>Tabulka dovozu</summary><div class="tw" id="tSplit"></div></details>
+</section>
+<div class="tip" id="tip" role="status"></div>
+</div>
+<script>
+"use strict";
+const D = /*DATA*/null;
+const $ = id => document.getElementById(id);
+const F0 = new Intl.NumberFormat("cs-CZ", {maximumFractionDigits:0});
+const F1 = new Intl.NumberFormat("cs-CZ", {minimumFractionDigits:1, maximumFractionDigits:1});
+const PATHS = [["progresivni", "Progresivní cesta"], ["konzervativni", "Konzervativní cesta"]];
+const ui = {path:"progresivni", heat:"median", week:null};
+const YEARS = Object.keys(D.heat.progresivni.roky);
+const MONTH_DAY = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334, 365];
+const MONTH = ["led", "úno", "bře", "dub", "kvě", "čvn", "čvc", "srp", "zář", "říj", "lis", "pro"];
+const IMP_EDGE = [0.5, 200, 400, 600, 800], SUR_EDGE = [0.5, 100, 300, 600, 900], H2_EDGE = [0.5, 3, 6, 9];
+const SERIES = [["smr", "SMR", "--smr"], ["stabilni", "Stálé zdroje", "--stab"], ["vitr", "Vítr", "--vitr"], ["slunce", "Slunce", "--slunce"], ["plyn", "Plynové bloky", "--plyn"], ["baterie", "Baterie", "--bat"], ["dovoz", "Dovoz", "--dov"]];
+
+function widthOf(el){ return Math.max(300, el.clientWidth || 760); }
+function esc(t){ return String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;"); }
+function seg(box, items, get, set){
+  box.innerHTML = "";
+  for(const [k, label] of items){
+    const b = document.createElement("button");
+    b.type = "button"; b.dataset.k = k; b.textContent = label;
+    b.setAttribute("aria-pressed", String(get() === k));
+    b.addEventListener("click", () => { set(k); render(); });
+    box.appendChild(b);
+  }
+}
+function legend(box, rows){
+  box.innerHTML = rows.map(r => `<span><i style="${r[1]}"></i>${esc(r[0])}</span>`).join("");
+}
+function table(box, head, rows){
+  box.innerHTML = `<table><thead><tr>${head.map(h => `<th scope="col">${esc(h)}</th>`).join("")}</tr></thead><tbody>${rows.map(r => `<tr>${r.map(c => `<td>${esc(c)}</td>`).join("")}</tr>`).join("")}</tbody></table>`;
+}
+function tipShow(html, ev){
+  const t = $("tip");
+  t.innerHTML = html; t.style.display = "block";
+  const w = window.innerWidth || 800;
+  t.style.left = Math.max(6, Math.min(w - 270, (ev.clientX || 0) + 14)) + "px";
+  t.style.top = ((ev.clientY || 0) + 12) + "px";
+}
+function tipHide(){ $("tip").style.display = "none"; }
+
+/* (a) Rok po hodinách */
+function binOf(v){
+  if(v <= -IMP_EDGE[0]){
+    for(let k = 4; k >= 0; k--) if(-v >= IMP_EDGE[k]) return "n" + (k + 1);
+  }
+  if(v >= SUR_EDGE[0]){
+    for(let k = 4; k >= 0; k--) if(v >= SUR_EDGE[k]) return "p" + (k + 1);
+  }
+  return "d0";
+}
+function heatSeries(){
+  const h = D.heat[ui.path];
+  return ui.heat === "median" ? {v:h.median, h2:h.vodikMedian} : {v:h.roky[ui.heat], h2:h.vodikRoky[ui.heat]};
+}
+function dateOf(day){ return D.kalendar[day]; }
+function drawHeat(){
+  const box = $("cHeat"), W = widthOf(box), m = {l:32, r:4, t:18};
+  const ch = W < 520 ? 7 : 9, cw = (W - m.l - m.r) / 365, top = m.t, stripY = top + 24 * ch + 8, stripH = 14;
+  const {v, h2} = heatSeries();
+  const paths = {};
+  for(let h = 0; h < 24; h++){
+    let day = 0;
+    while(day < 365){
+      const b = binOf(v[day * 24 + h]);
+      let e = day + 1;
+      while(e < 365 && binOf(v[e * 24 + h]) === b) e++;
+      (paths[b] = paths[b] || []).push(`M${(m.l + day * cw).toFixed(2)} ${(top + h * ch).toFixed(1)}h${((e - day) * cw).toFixed(2)}v${ch}H${(m.l + day * cw).toFixed(2)}z`);
+      day = e;
+    }
+  }
+  const strip = {};
+  for(let d = 0; d < 365; d++){
+    let k = 0;
+    for(let i = 3; i >= 0; i--) if(h2[d] >= H2_EDGE[i]){ k = i + 1; break; }
+    const name = k ? "h" + k : "d0";
+    (strip[name] = strip[name] || []).push(`M${(m.l + d * cw).toFixed(2)} ${stripY}h${cw.toFixed(2)}v${stripH}H${(m.l + d * cw).toFixed(2)}z`);
+  }
+  let s = `<svg viewBox="0 0 ${W} ${stripY + stripH + 18}" aria-hidden="true">`;
+  for(const k of Object.keys(paths)) s += `<path style="fill:var(--${k})" shape-rendering="crispEdges" d="${paths[k].join("")}"/>`;
+  for(const k of Object.keys(strip)) s += `<path style="fill:var(--${k})" shape-rendering="crispEdges" d="${strip[k].join("")}"/>`;
+  for(let i = 0; i < 12; i++){
+    const x = m.l + MONTH_DAY[i] * cw;
+    if(W >= 520 || i % 2 === 0) s += `<text x="${x.toFixed(1)}" y="${m.t - 5}">${MONTH[i]}</text>`;
+  }
+  for(const h of [0, 6, 12, 18]) s += `<text x="${m.l - 4}" y="${(top + h * ch + ch - 1).toFixed(1)}" text-anchor="end">${h}:00</text>`;
+  s += `<text x="${m.l}" y="${stripY + stripH + 13}">Dovoz pro vodík po dnech</text></svg>`;
+  box.innerHTML = s;
+  box.setAttribute("aria-label", heatSummary());
+  box.geom = {W, m, cw, ch, top};
+}
+function cellAt(ev){
+  const box = $("cHeat"), r = box.getBoundingClientRect(), g = box.geom, k = g.W / (r.width || g.W);
+  const x = (ev.clientX - r.left) * k, y = (ev.clientY - r.top) * k;
+  const day = Math.floor((x - g.m.l) / g.cw), hour = Math.floor((y - g.top) / g.ch);
+  return day >= 0 && day < 365 && hour >= 0 && hour < 24 ? {day, hour} : null;
+}
+function heatTip(c, ev){
+  const {v, h2} = heatSeries(), x = v[c.day * 24 + c.hour];
+  tipShow(`<b>${x < 0 ? F0.format(-x) + " MW dovozu pro kraj" : x > 0 ? F0.format(x) + " MW přebytku" : "bez dovozu pro kraj"}</b>${dateOf(c.day)}, ${c.hour}:00<div><span>Dovoz pro vodík ten den</span><span>${F1.format(h2[c.day])} GWh</span></div>`, ev);
+}
+function heatSummary(){
+  const h = D.heat[ui.path], {v} = heatSeries();
+  const pos = v.filter(x => x > 0).length / 87.6, neg = v.filter(x => x < 0).length / 87.6;
+  return `Dovoz pro kraj ${F0.format(h.dovozKraj)} GWh, pro vodík ${F0.format(h.dovozVodik)} GWh. Přebytek je v ${F1.format(pos)} % hodin, dovoz pro kraj v ${F1.format(neg)} % hodin.`;
+}
+function surplusNoonShare(){
+  const {v} = heatSeries();
+  let all = 0, noon = 0;
+  v.forEach((x, t) => {
+    if(x <= 0) return;
+    all += x;
+    const day = Math.floor(t / 24), hour = t % 24;
+    if(hour >= 9 && hour < 16 && day >= MONTH_DAY[2] && day < MONTH_DAY[10]) noon += x;
+  });
+  return all ? noon / all * 100 : 0;
+}
+function monthTable(){
+  const {v} = heatSeries(), rows = [];
+  for(let i = 0; i < 12; i++){
+    let imp = 0, sur = 0, peak = 0;
+    for(let t = MONTH_DAY[i] * 24; t < MONTH_DAY[i + 1] * 24; t++){
+      if(v[t] < 0){ imp -= v[t]; peak = Math.max(peak, -v[t]); } else sur += v[t];
+    }
+    rows.push([MONTH[i], F0.format(imp / 1000), F1.format(sur / 1000), F0.format(peak)]);
+  }
+  table($("tHeat"), ["Měsíc", "Dovoz pro kraj GWh", "Přebytek GWh", "Největší dovoz pro kraj MW"], rows);
+}
+function renderHeat(){
+  const h = D.heat[ui.path], scope = ui.heat === "median" ? "střední hodnota z 5 povětrnostních let pro stejný den a hodinu" : `počasí roku ${ui.heat}`;
+  seg($("segHeat"), [["median", "Střední hodnota z 5 let"]].concat(YEARS.map(y => [y, y])), () => ui.heat, k => { ui.heat = k; });
+  $("heatTitle").textContent = h.prebytek > 0.5 ? `Kraj za rok vyrobí ${F0.format(h.vyrobaRadky)} GWh a spotřebuje ${F0.format(h.spotrebaRadky)} GWh, velká část chybí. Přesto ${F0.format(h.prebytek)} GWh přebytku přichází v hodinách, kdy ho kraj sám nespotřebuje.` : `Kraj za rok vyrobí ${F0.format(h.vyrobaRadky)} GWh a spotřebuje ${F0.format(h.spotrebaRadky)} GWh. Přebytek v této cestě nevzniká, dovoz běží ve všech hodinách.`;
+  drawHeat();
+  monthTable();
+  legend($("lHeat"), [["dovoz pro kraj nad 800 MW", "background:var(--n5)"], ["600 až 800", "background:var(--n4)"], ["400 až 600", "background:var(--n3)"], ["200 až 400", "background:var(--n2)"], ["do 200", "background:var(--n1)"], ["vyrovnáno", "background:var(--d0)"], ["přebytek do 100 MW", "background:var(--p1)"], ["100 až 300", "background:var(--p2)"], ["300 až 600", "background:var(--p3)"], ["600 až 900", "background:var(--p4)"], ["nad 900", "background:var(--p5)"]]);
+  $("hHeat").innerHTML = `<b>Co je nakresleno.</b> Každý sloupec je den, každý řádek hodina dne, ${scope}. Červeně dovoz pro kraj, modře přebytek po nabití baterie. Pás dole je dovoz pro vodík v GWh za den, čím tmavší, tím víc, hranice 3, 6 a 9 GWh. <b>Jak se počítá.</b> Hodinový výpočet s baterií, plynem a nádrží. Dovoz pro vodík je v hodině menší z dovozu a elektřiny ze sítě pro elektrolyzér, zbytek dovozu je dovoz pro kraj. Přebytek bere dál elektrokotle a elektrolyzér, proto na něm ještě není konečný vývoz, ten je ${F1.format(h.vyvoz)} GWh za rok. <b>Zjištění.</b> ${heatSummary()} ${ui.path === "progresivni" ? `Přebytek za rok je ${F0.format(h.prebytek)} GWh, z toho ${F0.format(surplusNoonShare())} % připadá na hodiny 9 až 16 od března do října. V roce je jen ${F1.format(h.hodinyBezDovozu)} % hodin úplně bez dovozu.` : "Tato cesta přebytek nemá a dovoz běží po všechny hodiny."}`;
+}
+
+/* (b) Bezvětrný týden */
+function weekNow(){ return D.weeks[ui.path].roky[String(ui.week)]; }
+function drawWeek(){
+  const box = $("cWeek"), W = widthOf(box), w = weekNow(), m = {l:44, r:8, t:10, b:24}, H = W < 520 ? 240 : 300;
+  const n = 168, X = i => m.l + (W - m.l - m.r) * i / (n - 1);
+  const tops = new Array(n).fill(0);
+  const stacks = SERIES.map(([k]) => { const lo = tops.slice(); w[k].forEach((v, i) => { tops[i] += v; }); return {lo, hi:tops.slice()}; });
+  const allMax = Math.max(...tops, ...w.zatizeni) * 1.05;
+  const yM = Math.ceil(allMax / 200) * 200, Y = v => m.t + (H - m.t - m.b) * (1 - v / yM);
+  let s = `<svg viewBox="0 0 ${W} ${H}" aria-hidden="true">`;
+  for(let v = 0; v <= yM; v += yM > 1600 ? 400 : 200){
+    s += `<line x1="${m.l}" x2="${W - m.r}" y1="${Y(v).toFixed(1)}" y2="${Y(v).toFixed(1)}" style="stroke:${v ? "var(--grid)" : "var(--base)"}"/><text x="${m.l - 5}" y="${(Y(v) + 3.5).toFixed(1)}" text-anchor="end">${F0.format(v)}</text>`;
+  }
+  SERIES.forEach(([k, , c], j) => {
+    const st = stacks[j];
+    if(!w[k].some(v => v > 0.05)) return;
+    let d = "";
+    for(let i = 0; i < n; i++) d += `${i ? "L" : "M"}${X(i).toFixed(1)} ${Y(st.hi[i]).toFixed(1)}`;
+    for(let i = n - 1; i >= 0; i--) d += `L${X(i).toFixed(1)} ${Y(st.lo[i]).toFixed(1)}`;
+    s += `<path d="${d}z" style="fill:var(${c})"/>`;
+  });
+  let line = "";
+  for(let i = 0; i < n; i++) line += `${i ? "L" : "M"}${X(i).toFixed(1)} ${Y(w.zatizeni[i]).toFixed(1)}`;
+  s += `<path d="${line}" fill="none" style="stroke:var(--ink)" stroke-width="2"/>`;
+  for(let i = 0; i < n; i += 24){
+    const day = Math.floor((w.start + i) / 24);
+    if(W >= 520 || i % 48 === 0) s += `<text x="${X(i).toFixed(1)}" y="${H - 8}">${D.kalendar[day]}</text>`;
+    s += `<line x1="${X(i).toFixed(1)}" x2="${X(i).toFixed(1)}" y1="${m.t}" y2="${H - m.b}" style="stroke:var(--grid)" stroke-dasharray="2 4"/>`;
+  }
+  s += `<line id="wCross" x1="0" x2="0" y1="${m.t}" y2="${H - m.b}" style="stroke:var(--ink)" visibility="hidden"/></svg>`;
+  box.innerHTML = s;
+  box.geom = {W, m, X, n};
+  box.setAttribute("aria-label", weekFinding());
+}
+function weekTip(i, ev){
+  const w = weekNow(), day = Math.floor((w.start + i) / 24);
+  let html = `<b>${D.kalendar[day]}, ${(w.start + i) % 24}:00</b>`;
+  for(const [k, label] of SERIES) if(w[k][i] > 0.05) html += `<div><span>${label}</span><span>${F0.format(w[k][i])} MW</span></div>`;
+  html += `<div><span>Zatížení bez vodíku a baterie</span><span>${F0.format(w.zatizeni[i])} MW</span></div>`;
+  tipShow(html, ev);
+  const c = $("wCross");
+  if(c){ const x = $("cWeek").geom.X(i).toFixed(1); c.setAttribute("x1", x); c.setAttribute("x2", x); c.setAttribute("visibility", "visible"); }
+}
+function weekFinding(){
+  const w = weekNow();
+  const supply = SERIES.reduce((a, [k]) => a + w[k].reduce((p, v) => p + v, 0), 0) / 1000;
+  const share = w.dovozCelkem / supply * 100;
+  return `V týdnu od ${w.od} do ${w.do} kraj doveze ${F0.format(w.dovozCelkem)} GWh, ${F0.format(share)} % všeho, co v tom týdnu spotřebuje, z toho ${F0.format(w.dovozVodik)} GWh pro vodík. Vítr a slunce dají ${F1.format(w.obnovitelne)} GWh a baterie vydá ${F1.format(w.vybito)} GWh.`;
+}
+function renderWeek(){
+  const wk = D.weeks[ui.path];
+  if(!wk.roky[String(ui.week)]) ui.week = wk.nejhorsi;
+  seg($("segWeek"), YEARS.map(y => [y, y + (Number(y) === wk.nejhorsi ? ", nejméně větru a slunce" : "")]), () => String(ui.week), k => { ui.week = Number(k); });
+  const w = weekNow();
+  $("weekTitle").textContent = `${w.od} až ${w.do}, počasí roku ${w.rok}, průměrná teplota ${Math.abs(w.teplota) < 0.05 ? "těsně pod nulou" : F1.format(w.teplota) + " °C"}.`;
+  drawWeek();
+  legend($("lWeek"), SERIES.filter(([k]) => w[k].some(v => v > 0.05)).map(([, l, c]) => [l, `background:var(${c})`]).concat([["Zatížení bez vodíku a baterie", "background:var(--ink);height:2px;vertical-align:4px"]]));
+  $("hWeek").innerHTML = `<b>Co je nakresleno.</b> Hodinová nabídka elektřiny na sobě v MW, černá čára je zatížení kraje bez vodíku a bez nabíjení baterie. Co je nad čarou, jde do elektrolyzéru a do baterie. <b>Jak se počítá.</b> V každém povětrnostním roce je vybráno 168 souvislých hodin v prosinci až únoru s průměrnou teplotou pod nulou a s nejmenší výrobou větru a slunce. Je to nejhorší z pěti let, ne nejhorší možný týden. Tvar větru je celostátní. <b>Zjištění.</b> ${weekFinding()} Baterie vyrovnává den, týden nepřekoná. Nádrž pokrývá jen flotilu a do sítě nic nevrací.`;
+  const rows = [];
+  for(let d = 0; d < 7; d++){
+    const r = [...Array(24).keys()].map(h => d * 24 + h);
+    const sum = k => r.reduce((a, i) => a + w[k][i], 0) / 1000;
+    const day = Math.floor((w.start + d * 24) / 24);
+    rows.push([D.kalendar[day], F1.format(sum("vitr") + sum("slunce")), F1.format(sum("baterie")), F1.format(sum("plyn")), F1.format(sum("dovoz")), F1.format(sum("zatizeni"))]);
+  }
+  table($("tWeek"), ["Den od začátku týdne", "Vítr a slunce GWh", "Baterie GWh", "Plyn GWh", "Dovoz GWh", "Zatížení GWh"], rows);
+}
+
+/* (c) Schody kroků */
+function stepRows(){
+  const s = D.steps[ui.path];
+  return s.zdroje.map(r => ({...r, group:"Zdroje s podkladem"})).concat(s.smr.map(r => ({...r, group:"Místo toho další SMR, pro blok chybí podklad"})));
+}
+function drawSteps(){
+  const box = $("cSteps"), W = widthOf(box), rows = stepRows();
+  const maxImp = Math.max(...rows.map(r => r.dovoz)), maxSp = Math.max(...rows.map(r => r.prebytek)), total = maxImp + maxSp || 1;
+  const mL = 8, mR = 8, inner = W - mL - mR - 110, Z = mL + 55 + inner * maxSp / total, K = inner / total;
+  let y = 6, s = "";
+  let group = null;
+  for(const r of rows){
+    if(r.group !== group){ group = r.group; y += 14; s += `<text class="lab" x="${mL}" y="${y}">${esc(group)}</text>`; y += 6; }
+    s += `<text class="lab" x="${mL}" y="${y + 12}">${esc(r.krok)}</text><text x="${W - mR}" y="${y + 12}" text-anchor="end">roční bilance ${F0.format(r.bilance)} GWh</text>`;
+    y += 18;
+    const hatch = r.bezZdroje ? "url(#hatch)" : null;
+    const iw = r.dovoz * K, sw = r.prebytek * K;
+    s += `<rect x="${Z.toFixed(1)}" y="${y}" width="${iw.toFixed(1)}" height="16" rx="2" style="fill:var(--dov)"/>`;
+    if(hatch) s += `<rect x="${Z.toFixed(1)}" y="${y}" width="${iw.toFixed(1)}" height="16" rx="2" fill="${hatch}"/>`;
+    s += `<rect x="${(Z - sw).toFixed(1)}" y="${y}" width="${sw.toFixed(1)}" height="16" rx="2" style="fill:var(--p4)"/>`;
+    if(hatch) s += `<rect x="${(Z - sw).toFixed(1)}" y="${y}" width="${sw.toFixed(1)}" height="16" rx="2" fill="${hatch}"/>`;
+    s += `<text class="val" x="${(Z + iw + 4).toFixed(1)}" y="${y + 12}">${F0.format(r.dovoz)}</text>`;
+    if(r.prebytek >= 0.5) s += `<text class="val" x="${(Z - sw - 4).toFixed(1)}" y="${y + 12}" text-anchor="end">${F0.format(r.prebytek)}</text>`;
+    y += 24;
+  }
+  const svg = `<svg viewBox="0 0 ${W} ${y + 6}" aria-hidden="true"><defs><pattern id="hatch" patternUnits="userSpaceOnUse" width="6" height="6" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" style="stroke:var(--hatch)" stroke-width="2"/></pattern></defs><line x1="${Z.toFixed(1)}" x2="${Z.toFixed(1)}" y1="0" y2="${y}" style="stroke:var(--base)"/>${s}</svg>`;
+  box.innerHTML = svg;
+  box.setAttribute("aria-label", stepFinding());
+}
+function stepFinding(){
+  const a = D.steps[ui.path].zdroje, b = D.steps[ui.path].smr, end = a[a.length - 1], last = b[b.length - 1];
+  return `Když je roční bilance téměř vyrovnaná, ${F0.format(end.bilance)} GWh, má kraj stále ${F0.format(end.dovoz)} GWh dovozu a ${F0.format(end.prebytek)} GWh přebytku bez využití, protože přicházejí v jiných hodinách. Bez dovozu je jen ${F1.format(end.hodinyBezDovozu)} % hodin. S bloky SMR, pro které chybí podklad, je to ${F1.format(last.hodinyBezDovozu)} % hodin a ${F0.format(last.prebytek)} GWh přebytku.`;
+}
+function renderSteps(){
+  const st = D.steps, a = st[ui.path].zdroje;
+  $("stepTitle").textContent = ui.path === "progresivni" ? `Vítr se doplní o ${F0.format(st.vitrPridat)} MW na mez studie ${F0.format(st.vitrMez)} MW, potom fotovoltaika o ${F0.format(st.fvePridat)} MWp.` : `Vítr přibude o ${F0.format(st.konsVitr)} MW, tím se roční bilance téměř uzavře, tempo ${F1.format(st.tempoKons)} MW za rok je ${F1.format(st.kratKons)}krát rekord kraje.`;
+  drawSteps();
+  legend($("lSteps"), [["Dovoz GWh za rok, vpravo", "background:var(--dov)"], ["Přebytek bez využití GWh za rok, vlevo", "background:var(--p4)"], ["Šrafování: pro tento blok chybí podklad", "background:repeating-linear-gradient(45deg,var(--dov),var(--dov) 2px,var(--hatch) 2px,var(--hatch) 4px)"]]);
+  $("hSteps").innerHTML = `<b>Co je nakresleno.</b> Dovoz a nevyužitý přebytek v GWh za rok po jednotlivých krocích od mixu cesty. <b>Jak se počítá.</b> Přidané výkony jsou z tabulky Co by muselo platit na hlavní stránce. Každý krok je nový hodinový výpočet s výchozím zařízením, s malou nádrží ${F0.format(D.equip.nadrzT)} t. Se sezónní nádrží by byla čísla jiná. Přidané výkony uzavírají bilanci řádků tabulky, hodinový běh skončí o něco níž kvůli ztrátám baterie a elektrokotlům. Pro první SMR je v kraji podklad jen v progresivní cestě, pro druhý a další v kraji žádný. <b>Zjištění.</b> ${stepFinding()}`;
+  table($("tSteps"), ["Krok", "SMR", "Vítr navíc MW", "Fotovoltaika navíc MWp", "Dovoz GWh", "Přebytek GWh", "Bilance GWh", "Hodiny bez dovozu %", "Podklad"], stepRows().map(r => [r.krok, r.smr, F0.format(r.pridatVitr), F0.format(r.pridatFve), F0.format(r.dovoz), F0.format(r.prebytek), F0.format(r.bilance), F1.format(r.hodinyBezDovozu), r.bezZdroje ? "chybí" : "ano"]));
+}
+
+/* (d) Tempo výstavby a rozdělení dovozu */
+function drawTempo(){
+  const box = $("cTempo"), W = widthOf(box);
+  const panel = (title, key, rec, extra, y0, unit) => {
+    const rows = D.tempo.map(t => ({n:t.jmeno, v:t[key], k:t[key + "Krat"]})).concat(extra);
+    const lab = W < 560 ? 0 : 230, m = 8, mx = Math.max(...rows.map(r => r.v), rec) * 1.2, K = (W - lab - m * 2 - 60) / mx;
+    let y = y0 + 14, s = `<text class="lab" x="${m}" y="${y}">${esc(title)}</text>`;
+    y += 8;
+    const top = y;
+    for(const r of rows){
+      if(!lab){ y += 12; s += `<text class="val" x="${m}" y="${y}">${esc(r.n)}</text>`; y += 4; }
+      else s += `<text class="val" x="${m}" y="${y + 13}">${esc(r.n)}</text>`;
+      const bw = r.v * K;
+      s += `<rect x="${m + lab}" y="${y}" width="${bw.toFixed(1)}" height="16" rx="2" style="fill:var(--accent)"/><text class="val" x="${(m + lab + bw + 4).toFixed(1)}" y="${y + 12}">${F1.format(r.v)}, ${F1.format(r.k)}×</text>`;
+      y += 22;
+    }
+    const rx = m + lab + rec * K;
+    s += `<line x1="${rx.toFixed(1)}" x2="${rx.toFixed(1)}" y1="${top - 2}" y2="${y}" style="stroke:var(--ink)" stroke-dasharray="4 3" stroke-width="1.5"/><text x="${rx.toFixed(1)}" y="${y + 12}" class="lab">rekord kraje ${F1.format(rec)} ${unit}</text>`;
+    return {s, y:y + 20};
+  };
+  const st = D.steps;
+  const a = panel("Vítr, MW za rok", "vitr", D.rekord.vitr_MW_rok.hodnota, [{n:"Konzervativní cesta, rok uzavře vítr", v:st.tempoKons, k:st.kratKons}], 0, "MW");
+  const b = panel("Fotovoltaika, MWp za rok", "fve", D.rekord.fve_MWp_rok.hodnota, [], a.y, "MWp");
+  box.innerHTML = `<svg viewBox="0 0 ${W} ${b.y}" aria-hidden="true">${a.s}${b.s}</svg>`;
+  box.setAttribute("aria-label", tempoFinding());
+}
+function tempoFinding(){
+  const hi = D.tempo.reduce((p, t) => t.vitrKrat > p.vitrKrat ? t : p), v = D.tempo[0];
+  return `Už řádky tabulky chtějí vítr ${F1.format(v.vitrKrat)}krát rychleji, než je rekord kraje. Uzavřít rok chce u větru až ${F1.format(hi.vitrKrat)}krát rekord po dobu 25 let, u fotovoltaiky až ${F1.format(Math.max(...D.tempo.map(t => t.fveKrat)))}krát.`;
+}
+function drawSplit(){
+  const box = $("cSplit"), W = widthOf(box), rows = D.split[ui.path], m = 8, lab = W < 560 ? 0 : 160;
+  const mx = Math.max(...rows.map(r => r.proKraj + r.proVodik)) * 1.15, K = (W - lab - 2 * m - 40) / mx;
+  let y = 4, s = "";
+  for(const r of rows){
+    if(!lab){ y += 12; s += `<text class="val" x="${m}" y="${y}">${esc(r.nazev)}</text>`; y += 4; }
+    else s += `<text class="val" x="${m}" y="${y + 13}">${esc(r.nazev)}</text>`;
+    const a = r.proKraj * K, b = r.proVodik * K, x0 = m + lab;
+    s += `<rect x="${x0}" y="${y}" width="${a.toFixed(1)}" height="16" rx="2" style="fill:var(--dov)"/>`;
+    if(b > 0) s += `<rect x="${(x0 + a + 2).toFixed(1)}" y="${y}" width="${Math.max(0, b - 2).toFixed(1)}" height="16" rx="2" style="fill:var(--bat)"/>`;
+    s += `<text class="val" x="${(x0 + a + b + 5).toFixed(1)}" y="${y + 12}">${F0.format(r.proKraj + r.proVodik)}</text>`;
+    y += 24;
+  }
+  box.innerHTML = `<svg viewBox="0 0 ${W} ${y + 2}" aria-hidden="true">${s}</svg>`;
+  box.setAttribute("aria-label", splitFinding());
+}
+function splitFinding(){
+  const r = D.split[ui.path][0], b = D.split[ui.path].reduce((p, x) => x.proKraj + x.proVodik < p.proKraj + p.proVodik ? x : p);
+  const h2 = r.proVodik > 0.5 ? `, z toho ${F0.format(r.proVodik)} GWh pro vodík pro flotilu` : ", vodík pro flotilu tato cesta nemá";
+  return `Scénář Podle projekcí doveze ${F0.format(r.proKraj + r.proVodik)} GWh${h2}. Nejmenší dovoz má scénář ${b.nazev}, ${F0.format(b.proKraj + b.proVodik)} GWh.`;
+}
+function renderTempo(){
+  $("tempoTitle").textContent = "Průměr, který by se musel stavět každý rok od 2026 do 2050, proti největšímu ročnímu přírůstku kraje.";
+  drawTempo();
+  $("hTempo").innerHTML = `<b>Co je nakresleno.</b> Potřebný roční přírůstek výkonu a násobek rekordu kraje. Svislá čára je rekord. <b>Jak se počítá.</b> Výkon v roce 2050 minus dnešní výkon, děleno 25 lety. Je to průměr, skutečný vrchol stavby by byl vyšší. Rekordy: ${esc(D.rekord.vitr_MW_rok.popis)}, ${esc(D.rekord.fve_MWp_rok.popis)}, ${esc(D.rekord.fve_MWp_rok.zdroj)}. Rekordy z krátké historie jednoho kraje jsou slabá mez, ale jsou změřené. <b>Zjištění.</b> ${tempoFinding()}`;
+  table($("tTempo"), ["Případ", "Vítr MW za rok", "Násobek rekordu", "Fotovoltaika MWp za rok", "Násobek rekordu"], D.tempo.map(t => [t.jmeno, F1.format(t.vitr), F1.format(t.vitrKrat), F1.format(t.fve), F1.format(t.fveKrat)]).concat([["Konzervativní cesta, rok uzavře vítr", F1.format(D.steps.tempoKons), F1.format(D.steps.kratKons), "", ""]]));
+  drawSplit();
+  legend($("lSplit"), [["Dovoz pro kraj", "background:var(--dov)"], ["Dovoz pro vodík", "background:var(--bat)"]]);
+  $("hSplit").innerHTML = `<b>Co je nakresleno.</b> Dovoz v GWh za rok v pěti scénářích zvolené cesty, rozdělený na dovoz pro kraj a pro vodík. <b>Jak se počítá.</b> Hodinový výpočet každého scénáře, průměr 5 povětrnostních let. V hodině je dovoz pro vodík menší z dovozu a elektřiny ze sítě pro elektrolyzér. <b>Zjištění.</b> ${splitFinding()}`;
+  table($("tSplit"), ["Scénář", "Dovoz pro kraj GWh", "Dovoz pro vodík GWh", "Celkem nejméně GWh, podle počasí", "Celkem nejvíce GWh, podle počasí"], D.split[ui.path].map(r => [r.nazev, F0.format(r.proKraj), F0.format(r.proVodik), F0.format(r.dovozMin), F0.format(r.dovozMax)]));
+}
+
+function render(){
+  seg($("segPath"), PATHS, () => ui.path, k => { ui.path = k; });
+  renderHeat(); renderWeek(); renderSteps(); renderTempo();
+}
+function attach(){
+  const h = $("cHeat");
+  h.addEventListener("pointermove", ev => { const c = cellAt(ev); if(c) heatTip(c, ev); else tipHide(); });
+  h.addEventListener("pointerleave", tipHide);
+  let kc = {day:0, hour:12};
+  h.addEventListener("keydown", ev => {
+    const step = {ArrowLeft:[-1, 0], ArrowRight:[1, 0], ArrowUp:[0, -1], ArrowDown:[0, 1]}[ev.key];
+    if(!step) return;
+    ev.preventDefault();
+    kc = {day:(kc.day + step[0] + 365) % 365, hour:(kc.hour + step[1] + 24) % 24};
+    const r = h.getBoundingClientRect();
+    heatTip(kc, {clientX:r.left + 20, clientY:r.top + 20});
+  });
+  h.addEventListener("blur", tipHide);
+  const w = $("cWeek");
+  const near = ev => { const g = w.geom, r = w.getBoundingClientRect(), k = g.W / (r.width || g.W); return Math.max(0, Math.min(g.n - 1, Math.round(((ev.clientX - r.left) * k - g.m.l) / (g.W - g.m.l - g.m.r) * (g.n - 1)))); };
+  w.addEventListener("pointermove", ev => weekTip(near(ev), ev));
+  w.addEventListener("pointerleave", tipHide);
+  let wi = 0;
+  w.addEventListener("keydown", ev => {
+    const s = {ArrowLeft:-1, ArrowRight:1}[ev.key];
+    if(!s) return;
+    ev.preventDefault();
+    wi = (wi + s + 168) % 168;
+    const r = w.getBoundingClientRect();
+    weekTip(wi, {clientX:r.left + 20, clientY:r.top + 20});
+  });
+  w.addEventListener("blur", tipHide);
+  let t = null;
+  window.addEventListener("resize", () => { clearTimeout(t); t = setTimeout(render, 150); });
+}
+attach();
+render();
+</script>
+</body>
+</html>

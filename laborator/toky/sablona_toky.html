@@ -30,15 +30,32 @@ body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 var(--body);-
 .seg button svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .seg button:hover{color:var(--ink)}
 .seg button[aria-pressed="true"]{background:var(--ink);color:var(--surface)}
-.seg button:focus-visible,.round:focus-visible,.node:focus-visible,#year:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.yearbox{display:flex;align-items:center;gap:12px;flex:1 1 300px;min-width:260px}
-#yearv{font:600 27px/1 var(--mono);font-variant-numeric:tabular-nums;min-width:2.5em;text-align:right}
-.yearcol{flex:1;min-width:0}
-#year{width:100%;accent-color:var(--accent);margin:0;display:block;height:22px}
-.ticks{display:flex;justify-content:space-between;font:10.5px/1 var(--mono);color:var(--muted);padding:0 3px}
+.seg button:focus-visible,.round:focus-visible,.node:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .round{all:unset;cursor:pointer;width:32px;height:32px;border:1px solid var(--line);border-radius:50%;display:inline-grid;place-items:center;color:var(--ink);background:var(--surface-2);flex:none}
 .round svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .round:hover{border-color:var(--muted)}
+.scen{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 12px}
+.scen button{all:unset;cursor:pointer;padding:7px 12px;border:1px solid var(--line);border-radius:8px;font:600 13px/1.1 var(--body);color:var(--muted);background:var(--surface-2)}
+.scen button:hover{color:var(--ink)}
+.scen button[aria-pressed="true"]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.scen button:focus-visible,.pill:focus-visible,.slider input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+#scenText{margin:0 0 12px;color:var(--muted);font-size:13.5px;max-width:70em}
+.sliders{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px 22px;margin:0 0 12px}
+.slider label{display:block;font:600 12.5px/1.2 var(--head);color:var(--ink);margin-bottom:4px}
+.slider input{width:100%;accent-color:var(--accent);margin:0;display:block;height:22px}
+.slider input:disabled{opacity:.4}
+.slider .read{display:block;font:500 12.5px/1.35 var(--mono);color:var(--ink);font-variant-numeric:tabular-nums}
+.slider .ends{display:flex;justify-content:space-between;font:10.5px/1.2 var(--mono);color:var(--muted)}
+.tag{display:inline-block;font:600 10px/1.3 var(--body);padding:0 5px;margin-left:5px;border:1px solid var(--line);border-radius:4px;color:var(--muted);vertical-align:1px}
+.tag.est{border-color:#f5a524;color:#f5a524}
+#stateNote{margin:0 0 6px;font-size:13px;color:var(--ink);max-width:80em}
+#snapNote{margin:0 0 6px;font-size:13px;color:#f5a524;max-width:80em}
+#flagNote{margin:0 0 12px;font-size:13px;color:#f5a524;max-width:80em}
+#snapNote:empty,#flagNote:empty{display:none}
+details.src{margin:18px 2px 0;border-top:1px solid var(--line);padding-top:10px;color:var(--muted);font-size:12.5px;line-height:1.5}
+details.src summary{cursor:pointer;font:650 12px/1.3 var(--head);letter-spacing:.06em;text-transform:uppercase;color:var(--ink)}
+details.src h3{font:650 13px/1.3 var(--head);margin:12px 0 2px;color:var(--ink)}
+details.src ul{margin:0;padding-left:18px}
 
 #stage{position:relative;width:100%;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#060e1d;touch-action:pan-y}
 #stage::before{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(143,163,191,.09) 1px,transparent 1.2px);background-size:26px 26px;pointer-events:none}
@@ -47,7 +64,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 var(--body);-
 #tintZima{background:radial-gradient(70% 62% at 50% 8%,rgba(255,107,107,.17),transparent 68%),radial-gradient(60% 70% at 10% 90%,rgba(66,120,220,.14),transparent 70%)}
 #tintLeto{background:radial-gradient(60% 56% at 12% 16%,rgba(255,184,28,.15),transparent 70%),radial-gradient(70% 50% at 62% 100%,rgba(47,224,176,.13),transparent 72%)}
 #tintRocni{background:radial-gradient(60% 60% at 50% 42%,rgba(60,200,245,.09),transparent 72%)}
-#ribbons,#sparks{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+#bgfx,#ribbons,#sparks{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 .ghost{fill:none;stroke:#2a3c59;stroke-width:1;stroke-dasharray:2 6}
 .ribbon{fill:none;stroke-linecap:butt}
 
@@ -91,6 +108,8 @@ body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 var(--body);-
 .legend{display:flex;flex-wrap:wrap;gap:8px 22px;align-items:center;margin:12px 2px 0;color:var(--muted);font-size:12.5px}
 .legend i{display:inline-block;vertical-align:middle;margin-right:6px;border-radius:2px}
 .swatch{width:20px;height:4px}
+.pill{all:unset;cursor:pointer;padding:5px 10px;border:1px solid var(--line);border-radius:999px;font:500 12px/1 var(--body);color:var(--muted)}
+.pill[aria-pressed="true"]{color:var(--ink);border-color:var(--muted)}
 #scalebar{width:42px;background:rgba(255,207,92,.55)}
 .notes{margin:20px 2px 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px 26px;color:var(--muted);font-size:12.5px;line-height:1.5;border-top:1px solid var(--line);padding-top:14px}
 .notes h2{font:650 12px/1.3 var(--head);letter-spacing:.06em;text-transform:uppercase;color:var(--ink);margin:0 0 3px}
@@ -99,7 +118,6 @@ body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 var(--body);-
   .top{grid-template-columns:1fr}
   .draft{justify-self:start;white-space:normal}
   .seg button{padding:7px 10px;font-size:12px}
-  .yearbox{flex-basis:100%}
   #caption{min-height:3.24em}
   #sub{min-height:2.9em}
 }
@@ -113,34 +131,41 @@ body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 var(--body);-
 <div class="wrap">
   <div class="top">
     <div>
-      <p class="eyebrow">Elektřina v Moravskoslezském kraji</p>
+      <p class="eyebrow">Elektřina v Moravskoslezském kraji. <a href="../grafy/index.html" style="color:inherit">Čtyři grafy z téhož výpočtu</a></p>
       <h1 id="caption" aria-live="polite"></h1>
       <p id="sub"></p>
     </div>
     <div class="draft">Pracovní ukázka, čísla se ještě mění.</div>
   </div>
+  <div class="scen" role="group" aria-label="Scénář" id="segScen"></div>
+  <p id="scenText"></p>
+  <div class="sliders" id="sliders"></div>
   <div class="controls">
-    <div class="seg" role="group" aria-label="Okamžik" id="segMoment">
-      <button type="button" data-moment="rocni" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 15l4-5 4 3 5-7"/></svg>Roční průměr</button>
-      <button type="button" data-moment="zima" aria-pressed="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v20M4.2 6.5l15.6 11M4.2 17.5l15.6-11M9.5 3.5L12 6l2.5-2.5M9.5 20.5L12 18l2.5 2.5"/></svg>Zimní špička</button>
-      <button type="button" data-moment="leto" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>Letní poledne</button>
+    <div class="seg" role="group" aria-label="Rok" id="segYear">
+      <button type="button" data-year="2025" aria-pressed="false">2025</button>
+      <button type="button" data-year="2050" aria-pressed="true">2050</button>
     </div>
     <div class="seg" role="group" aria-label="Cesta" id="segPath">
       <button type="button" data-path="progresivni" aria-pressed="true">Progresivní</button>
       <button type="button" data-path="konzervativni" aria-pressed="false">Konzervativní</button>
     </div>
-    <div class="yearbox">
-      <button type="button" class="round" id="play" aria-label="Projít roky 2025 až 2050" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path id="playIcon" d="M7 5l12 7-12 7z"/></svg></button>
-      <div class="yearcol">
-        <input id="year" type="range" min="2025" max="2050" step="1" value="2050" aria-label="Rok">
-        <div class="ticks"><span>2025</span><span>2030</span><span>2035</span><span>2040</span><span>2045</span><span>2050</span></div>
-      </div>
-      <output id="yearv" for="year">2050</output>
+    <div class="seg" role="group" aria-label="Období" id="segMoment">
+      <button type="button" data-moment="rocni" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 15l4-5 4 3 5-7"/></svg>Celý rok</button>
+      <button type="button" data-moment="zima" aria-pressed="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v20M4.2 6.5l15.6 11M4.2 17.5l15.6-11M9.5 3.5L12 6l2.5-2.5M9.5 20.5L12 18l2.5 2.5"/></svg>Zima</button>
+      <button type="button" data-moment="leto" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>Léto</button>
+    </div>
+    <div class="seg" role="group" aria-label="Ocel" id="segSteel">
+      <button type="button" data-steel="1" aria-pressed="true">Ocel plně elektrická</button>
+      <button type="button" data-steel="0" aria-pressed="false">Jen první pec</button>
     </div>
   </div>
+  <p id="stateNote" aria-live="polite"></p>
+  <p id="snapNote" aria-live="polite"></p>
+  <p id="flagNote"></p>
 
   <div id="stage" role="group" aria-label="Schéma toků elektřiny v kraji">
     <div class="tint" id="tintRocni"></div><div class="tint" id="tintZima"></div><div class="tint" id="tintLeto"></div>
+    <canvas id="bgfx" aria-hidden="true"></canvas>
     <svg id="ribbons" aria-hidden="true"><defs id="grads"></defs><g id="ghosts"></g><g id="bands"></g></svg>
     <canvas id="sparks" aria-hidden="true"></canvas>
     <div id="hub">
@@ -154,19 +179,22 @@ body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 var(--body);-
     <span><i id="scalebar"></i><span id="scaletext"></span></span>
     <span><i class="swatch" style="background:#ff6b6b"></i>dovoz</span>
     <span><i class="swatch" style="background:#ffcf5c"></i>elektřina ke spotřebě</span>
-    <span><i class="swatch" style="background:#a08cff"></i>do baterie</span>
+    <span><i class="swatch" style="background:#a08cff"></i>baterie</span>
     <span><i class="swatch" style="background:#f08cb4"></i>do elektrolyzéru</span>
-    <span><i class="swatch" style="background:#2fe0b0"></i>vodík</span>
+    <span><i class="swatch" style="background:#2fe0b0"></i>vodík jen pro flotilu</span>
     <span id="speednote">Rychlost částic roste s výkonem až po strop. Nejtenčí tok se kreslí silou 2 px.</span>
     <button type="button" class="round" id="motion" aria-label="Zastavit pohyb" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path id="motionIcon" d="M8 5v14M16 5v14"/></svg></button>
+    <button type="button" class="pill" id="bgToggle" aria-pressed="true">Vločky a slunce</button>
   </div>
 
-  <div class="notes">
-    <div><h2>Odkud jsou čísla</h2><p>Výroba a spotřeba jsou mediány položek obou cest. Výkon je roční GWh × 1000 / 8760, u zimní špičky a letního poledne ještě krát koeficient položky pro daný okamžik. Dovoz je rozdíl po sečtení. Po najetí na uzel nebo tok se ukáže rozpis v MW.</p></div>
-    <div><h2>Baterie</h2><p>Zimní výkon a výdrž jsou z kontrolní tabulky špičky, polední nabíjení z hodinového výpočtu, mezi milníky lineárně. Bilance baterii nepočítá jako zdroj, proto v zimní špičce na schématu stojí a její výkon je jen uvedený. Vydržela by jen několik hodin.</p></div>
-    <div><h2>Elektrolyzér a nádrž</h2><p>Elektrolyzér dostává jen to, co v poledni zbude po baterii a elektrokotlích. Potřebný výkon je roční elektřina na vodík pro flotilu dělená <span id="hoursNote"></span> plnými hodinami z hodinového výpočtu. Vodík je kreslený v MW elektřiny potřebné k jeho výrobě, ztráty elektrolýzy tedy schéma neukazuje.</p></div>
-    <div><h2>Co schéma neříká</h2><p>Flotila odebírá vodík rovnoměrně a zimní vypnutí elektrolyzéru je předpoklad o skladu, stav nádrže se nesleduje. V letech bez poledního přebytku by vodík musel vzniknout ze sítě v jiných hodinách. Vítr se do zimní špičky počítá nulou, změřený medián nulový není. Nové plynové bloky v poledni stojí jako záloha. Dva okamžiky nejsou časová řada.</p></div>
+  <div class="notes" id="notes">
+    <div><h2>Co je nakresleno</h2><p>Toky elektřiny v kraji v megawattech. Šířka pruhu je výkon, po najetí nebo výběru uzlu klávesnicí se ukáže rozpis po položkách.</p></div>
+    <div><h2>Jak se to počítá</h2><p>Každý stav je skutečný hodinový výpočet na povětrnostních letech 2015 až 2019 s jedním uzlem bez omezení sítě. Stránka nic nedopočítává a mezi spočítanými stavy nic neprokládá. Rok 2025 je základ tabulky položek v hodinových tvarech, stejný v obou cestách a bez scénářů.</p></div>
+    <div id="noteMoments"></div>
+    <div id="noteDispatch"></div>
+    <div><h2>Co schéma neříká</h2><p>Posuvníky mění spotřebu a teplotu, výstavbu zdrojů nechávají podle cesty. Oteplení posouvá všechny hodiny rovnoměrně, extrémy se mohou měnit jinak. Baterie zná křivku dne předem a rozvrh elektrolyzéru vidí celý rok dopředu, v mezích malé nádrže. Výsledky jsou proto spíš horní mezí toho, co by uměl skutečný provoz. Palivo pro SMR a plyn je dovezené i tam, kde je bilance elektřiny kladná.</p></div>
   </div>
+  <details class="src" id="sources"><summary>Odkud jsou hodnoty posuvníků</summary><div id="sourcesBody"></div></details>
 </div>
 
 <script>
@@ -176,10 +204,10 @@ const NF0 = new Intl.NumberFormat("cs-CZ", {maximumFractionDigits:0});
 const NF1 = new Intl.NumberFormat("cs-CZ", {minimumFractionDigits:1, maximumFractionDigits:1});
 const $ = id => document.getElementById(id);
 const SVGNS = "http://www.w3.org/2000/svg";
-const MOMENT_NAME = {rocni:"Roční průměr", zima:"Zimní špička", leto:"Letní poledne"};
+const MOMENT_NAME = {rocni:"Celý rok", zima:"Nejtěžší zimní hodina", leto:"Hodina největšího přebytku"};
 const PATH_NAME = {progresivni:"Progresivní cesta", konzervativni:"Konzervativní cesta"};
 const TWEEN_S = 0.65, IDLE_MW = 0.5, MAX_SPARKS = 170, LUT_N = 30;
-const ui = {path:"progresivni", moment:"zima", year:2050};
+const ui = {path:"progresivni", moment:"zima", year:2050, combo:[1, 0, 1, 1], pos:[0, 0, 0], scen:"projekce"};
 
 /* Piktogramy: mřížka 24 × 24, tah s kulatými konci. */
 const ICONS = {
@@ -214,93 +242,90 @@ DATA.edges.forEach((e, i) => {
   if(e.kind === "in") IN_EDGES.push(i);
   else if(e.kind === "out") OUT_EDGES.push(i);
   else if(e.kind === "import" || e.kind === "export") TOP_EDGES.push(i);
-  else if(e.kind === "down") DOWN_EDGES.push(i);
+  else if(e.kind === "down" || e.kind === "up") DOWN_EDGES.push(i);
 });
 
-/* Data: stránka nic nepočítá, jen čte připravené stavy. */
-function flowsFor(path, year, moment){ return DATA.states[path][moment][year - DATA.years[0]]; }
+/* Data: stránka nic nepočítá, jen čte spočítané stavy. */
+function comboKey(c){ return c.join(""); }
+function flowsFor(path, year, moment, combo){
+  return year === 2025 ? DATA.base[path][moment] : DATA.states[path][comboKey(combo || ui.combo)][moment];
+}
+function sumFor(path, year, combo){
+  return year === 2025 ? DATA.baseSum[path] : DATA.sums[path][comboKey(combo || ui.combo)];
+}
 function flowOf(state, id){ return state.e[edgeIndex[id]]; }
 function sumItems(state, id){ return (state.i[id] || []).reduce((a, b) => a + b, 0); }
 
-/* Bilance všech uzlů přes všechny roky, cesty a okamžiky, přímo z vložených dat. */
+/* Bilance všech uzlů přes všechny spočítané stavy, přímo z vložených dat. */
 function nodeResiduals(state){
   const f = id => flowOf(state, id), m = state.m, out = {};
   const inSum = IN_EDGES.reduce((a, i) => a + state.e[i], 0), outSum = OUT_EDGES.reduce((a, i) => a + state.e[i], 0);
-  out.kraj = inSum + f("dovoz") - outSum - f("kBaterie") - f("kElektrolyzer") - f("vyvoz");
-  out.baterie = f("kBaterie") - m.charge - m.batteryLoss;
+  out.kraj = inSum + f("dovoz") + f("baterieK") - outSum - f("kBaterie") - f("kElektrolyzer") - f("vyvoz");
+  out.baterieNabito = f("kBaterie") - m.chS - m.chG;
+  out.baterieVybito = f("baterieK") - m.dis;
   out.elektrolyzer = f("kElektrolyzer") - f("h2Nadrz");
   out.nadrz = f("h2Nadrz") - f("h2Flotila") - m.tankDelta;
-  out.flotila = f("h2Flotila") - sumItems(state, "flotila");
   for(const i of IN_EDGES.concat(OUT_EDGES)){
     const id = DATA.edges[i].id;
     out[id] = state.e[i] - sumItems(state, id);
   }
   return out;
 }
-function checkConservation(){
-  let worst = 0, where = null, cases = 0, nodes = 0;
-  for(const path of Object.keys(DATA.states)) for(const moment of Object.keys(DATA.states[path])){
-    DATA.states[path][moment].forEach((state, k) => {
-      cases++;
-      const r = nodeResiduals(state);
-      for(const id of Object.keys(r)){
-        nodes++;
-        if(Math.abs(r[id]) > worst){ worst = Math.abs(r[id]); where = {path, moment, year:DATA.years[k], node:id}; }
-      }
-    });
+function allStates(){
+  const list = [];
+  for(const path of Object.keys(DATA.states)){
+    for(const key of Object.keys(DATA.states[path])) for(const moment of Object.keys(DATA.states[path][key])) list.push({path, key, moment, state:DATA.states[path][key][moment]});
+    for(const moment of Object.keys(DATA.base[path])) list.push({path, key:"2025", moment, state:DATA.base[path][moment]});
   }
-  return {worst, where, cases, nodes};
+  return list;
+}
+function checkConservation(){
+  let worst = 0, where = null, nodes = 0;
+  const list = allStates();
+  for(const it of list){
+    const r = nodeResiduals(it.state);
+    for(const id of Object.keys(r)){
+      nodes++;
+      if(Math.abs(r[id]) > worst){ worst = Math.abs(r[id]); where = {path:it.path, key:it.key, moment:it.moment, node:id}; }
+    }
+  }
+  return {worst, where, cases:list.length, nodes};
 }
 
 /* Čísla do textu. */
 function mw(v){ const a = Math.abs(v); return (a > 0 && a < 10 ? NF1 : NF0).format(v); }
-function gwh(v){ return NF0.format(v * 8.76); }
+function g0(v){ return NF0.format(v); }
 
 function captionFor(path, year, moment){
-  const s = flowsFor(path, year, moment), m = s.m;
-  const first = DATA.firstSurplus[path];
+  const s = flowsFor(path, year, moment), m = s.m, a = sumFor(path, year);
   if(moment === "rocni"){
-    const use = m.load, gen = m.avail;
-    if(m.import > IDLE_MW) return {
-      tone:"var(--import)",
-      head:`Za rok ${year} kraj vyrobí ${gwh(gen)} GWh a spotřebuje ${gwh(use)} GWh, <em>${NF0.format(m.import / use * 100)} % doveze.</em>`,
-      sub:`V průměru přes celý rok je to ${mw(m.import)} MW dovozu. Baterie se v ročním průměru projeví jen ztrátami a elektrolyzér dostává v průměru ${mw(flowOf(s, "kElektrolyzer"))} MW.`};
-    return {tone:"var(--export)", head:`Za rok ${year} kraj vyrobí ${gwh(gen)} GWh a spotřebuje ${gwh(use)} GWh, <em>${gwh(m.spare)} GWh zbývá.</em>`, sub:""};
+    const split = a.proVodik > 0.5 ? ` Z toho ${g0(a.proKraj)} GWh pro kraj a ${g0(a.proVodik)} GWh pro vodík.` : "";
+    const spare = a.prebytek > 0.5 ? ` Přebytek ${g0(a.prebytek)} GWh za rok bere baterie, elektrokotle a elektrolyzér, nevyužito zůstane ${NF1.format(a.vyvoz)} GWh.` : "";
+    return {tone:"var(--import)",
+      head:`V roce ${year} kraj vyrobí ${g0(a.vyroba)} GWh a spotřebuje ${g0(a.spotreba)} GWh, <em>doveze ${g0(a.dovoz)} GWh.</em>`,
+      sub:`Průměr 5 povětrnostních let, podle počasí ${g0(a.dovozMin)} až ${g0(a.dovozMax)} GWh dovozu.${split}${spare}`};
   }
   if(moment === "zima"){
-    const idle = m.batteryMw > 0 ? `Baterie stojí a ${mw(m.batteryMw)} MW zůstává mimo bilanci.` : "Baterie stojí.";
-    const noon = flowsFor(path, year, "leto").m.surplus > IDLE_MW;
-    const tank = m.draw <= IDLE_MW ? " Vodík se v tomto roce téměř nepoužívá." :
-      noon ? ` Elektrolyzér je vypnutý a flotilu s dalším odběrem vodíku živí nádrž, ${mw(m.draw)} MW.` :
-      ` Elektrolyzér je vypnutý a z nádrže jde ${mw(m.draw)} MW, vodík do ní musí přijít ze sítě v jiných hodinách.`;
-    if(m.import > IDLE_MW) return {
-      tone:"var(--import)",
-      head:`V zimní špičce ${year} <em>kraj doveze ${mw(m.import)} MW,</em> ${NF0.format(m.import / m.load * 100)} % zatížení.`,
-      sub:idle + tank};
-    return {tone:"var(--export)", head:`V zimní špičce ${year} kraj vystačí s vlastní výrobou.`, sub:idle + tank};
+    const parts = [s.kdy + "."];
+    if(m.dis > IDLE_MW) parts.push(`Baterie dodává ${mw(m.dis)} MW.`);
+    if(m.draw > IDLE_MW) parts.push(`${m.elS + m.elG > IDLE_MW ? `Elektrolyzér bere ${mw(m.elS + m.elG)} MW` : "Elektrolyzér stojí"}, flotila jede z nádrže a odebírá stále ${mw(m.draw)} MW, v nádrži je ${NF1.format(m.tankT)} t. Do sítě nádrž nic nevrací.`);
+    parts.push(`Největší dovoz ze všech zimních hodin za 5 let je ${mw(a.spickaZima)} MW.`);
+    return {tone:"var(--import)", head:`V nejtěžší zimní hodině <em>kraj doveze ${mw(m.imp)} MW,</em> vyrobí ${mw(m.avail)} MW.`, sub:parts.join(" ")};
   }
   if(m.surplus > IDLE_MW){
-    const parts = [];
-    if(m.charge > IDLE_MW) parts.push(`baterie ${mw(m.charge)} MW`);
-    if(m.heat > IDLE_MW) parts.push(`elektrokotle ${mw(m.heat)} MW`);
-    if(m.forH2 > IDLE_MW) parts.push(`elektrolyzér ${mw(m.forH2)} MW`);
-    if(m.spare > IDLE_MW) parts.push(`nevyužito ${mw(m.spare)} MW`);
-    const change = m.tankDelta > IDLE_MW ? "Nádrž se plní." : m.tankDelta < -IDLE_MW ? "Nádrž se přesto čerpá." : "Přítok do nádrže kryje odběr.";
-    const cover = m.forH2 < m.electro - IDLE_MW ? ` Elektrolyzér by potřeboval ${mw(m.electro)} MW.` : "";
-    return {tone:"var(--h2)",
-      head:`V letním poledni ${year} <em>zbývá ${mw(m.surplus)} MW přebytku.</em>`,
-      sub:`Bere si ${parts.join(", ")}. ${change}${cover}`};
+    const take = [];
+    if(m.chS > IDLE_MW) take.push(`baterie ${mw(m.chS)} MW`);
+    if(m.heat > IDLE_MW) take.push(`elektrokotle ${mw(m.heat)} MW`);
+    if(m.elS > IDLE_MW) take.push(`elektrolyzér ${mw(m.elS)} MW`);
+    if(m.curt > IDLE_MW) take.push(`nevyužito ${mw(m.curt)} MW`);
+    return {tone:"var(--h2)", head:`V hodině největšího přebytku <em>zbývá ${mw(m.surplus)} MW.</em>`, sub:`${s.kdy}. Bere si ho ${take.join(", ")}.`};
   }
-  const later = first === null ? "V této cestě přebytek do roku 2050 nevznikne." :
-    first > year ? `První polední přebytek přijde v roce ${first}.` : "Přebytek v tomto roce není.";
-  return {tone:"var(--import)",
-    head:`V letním poledni ${year} <em>kraj stále doveze ${mw(m.import)} MW.</em>`,
-    sub:`Baterie a elektrolyzér nemají z čeho brát. ${later}`};
+  return {tone:"var(--import)", head:`Ani v nejlepší hodině léta výroba nestačí, <em>kraj doveze ${mw(m.imp)} MW.</em>`, sub:`${s.kdy}. Baterie a elektrolyzér nemají z čeho brát.`};
 }
 
 /* Stav animace. */
 const cur = new Float64Array(E), from = new Float64Array(E), to = new Float64Array(E);
-const curM = {avail:0, load:0, import:0, spare:0, surplus:0};
+const curM = {avail:0, load:0, imp:0, curt:0, surplus:0, dis:0};
 const fromM = {...curM}, toM = {...curM};
 let tween = 1, lastT = 0, running = false, reduced = false, userStill = false;
 let W = 0, H = 0, R = 0, HX = 0, HY = 0, scale = 0.05, tall = false, speedK = 1, dpr = 1;
@@ -376,6 +401,9 @@ function applyLayout(){
   dpr = Math.min(window.devicePixelRatio || 1, 2);
   canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
   ctx = canvas.getContext("2d");
+  const bg = $("bgfx");
+  bg.width = canvas.width; bg.height = canvas.height;
+  bgCtx = bg.getContext("2d");
   $("scalebar").style.height = Math.max(2, 500 * scale) + "px";
   $("scaletext").textContent = "tento pruh je 500 MW";
   updateGeometry();
@@ -409,8 +437,11 @@ function updateGeometry(){
       vertical = true;
       if(e.kind === "import"){ [x0, y0] = a; [x1, y1] = c; } else { [x0, y0] = c; [x1, y1] = a; }
     } else if(e.kind === "down"){
-      const b = layoutBoxes[e.to];
-      x0 = downStack[i]; y0 = HY + into; x1 = b.x; y1 = b.y - b.h / 2; vertical = true;
+      const b = layoutBoxes[e.to], shift = e.id === "kBaterie" ? -b.w * .18 : 0;
+      x0 = downStack[i]; y0 = HY + into; x1 = b.x + shift; y1 = b.y - b.h / 2; vertical = true;
+    } else if(e.kind === "up"){
+      const b = layoutBoxes[e.from];
+      x0 = b.x + b.w * .18; y0 = b.y - b.h / 2; x1 = downStack[i]; y1 = HY + into; vertical = true;
     } else if(tall && e.id === "h2Nadrz"){
       const a = layoutBoxes[e.from], b = layoutBoxes[e.to];
       x0 = a.x; y0 = a.y + a.h / 2; x1 = b.x; y1 = b.y - b.h / 2; vertical = true;
@@ -423,7 +454,7 @@ function updateGeometry(){
     const d = `M${x0.toFixed(1)} ${y0.toFixed(1)}C${c0x.toFixed(1)} ${c0y.toFixed(1)} ${c1x.toFixed(1)} ${c1y.toFixed(1)} ${x1.toFixed(1)} ${y1.toFixed(1)}`;
     bands[i].setAttribute("d", d);
     bands[i].setAttribute("stroke-width", w[i].toFixed(2));
-    bands[i].setAttribute("opacity", w[i] > 0 ? (e.kind === "chain" || e.kind === "down" ? .5 : .36) : 0);
+    bands[i].setAttribute("opacity", w[i] > 0 ? (e.kind === "chain" || e.kind === "down" || e.kind === "up" ? .5 : .36) : 0);
     ghosts[i].setAttribute("d", d);
     grads[i].setAttribute("x1", x0.toFixed(1)); grads[i].setAttribute("y1", y0.toFixed(1));
     grads[i].setAttribute("x2", x1.toFixed(1)); grads[i].setAttribute("y2", y1.toFixed(1));
@@ -513,6 +544,7 @@ function setRing(el, startShare, share){
 /* Texty a odstíny podle aktuálních hodnot. */
 function writeLabels(){
   const target = flowsFor(ui.path, ui.year, ui.moment), m = target.m;
+  const hour = ui.moment !== "rocni";
   for(const n of DATA.nodes){
     const el = nodeEls[n.id];
     let value, note = "", off = false;
@@ -521,22 +553,24 @@ function writeLabels(){
     } else if(n.id === "sit"){
       const imp = cur[edgeIndex.dovoz], exp = cur[edgeIndex.vyvoz];
       value = exp > imp ? exp : imp;
-      note = exp > imp ? "nevyužito, vývoz" : imp > IDLE_MW ? "dovoz" : "bez dovozu";
+      note = exp > imp ? "nevyužito, do sítě" : imp > IDLE_MW ? "dovoz" : "bez dovozu";
       el.style.setProperty("--c", exp > imp ? "#7dd3fc" : "#ff6b6b");
     } else if(n.id === "baterie"){
-      value = cur[edgeIndex.kBaterie];
-      note = m.charge > IDLE_MW ? "nabíjí se" : ui.moment === "rocni" ? "průměrné ztráty" : "stojí";
-      off = value < IDLE_MW && m.batteryMw <= 0;
+      const inn = cur[edgeIndex.kBaterie], out = cur[edgeIndex.baterieK];
+      value = Math.max(inn, out);
+      note = !hour ? "průměr nabíjení" : inn > IDLE_MW ? (m.chS > m.chG ? "nabíjí se z přebytku" : "nabíjí se ze sítě") : out > IDLE_MW ? "vybíjí se" : "stojí";
+      off = value < IDLE_MW;
     } else if(n.id === "elektrolyzer"){
       value = cur[edgeIndex.kElektrolyzer];
-      note = value > IDLE_MW ? "vyrábí" : "stojí";
+      note = value > IDLE_MW ? "vyrábí vodík" : "stojí";
+      off = value < IDLE_MW;
     } else if(n.id === "nadrz"){
       value = cur[edgeIndex.h2Flotila];
-      note = ui.moment === "rocni" ? "průměrný odběr" : m.tankDelta > IDLE_MW ? "plní se" : m.tankDelta < -IDLE_MW ? "čerpá se" : "stojí";
+      note = !hour ? "průměrný odběr" : m.draw <= IDLE_MW ? "bez vodíku" : `${NF1.format(m.tankT)} t, ${m.tankDelta > IDLE_MW ? "plní se" : m.tankDelta < -IDLE_MW ? "ubývá" : "drží"}`;
       off = value < IDLE_MW && cur[edgeIndex.h2Nadrz] < IDLE_MW;
     } else {
       value = cur[edgeIndex.h2Flotila]; off = value < IDLE_MW;
-      note = value > IDLE_MW ? "z nádrže" : "bez vodíku";
+      note = value > IDLE_MW ? "jen z nádrže" : "bez vodíku";
     }
     el.valEl.textContent = mw(value) + " MW";
     if(el.noteEl) el.noteEl.textContent = note;
@@ -544,13 +578,13 @@ function writeLabels(){
   }
   const spinning = cur[edgeIndex.vitr] > 1 && !stillMode();
   if(nodeEls.vitr.spun !== spinning){ nodeEls.vitr.spun = spinning; nodeEls.vitr.classList.toggle("spin", spinning); }
-  /* Kruh: podíl vlastní výroby a dovozu na tom, co do kraje teče. */
-  const a = curM.avail, imp = curM.import, supply = a + imp || 1;
+  /* Kruh: podíl vlastní výroby a baterie a podíl dovozu na tom, co do kraje teče. */
+  const a = curM.avail + curM.dis, imp = curM.imp, supply = a + imp || 1;
   setRing($("ringOwn"), 0, a / supply);
   setRing($("ringImp"), a / supply, imp / supply);
-  $("hubKey").textContent = ui.moment === "rocni" ? "Spotřeba" : "Zatížení";
+  $("hubKey").textContent = hour ? "Zatížení" : "Spotřeba, průměr";
   $("hubVal").textContent = mw(curM.load);
-  $("hubS1").textContent = "výroba " + mw(a);
+  $("hubS1").textContent = "výroba " + mw(curM.avail);
   $("hubS2").textContent = imp >= curM.surplus ? "dovoz " + mw(imp) : "přebytek " + mw(curM.surplus);
 }
 
@@ -568,6 +602,7 @@ function setTarget(){
   } else tween = 0;
   writeCaption();
   syncControls();
+  drawBackground(0);
 }
 
 let captionTimer = null;
@@ -585,13 +620,143 @@ function writeCaption(){
   captionTimer = setTimeout(put, 230);
 }
 
+/* Posuvníky: poloha je volná, stav je vždy nejbližší spočítaný. Stránka to říká a mezi stavy nepočítá. */
+const SLIDER_STEPS = [20, 10, 10];
+function stopsOf(k, path){
+  return k === 0 ? DATA.drivers.populace : k === 1 ? DATA.drivers.oteplovani : DATA.drivers.datacentra[path];
+}
+function physical(k, pos, path){
+  const st = stopsOf(k, path), a = st[0].hodnota, b = st[st.length - 1].hodnota;
+  return a + (b - a) * pos / SLIDER_STEPS[k];
+}
+function stopPos(k, i, path){
+  const st = stopsOf(k, path), a = st[0].hodnota, b = st[st.length - 1].hodnota;
+  return b > a ? Math.round((st[i].hodnota - a) / (b - a) * SLIDER_STEPS[k]) : 0;
+}
+function nearestStop(k, pos, path){
+  const v = physical(k, pos, path), st = stopsOf(k, path);
+  let best = 0;
+  st.forEach((s, i) => { if(Math.abs(s.hodnota - v) < Math.abs(st[best].hodnota - v)) best = i; });
+  return best;
+}
+function valueText(k, v, path){
+  if(k === 0) return NF0.format(v) + " obyvatel";
+  if(k === 1) return (v > 0 ? "+" : "") + NF1.format(v) + " °C";
+  return NF0.format(v) + " MW";
+}
+const SLIDER_NAME = ["Počet obyvatel 2050", "Další oteplení proti letům 2015 až 2019", "Datacentra v kraji"];
+function posFromCombo(){
+  for(let k = 0; k < 3; k++) ui.pos[k] = stopPos(k, ui.combo[k], ui.path);
+}
+function setScenarioFromCombo(){
+  const hit = DATA.scenarios.find(s => comboKey(s.combo) === comboKey(ui.combo));
+  ui.scen = hit ? hit.id : null;
+}
+function chooseScenario(id){
+  const s = DATA.scenarios.find(x => x.id === id);
+  ui.combo = s.combo.slice(); ui.scen = id;
+  posFromCombo(); setTarget();
+}
+function moveSlider(k, pos){
+  ui.pos[k] = pos;
+  ui.combo[k] = nearestStop(k, pos, ui.path);
+  setScenarioFromCombo();
+  setTarget();
+}
+function snapText(){
+  const out = [];
+  for(let k = 0; k < 3; k++){
+    const i = ui.combo[k];
+    if(ui.pos[k] !== stopPos(k, i, ui.path)) out.push(`${SLIDER_NAME[k]}: posuvník stojí na ${valueText(k, physical(k, ui.pos[k], ui.path), ui.path)}, hodinový výpočet pro tuto hodnotu neběžel, stránka ukazuje nejbližší spočítaný stav ${valueText(k, stopsOf(k, ui.path)[i].hodnota, ui.path)}.`);
+  }
+  return out.join(" ");
+}
+function flagText(){
+  const [p, , d, st] = ui.combo, out = [];
+  if(ui.year === 2025) return "";
+  if(p === 2 && st === 0) out.push("Víc obyvatel při útlumu oceli je růst bez pracovních míst, tato kombinace je málo věrohodná.");
+  if(p === 0 && d === 2) out.push("Datacentrum potřebuje málo lidí, proto je tato kombinace možná, i když kraj ubývá.");
+  return out.join(" ");
+}
+function stateText(){
+  if(ui.year === 2025) return "Rok 2025 je základ tabulky položek, posuvníky a scénáře platí jen pro rok 2050.";
+  const [p, w, d, st] = ui.combo;
+  const name = ui.scen ? DATA.scenarios.find(s => s.id === ui.scen).nazev : "Vlastní kombinace";
+  const total = Object.keys(DATA.states[ui.path]).length;
+  return `Zobrazený stav: ${name}, ${valueText(0, stopsOf(0, ui.path)[p].hodnota)}, oteplení ${valueText(1, stopsOf(1, ui.path)[w].hodnota)}, datacentra ${valueText(2, stopsOf(2, ui.path)[d].hodnota)}, ${st ? "ocel plně elektrická" : "jen první pec"}. V každé cestě je spočítáno ${total} kombinací, pro každou 5 povětrnostních let.`;
+}
 function syncControls(){
-  $("yearv").textContent = ui.year;
-  $("year").value = String(ui.year);
+  const y = ui.year === 2025;
+  document.querySelectorAll("[data-year]").forEach(b => b.setAttribute("aria-pressed", String(Number(b.dataset.year) === ui.year)));
   document.querySelectorAll("[data-moment]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.moment === ui.moment)));
   document.querySelectorAll("[data-path]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.path === ui.path)));
+  document.querySelectorAll("[data-steel]").forEach(b => { b.setAttribute("aria-pressed", String(Number(b.dataset.steel) === ui.combo[3])); b.disabled = y; });
+  document.querySelectorAll("[data-scen]").forEach(b => { b.setAttribute("aria-pressed", String(b.dataset.scen === ui.scen)); b.disabled = y; });
   for(const [id, key] of [["tintRocni", "rocni"], ["tintZima", "zima"], ["tintLeto", "leto"]]) $(id).classList.toggle("on", ui.moment === key);
+  const sc = DATA.scenarios.find(s => s.id === ui.scen);
+  $("scenText").textContent = y ? "" : sc ? sc.text : "Vlastní kombinace posuvníků, není to pojmenovaný scénář.";
+  for(let k = 0; k < 3; k++){
+    const inp = $("s" + k), st = stopsOf(k, ui.path)[ui.combo[k]];
+    inp.value = String(ui.pos[k]); inp.disabled = y;
+    inp.setAttribute("aria-valuetext", valueText(k, st.hodnota, ui.path));
+    $("r" + k).innerHTML = `${valueText(k, st.hodnota, ui.path)}<span class="tag${st.odhad ? " est" : ""}">${st.odhad ? "odhad" : "zdroj"}</span>`;
+    const stops = stopsOf(k, ui.path);
+    $("e" + k).innerHTML = `<span>${valueText(k, stops[0].hodnota, ui.path)}</span><span>${valueText(k, stops[stops.length - 1].hodnota, ui.path)}</span>`;
+  }
+  $("stateNote").textContent = stateText();
+  $("snapNote").textContent = y ? "" : snapText();
+  $("flagNote").textContent = flagText();
   $("stage").setAttribute("aria-label", `Schéma toků elektřiny, ${PATH_NAME[ui.path]}, rok ${ui.year}, ${MOMENT_NAME[ui.moment]}`);
+}
+
+/* Pozadí: vločky v zimě a slunce v létě, nikdy pod čísly. Při omezeném pohybu stojí, na malém telefonu je vypnuté, dokud si ho čtenář nezapne. */
+const FLAKES = 34;
+const flakes = [];
+let bgOn = true, bgCtx = null, sunAngle = 0;
+function coversNumber(x, y, pad){
+  for(const id of Object.keys(layoutBoxes)){
+    const b = layoutBoxes[id];
+    if(Math.abs(x - b.x) < b.w / 2 + pad && Math.abs(y - b.y) < b.h / 2 + pad) return true;
+  }
+  return Math.hypot(x - HX, y - HY) < R + pad;
+}
+function drawBackground(dt){
+  if(!bgCtx) return;
+  bgCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  bgCtx.clearRect(0, 0, W, H);
+  if(!bgOn) return;
+  const moving = !stillMode();
+  if(ui.moment === "zima"){
+    bgCtx.strokeStyle = "#cfe4ff"; bgCtx.lineCap = "round";
+    for(const f of flakes){
+      if(moving){
+        f.y += f.v * dt; f.x += Math.sin(f.y * .01 + f.p) * 6 * dt;
+        if(f.y > 1.02){ f.y = -.02; }
+      }
+      const x = f.x0 * W + Math.sin(f.y * 6 + f.p) * 10, y = f.y * H;
+      if(coversNumber(x, y, 6)) continue;
+      bgCtx.globalAlpha = f.a; bgCtx.lineWidth = 1;
+      bgCtx.beginPath();
+      for(let k = 0; k < 3; k++){
+        const a = k * Math.PI / 3 + f.p, c = Math.cos(a) * f.r, s = Math.sin(a) * f.r;
+        bgCtx.moveTo(x - c, y - s); bgCtx.lineTo(x + c, y + s);
+      }
+      bgCtx.stroke();
+    }
+  } else if(ui.moment === "leto"){
+    const r = tall ? 13 : 24, x = W * (tall ? .3 : .27), y = H * (tall ? .055 : .09);
+    if(moving) sunAngle += dt * .06;
+    if(coversNumber(x, y, r * 1.1)) return;
+    bgCtx.globalAlpha = .42; bgCtx.strokeStyle = "#ffcf5c"; bgCtx.fillStyle = "#ffcf5c"; bgCtx.lineWidth = 1.6; bgCtx.lineCap = "round";
+    bgCtx.beginPath(); bgCtx.arc(x, y, r * .55, 0, Math.PI * 2); bgCtx.fill();
+    bgCtx.beginPath();
+    for(let k = 0; k < 10; k++){
+      const a = sunAngle + k * Math.PI / 5, c = Math.cos(a), s = Math.sin(a);
+      bgCtx.moveTo(x + c * r * .78, y + s * r * .78); bgCtx.lineTo(x + c * r * 1.1, y + s * r * 1.1);
+    }
+    bgCtx.stroke();
+  }
+  bgCtx.globalAlpha = 1;
 }
 
 /* Smyčka. */
@@ -607,6 +772,7 @@ function frame(now){
     updateGeometry(); writeLabels();
   }
   drawSparks(dt);
+  drawBackground(dt);
   requestAnimationFrame(frame);
 }
 function startLoop(){
@@ -629,6 +795,7 @@ function applyMotion(){
   $("motionIcon").setAttribute("d", still ? "M7 5l12 7-12 7z" : "M8 5v14M16 5v14");
   $("motion").setAttribute("aria-label", still ? "Spustit pohyb" : "Zastavit pohyb");
   $("motion").setAttribute("aria-pressed", String(userStill));
+  drawBackground(0);
 }
 
 /* Ukazatel: uzly a pruhy, hodnoty v MW. */
@@ -641,54 +808,48 @@ function itemRows(state, id){
     .map(x => rowHtml(x[0], mw(x[1]) + " MW")).join("");
 }
 function tipForNode(id){
-  const s = flowsFor(ui.path, ui.year, ui.moment), m = s.m, node = nodesById[id];
+  const s = flowsFor(ui.path, ui.year, ui.moment), m = s.m, node = nodesById[id], a = sumFor(ui.path, ui.year);
   let html = `<b>${node ? node.full : "Moravskoslezský kraj"}</b>`;
   const annual = ui.moment === "rocni";
-  const year = ui.year;
   if(id === "kraj"){
-    html += rowHtml("Výroba v kraji", mw(m.avail) + " MW") + rowHtml(annual ? "Spotřeba" : "Zatížení bez pružných", mw(m.load) + " MW");
-    html += rowHtml("Bilance", mw(m.balance) + " MW", "sum");
-    if(annual) html += rowHtml("Bilance za rok", gwh(m.balance) + " GWh");
+    html += rowHtml("Výroba v kraji", mw(m.avail) + " MW") + rowHtml("Zatížení bez elektrolyzéru a baterie", mw(m.load) + " MW");
+    html += rowHtml("Elektrokotle z přebytku", mw(m.heat) + " MW") + rowHtml("Dovoz", mw(m.imp) + " MW", "sum");
+    if(annual) html += rowHtml("Bilance řádků tabulky za rok", g0(a.bilance) + " GWh");
   } else if(id === "sit"){
-    html += rowHtml("Dovoz", mw(m.import) + " MW") + rowHtml("Nevyužito nebo vývoz", mw(m.spare) + " MW");
-    if(annual) html += rowHtml("Dovoz za rok", gwh(m.import) + " GWh");
+    html += rowHtml("Dovoz", mw(m.imp) + " MW") + rowHtml("Přebytek bez využití", mw(m.curt) + " MW");
+    if(annual) html += rowHtml("Dovoz za rok", g0(a.dovoz) + " GWh") + rowHtml("z toho pro vodík", g0(a.proVodik) + " GWh");
+    html += `<p>Dovoz pro vodík je v každé hodině menší z dovozu a elektřiny ze sítě pro elektrolyzér.</p>`;
   } else if(id === "baterie"){
-    html += rowHtml("Nabíjení v tomto okamžiku", mw(m.charge) + " MW");
-    if(annual) html += rowHtml("Ztráty, průměr", mw(m.batteryLoss) + " MW");
-    html += rowHtml("Výkon baterie", mw(m.batteryMw) + " MW");
-    if(m.batteryH !== null) html += rowHtml("Výdrž při tomto výkonu", NF1.format(m.batteryH) + " h");
-    html += `<p>Bilance baterii nepočítá jako zdroj. Výkon a výdrž jsou z kontrolní tabulky špičky, nabíjení z hodinového výpočtu.</p>`;
+    html += rowHtml("Nabíjení z přebytku", mw(m.chS) + " MW") + rowHtml("Nabíjení ze sítě", mw(m.chG) + " MW") + rowHtml("Vybíjení", mw(m.dis) + " MW");
+    if(!annual && m.socGWh !== undefined) html += rowHtml("Stav", NF1.format(m.socGWh) + " GWh");
+    if(annual) html += rowHtml("Za rok nabito ze sítě", g0(a.nabitoSit) + " GWh") + rowHtml("Za rok nabito z přebytku", g0(a.nabitoPrebytek) + " GWh") + rowHtml("Za rok vybito", g0(a.vybito) + " GWh");
+    html += `<p>${ui.path === "progresivni" && ui.year === 2050 ? `Baterie ${NF1.format(DATA.equip.bateriePWh)} GWh a ${NF0.format(DATA.equip.bateriePMW)} MW vyrovnává den: nad hladinou vybíjí, pod ní nabíjí, i ze sítě. Není to záloha ani zdroj energie.` : "V této cestě a roce baterie není."}</p>`;
   } else if(id === "elektrolyzer"){
-    html += rowHtml("Dostává teď", mw(flowOf(s, "kElektrolyzer")) + " MW");
-    if(!annual) html += rowHtml("Z poledního přebytku", mw(m.forH2) + " MW");
-    html += rowHtml("Potřebný výkon", mw(m.electro) + " MW");
-    html += `<p>Potřebný výkon je roční elektřina na vodík pro flotilu dělená ${NF0.format(DATA.electrolyserHours)} plnými hodinami z hodinového výpočtu.</p>`;
+    html += rowHtml("Bere z přebytku", mw(m.elS) + " MW") + rowHtml("Bere ze sítě", mw(m.elG) + " MW");
+    if(ui.path === "progresivni" && ui.year === 2050) html += `<p>Výkon ${NF0.format(DATA.equip.elektrolyzerMW)} MW. Výroba je rozvržená s výhledem na celý rok, v mezích malé nádrže, aby se přebytek nevyvážel a zimní špička nerostla. Osobní auta na vodík nikdy nejezdí.</p>`;
   } else if(id === "nadrz"){
-    html += rowHtml("Přítok", mw(flowOf(s, "h2Nadrz")) + " MW") + rowHtml("Odběr", mw(flowOf(s, "h2Flotila")) + " MW");
-    html += rowHtml("Změna zásoby", mw(m.tankDelta) + " MW", "sum");
-    if(DATA.store && ui.path === "progresivni" && year === 2050) html += rowHtml("Velikost podle hodinového výpočtu", NF0.format(DATA.store.t) + " t");
-    html += `<p>Vodík je v MW elektřiny potřebné k jeho výrobě. Stav nádrže se nesleduje.</p>`;
+    html += rowHtml("Přítok", mw(flowOf(s, "h2Nadrz")) + " MW") + rowHtml("Odběr flotily", mw(flowOf(s, "h2Flotila")) + " MW") + rowHtml("Změna zásoby", mw(m.tankDelta) + " MW", "sum");
+    if(!annual && m.tankT !== undefined) html += rowHtml("V nádrži", NF1.format(m.tankT) + " t");
+    html += `<p>Malá nádrž ${NF0.format(DATA.equip.nadrzT)} t pokryje jen hodiny, ne sezónu. Vodík z ní jde jen do flotily, do sítě se nevrací. Toky jsou v MW elektřiny potřebné k výrobě.</p>`;
   } else if(id === "flotila"){
-    html += itemRows(s, id);
-    html += rowHtml("Celkem z nádrže", mw(flowOf(s, "h2Flotila")) + " MW", "sum");
-    html += `<p>Odběr je rovnoměrný po celý rok, v MW elektřiny potřebné k výrobě vodíku.</p>`;
+    html += rowHtml("Odběr z nádrže", mw(flowOf(s, "h2Flotila")) + " MW", "sum");
+    html += `<p>Polovina MHD a polovina nákladní dopravy, odběr je rovnoměrný po celý rok, v MW elektřiny potřebné k výrobě vodíku. Osobní auta jsou v tabulce vedená bez vodíku.</p>`;
   } else {
     const v = flowOf(s, id);
     html += itemRows(s, id);
     html += rowHtml("Celkem", mw(v) + " MW", "sum");
-    if(annual) html += rowHtml("Za rok", gwh(v) + " GWh");
-    if(id === "teplo" && m.heat > IDLE_MW) html += `<p>Z toho ${mw(m.heat)} MW do elektrokotlů z poledního přebytku.</p>`;
-    if(id === "vitr" && ui.moment === "zima") html += `<p>Do zimní špičky se vítr počítá nulou, změřený medián nulový není.</p>`;
-    if(id === "plyn" && ui.moment === "leto") html += `<p>Nové plynové bloky v poledni stojí jako záloha.</p>`;
+    if(annual) html += rowHtml("Za rok", g0(v * 8.76) + " GWh");
+    if(id === "teplo" && m.heat > IDLE_MW) html += `<p>Elektrokotle mají ${NF0.format(DATA.equip.kotleMW[ui.path])} MW a berou jen přebytek. Hodnota v měřidle je o ztráty v síti vyšší.</p>`;
+    if(id === "plyn" && ui.path === "progresivni" && ui.year === 2050) html += `<p>Plynové bloky ${NF0.format(DATA.equip.plynMW.progresivni)} MW běží jen při schodku, palivo je omezené ročním rozpočtem.</p>`;
   }
   return html;
 }
 function tipForEdge(i){
   const s = flowsFor(ui.path, ui.year, ui.moment), e = DATA.edges[i];
-  const names = {dovoz:"Dovoz do kraje", vyvoz:"Nevyužito nebo vývoz", kBaterie:"Do baterie", kElektrolyzer:"Do elektrolyzéru", h2Nadrz:"Vodík do nádrže", h2Flotila:"Vodík z nádrže do flotily"};
+  const names = {dovoz:"Dovoz do kraje", vyvoz:"Přebytek bez využití", kBaterie:"Do baterie", baterieK:"Z baterie do kraje", kElektrolyzer:"Do elektrolyzéru", h2Nadrz:"Vodík do nádrže", h2Flotila:"Vodík z nádrže do flotily"};
   const title = names[e.id] || nodesById[e.id].full;
   let html = `<b>${title}</b>` + rowHtml("Výkon", mw(s.e[i]) + " MW");
-  if(ui.moment === "rocni") html += rowHtml("Za rok", gwh(s.e[i]) + " GWh");
+  if(ui.moment === "rocni") html += rowHtml("Za rok", g0(s.e[i] * 8.76) + " GWh");
   return html;
 }
 function showTip(html, x, y){
@@ -776,37 +937,58 @@ function buildScene(){
   stage.addEventListener("pointerleave", hideTip);
 }
 
-let playTimer = null;
-function stopPlay(){
-  if(playTimer === null) return;
-  clearInterval(playTimer); playTimer = null;
-  $("playIcon").setAttribute("d", "M7 5l12 7-12 7z");
-  $("play").setAttribute("aria-pressed", "false");
+function esc(t){ return String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;"); }
+function buildSliders(){
+  const box = $("sliders");
+  SLIDER_NAME.forEach((name, k) => {
+    const d = document.createElement("div");
+    d.className = "slider";
+    d.innerHTML = `<label for="s${k}">${name}</label><input id="s${k}" type="range" min="0" max="${SLIDER_STEPS[k]}" step="1"><span class="read" id="r${k}"></span><span class="ends" id="e${k}"></span>`;
+    box.appendChild(d);
+  });
+  for(let k = 0; k < 3; k++) $("s" + k).addEventListener("input", ev => moveSlider(k, Number(ev.target.value)));
 }
-function togglePlay(){
-  if(playTimer !== null){ stopPlay(); return; }
-  if(ui.year >= 2050){ ui.year = 2025; setTarget(); }
-  $("playIcon").setAttribute("d", "M8 5v14M16 5v14");
-  $("play").setAttribute("aria-pressed", "true");
-  playTimer = setInterval(() => {
-    if(ui.year >= 2050){ stopPlay(); return; }
-    ui.year += 1; setTarget();
-  }, 760);
+function buildScenarios(){
+  const box = $("segScen");
+  for(const s of DATA.scenarios){
+    const b = document.createElement("button");
+    b.type = "button"; b.dataset.scen = s.id; b.textContent = s.nazev; b.setAttribute("aria-pressed", "false");
+    b.addEventListener("click", () => chooseScenario(s.id));
+    box.appendChild(b);
+  }
+}
+function buildSources(){
+  const dr = DATA.drivers;
+  const list = (title, stops, text) => `<h3>${title}</h3><ul>${stops.map((s, i) => `<li>${text(s, i)}: ${esc(s.popis)}. <b>${s.odhad ? "Odhad." : "Zdroj."}</b> ${esc(s.zdroj)}.</li>`).join("")}</ul>`;
+  let html = list("Počet obyvatel", dr.populace, s => valueText(0, s.hodnota));
+  html += list("Další oteplení", dr.oteplovani, s => valueText(1, s.hodnota));
+  html += list("Datacentra, progresivní cesta", dr.datacentra.progresivni, s => valueText(2, s.hodnota));
+  html += list("Datacentra, konzervativní cesta", dr.datacentra.konzervativni, s => valueText(2, s.hodnota));
+  html += list("Ocel", dr.ocel, s => s.stupen === "plna" ? "Ocel plně elektrická" : "Jen první pec");
+  $("sourcesBody").innerHTML = html;
+  $("noteMoments").innerHTML = `<h2>Tři pohledy</h2><p>Celý rok je průměr všech hodin 5 let. Zima je hodina s největším rozdílem zatížení a neřízené výroby v prosinci až únoru. Léto je hodina s největším přebytkem výroby nad zatížením v dubnu až září. Datum a povětrnostní rok jsou vždy v popisu nad schématem.</p>`;
+  const q = DATA.equip;
+  $("noteDispatch").innerHTML = `<h2>Zařízení je ve všech kombinacích stejné</h2><p>Progresivní cesta 2050: baterie ${NF1.format(q.bateriePWh)} GWh a ${NF0.format(q.bateriePMW)} MW, elektrolyzér ${NF0.format(q.elektrolyzerMW)} MW, nádrž ${NF0.format(q.nadrzT)} t, elektrokotle do ${NF0.format(q.kotleMW.progresivni)} MW jen z přebytku, plyn ${NF0.format(q.plynMW.progresivni)} MW. Velikosti se pro scénář znovu nehledají. Konzervativní cesta baterii ani flotilu na vodík nemá.</p>`;
 }
 function init(){
-  $("hoursNote").textContent = NF0.format(DATA.electrolyserHours);
-  buildScene();
   const query = window.matchMedia ? window.matchMedia("(prefers-reduced-motion: reduce)") : null;
   reduced = !!(query && query.matches);
+  for(let k = 0; k < FLAKES; k++) flakes.push({x0:Math.random(), y:Math.random(), v:.015 + Math.random() * .02, r:1.6 + Math.random() * 2.4, a:.18 + Math.random() * .2, p:Math.random() * 6.28});
+  buildSliders(); buildScenarios(); buildSources();
+  buildScene();
+  posFromCombo();
   if(query && query.addEventListener) query.addEventListener("change", e => { reduced = e.matches; applyMotion(); });
   document.querySelectorAll("[data-moment]").forEach(b => b.addEventListener("click", () => { ui.moment = b.dataset.moment; hideTip(); setTarget(); }));
-  document.querySelectorAll("[data-path]").forEach(b => b.addEventListener("click", () => { ui.path = b.dataset.path; hideTip(); setTarget(); }));
-  $("year").addEventListener("input", ev => { stopPlay(); ui.year = Number(ev.target.value); setTarget(); });
-  $("play").addEventListener("click", togglePlay);
+  document.querySelectorAll("[data-path]").forEach(b => b.addEventListener("click", () => { ui.path = b.dataset.path; posFromCombo(); hideTip(); setTarget(); }));
+  document.querySelectorAll("[data-year]").forEach(b => b.addEventListener("click", () => { ui.year = Number(b.dataset.year); hideTip(); setTarget(); }));
+  document.querySelectorAll("[data-steel]").forEach(b => b.addEventListener("click", () => { ui.combo[3] = Number(b.dataset.steel); setScenarioFromCombo(); setTarget(); }));
   $("motion").addEventListener("click", () => { userStill = !userStill; applyMotion(); });
+  $("bgToggle").addEventListener("click", () => { bgOn = !bgOn; $("bgToggle").setAttribute("aria-pressed", String(bgOn)); drawBackground(0); });
   let resizeTimer = null;
   window.addEventListener("resize", () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(applyLayout, 120); });
   applyLayout();
+  bgOn = W >= 560;
+  $("bgToggle").setAttribute("aria-pressed", String(bgOn));
   setTarget();
   writeLabels();
   applyMotion();
