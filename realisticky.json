@@ -117,7 +117,7 @@
 "kotva_x1": "6",
 "zdroj": "ČEPS, Data; ČEZ Distribuce, Nejde mi elektřina; SMARD, Bundesnetzagentur; web MSEC. Stav 2026-11-05",
 "url": "https://www.ceps.cz/cs/data ; https://www.cezdistribuce.cz/nejde-mi-elektrina ; https://www.smard.de/en ; https://www.mskec.cz/",
-"vaha0": "V podkladu mění jen zimní výkon odhadem řádu, položku energie nemění a měřítko je vlastní hodnocení webů.",
+"vaha0": "V podkladu mění jen zimní výkon, a to řádovým odhadem. Žádnou položku energie nemění a měřítkem je vlastní hodnocení webů.",
 "ps": "2",
 "ks": "2",
 "podklad": {
@@ -132,7 +132,7 @@
 "popis_x1": "Široká společenská podpora OZE, akumulace, decentralizace a energetické soběstačnosti.",
 "popis_x0": "Skepticismus vůči novým technologiím a preference tradičních řešení.",
 "x": "0.36",
-"duvod_prepisu": "Průměr všech čtení při stejných kotvách: Eurobarometr 2025, důležitost podpory obnovitelných zdrojů, x = 0,64; podpora větru 68 %, x = 0,46; podpora fotovoltaiky 63 %, x = 0,33; CVVM 2025, Zelená dohoda 42 % pro, x = 0.",
+"duvod_prepisu": "Průměr všech měření při stejných krajních hodnotách škály: Eurobarometr 2025, důležitost podpory obnovitelných zdrojů, na škále 0,64; podpora větru 68 %, na škále 0,46; podpora fotovoltaiky 63 %, na škále 0,33; CVVM 2025, Zelená dohoda 42 % pro, na škále 0.",
 "jistota": "střední",
 "ukazatel": "Podíl (%) odpovědí, že je důležité, aby česká vláda podporovala rozvoj obnovitelných zdrojů (QD8.2, důležité celkem)",
 "uzemi": "ČR (krajská data nenalezena; národní údaj místo MSK)",
@@ -157,7 +157,7 @@
 "popis_x1": "Veřejnost podporuje výstavbu nových zařízení a využití brownfieldů.",
 "popis_x0": "Výrazný NIMBY efekt a konflikty při povolování infrastruktury.",
 "x": "0.32",
-"duvod_prepisu": "Průměr dvou čtení: sledovaná hlasování v kraji 2025 a 2026, 1 ze 7 pro záměr, x = 0,19, a dlouhodobě v ČR asi třetina hlasování pro vítr, x = 0,44. Hlasuje se tam, kde je spor.",
+"duvod_prepisu": "Průměr dvou měření: sledovaná hlasování v kraji 2025 a 2026, 1 ze 7 pro záměr, na škále 0,19, a dlouhodobě v ČR asi třetina hlasování pro vítr, na škále 0,44. Hlasuje se tam, kde je spor.",
 "jistota": "střední",
 "ukazatel": "Podíl (%) místních referend v MSK o energetických záměrech 2025 a 2026 s výsledkem pro záměr (1 ze 7)",
 "uzemi": "MSK",
@@ -182,7 +182,7 @@
 "popis_x1": "Nové technologie jsou spojovány s prosperitou a rozvojem regionu.",
 "popis_x0": "Technologie jsou často spojovány s rizikem a nejistotou.",
 "x": "0.418",
-"duvod_prepisu": "Měřená čtení dávají x 0,25 a 0,55, 66,7 je přepis slov dvě třetiny. Průzkum zadal kraj.",
+"duvod_prepisu": "Měření dávají na škále 0,25 a 0,55, 66,7 je přepis slov dvě třetiny. Průzkum zadal kraj.",
 "jistota": "nízká",
 "ukazatel": "Podíl (%) obyvatel Ostravska a Karvinska souhlasících se stavbou objektu pro velkého zaměstnavatele (gigafactory) na zelené ploše",
 "uzemi": "MSK (Ostravsko a Karvinsko, ne celý kraj)",
@@ -307,7 +307,7 @@
 "popis_x1": "Silná energetická a technologická gramotnost. Úspěšné rekvalifikace pracovníků.",
 "popis_x0": "Nedostatečná adaptace vzdělávacího systému. Nedostatek kvalifikované pracovní síly.",
 "x": "0.32",
-"duvod_prepisu": "Podíl vysokoškoláků jen přibližuje montážní kapacitu, kterou má indikátor na mysli.",
+"duvod_prepisu": "Podíl vysokoškoláků jen přibližuje montážní kapacitu, kterou indikátor popisuje.",
 "jistota": "střední",
 "ukazatel": "Podíl terciárně vzdělaných ve věku 25 až 34 let (%)",
 "uzemi": "MSK (CZ08 = CZ080); kotva x1 EU27",
@@ -582,7 +582,7 @@
 "popis_x1": "Rozvoj energetických komunit, mikrosítí a lokálních zdrojů.",
 "popis_x0": "Minimální rozvoj komunitních projektů.",
 "x": "0.26",
-"duvod_prepisu": "Dnešní podíl je x = 0,02 a prognóza neexistuje. Stavový ukazatel bez prognózy: polovina cesty mezi dneškem a neutrální hodnotou 0,5. Odhad.",
+"duvod_prepisu": "Dnešní podíl dává na škále 0,02 a prognóza neexistuje. Výchozí hodnota je proto v polovině mezi dneškem a neutrální hodnotou 0,5. Odhad.",
 "jistota": "odhad",
 "ukazatel": "Podíl odběrných míst zapojených do sdílení elektřiny na všech odběrných místech (%)",
 "uzemi": "ČR (národní data místo MSK)",
@@ -607,7 +607,7 @@
 "popis_x1": "Běžné vybavení domácností záložními zdroji a plány.",
 "popis_x0": "Vysoká závislost na centrální infrastruktuře.",
 "x": "0.34",
-"duvod_prepisu": "Dnešní podíl je x = 0,18 a prognóza neexistuje. Stejné pravidlo jako u komunitní energetiky. Odhad.",
+"duvod_prepisu": "Dnešní podíl dává na škále 0,18 a prognóza neexistuje. Stejné pravidlo jako u komunitní energetiky. Odhad.",
 "jistota": "odhad",
 "ukazatel": "Podíl respondentů se záložním zdrojem energie (%)",
 "uzemi": "ČR (národní data místo MSK)",
@@ -632,7 +632,7 @@
 "popis_x1": "Vysoká odolnost vůči dezinformacím.",
 "popis_x0": "Silný vliv dezinformačních kampaní.",
 "x": "0.42",
-"duvod_prepisu": "Průměr všech čtení: nejvěrohodnější nepravdivý narativ obecně x = 0,52, energetický narativ o elektromobilech 58 % v roce 2024, x = 0,04, a MLI 2023, x = 0,70.",
+"duvod_prepisu": "Průměr všech měření: obecně nejvěrohodnější nepravdivé tvrzení, na škále 0,52, nepravdivé tvrzení o elektromobilech 58 % v roce 2024, na škále 0,04, a index mediální gramotnosti MLI 2023, na škále 0,70.",
 "jistota": "střední",
 "ukazatel": "Podíl lidí, kteří považují za věrohodný nejvěrohodnější nepravdivý narativ vlny CEDMO Trends, v %; nižší = blíže x=1",
 "uzemi": "ČR (národní data místo MSK)",
@@ -832,14 +832,14 @@
 "popis_x1": "Rozvoj elektromobility, sdílené mobility a práce na dálku.",
 "popis_x0": "Přetrvávající závislost na individuální automobilové dopravě.",
 "x": "0.48",
-"duvod_prepisu": "Dnešní podíl je pod nízkým scénářem roku 2045, takže x z dneška je 0. Výchozí je střední scénář 2045 studie pro ČEPS a distributory, 55,7 % elektromobilů, přepočtený na řádky cest: konzervativní 19 %, progresivní 95 %.",
+"duvod_prepisu": "Dnešní podíl je pod nízkým scénářem roku 2045, takže dnešní stav dává na škále 0. Výchozí je střední scénář 2045 studie pro ČEPS a distributory, 55,7 % elektromobilů, přepočtený na cesty: konzervativní 19 %, progresivní 95 %.",
 "jistota": "střední",
 "ukazatel": "Podíl osobních bateriových elektromobilů na osobních vozidlech v kraji (%)",
 "uzemi": "MSK (hodnota); ČR (prognóza a kotvy)",
 "hodnota": "0.6",
 "rok": "2025",
-"kotva_x0": "19 % aut, řádek konzervativní cesty",
-"kotva_x1": "95 % aut, řádek progresivní cesty",
+"kotva_x0": "19 % aut, konzervativní cesta",
+"kotva_x1": "95 % aut, progresivní cesta",
 "zdroj": "Electric Drive (3.9.2025) přebírá registr CDV; Euroenergy, Predikce vývoje elektromobility v ČR, aktualizace (MPO); Eurostat tran_r_vehst; Eurostat lfsa_ehomp",
 "url": "https://www.electricdrive.cz/cesko-prekonalo-hranici-50-tisic-elektromobilu-horizont-2030-cili-na-ctvrt-milionu/ ; https://mpo.gov.cz/assets/cz/energetika/strategicke-a-koncepcni-dokumenty/narodni-akcni-plan-pro-chytre-site/2024/6/Elektromobilita-predikce-aktualizace.pdf ; https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/tran_r_vehst?format=JSON&geo=CZ08&vehicle=CAR&unit=P_THAB ; https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/lfsa_ehomp?format=JSON&geo=CZ&sex=T&age=Y15-64&wstatus=EMP&frequenc=USU&unit=PC",
 "vaha0": "",
@@ -1268,7 +1268,7 @@
 "default": 1.2,
 "min": 0.0,
 "max": 2.5,
-"text": "Další oteplení proti klimatu let 2015 až 2019. Výchozí hodnota je odhad: CMIP6 pro ČR dává +1,1 °C při SSP2-4.5 a +1,5 °C při SSP5-8.5, pozorovaný trend +1,2 až +1,5 °C, široké rozpětí +0,5 až +2,1 °C. Data pro ČR, přebírá se pro kraj.",
+"text": "Další oteplení proti klimatu let 2015 až 2019. Výchozí hodnota je odhad: klimatické modely CMIP6 dávají pro ČR +1,1 °C při středním scénáři emisí SSP2-4.5 a +1,5 °C při vysokém SSP5-8.5, pozorovaný trend je +1,2 až +1,5 °C, široké rozpětí +0,5 až +2,1 °C. Data jsou za ČR, pro kraj se přebírají.",
 "zdroje": [
 [
 "World Bank CCKP, CMIP6 pro ČR",
@@ -1285,7 +1285,7 @@
 "base": 1182.589793,
 "min": 950,
 "max": 1050,
-"text": "Obyvatel kraje v roce 2050. Obě cesty už počítají s projekcí ČSÚ, 999 tisíc, a EUROPOP2025 dává 999 tisíc. Výchozí odchylka je proto nula. Varianty Eurostatu jsou 965 až 1 022 tisíc. Změřený stav k 1. 1. 2026 je o 4 207 osob nad projekcí.",
+"text": "Počet obyvatel kraje v roce 2050. Obě cesty už počítají s projekcí ČSÚ, 999 tisíc, a EUROPOP2025 dává 999 tisíc. Výchozí odchylka je proto nula. Varianty Eurostatu jsou 965 až 1 022 tisíc. Změřený stav k 1. 1. 2026 je o 4 207 osob nad projekcí.",
 "zdroje": [
 [
 "ČSÚ, Projekce obyvatelstva v krajích ČR do roku 2080",
@@ -1302,7 +1302,7 @@
 "key": "smr",
 "nazev": "Malý reaktor SMR v kraji",
 "stav": "Memorandum o přípravě lokalit z července 2026, lokalita Dětmarovice není vybraná, řízení EIA pro ni nebylo nalezeno, rozhodnutí o stavbě chybí.",
-"odhad": "Odhad 25 %, rozpětí 15 až 40 %, pro aspoň jeden blok v provozu do konce roku 2049. Je to úsudek z řetězu kroků: první blok ve Wales, Temelín, potom Dětmarovice. Podmíněně na provoz je rok spuštění spíše 2048 než 2045.",
+"odhad": "Odhad 25 %, rozpětí 15 až 40 %, pro aspoň jeden blok v provozu do konce roku 2049. Je to úsudek z řetězu kroků: první blok ve Walesu, Temelín, potom Dětmarovice. Pokud se reaktor postaví, je rok spuštění spíše 2048 než 2045.",
 "zdroje": [
 [
 "ČEZ, tisková zpráva o memorandu, 21. 7. 2026",
@@ -1316,9 +1316,9 @@
 },
 {
 "key": "gas",
-"nazev": "Plynové bloky ve větvi bez SMR",
+"nazev": "Plynové bloky bez reaktoru SMR",
 "stav": "Výchozí je 283 MW, tedy doložené a oznámené projekty. Plyn navíc se nepřidává. Konzervativní cesta má 683 MW.",
-"odhad": "Bloky bez doloženého řízení mají odhad 30 % pro aspoň jeden, tolik běhů má v pásmu 683 MW. Bez reaktoru může být potřeba výkonu větší, tuto hodnotu nikdo neuvádí.",
+"odhad": "U bloků bez doloženého řízení je odhad 30 %, že se postaví aspoň jeden. Tolik simulací má v pásmu 683 MW. Bez reaktoru může být potřeba výkonu větší, tuto hodnotu nikdo neuvádí.",
 "zdroje": [
 [
 "Ekonomický deník, Třebovice, 7. 10. 2026",
@@ -1330,7 +1330,7 @@
 "key": "dc",
 "nazev": "Velká datová centra",
 "stav": "V kraji nebyl nalezen žádný jmenovaný projekt od 100 MW. Rezervace připojení nejsou veřejné.",
-"odhad": "Obhajitelné číslo neexistuje a skóre z indikátorů není pravděpodobnost. Volba Podle indikátorů dá ano až od skóre 0,75. Do pásma událost nevstupuje, účinek je v tabulce událostí.",
+"odhad": "Obhajitelné číslo neexistuje a hodnota z indikátorů není pravděpodobnost. Volba Podle indikátorů dá ano až od hodnoty 0,75. Do pásma nejistoty událost nevstupuje, její účinek je v tabulce událostí.",
 "zdroje": [
 [
 "Zakazka.cz podle EGU, 9. 6. 2026",
@@ -1341,8 +1341,8 @@
 {
 "key": "pec",
 "nazev": "Elektrická pec v Třinci",
-"stav": "První pec není konečně rozhodnutá, firma ji odložila nejméně do roku 2030. Druhá etapa není v žádném nalezeném dokumentu.",
-"odhad": "První pec: odhad 60 %, rozpětí 40 až 75 %, úsudek. Plná elektrifikace: obhajitelné číslo neexistuje, volba Podle odhadů ji dá až od skóre 0,75 a do pásma nevstupuje.",
+"stav": "O první peci není definitivně rozhodnuto, firma ji odložila nejméně do roku 2030. Druhá etapa není v žádném nalezeném dokumentu.",
+"odhad": "První pec: odhad 60 %, rozpětí 40 až 75 %, úsudek. Plná elektrifikace: obhajitelné číslo neexistuje, volba Podle odhadů ji dá až od hodnoty 0,75 a do pásma nejistoty nevstupuje.",
 "zdroje": [
 [
 "Třinecké železárny, tisková zpráva, 24. 6. 2025",
@@ -1357,7 +1357,7 @@
 {
 "key": "huta",
 "nazev": "Oblouková pec v Nové huti",
-"stav": "Záměr prošel zjišťovacím řízením bez plného posouzení, dotace je přislíbená, rozhodnutí o stavbě chybí. Obě cesty s pecí počítají stejně, proto je to odchylka mimo osu cest.",
+"stav": "Záměr prošel zjišťovacím řízením bez plného posouzení, dotace je přislíbená, rozhodnutí o stavbě chybí. Obě cesty s pecí počítají stejně, proto se nastavuje zvlášť, mimo posun mezi cestami.",
 "odhad": "Odhad 45 %, rozpětí 25 až 60 %, úsudek.",
 "zdroje": [
 [
@@ -2167,7 +2167,7 @@
 },
 "rozklad": [
 {
-"zdroj": "Míry naplnění indikátorů",
+"zdroj": "Hodnoty indikátorů",
 "sam": 475,
 "sam_vyroba": 574,
 "sam_spotreba": 881,
@@ -2207,7 +2207,7 @@
 "ubude": 0
 },
 {
-"zdroj": "Technická nejistota řádků",
+"zdroj": "Technická nejistota položek",
 "sam": 3595,
 "sam_vyroba": 1892,
 "sam_spotreba": 2875,
@@ -2449,7 +2449,7 @@
 "vyroba": 3531,
 "spotreba": 8661,
 "schodek": 5129,
-"nazev": "Výchozí: vážený průměr, přímka"
+"nazev": "Výchozí: vážený průměr, lineární převod"
 },
 {
 "vyroba": 3510,
@@ -2473,25 +2473,25 @@
 "vyroba": 3555,
 "spotreba": 8615,
 "schodek": 5060,
-"nazev": "Váhy ze skóre dopadu v tabulce indikátorů, význam škály není doložený"
+"nazev": "Váhy z hodnocení dopadu v tabulce indikátorů, význam škály není doložený"
 },
 {
 "vyroba": 3202,
 "spotreba": 8223,
 "schodek": 5021,
-"nazev": "Pomalejší náběh, a na 1,5"
+"nazev": "Pomalejší náběh, posun a umocněný na 1,5"
 },
 {
 "vyroba": 3860,
 "spotreba": 9080,
 "schodek": 5220,
-"nazev": "Rychlejší náběh, a na 1/1,5"
+"nazev": "Rychlejší náběh, posun a umocněný na 1/1,5"
 },
 {
 "vyroba": 3314,
 "spotreba": 8430,
 "schodek": 5116,
-"nazev": "S-křivka v a se středem 0,5, jen ilustrace"
+"nazev": "S-křivka posunu a se středem 0,5, jen ilustrace"
 }
 ],
 "dlazdice": {
@@ -2681,8 +2681,8 @@
 "zaokrouhleni": "cele",
 "hover": [
 "`Výroba ${N(g(\"SMR\"))} GWh za rok, to je ${P(g(\"SMR\") / Math.max(use, 1))} spotřeby kraje.`",
-"`Jeden reaktor ${N(SMR_MW)} MW a ${N(SMR_UNIT)} GWh, tedy 7 884 hodin plného výkonu.`",
-"`Výkon 500 MW je volba cesty, studie uvádí 350 MWe. Další reaktor nemá podklad.`"
+"`Jeden reaktor má výkon ${N(SMR_MW)} MW a vyrobí ${N(SMR_UNIT)} GWh za rok, tedy 7 884 hodin plného výkonu.`",
+"`Výkon 500 MW je předpoklad této cesty, studie uvádí 350 MW elektrického výkonu. Pro další reaktor podklad není.`"
 ],
 "hover_pri_nule": "Cesta s reaktorem nepočítá, nebo reaktor ve zvoleném roce ještě neběží.",
 "dnes": "0",
@@ -2714,8 +2714,8 @@
 "`Celkem ${N(g(\"vítr\") * 1000 / K.H_VITR.v)} MW, což je ${P((g(\"vítr\") * 1000 / K.H_VITR.v) / K.VITR_MEZ_MW.v)} potenciálu ${N(K.VITR_MEZ_MW.v)} MW podle Dopadové studie.`",
 "`Počítáno na turbínu 6,2 MW, jako v jednom záměru v kraji: 27 turbín, 167 MW.`"
 ],
-"hover_pri_nule": "Žádná turbína nad dnešních 41,8 MW.",
-"dnes": "dnes 41,8 MW",
+"hover_pri_nule": "Žádná turbína navíc k dnešním 41,8 MW.",
+"dnes": "dnes celkem 41,8 MW",
 "cena": {
 "low": 1300000,
 "high": 2200000,
@@ -2733,14 +2733,14 @@
 "icon": "sun",
 "ikona_svg": null,
 "jednotka": [
-"střecha po 10 kWp",
-"střechy po 10 kWp",
-"střech po 10 kWp"
+"střecha",
+"střechy",
+"střech"
 ],
 "vzorec": "g(\"fotovoltaika střešní\") * 1000 / K.H_PV.v * 1000 / K.KWP_STRECHA.v",
 "zaokrouhleni": "sig2",
 "hover": [
-"`Výroba ${N(g(\"fotovoltaika střešní\"))} GWh za rok, ${N(g(\"fotovoltaika střešní\") * 1000 / K.H_PV.v)} MWp při 942 hodinách.`",
+"`Výroba ${N(g(\"fotovoltaika střešní\"))} GWh za rok z ${N(g(\"fotovoltaika střešní\") * 1000 / K.H_PV.v)} MWp při 942 hodinách plného výkonu.`",
 "`Je to přepočet: střechou se rozumí domácí elektrárna asi 10 kWp. Firemní střechy jsou větší, skutečných střech je méně.`",
 "`Odpovídá ${P((g(\"fotovoltaika střešní\") * 1000 / K.H_PV.v) * 1000 / K.KWP_STRECHA.v / K.ROD_DOMY.v)} z ${N(K.ROD_DOMY.v)} rodinných domů v kraji.`"
 ],
@@ -2770,7 +2770,7 @@
 "vzorec": "g(\"fotovoltaika pozemní\") * 1000 / K.H_PV.v * K.HA_NA_MWP.v",
 "zaokrouhleni": "sig2",
 "hover": [
-"`Výroba ${N(g(\"fotovoltaika pozemní\"))} GWh za rok, ${N(g(\"fotovoltaika pozemní\") * 1000 / K.H_PV.v)} MWp při 942 hodinách.`",
+"`Výroba ${N(g(\"fotovoltaika pozemní\"))} GWh za rok z ${N(g(\"fotovoltaika pozemní\") * 1000 / K.H_PV.v)} MWp při 942 hodinách plného výkonu.`",
 "`Plocha je odhad podle jedné elektrárny: 19 ha na 22 MWp. Je to ${P((g(\"fotovoltaika pozemní\") * 1000 / K.H_PV.v) * K.HA_NA_MWP.v / 100 / K.KM2_KRAJ.v)} rozlohy kraje.`"
 ],
 "hover_pri_nule": null,
@@ -2801,7 +2801,7 @@
 "hover": [
 "`Výroba ${N(g(\"nové plynové bloky\") + g(\"syntetický plyn z odpadu\"))} GWh za rok.`",
 "`Při tom běží ${N((g(\"nové plynové bloky\") + g(\"syntetický plyn z odpadu\")) * 1000 / Math.max(interp(bat.gasYears, bat.gasMw, year), 1))} hodin plného výkonu z 8 760.`",
-"`Výkon je daný cestou, posuvník výroby mění jen hodiny.`"
+"`Výroba i hodiny zahrnují syntetický plyn z odpadu. Výkon je daný cestou, posuvník výroby mění jen hodiny.`"
 ],
 "hover_pri_nule": "Nové bloky do roku 2027 neběží.",
 "dnes": "dnes 0 MW",
@@ -2832,7 +2832,7 @@
 "`Podíl na výrobě kraje ${P((g(\"černé uhlí: Dětmarovice\") + g(\"černé uhlí: teplárny a průmysl\") + g(\"hnědé uhlí\")) / Math.max(gen, 1))}.`",
 "`Dětmarovice 600 MW skončily v roce 2025, teplárny a průmysl končí později.`"
 ],
-"hover_pri_nule": "Výroba z uhlí ve zvoleném roce skončila.",
+"hover_pri_nule": "Ve zvoleném roce se elektřina z uhlí už nevyrábí.",
 "dnes": "2025: 1 161 GWh"
 },
 {
@@ -2849,9 +2849,9 @@
 "vzorec": "g(\"osobní auta\") * 1000 / (K.MWH_AUTO.v * t.eff_auta)",
 "zaokrouhleni": "sig2",
 "hover": [
-"`${P(Math.min(1, (g(\"osobní auta\") * 1000 / (K.MWH_AUTO.v * t.eff_auta)) / (K.AUTA_DNES.v * t.pop_msk * t.auta_na_os)))} ze všech ${N(K.AUTA_DNES.v * t.pop_msk * t.auta_na_os)} aut v kraji, včetně dodávek.`",
-"`Spotřeba ${N(g(\"osobní auta\"))} GWh za rok. Osobní auta vodík nepoužívají.`",
-"`Jedno auto ${N1(K.MWH_AUTO.v * t.eff_auta)} MWh za rok: 13 500 km a klesající spotřeba na km.`"
+"`Je to ${P(Math.min(1, (g(\"osobní auta\") * 1000 / (K.MWH_AUTO.v * t.eff_auta)) / (K.AUTA_DNES.v * t.pop_msk * t.auta_na_os)))} ze všech ${N(K.AUTA_DNES.v * t.pop_msk * t.auta_na_os)} aut v kraji, včetně dodávek.`",
+"`Spotřeba ${N(g(\"osobní auta\"))} GWh za rok. S vodíkem u osobních aut cesty nepočítají.`",
+"`Jedno auto spotřebuje ${N1(K.MWH_AUTO.v * t.eff_auta)} MWh za rok: 13 500 km a klesající spotřeba na kilometr.`"
 ],
 "hover_pri_nule": null,
 "dnes": "2024: 2 648"
@@ -2871,11 +2871,11 @@
 "zaokrouhleni": "sig2",
 "hover": [
 "`Spotřeba ${N(g(\"nákladní doprava\"))} GWh za rok.`",
-"`Přepočet: 60 000 km za rok a 1,32 kWh/km jako u 40t soupravy. Rozvozová auta jezdí méně a berou méně, skutečných aut by bylo více.`",
-"year < 2030 ? \"Počet se před rokem 2030 neuvádí, základ řádku je dopočet, ne počet aut.\" : `Podíl na celém nájezdu ${P((g(\"nákladní doprava\") * 1e6 / (K.KWH_KM_NAKL.v * t.eff_nakladni) / K.KM_ROK_NAKL.v) * K.KM_ROK_NAKL.v / K.KM_FLOTILA_NAKL.v)}.`"
+"`Přepočet: 60 000 km za rok a 1,32 kWh/km jako u soupravy 40 t. Rozvozová auta jezdí méně a spotřebují méně, skutečných aut by proto bylo více.`",
+"year < 2030 ? \"Počet se před rokem 2030 neuvádí, protože dnešní spotřeba je jen dopočet a počet aut z ní nevychází.\" : `Podíl na nájezdu nákladní dopravy ${P((g(\"nákladní doprava\") * 1e6 / (K.KWH_KM_NAKL.v * t.eff_nakladni) / K.KM_ROK_NAKL.v) * K.KM_ROK_NAKL.v / K.KM_FLOTILA_NAKL.v)}.`"
 ],
 "hover_pri_nule": null,
-"dnes": "počet nezjištěn"
+"dnes": "dnešní počet není znám"
 },
 {
 "id": "nakl_h2",
@@ -2891,11 +2891,11 @@
 "vzorec": "(k => g(\"výroba vodíku: nákladní doprava\") * 1000 / tab(k.roky, k.kwh, year) * 1000 / tab(k.roky, k.nakl_kg, year) * 100 / K.KM_ROK_NAKL.v)(K.H2_TAB.v)",
 "zaokrouhleni": "sig2",
 "hover": [
-"`Elektřina na vodík ${N(g(\"výroba vodíku: nákladní doprava\"))} GWh za rok.`",
-"`${P(((k => g(\"výroba vodíku: nákladní doprava\") * 1000 / tab(k.roky, k.kwh, year) * 1000 / tab(k.roky, k.nakl_kg, year) * 100 / K.KM_ROK_NAKL.v)(K.H2_TAB.v)) * K.KM_ROK_NAKL.v / K.KM_FLOTILA_NAKL.v)} nájezdu nákladní dopravy. Cílový poměr flotily je 70 : 30 baterie : vodík.`",
-"`Přepočet: 60 000 km za rok, odhad.`"
+"`Elektřina na výrobu vodíku ${N(g(\"výroba vodíku: nákladní doprava\"))} GWh za rok.`",
+"`Podíl na nájezdu nákladní dopravy ${P(((k => g(\"výroba vodíku: nákladní doprava\") * 1000 / tab(k.roky, k.kwh, year) * 1000 / tab(k.roky, k.nakl_kg, year) * 100 / K.KM_ROK_NAKL.v)(K.H2_TAB.v)) * K.KM_ROK_NAKL.v / K.KM_FLOTILA_NAKL.v)}. Cílový poměr je 70 % baterie a 30 % vodík.`",
+"`Přepočet: 60 000 km za rok na kamion, odhad.`"
 ],
-"hover_pri_nule": "Tato cesta zůstává na bateriích, nebo kamiony na vodík ve zvoleném roce ještě nejezdí.",
+"hover_pri_nule": "V této cestě zůstává doprava na bateriích, nebo kamiony na vodík ve zvoleném roce ještě nejezdí.",
 "dnes": "0"
 },
 {
@@ -2912,10 +2912,10 @@
 "vzorec": "(k => g(\"výroba vodíku: MHD\") * 1000 / tab(k.roky, k.kwh, year) * 1000 / tab(k.roky, k.bus_kg, year) * 100 / K.KM_ROK_BUS.v)(K.H2_TAB.v)",
 "zaokrouhleni": "sig2",
 "hover": [
-"`Elektřina na vodík ${N1(g(\"výroba vodíku: MHD\"))} GWh za rok.`",
-"`Přepočet: 80 000 km za rok na autobus. Třicet procent se bere z řádku MHD, který obsahuje i tramvaje.`"
+"`Elektřina na výrobu vodíku ${N1(g(\"výroba vodíku: MHD\"))} GWh za rok.`",
+"`Přepočet: 80 000 km za rok na autobus. V roce 2050 se třicet procent bere z celé MHD, tedy i z tramvají.`"
 ],
-"hover_pri_nule": "Tato cesta zůstává na bateriích, nebo autobusy na vodík ve zvoleném roce ještě nejezdí.",
+"hover_pri_nule": "V této cestě zůstává doprava na bateriích, nebo autobusy na vodík ve zvoleném roce ještě nejezdí.",
 "dnes": "0"
 },
 {
@@ -2933,11 +2933,11 @@
 "zaokrouhleni": "cele",
 "hover": [
 "`Vyrobí ${N((k => (g(\"výroba vodíku: nákladní doprava\") + g(\"výroba vodíku: MHD\")) * 1000 / tab(k.roky, k.kwh, year))(K.H2_TAB.v))} t vodíku za rok pro kamiony a autobusy.`",
-"`Nádrž ${N(K.NADRZ_T.v)} t pokryje ${N1(K.NADRZ_T.v / Math.max((k => (g(\"výroba vodíku: nákladní doprava\") + g(\"výroba vodíku: MHD\")) * 1000 / tab(k.roky, k.kwh, year))(K.H2_TAB.v), 1) * 8760)} hodin odběru flotily.`",
-"`Výkon plyne z řádků vodíku při ${N(ELECTROLYSER_HOURS)} hodinách plného výkonu za rok. Hodiny jsou z hodinového výpočtu a posuvníky je nemění.`"
+"`Nádrž ${N(K.NADRZ_T.v)} t pokryje ${N1(K.NADRZ_T.v / Math.max((k => (g(\"výroba vodíku: nákladní doprava\") + g(\"výroba vodíku: MHD\")) * 1000 / tab(k.roky, k.kwh, year))(K.H2_TAB.v), 1) * 8760)} hodiny odběru kamionů a autobusů.`",
+"`Výkon vychází ze spotřeby elektřiny na výrobu vodíku při ${N(ELECTROLYSER_HOURS)} hodinách plného výkonu za rok. Počet hodin je z hodinového výpočtu a posuvníky ho nemění.`"
 ],
-"hover_pri_nule": "Tato cesta s flotilou na vodík nepočítá.",
-"dnes": "0 MW",
+"hover_pri_nule": "Tato cesta s vodíkem v dopravě nepočítá, nebo elektrolyzér ve zvoleném roce ještě neběží.",
+"dnes": "dnes 0 MW",
 "cena": {
 "low": 1700000,
 "high": 2300000,
@@ -2963,7 +2963,7 @@
 "zaokrouhleni": "sig2",
 "hover": [
 "`${P((Math.max(0, g(\"vytápění tepelnými čerpadly\") / D(\"vytápění tepelnými čerpadly\") - tab(K.TC_PODNIK.v.roky, K.TC_PODNIK.v[path], year)) * 1000 / K.MWH_TC.v) / K.ROD_DOMY.v)} z ${N(K.ROD_DOMY.v)} rodinných domů v kraji.`",
-"`Spotřeba ${N(g(\"vytápění tepelnými čerpadly\"))} GWh za rok, včetně běžné spotřeby domu na tomto tarifu.`"
+"`Spotřeba ${N(g(\"vytápění tepelnými čerpadly\"))} GWh za rok, včetně běžné spotřeby domu na tomto tarifu. Počet vychází z odběrných míst, není to soupis domů.`"
 ],
 "hover_pri_nule": null,
 "dnes": "2025: asi 50 000",
@@ -2979,7 +2979,7 @@
 },
 {
 "id": "primotopy",
-"label": "Přímotopy a akumulace",
+"label": "Přímotopy a akumulační vytápění",
 "side": "spotreba",
 "icon": "bolt",
 "ikona_svg": null,
@@ -3011,18 +3011,18 @@
 "vzorec": "Math.max(0, Math.round((g(\"Třinecké železárny\") - K.TRINEC_ZAKLAD.v) / K.TRINEC_PEC.v)) + Math.max(0, Math.round((g(\"Nová huť\") - K.HUT_ZAKLAD.v) / K.HUT_PEC.v))",
 "zaokrouhleni": "cele",
 "hover": [
-"`Třinec ${Math.max(0, Math.round((g(\"Třinecké železárny\") - K.TRINEC_ZAKLAD.v) / K.TRINEC_PEC.v))}, Nová huť ${Math.max(0, Math.round((g(\"Nová huť\") - K.HUT_ZAKLAD.v) / K.HUT_PEC.v))}. Spotřeba ${N(g(\"Třinecké železárny\") + g(\"Nová huť\"))} GWh za rok, ${P((g(\"Třinecké železárny\") + g(\"Nová huť\")) / Math.max(use, 1))} spotřeby kraje.`",
-"`O peci v Nové huti zatím nebylo rozhodnuto. Přírůstek na tunu oceli je odhad: Třinec 0,30 MWh, Nová huť 0,45 MWh.`",
-"Math.max(0, Math.round((g(\"Třinecké železárny\") - K.TRINEC_ZAKLAD.v) / K.TRINEC_PEC.v)) > 1 ? \"Druhá pec v Třinci je čtení modelu pro plnou elektrifikaci, podnik uvádí jednu.\" : \"\"",
-"`Posuvník spotřeby mění GWh. Počet pecí se mění, až když přírůstek přeroste půl pece.`"
+"`Třinec ${Math.max(0, Math.round((g(\"Třinecké železárny\") - K.TRINEC_ZAKLAD.v) / K.TRINEC_PEC.v))}, Nová huť ${Math.max(0, Math.round((g(\"Nová huť\") - K.HUT_ZAKLAD.v) / K.HUT_PEC.v))}. Spotřeba obou podniků ${N(g(\"Třinecké železárny\") + g(\"Nová huť\"))} GWh za rok, ${P((g(\"Třinecké železárny\") + g(\"Nová huť\")) / Math.max(use, 1))} spotřeby kraje.`",
+"`O peci v Nové huti zatím nebylo rozhodnuto. Přírůstek spotřeby na tunu oceli je odhad: Třinec 0,30 MWh, Nová huť 0,45 MWh.`",
+"Math.max(0, Math.round((g(\"Třinecké železárny\") - K.TRINEC_ZAKLAD.v) / K.TRINEC_PEC.v)) > 1 ? \"Druhá pec v Třinci je výsledek modelu pro plnou elektrifikaci, podnik uvádí jednu.\" : \"\"",
+"`Posuvník spotřeby mění GWh. Počet pecí se změní, až když přírůstek přesáhne spotřebu půl pece.`"
 ],
 "hover_pri_nule": "Žádná nová pec ve zvoleném roce neběží.",
-"dnes": "dnes 0 nových",
+"dnes": "0",
 "cena": {
 "low": 690000000,
 "high": 810000000,
 "mnozstvi": "Math.max(0, Math.round((g(\"Třinecké železárny\") - K.TRINEC_ZAKLAD.v) / K.TRINEC_PEC.v)) + Math.max(0, Math.round((g(\"Nová huť\") - K.HUT_ZAKLAD.v) / K.HUT_PEC.v))",
-"pozn": "Oznámené hodnoty, bez výsledku soutěže. Pec nad rámec oznámení má přenesenou cenu.",
+"pozn": "Oznámené hodnoty, bez výsledku soutěže. Druhá pec v Třinci není v žádném oznámení, její cena je převzatá z první.",
 "zdroj": "Ekonomický deník, Nová huť, 4. 9. 2026; e15, Třinec, 4. 8. 2026",
 "url": "https://ekonomickydenik.cz/nova-hut-dostala-sanci-obnovit-vyrobu/",
 "url2": "https://www.e15.cz/byznys/prumysl-a-energetika/ocel-je-bezpecnost-v-trineckych-zelezarnach-varuji-pred-evropskou-chybou-1434663"
@@ -3043,10 +3043,10 @@
 "zaokrouhleni": "sig2",
 "hover": [
 "`Spotřeba ${N(g(\"datacentra\"))} GWh za rok při využití 80 %.`",
-"`Největší nejistota mezi novými odběry. Konkrétní projekt v kraji podklady neuvádějí.`"
+"`Konkrétní projekt v kraji podklady neuvádějí.`"
 ],
-"hover_pri_nule": "Nová datacentra ve zvoleném roce nejsou, stávající jsou v řádku služby.",
-"dnes": "dnes ve službách"
+"hover_pri_nule": "Nová datacentra ve zvoleném roce nejsou, stávající jsou započtena ve službách.",
+"dnes": "dnes započtena ve službách"
 },
 {
 "id": "baterie",
@@ -3063,7 +3063,7 @@
 "zaokrouhleni": "des2",
 "hover": [
 "`Výkon ${N(interp(bat.years, bat.daily, year))} MW.`",
-"`Zásoba vystačí na ${N1(tab(K.BAT_E.v.roky, K.BAT_E.v[path], year) * 8760 / Math.max(use, 1))} hodiny průměrné spotřeby kraje. Vyrovnává den, není záloha.`",
+"`Zásoba vystačí na ${N1(tab(K.BAT_E.v.roky, K.BAT_E.v[path], year) * 8760 / Math.max(use, 1))} hodiny průměrné spotřeby kraje. Baterie vyrovnávají výkyvy během dne, nejsou záloha.`",
 "`Velikost je z hodinového výpočtu, posuvníky ji nemění.`"
 ],
 "hover_pri_nule": null,
@@ -3096,7 +3096,7 @@
 "`Na obyvatele ${N1(use * 1000 / (K.OBYV_ZAKLAD.v * t.pop_msk))} MWh elektřiny za rok.`"
 ],
 "hover_pri_nule": null,
-"dnes": "1.1.2025: 1 182 613"
+"dnes": "1. 1. 2025: 1 182 613"
 },
 {
 "id": "dovoz",
@@ -3112,9 +3112,9 @@
 "vzorec": "Math.max(use - gen, 0)",
 "zaokrouhleni": "sig2",
 "hover": [
-"`Kraj si pokryje ${P(gen / Math.max(use, 1))} roční spotřeby.`",
+"`Výroba v kraji odpovídá ${P(gen / Math.max(use, 1))} roční spotřeby.`",
 "`${use >= gen ? \"Dovoz\" : \"Přebytek\"} odpovídá výrobě ${N1(Math.abs(use - gen) / SMR_UNIT)} reaktoru po 500 MW nebo ${N(Math.abs(use - gen) * 1000 / (K.MW_TURBINA.v * K.H_VITR.v))} turbín po 6,2 MW.`",
-"`Roční součet. Ani vyrovnaný rok neznamená bez dovozu v každé hodině.`"
+"`Je to roční součet. Ani vyrovnaný rok neznamená, že se kraj v každé hodině obejde bez dovozu.`"
 ],
 "hover_pri_nule": null,
 "dnes": "2025: 4 265 GWh"

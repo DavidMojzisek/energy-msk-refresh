@@ -39,7 +39,7 @@ def must_rest(text):
 
 def html_must(rows):
     head = ("<tr><th>Období, které má vyjít bez schodku</th><th>Bilance 2050, GWh</th><th>Jen vítr navíc</th><th>Jen fotovoltaika navíc</th>"
-            "<th>Jen SMR navíc, moduly po 500 MW, bez podkladu</th><th>Vítr doplněný na mez 2 014 MW a k tomu, v ročním součtu</th></tr>")
+            "<th>Jen SMR navíc, reaktory po 500 MW, bez podkladu</th><th>Vítr doplněný na mez 2 014 MW a k tomu, v ročním součtu</th></tr>")
     body = ""
     for r in rows:
         wind = f"+{r['vitr']} MW" + (", nad mezí" if r["vitr_nad"] else "")

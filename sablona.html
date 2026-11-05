@@ -233,11 +233,11 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
 <div class="pathbar">
   <span class="label">Cesta</span>
   <div class="pills" role="group" aria-label="Cesta pro celou stránku">
-    <span class="tipwrap"><button data-path="progresivni" aria-pressed="true">Progresivní</button><span class="bubble" role="tooltip">Jeden SMR, vítr a slunce podle podílu kraje, rychlá elektrifikace, část dopravy na vodík.</span></span>
+    <span class="tipwrap"><button data-path="progresivni" aria-pressed="true">Progresivní</button><span class="bubble" role="tooltip">Jeden SMR, vítr a slunce podle podílu kraje na celostátním plánu, rychlá elektrifikace, část dopravy na vodík.</span></span>
     <span class="tipwrap"><button data-path="konzervativni" aria-pressed="false">Konzervativní</button><span class="bubble" role="tooltip">Bez SMR, hlavně plynové bloky, pomalejší elektrifikace, doprava bez vodíku.</span></span>
   </div>
   <span class="tipwrap"><button class="chip" id="compare" aria-pressed="false">Oba scénáře</button><span class="bubble" role="tooltip">Přidá do horního grafu a do čísel druhou cestu.</span></span>
-  <span class="tipwrap" data-must="progresivni"><button class="chip" id="presetVitr" aria-pressed="false" aria-describedby="presetTip">Vítr na mezi</button><span class="bubble wide" id="presetTip" role="tooltip"><b>Co to ukáže:</b> kolik by se muselo postavit, aby progresivní cesta za rok vyrobila tolik, kolik spotřebuje.<br><b>Co je mez:</b> 2 014 MW je potenciál větrných elektráren v kraji podle Dopadové studie. Je to výkon, ne počasí: místo {{vitr_prog}} MW stojí víc větrníků a fouká jako v běžném roce. Zbytek dorovná {{fve_rok}} GWp fotovoltaiky navíc.<br><b>Jak je to reálné:</b> je to horní hranice, ne plán. Vítr by se musel stavět {{mez_rok}} MW ročně, {{mez_krat}} rychleji než dosavadní rekord. V hodinách se dál dováží.<br>Pohne to i realistickým scénářem. Další klepnutí vrátí výchozí hodnoty.</span></span>
+  <span class="tipwrap" data-must="progresivni"><button class="chip" id="presetVitr" aria-pressed="false" aria-describedby="presetTip">Vítr na mezi</button><span class="bubble wide" id="presetTip" role="tooltip"><b>Co to ukáže:</b> kolik by se muselo postavit, aby progresivní cesta za rok vyrobila tolik, kolik spotřebuje.<br><b>Co je mez:</b> 2 014 MW je potenciál větrných elektráren v kraji podle Dopadové studie. Mění se výkon, ne počasí: místo {{vitr_prog}} MW stojí víc větrných elektráren a fouká jako v běžném roce. Zbytek dorovná {{fve_rok}} GWp fotovoltaiky navíc.<br><b>Jak je to reálné:</b> je to horní hranice, ne plán. Vítr by se musel stavět {{mez_rok}} MW ročně, {{mez_krat}} rychleji než dosavadní rekord. V hodinách se dál dováží.<br>Pohne to i realistickým scénářem. Další klepnutí vrátí výchozí hodnoty.</span></span>
   <div class="pills small verze" role="group" aria-label="Verze stránky">
     <span class="tipwrap"><button data-ui="simple" aria-pressed="true">Jednoduchá</button><span class="bubble r" role="tooltip">Platí pro celou stránku. Posuvníky po skupinách, u realistického scénáře 10 kategorií, a krátké texty.</span></span>
     <span class="tipwrap"><button data-ui="detail" aria-pressed="false">Podrobná</button><span class="bubble r" role="tooltip">Platí pro celou stránku. Posuvníky po položkách, u realistického scénáře 34 indikátorů, velké trendy a plné tabulky.</span></span>
@@ -291,7 +291,7 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
 <section class="card" id="tileCard">
   <h2 id="tileTitle"></h2>
   <p class="plain" id="tilePath"></p>
-  <p class="viewnote">Co zvolená cesta znamená v číslech, která si lze představit. Šedé číslo je dnešní stav. Přesné hodnoty a přepočet ukáže najetí nebo klepnutí. Počty jsou přepočet z řádků modelu, ne sčítání.</p>
+  <p class="viewnote">Co zvolená cesta znamená v číslech, která si lze představit. Šedý údaj je dnešní nebo poslední známý stav. Přesné hodnoty a přepočet ukáže najetí myší nebo klepnutí. Počty jsou přepočet z položek modelu, ne soupis.</p>
   <div class="tiles" id="tiles"></div>
   <details class="box"><summary>Z čeho jsou přepočty</summary><div id="tileSrc"></div></details>
 </section>
@@ -322,8 +322,8 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
       <span class="tipwrap"><button id="realAllP" aria-pressed="false">Vše progresivně</button><span class="bubble" role="tooltip">Všechny indikátory na 1 a žádné odchylky. Křivka je přesně progresivní cesta: SMR od roku 2045, velká datová centra, plná elektrifikace Třince.</span></span>
     </div>
     <div class="controls">
-      <span class="tipwrap"><button class="chip" id="realBand" aria-pressed="false">Pásmo nejistoty</button><span class="bubble" role="tooltip">Plocha, kde leží 80 % simulací kolem výroby a spotřeby. Platí pro výchozí nastavení a posuvníky ji nemění.</span></span>
-      <span class="tipwrap"><button class="chip" id="realBranch" aria-pressed="false">Ukázat i s reaktorem</button><span class="bubble" role="tooltip">Reaktor SMR buď stojí celý, nebo vůbec. Křivka jde jednou z těchto možností, tlačítko přidá tenkými čarami tu druhou. S reaktorem plynové bloky po spuštění ubývají.</span></span>
+      <span class="tipwrap"><button class="chip" id="realBand" aria-pressed="false">Pásmo nejistoty</button><span class="bubble" role="tooltip">Plocha, ve které leží 80 % simulací výroby a spotřeby. Platí pro výchozí nastavení a posuvníky ji nemění.</span></span>
+      <span class="tipwrap"><button class="chip" id="realBranch" aria-pressed="false">Ukázat i s reaktorem</button><span class="bubble" role="tooltip">Reaktor SMR se počítá buď celý, nebo vůbec. Křivka sleduje jednu z těchto možností, tlačítko přidá tenkými čarami tu druhou. S reaktorem plynové bloky po jeho spuštění ubývají.</span></span>
       <span class="tipwrap"><button class="chip" id="realCmpP" aria-pressed="false">Přidat progresivní</button><span class="bubble r" role="tooltip">Přidá tenké křivky progresivní cesty pro srovnání. Realistickou křivku neposouvá, k tomu slouží Vše progresivně.</span></span>
       <span class="tipwrap"><button class="chip" id="realCmpK" aria-pressed="false">Přidat konzervativní</button><span class="bubble r" role="tooltip">Přidá tenké křivky konzervativní cesty pro srovnání. Realistickou křivku neposouvá, k tomu slouží Vše konzervativně.</span></span>
     </div>
@@ -357,7 +357,7 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
   <p class="viewnote only-simple">Tabulky možností a tempo výstavby jsou v podrobné verzi.</p>
   <p class="plain only-detail">Při nezměněné spotřebě by vyrovnanou bilanci roku nebo uvedeného období přinesla jedna z těchto změn navíc proti výchozímu nastavení vybrané cesty. Vyrovnaná bilance neznamená, že kraj nedováží. Sloupce se nesčítají, každý je samostatná možnost. Posuvníky tento blok nemění.</p>
   <div class="tablewrap only-detail">{{html_must}}</div>
-  <p class="viewnote only-detail">Vítr má v kraji mez 2 014 MW podle Dopadové studie (s. 135). GWp je výkon fotovoltaiky při plném slunci. Podíl modulu je jen výpočet, posuvník pracuje s celými moduly. Druhý a další SMR v kraji žádný podklad neuvádí, sloupec ukazuje jen velikost. SMR se počítá po odečtení vlastní spotřeby {{smr_vlastni}} GWh na blok, je to náš výpočet z celostátní míry a kalibrace kraje, bez kalibrace by to bylo {{smr_vlastni_bez}} GWh. Řádky období počítají s rovnoměrnou elektrolýzou bez nádrže, ve výchozím nastavení je bilance prosince až února {{nadrz_djf}} GWh.</p>
+  <p class="viewnote only-detail">Vítr má v kraji mez 2 014 MW podle Dopadové studie (s. 135). GWp je výkon fotovoltaiky při plném slunci. Podíl reaktoru je jen výpočet, posuvník pracuje s celými reaktory. Druhý a další SMR v kraji žádný podklad neuvádí, sloupec ukazuje jen velikost. SMR se počítá po odečtení vlastní spotřeby {{smr_vlastni}} GWh na blok, je to náš výpočet z celostátní míry a kalibrace kraje, bez kalibrace by to bylo {{smr_vlastni_bez}} GWh. Řádky období počítají s rovnoměrnou elektrolýzou bez nádrže, ve výchozím nastavení je bilance prosince až února {{nadrz_djf}} GWh.</p>
   <p class="plain only-detail" data-must="progresivni"><b>Progresivní cestě nestačí samotný vítr uvnitř meze. Potřebuje k němu další zdroj, nebo jinou možnost z tabulky.</b> V ročním součtu tabulky stačí k větru na mezi {{fve_soucet_mwp}} MWp fotovoltaiky. Hodinový výpočet s malou nádrží, ze kterého vychází volba Vítr na mezi a tempo výstavby, uzavře rok až při {{fve_hod_mwp}} MWp, tedy {{fve_rok}} GWp. V hodinách přesto zůstane dovoz {{pv_dovoz}} GWh a {{pv_vyvoz}} GWh přebytku bez využití. Bez dovozu by bylo jen {{pv_hod}} % hodin a největší dovoz {{pv_max}} MW. Prosinec až únor vyrovná vítr na mezi a {{fve_djf}} GWp fotovoltaiky navíc. I potom zůstane dovoz {{fve_djf_dov}} GWh za rok a {{fve_djf_vyvoz}} GWh přebytku bez využití.</p>
   <p class="plain only-detail" data-must="konzervativni"><b>Konzervativní cesta by mohla uzavřít rok větrem uvnitř meze.</b> Stačí {{kv_pridat}} MW navíc, tedy {{kv_vitr}} MW celkem. Tempo výstavby by bylo {{kv_tempo}} MW za rok, {{kv_krat}}krát víc než největší roční přírůstek kraje. V hodinách přesto zůstane dovoz {{kv_dovoz}} GWh a {{kv_vyvoz}} GWh přebytku bez využití. Bez dovozu by bylo jen {{kv_hod}} % hodin a největší dovoz {{kv_max}} MW. Plynové bloky této cesty přitom běží na dovezené palivo.</p>
   <p class="plain only-detail">Tempo výstavby je průměr 2026 až 2050, skutečný vrchol křivky by byl vyšší. Srovnává se s největším ročním přírůstkem v kraji (ERÚ, Roční zpráva 2025): vítr 9,1 MW v roce 2024, fotovoltaika 83,3 MW v roce 2023. Řádek s větrem na mezi je hodinový výpočet, řádky půl na půl a jen fotovoltaika jsou roční součet.</p>
@@ -429,19 +429,19 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
 
   <section class="card">
     <h2>Realistický scénář</h2>
-    <p>Třetí křivka vychází ze dvou cest jako krajních bodů. Není to předpověď ani nejpravděpodobnější vývoj. Plynulá položka se počítá mezi řádkem konzervativní cesty K a progresivní cesty P podle polohy a, což je vážený průměr indikátorů x její skupiny. Velké události jsou celý řádek, nikdy zlomek.</p>
+    <p>Třetí křivka vychází ze dvou cest jako krajních bodů. Není to předpověď ani nejpravděpodobnější vývoj. Plynulá položka se počítá mezi hodnotou konzervativní cesty K a progresivní cesty P podle posunu a, což je vážený průměr indikátorů x její skupiny. Velké události se počítají celé, nikdy jako zlomek.</p>
     <p class="f">R(t) = (1 &minus; a) &middot; K(t) + a &middot; P(t) &nbsp; &nbsp; a = &Sigma; w &middot; x / &Sigma; w &nbsp; &nbsp; x = 0 popis K, x = 1 popis P</p>
-    <p class="f">Společný plyn: (1 &minus; s) &middot; K + s &middot; P, s je skóre SMR &nbsp; &nbsp; s SMR od spuštění řádek P, bez SMR od rozhodnutí řádek K</p>
+    <p class="f">Společný plyn: (1 &minus; s) &middot; K + s &middot; P, s je hodnota SMR z indikátorů &nbsp; &nbsp; s SMR od spuštění hodnota P, bez SMR od rozhodnutí hodnota K</p>
     <details class="more"><summary>Podrobnosti</summary>
-      <p><b>Co je převzaté a co je náš úsudek.</b> Seznam 34 indikátorů, popisy stavů a skóre dopadu jsou z pracovní tabulky indikátorů. Vazby a váhy vycházejí z pracovního podkladu k indikátorům po opravě. Kotvy a výchozí hodnoty jsou naše. Všechno to je odhad a stránka to tak ukazuje. Rovnice je dohoda o interpolaci. Zdroj dokládající lineární převod ze společenského indexu na výstavbu jsme nenašli, stejně jako použitelnou elasticitu nebo práh pro vítr a slunce v regionu. Literatura dokládá S-křivky v čase (Grubler a kol. 2016, Odenweller a kol. 2022) a varuje, že skupiny s podobným průměrem preferencí mohou dopadnout velmi odlišně (Granovetter 1978).</p>
-      <p><b>Váhy.</b> Výchozí váhy jsou neověřený odhad z pracovního podkladu k indikátorům, po opravě. Průměr je normuje, proto součet nad 1 nevadí a položka nepřestřelí druhou cestu. Váhu 0 má deset indikátorů, důvod je u každého z nich. Jádro nebere podporu obnovitelných zdrojů. Nákladní doprava, úspory a rok spuštění využití odpadu v podkladu vazbu nemají, tu je náš úsudek. Váha vyjadřuje směnu mezi indikátory, ne jejich důležitost (OECD a JRC 2008, s. 33; Paruolo a kol. 2013). Jiné váhy jsou porovnané v citlivosti u pásma. Skóre dopadu z tabulky indikátorů je vidět u každého indikátoru, jako váha se nepoužívá, protože význam škály není doložený.</p>
-      <p><b>Kategorie.</b> Posuvník kategorie přepočítá její indikátory poměrem vůči výchozím hodnotám. Hodnoty 0 a 1 nastaví všechny na 0 a 1, jiné pořadí nevzniká. Ruční nastavení indikátorů v kategorii tím přepíše.</p>
-      <p><b>Velké události.</b> SMR má skóre z indikátorů a to se převádí na odhad pravděpodobnosti tak, že výchozí skóre odpovídá odhadu 25 % z řetězu kroků a konce 0 a 1 zůstávají. Práh pro ano je 50 %. U datových center a plné elektrifikace Třince obhajitelné číslo neexistuje. Skóre u nich není pravděpodobnost, ano dá až od 0,75 a do pásma nevstupují. Křivka nikdy nebere zlomek. Odhady jsou subjektivní a podmíněné. Spuštění po roce 2050 znamená do roku 2050 větev bez SMR.</p>
-      <p><b>Plyn a větve.</b> Reaktor spuštěný v roce 2048 nemůže měnit plyn v roce 2030. Proto mají obě větve společný plyn. S reaktorem klesá až s jeho spuštěním. Bez reaktoru se 10 let před plánovaným spuštěním začne přecházet na konečný výkon. Těch 10 let je náš úsudek. Výchozí konečný výkon je oznámených 283 MW, plyn navíc se uměle nepřidává. Volba umí nastavit 683 MW z konzervativní cesty. Vlastní spotřeba a ztráty v sítích jsou vzorce z vypočtených řádků.</p>
+      <p><b>Co je převzaté a co je náš úsudek.</b> Seznam 34 indikátorů, popisy stavů a hodnocení dopadu jsou z pracovní tabulky indikátorů. Vazby a váhy vycházejí z pracovního podkladu k indikátorům po opravě. Krajní hodnoty škál a výchozí hodnoty jsou naše. Všechno to je odhad a stránka to tak ukazuje. Rovnice je dohoda o interpolaci. Zdroj dokládající lineární převod ze společenského indexu na výstavbu jsme nenašli, stejně jako použitelnou elasticitu nebo práh pro vítr a slunce v regionu. Literatura dokládá S-křivky v čase (Grubler a kol. 2016, Odenweller a kol. 2022) a varuje, že skupiny s podobným průměrem preferencí mohou dopadnout velmi odlišně (Granovetter 1978).</p>
+      <p><b>Váhy.</b> Výchozí váhy jsou neověřený odhad z pracovního podkladu k indikátorům, po opravě. Průměr je normuje, proto součet nad 1 nevadí a položka nepřekročí hodnotu druhé cesty. Váhu 0 má deset indikátorů, důvod je u každého z nich. Rozhodnutí o reaktoru SMR nebere v úvahu podporu obnovitelných zdrojů. Nákladní doprava, úspory a rok spuštění využití odpadu v podkladu vazbu nemají, jejich vazba je náš úsudek. Váha vyjadřuje, kolik jednoho indikátoru vyváží druhý, ne jejich důležitost (OECD a JRC 2008, s. 33; Paruolo a kol. 2013). Jiné váhy jsou porovnané v citlivosti u pásma. Hodnocení dopadu z tabulky indikátorů je vidět u každého indikátoru, jako váha se nepoužívá, protože význam škály není doložený.</p>
+      <p><b>Kategorie.</b> Posuvník kategorie přepočítá její indikátory poměrem vůči výchozím hodnotám. Hodnoty 0 a 1 nastaví všechny na 0 a 1, pořadí indikátorů se nemění. Ruční nastavení indikátorů v kategorii tím přepíše.</p>
+      <p><b>Velké události.</b> SMR má hodnotu z indikátorů. Ta se převádí na odhad pravděpodobnosti tak, že výchozí hodnota odpovídá odhadu 25 % z řetězu kroků a konce 0 a 1 zůstávají. Práh pro ano je 50 %. U datových center a plné elektrifikace Třince obhajitelné číslo neexistuje. Hodnota z indikátorů u nich není pravděpodobnost, ano dá až od 0,75 a do pásma nevstupují. Křivka nikdy nepočítá se zlomkem události. Odhady jsou subjektivní a podmíněné. Spuštění po roce 2050 znamená do roku 2050 variantu bez SMR.</p>
+      <p><b>Plyn a varianty.</b> Reaktor spuštěný v roce 2048 nemůže měnit plyn v roce 2030. Proto mají obě varianty, s reaktorem a bez něj, společný plyn. S reaktorem klesá až s jeho spuštěním. Bez reaktoru se 10 let před plánovaným spuštěním začne přecházet na konečný výkon. Těch 10 let je náš úsudek. Výchozí konečný výkon je oznámených 283 MW, plyn navíc se uměle nepřidává. Volba umí nastavit 683 MW z konzervativní cesty. Vlastní spotřeba a ztráty v sítích se počítají vzorcem z vypočtených položek.</p>
       <p><b>Demografie a oteplení.</b> Obě cesty mají stejnou projekci ČSÚ, proto se počítá jen odchylka, stejným vzorcem jako velké trendy. Klima položek odpovídá povětrnostním rokům 2015 až 2019. Další oteplení násobí vytápění a teplárenskou výrobu poměrem z hodinového modelu, s plnou hodnotou v roce 2050. Chlazení násobek nemá, oteplení je už v podílu chlazených domácností.</p>
-      <p><b>Pásmo.</b> Simulace pro výchozí nastavení losuje míry naplnění s jedním společným faktorem a faktorem kategorie, váhy, tvar vazby jako a na g, události, oteplení s demografií a rozsah řádků tabulky obou cest. Síly faktorů a rozptyly jsou úsudek. Tabulka zdrojů není rozklad rozptylu, ukazuje každý zdroj samotný a co ubude bez něj, protože zdroje na sebe působí (OECD a JRC 2008, kap. 7).</p>
-      <p><b>Hodiny.</b> Výchozí řádky obou větví projdou stejným hodinovým výpočtem jako cesty, s pěti povětrnostními roky. Čísla z ročního a hodinového výpočtu jsou označená zvlášť. Ve výchozím stavu se roční schodek a hodinový dovoz liší jen o jednotky GWh.</p>
-      <p><b>Výchozí hodnoty.</b> Každý indikátor má ukazatel, dvě kotvy a zdroj, nebo označení odhad. Kotvy jsou úsudek. Kde dnešní hodnota neříká nic o období do roku 2050, je výchozí hodnota z prognózy nebo z pravidla, které je u indikátoru uvedené. Bez dat platí 0,5 a označení odhad.</p>
+      <p><b>Pásmo.</b> Simulace pro výchozí nastavení losuje hodnoty indikátorů s jedním společným faktorem a faktorem kategorie, váhy, tvar vazby jako a umocněné na g, události, oteplení s demografií a rozsah položek tabulky obou cest. Síly faktorů a rozptyly jsou úsudek. Tabulka zdrojů není rozklad rozptylu, ukazuje každý zdroj samotný a co ubude bez něj, protože zdroje na sebe působí (OECD a JRC 2008, kap. 7).</p>
+      <p><b>Hodiny.</b> Výchozí položky obou variant projdou stejným hodinovým výpočtem jako cesty, s pěti povětrnostními roky. Čísla z ročního a hodinového výpočtu jsou označená zvlášť. Ve výchozím stavu se roční schodek a hodinový dovoz liší nejvýš asi o 10 GWh.</p>
+      <p><b>Výchozí hodnoty.</b> Každý indikátor má ukazatel, dvě krajní hodnoty škály a zdroj, nebo označení odhad. Krajní hodnoty jsou úsudek. Kde dnešní hodnota neříká nic o období do roku 2050, je výchozí hodnota z prognózy nebo z pravidla, které je u indikátoru uvedené. Bez dat platí 0,5 a označení odhad.</p>
       <p class="small">Zdroje: Grubler, Wilson, Nemet 2016, ERSS 22; Odenweller a kol. 2022, Nature Energy 7; Granovetter 1978, AJS 83(6); OECD a JRC 2008, Handbook on Constructing Composite Indicators; Paruolo, Saisana, Saltelli 2013, JRSS A 176(3).</p>
       <div class="figsvg" id="realFig"></div>
       <p class="viewnote" id="realFigCap"></p>
@@ -450,7 +450,7 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
 
   <section class="card">
     <h2>Dlaždice a zamčený graf</h2>
-    <p>Dlaždice přepisují řádky zvolené cesty na věci, které si lze představit: počty turbín, aut nebo domů. Počítají se ze stejných čísel jako graf, s posuvníky se mění. Je to přepočet, ne sčítání. Plynové bloky a baterie mají velikost danou cestou a rokem, posuvníky je nemění. Počet nákladních aut stojí na úsudku 60 000 km za rok. U zařízení, kde na to je zdroj, bublina ukáže řádovou cenu výstavby, bez součtu. Při posouvání přes posuvníky se graf zmenší a zůstane nahoře, aby bylo vidět, co posuvník dělá.</p>
+    <p>Dlaždice přepisují položky zvolené cesty na věci, které si lze představit: počty turbín, aut nebo domů. Počítají se ze stejných čísel jako graf, s posuvníky se mění. Je to přepočet, ne soupis. Plynové bloky a baterie mají velikost danou cestou a rokem, posuvníky je nemění. Počet nákladních aut stojí na úsudku 60 000 km za rok. U zařízení, kde na to je zdroj, bublina ukáže řádovou cenu výstavby, bez součtu. Při posouvání stránky přes posuvníky se graf zmenší a zůstane nahoře, aby bylo vidět, co posuvník dělá.</p>
   </section>
 
   <section class="card">
@@ -610,11 +610,11 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
     <h2>Realistický scénář: co je slabé</h2>
     <ul class="flaws">
       <li>Lineární převod indikátorů na položky je dohoda, ne doložený vztah. Citlivost na jiný tvar je u pásma.</li>
-      <li>Váhy a kotvy jsou úsudek. Řada ukazatelů je jen blízká indikátoru a část dat je za celou ČR.</li>
-      <li>Střední poloha neznamená nejpravděpodobnější vývoj. Pásmo je z velké části rozsah řádků tabulky, který je náš odhad a může se překrývat s indikátory.</li>
-      <li>Vítr a pozemní fotovoltaika mají stejnou polohu, i když je přijetí může rozdělovat. Ve sledovaných obcích, kde se hlasovalo, dopadla hlasování většinou proti záměru, hlasuje se ale tam, kde je spor.</li>
-      <li>Hodinový výpočet je jen pro výchozí nastavení a zařízení v něm není znovu hledané. Zimní špička podle metody studie a letní poledne se pro tuto křivku nepočítají.</li>
-      <li>Výchozí větev bez SMR bere jen oznámené plynové bloky 283 MW. Kdyby se bez reaktoru stavělo jako v konzervativní cestě, 683 MW, schodek by byl o více než tisíc GWh menší, volba to umí ukázat.</li>
+      <li>Váhy a krajní hodnoty škál jsou úsudek. Řada ukazatelů je jen blízká indikátoru a část dat je za celou ČR.</li>
+      <li>Střed mezi cestami neznamená nejpravděpodobnější vývoj. Pásmo je z velké části rozsah položek tabulky, který je náš odhad a může se překrývat s indikátory.</li>
+      <li>Vítr a pozemní fotovoltaika mají stejný posun mezi cestami, i když je lidé mohou přijímat různě. Ve sledovaných obcích, kde se hlasovalo, dopadla hlasování většinou proti záměru, hlasuje se ale tam, kde je spor.</li>
+      <li>Hodinový výpočet je jen pro výchozí nastavení a velikost zařízení se v něm znovu nehledá. Zimní špička podle metody studie a letní poledne se pro tuto křivku nepočítají.</li>
+      <li>Výchozí varianta bez SMR počítá jen s oznámenými plynovými bloky 283 MW. Kdyby se bez reaktoru stavělo jako v konzervativní cestě, 683 MW, schodek by byl o více než tisíc GWh menší, volba to umí ukázat.</li>
       <li>Řada ukazatelů měří dnešní stav a jen přibližuje indikátor, například podíl vysokoškoláků místo montážní kapacity. Zpětná kontrola proti skutečnosti neproběhla.</li>
       <li>Model nezachytí, že dostatek elektřiny přiláká investora.</li>
     </ul>
@@ -646,7 +646,7 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
       <li><b>Výpadek největšího bloku.</b> Výpadek SMR v nejhorší zimní hodině zvedá špičku dovozu z {{vs_spicka}} na {{vs_smr}} MW.</li>
       <li><b>Blackout.</b> Dopady výpadku podle skupin obyvatel jsou popsané jen slovně, počty lidí ani MW kritických odběrů kraje zdroje neuvádějí.</li>
       <li><b>Syntetický plyn.</b> Elektřina na jeho výrobu není vyčíslená, řádek je nula a skutečnost je větší. Výroba na tunu je převzatá ze spalování a řádek bere všech 240 000 t odpadu, studie s. 137 počítá s 1/3 až 1/2.</li>
-      <li><b>Náklady.</b> Stránka řeší energetickou bilanci. Ceny pořízení a údržby neobsahuje, jen řádový odhad u nádrže v závorce.</li>
+      <li><b>Náklady.</b> Stránka řeší energetickou bilanci. Ceny údržby a provozu neobsahuje. Řádovou cenu výstavby ukazují jen dlaždice, kde na ni je zdroj, a odhad u nádrže v závorce.</li>
       <li><b>Posuvníky.</b> Hodinový výpočet ani pásmo se při změně posuvníků nepřepočítávají.</li>
     </ul>
   </section>
@@ -1121,10 +1121,10 @@ function smrRow(it){
   const k = key(it), row = document.createElement("div");
   row.className = "item";
   row.innerHTML =
-    `<div class="top"><span>Malý modulární reaktor (SMR), moduly po ${SMR_MW} MW<span class="grade ${esc(it.grade)}" title="Stupeň důkazu">${esc(it.grade)}</span></span><span class="val mono"></span></div>` +
-    `<div class="track"><input class="smrin" type="range" min="0" max="${SMR_MAX}" step="1" aria-label="Počet modulů SMR"></div>` +
+    `<div class="top"><span>Malý modulární reaktor (SMR), reaktory po ${SMR_MW} MW<span class="grade ${esc(it.grade)}" title="Stupeň důkazu">${esc(it.grade)}</span></span><span class="val mono"></span></div>` +
+    `<div class="track"><input class="smrin" type="range" min="0" max="${SMR_MAX}" step="1" aria-label="Počet reaktorů SMR"></div>` +
     jumpHtml(Object.assign({}, it, {event:"Spuštění SMR"})).replace(/data-jump="[^"]*"/, `data-jump="${esc(jumpKey(it))}"`) +
-    `<details><summary>Jak se došlo k číslu</summary><p>Jeden modul: ${esc(smrProgressive.plain || smrProgressive.how)}</p><p>Pro druhý a další modul v kraji podklad není.</p><p><b>Zdroj:</b> ${link(smrProgressive.src)}</p>${it.note ? `<p>${esc(it.note)}</p>` : ""}</details>`;
+    `<details><summary>Jak se došlo k číslu</summary><p>Jeden reaktor: ${esc(smrProgressive.plain || smrProgressive.how)}</p><p>Pro druhý a další reaktor v kraji podklad není.</p><p><b>Zdroj:</b> ${link(smrProgressive.src)}</p>${it.note ? `<p>${esc(it.note)}</p>` : ""}</details>`;
   const input = row.querySelector(".smrin"), val = row.querySelector(".val"), yearBox = row.querySelector(".yearline");
   const show = () => { const n = Math.round(state.values[k] / SMR_UNIT); val.textContent = `${n} × ${SMR_MW} MW, ${NF.format(state.values[k])} GWh`; yearBox.hidden = n === 0; };
   input.value = Math.round(state.values[k] / SMR_UNIT);
@@ -1312,7 +1312,7 @@ function drawTrends(){
   }
 }
 /* Dlaždice: stejná čísla jako horní graf a toky, tedy zvolená cesta, posuvníky a rok. Vzorce a texty jsou v datech stránky. */
-const TILE_PATH = {progresivni:"Progresivní cesta: jeden malý reaktor, vítr a slunce podle podílu kraje, rychlá elektrifikace dopravy a tepla, část kamionů a autobusů na vodík.", konzervativni:"Konzervativní cesta: bez reaktoru, hlavně plynové bloky, málo větru a slunce, pomalejší elektrifikace, doprava bez vodíku."};
+const TILE_PATH = {progresivni:"Progresivní cesta: jeden malý reaktor, vítr a slunce podle podílu kraje na celostátním plánu, rychlá elektrifikace dopravy a tepla, část kamionů a autobusů na vodík.", konzervativni:"Konzervativní cesta: bez reaktoru, hlavně plynové bloky, málo větru a slunce, pomalejší elektrifikace, doprava bez vodíku."};
 const TILE = DATA.real.dlazdice, TILE_NAMES = ["path", "i", "year", "g", "D", "t", "m", "gen", "use", "bat", "interp", "jump", "SMR_UNIT", "SMR_MW", "K", "tab", "N", "N1", "P", "ELECTROLYSER_HOURS"];
 const tileFn = expr => new Function(...TILE_NAMES, `"use strict"; return (${expr});`);
 const TILES = TILE.tiles.map(t => ({...t, fn:tileFn(t.vzorec), hoverFn:t.hover.map(tileFn), costFn:t.cena ? tileFn(t.cena.mnozstvi) : null, el:null}));
@@ -1356,7 +1356,7 @@ const TILE_ANIM = {
 let tileHover = null;
 function tileTip(t){
   const a = tileInputs(), v = t.fn(...a), shown = v === null ? null : tileRound(v, t.zaokrouhleni);
-  const lines = shown === 0 && t.hover_pri_nule ? [t.hover_pri_nule] : t.hoverFn.map(f => f(...a)).filter(Boolean);
+  const lines = shown === 0 && t.hover_pri_nule ? [t.hover_pri_nule] : t.hoverFn.map(f => f(...a)).filter(l => l && !/\b0,0 hodiny/.test(l));
   const cost = tileCost(t, a);
   if(cost) lines.push(cost);
   $("tip").innerHTML = `<div class="tiphead"><b>${esc(t.label)}</b></div>` + lines.map(l => `<p style="margin:4px 0 0;max-width:300px">${esc(l)}</p>`).join("");
@@ -1382,7 +1382,7 @@ function tileBuild(){
     for(const type of ["pointerleave", "blur"]) el.addEventListener(type, tileHide);
     host.appendChild(el);
   }
-  $("tileSrc").innerHTML = `<p class="viewnote">Počty vycházejí z činnosti a intenzity v řádcích modelu. Konstanty mimo model:</p><ul class="flaws">` + TILE.zdroje.map(z => `<li>${realLink(z.nazev, z.url)}${z.druh === "odhad" ? ", odhad" : ""}.</li>`).join("") + `</ul><p class="viewnote">Nájezd nákladního auta 60 000 km za rok je úsudek. Skutečný počet nákladních aut v kraji není zjištěn, proto se před rokem 2030 neuvádí.</p><p class="plain"><b>Ceny výstavby.</b> Jsou řádové, v dnešních cenách a platí jen pro nově postavené zařízení proti dnešku. Nezahrnují připojení k síti, financování ani výměny během období a dotace se neodečítají. Záměrně se nesčítají: platí je různí investoři a část se překrývá, například plyn a pec v Třinci. U aut a datových center cena není, auta se kupují tak jako tak a datová centra jsou soukromá investice bez konkrétního projektu.</p><ul class="flaws">` + TILES.filter(t => t.cena).map(t => `<li>${esc(t.label)}: ${realLink(t.cena.zdroj, t.cena.url)}${t.cena.url2 ? `, <a href="${esc(t.cena.url2)}" target="_blank" rel="noopener">druhý zdroj</a>` : ""}.</li>`).join("") + `</ul>`;
+  $("tileSrc").innerHTML = `<p class="viewnote">Počty vycházejí z položek modelu. Další použité hodnoty:</p><ul class="flaws">` + TILE.zdroje.map(z => `<li>${realLink(z.nazev, z.url)}${z.druh === "odhad" ? ", odhad" : ""}.</li>`).join("") + `</ul><p class="viewnote">Nájezd nákladního auta 60 000 km za rok je úsudek. Skutečný počet nákladních aut v kraji není zjištěn, proto se před rokem 2030 neuvádí.</p><p class="plain"><b>Ceny výstavby.</b> Jsou řádové, v dnešních cenách a platí jen pro nově postavené zařízení proti dnešku. Nezahrnují připojení k síti, financování ani výměny během období a dotace se neodečítají. Záměrně se nesčítají: platí je různí investoři a část se překrývá, například plyn a pec v Třinci. U aut a datových center cena není, auta se kupují tak jako tak a datová centra jsou soukromá investice bez konkrétního projektu.</p><ul class="flaws">` + TILES.filter(t => t.cena).map(t => `<li>${esc(t.label)}: ${realLink(t.cena.zdroj, t.cena.url)}${t.cena.url2 ? `, <a href="${esc(t.cena.url2)}" target="_blank" rel="noopener">druhý zdroj</a>` : ""}.</li>`).join("") + `</ul>`;
 }
 function tileDraw(){
   if(!TILES[0].el) tileBuild();
@@ -1498,7 +1498,7 @@ function realDraw(){
   const pct = NF.format(r.prob.smr * 100);
   const gapNow = r.use[last] - r.gen[last], gapP = totals("progresivni", "spotreba")[last] - totals("progresivni", "vyroba")[last], gapK = totals("konzervativni", "spotreba")[last] - totals("konzervativni", "vyroba")[last];
   const beyond = gapNow > Math.max(gapP, gapK) ? " Schodek je větší než v obou cestách, protože tu chybí reaktor z progresivní cesty i plynové bloky navíc z konzervativní cesty." : "";
-  $("realLead").textContent = `Křivka není předpověď ani nejpravděpodobnější vývoj, je to důsledek zvolených předpokladů. Odhad pravděpodobnosti SMR v kraji do konce roku 2049 je ${pct} % a křivka ${r.smrOn ? "jde větví s reaktorem" : "jde větví bez reaktoru"}. ${other.smrOn ? "S reaktorem" : "Bez reaktoru"} by byl schodek ${NF.format(other.use[other.use.length - 1] - other.gen[other.gen.length - 1])} GWh. Ve výchozím nastavení je to schodek řádově ${NF1.format(REAL.udalosti[0].schodek / 1000)} TWh a pásmo větve ${NF1.format(REAL.pasmo.vetve.bez.schodek[0][25] / 1000)} až ${NF1.format(REAL.pasmo.vetve.bez.schodek[2][25] / 1000)} TWh. Výchozí křivka je jedna z nejčastějších kombinací stavů událostí, ne střed pásma.${beyond}`;
+  $("realLead").textContent = `Křivka není předpověď ani nejpravděpodobnější vývoj, je to důsledek zvolených předpokladů. Odhad pravděpodobnosti SMR v kraji do konce roku 2049 je ${pct} % a křivka ${r.smrOn ? "počítá s reaktorem" : "s reaktorem nepočítá"}. ${other.smrOn ? "S reaktorem" : "Bez reaktoru"} by byl ${other.use[other.use.length - 1] >= other.gen[other.gen.length - 1] ? "schodek" : "přebytek"} ${NF.format(Math.abs(other.use[other.use.length - 1] - other.gen[other.gen.length - 1]))} GWh. Ve výchozím nastavení bez reaktoru je schodek asi ${NF1.format(REAL.udalosti[0].schodek / 1000)} TWh a pásmo nejistoty ${NF1.format(REAL.pasmo.vetve.bez.schodek[0][25] / 1000)} až ${NF1.format(REAL.pasmo.vetve.bez.schodek[2][25] / 1000)} TWh. Výchozí křivka odpovídá jedné z nejčastějších kombinací velkých událostí, ne středu pásma.${beyond}`;
   realChart(r, other);
   realSync(r);
   pinLayout();
@@ -1556,7 +1556,7 @@ function realChart(r, other){
   hit.addEventListener("pointermove", tip);
   hit.addEventListener("pointerdown", tip);
   hit.addEventListener("pointerleave", () => { $("tip").style.display = "none"; });
-  $("realLegend").innerHTML = `<span><i style="border-color:var(--real)"></i>Spotřeba</span><span><i style="border-color:var(--real);border-top-style:dashed"></i>Výroba</span>` + (realShowBranch ? `<span><i style="border-color:var(--real);opacity:.6;border-top-width:1.2px"></i>${r.smrOn ? "Bez reaktoru" : "S reaktorem"}</span>` : "") + (band ? `<span>Plocha: pásmo pro výchozí nastavení této větve, P10 až P90, posuvníky ho nemění</span>` : "") + (realCompare.progresivni ? `<span><i style="border-color:var(--prog);border-top-width:1.5px"></i>Progresivní</span>` : "") + (realCompare.konzervativni ? `<span><i style="border-color:var(--kons);border-top-width:1.5px"></i>Konzervativní</span>` : "");
+  $("realLegend").innerHTML = `<span><i style="border-color:var(--real)"></i>Spotřeba</span><span><i style="border-color:var(--real);border-top-style:dashed"></i>Výroba</span>` + (realShowBranch ? `<span><i style="border-color:var(--real);opacity:.6;border-top-width:1.2px"></i>${r.smrOn ? "Bez reaktoru" : "S reaktorem"}</span>` : "") + (band ? `<span>Plocha: pásmo nejistoty pro výchozí nastavení této varianty, 80 % simulací, posuvníky ho nemění</span>` : "") + (realCompare.progresivni ? `<span><i style="border-color:var(--prog);border-top-width:1.5px"></i>Progresivní</span>` : "") + (realCompare.konzervativni ? `<span><i style="border-color:var(--kons);border-top-width:1.5px"></i>Konzervativní</span>` : "");
 }
 /* Kategorie: posuvník přepočte své indikátory poměrem vůči výchozím hodnotám, konce 0 a 1 dávají všem indikátorům 0 a 1. */
 const REAL_DEFAULT_X = realInit().x;
@@ -1574,10 +1574,10 @@ function realCatApply(cat, c){
 const realCatValue = cat => cat.used.length ? cat.used.reduce((s, r) => s + realCfg.x[r.id], 0) / cat.used.length : 0;
 const REAL_REFS = {cats:[], inds:{}, dec:{}, ext:{}};
 const REAL_CAT_TEXT = {
-  "Institucionální a politické řízení":["Jak dobře kraj, obce a stát spolupracují, povolují stavby a jestli politika myslí dlouhodobě.", "Instituce spolupracují a mají důvěru lidí, politika myslí dlouhodobě a povolování funguje.", "Řízení je roztříštěné, lidé institucím nevěří a převažují krátkodobá řešení."],
+  "Institucionální a politické řízení":["Jak dobře kraj, obce a stát spolupracují a povolují stavby a jestli politika myslí dlouhodobě.", "Instituce spolupracují a mají důvěru lidí, politika myslí dlouhodobě a povolování funguje.", "Řízení je roztříštěné, lidé institucím nevěří a převažují krátkodobá řešení."],
   "Sociální akceptace transformace":["Jestli lidé přechod podporují a jestli přijmou nové stavby ve svém okolí.", "Široká podpora, obce souhlasí s větrem, fotovoltaikou a dalšími stavbami.", "Skepse a odpor v místě, stavby končí v konfliktech a v odmítnutí v referendech."],
   "Lidský kapitál a demografie":["Jestli má kraj dost kvalifikovaných lidí, například pro montáž tepelných čerpadel a fotovoltaiky. Počet obyvatel se nastavuje zvlášť ve Vnějších vlivech.", "Dost odborníků, úspěšné rekvalifikace a kraj láká investory i talenty.", "Nedostatek kvalifikovaných lidí a pokles zájmu investorů."],
-  "Ekonomická transformace a investice":["Jestli v kraji vznikají nové průmyslové obory spojené s energetikou, nebo starý průmysl jen ubývá.", "Nové obory se rozvíjejí a nahrazují úbytek starých, pilotní projekty se daří.", "Tradiční průmysl postupně zaniká a nové projekty chybí."],
+  "Ekonomická transformace a investice":["Jestli v kraji vznikají nové průmyslové obory spojené s energetikou, nebo starý průmysl jen ubývá.", "Nové obory se rozvíjejí a nahrazují úbytek starých, pilotním projektům se daří.", "Tradiční průmysl postupně zaniká a nové projekty chybí."],
   "Sociální soudržnost a distribuce přínosů":["Jestli si lidé mohou přechod dovolit a kdo z něj má prospěch. Do modelu tu vstupuje energetická chudoba, která brzdí výměnu vytápění.", "Méně domácností ohrožených cenami energií, přínosy jsou široce sdílené.", "Přibývá zranitelných domácností a přínosy má jen část lidí."],
   "Energetická infrastruktura a decentralizace":["Jestli vznikají energetické komunity a lokální zdroje a jak kraj bere vlastní soběstačnost.", "Běžné jsou energetické komunity, mikrosítě a lokální zdroje.", "Komunitních projektů je minimum a kraj spoléhá na dodávky zvenčí."],
   "Informační prostředí a epistemická odolnost":["Jak moc lidé věří nepravdivým tvrzením o energetice a jak fakticky se o ní informuje.", "Lidé jsou vůči dezinformacím odolní a informace jsou faktické.", "Dezinformační kampaně mají silný vliv a informování je alarmistické."],
@@ -1587,14 +1587,14 @@ const REAL_CAT_TEXT = {
 };
 const REAL_DEC_TEXT = {
   gas:"Kolik plynových bloků se postaví, když reaktor nepřijde. 283 MW jsou doložené a oznámené projekty, plyn navíc se nepřidává. 683 MW je výstavba konzervativní cesty a schodek je pak menší.",
-  smr:"Má v kraji stát malý jaderný reaktor? Ano přidá celou výrobu reaktoru a plynové bloky po spuštění ubývají jako v progresivní cestě. Ne znamená bez reaktoru a s více plynovými bloky, jako v konzervativní cestě. Podle indikátorů rozhodne odhad pravděpodobnosti, ano od 50 %.",
-  dc:"Přijdou do kraje velká datová centra? Ano znamená spotřebu podle progresivní cesty, ne jen desetinu této spotřeby. Podle indikátorů dá ano až vysoké skóre, od 0,75. Skóre není pravděpodobnost.",
-  pec:"Kolik oceli v Třinci půjde přes elektřinu. Plná elektrifikace je nejvyšší spotřeba a konec hutních plynů. Jen první pec je polovina výroby. Žádná pec nechává dnešní stav.",
+  smr:"Má v kraji stát malý jaderný reaktor? Ano přidá celou výrobu reaktoru a plynové bloky po spuštění ubývají jako v progresivní cestě. Ne znamená bez reaktoru, plynové bloky pak určuje volba níže. Podle indikátorů rozhodne odhad pravděpodobnosti, ano od 50 %.",
+  dc:"Přijdou do kraje velká datová centra? Ano znamená spotřebu podle progresivní cesty. Ne znamená jen desetinu této spotřeby. Podle indikátorů dá ano až vysoká hodnota, od 0,75. Není to pravděpodobnost.",
+  pec:"Kolik oceli se v Třinci bude vyrábět pomocí elektřiny. Plná elektrifikace je nejvyšší spotřeba a konec hutních plynů. Jen první pec je polovina výroby. Žádná pec nechává dnešní stav.",
   huta:"Začne se v Ostravě znovu vyrábět ocel v elektrické peci? Ano přidá asi 675 GWh spotřeby. Ne tuto spotřebu ubere, ale menší schodek tu neznamená dobrou zprávu.",
 };
 const realInfo = html => `<span class="tipwrap"><button type="button" class="info" aria-label="Vysvětlení">i</button><span class="bubble wide" role="tooltip">${html}</span></span>`;
 const realEnds = (what, one, zero) => `${what ? esc(what) + "<br>" : ""}<b>1:</b> ${esc(one)}<br><b>0:</b> ${esc(zero)}`;
-const REAL_EFFECT = {...REAL.groupNames, rozhodnuti_smr:"odhad SMR", rozhodnuti_dc:"skóre datových center", rozhodnuti_pec:"skóre plné elektrifikace Třince"};
+const REAL_EFFECT = {...REAL.groupNames, rozhodnuti_smr:"odhad SMR", rozhodnuti_dc:"rozhodnutí o datových centrech", rozhodnuti_pec:"rozhodnutí o plné elektrifikaci Třince"};
 function realEffects(ids){
   const out = Object.keys(REAL.weights).filter(g => ids.some(id => REAL.weights[g][id])).map(g => REAL_EFFECT[g]);
   return out.length ? `<br><b>Mění:</b> ${esc(out.join(", "))}.` : "<br><b>Mění:</b> nic, váha 0.";
@@ -1638,9 +1638,9 @@ function realBuild(){
     const zero = !REAL_USED.has(ind.id);
     const more = `<details><summary>Co to znamená a zdroj</summary><p><b>1:</b> ${esc(ind.popis_x1)}</p><p><b>0:</b> ${esc(ind.popis_x0)}</p>` +
       `<p><b>Pracovní podklad, progresivní cesta:</b> ${esc(ind.podklad.zmeny || "bez změn")}.</p><p><b>Použití v modelu:</b> ${realUse(ind.id)}</p>` +
-      (ind.ukazatel ? `<p><b>Ukazatel:</b> ${esc(ind.ukazatel)}${ind.hodnota ? `, ${esc(ind.hodnota)}` : ""}${ind.rok ? ` (${esc(ind.rok)})` : ""}. Kotvy ${esc(ind.kotva_x0)} a ${esc(ind.kotva_x1)} jsou úsudek. Území: ${esc(ind.uzemi)}.</p>` : "") +
+      (ind.ukazatel ? `<p><b>Ukazatel:</b> ${esc(ind.ukazatel)}${ind.hodnota ? `, ${esc(ind.hodnota)}` : ""}${ind.rok ? ` (${esc(ind.rok)})` : ""}. Krajní hodnoty škály ${esc(ind.kotva_x0)} a ${esc(ind.kotva_x1)} jsou úsudek. Území: ${esc(ind.uzemi)}.</p>` : "") +
       (ind.duvod_prepisu ? `<p>${esc(ind.duvod_prepisu)}</p>` : "") + (ind.zdroj ? `<p><b>Zdroj:</b> ${realLink(ind.zdroj, ind.url)}</p>` : "") + `</details>`;
-    const r = realRow(ind.indikator, realInfo(realEnds("", ind.popis_x1, ind.popis_x0) + realEffects([ind.id]) + `<br><b>Skóre dopadu v tabulce:</b> progresivní ${esc(ind.ps)}, konzervativní ${esc(ind.ks)}.<br><b>Pracovní podklad:</b> působí ${esc(ind.podklad.rezim)}.`) + `<span class="grade${ind.jistota === "odhad" ? " D" : ""}">${esc(ind.jistota)}</span>`, 0, 1, .01, v => { realCfg.x[ind.id] = v; realDraw(); },
+    const r = realRow(ind.indikator, realInfo(realEnds("", ind.popis_x1, ind.popis_x0) + realEffects([ind.id]) + `<br><b>Hodnocení dopadu v tabulce:</b> progresivní ${esc(ind.ps)}, konzervativní ${esc(ind.ks)}.<br><b>Pracovní podklad:</b> působí ${esc(ind.podklad.rezim)}.`) + `<span class="grade${ind.jistota === "odhad" ? " D" : ""}">${esc(ind.jistota)}</span>`, 0, 1, .01, v => { realCfg.x[ind.id] = v; realDraw(); },
       (zero ? `<p class="viewnote">Váha 0. ${esc(ind.vaha0)}</p>` : "") + more);
     if(zero) r.input.disabled = true;
     inds.appendChild(r.row);
@@ -1673,10 +1673,10 @@ function realBuild(){
   }
   const zdrojeVne = z => `<details><summary>Zdroj</summary><p>${z.text ? esc(z.text) : ""}</p><p>${z.zdroje.map(s => realLink(s[0], s[1])).join("; ")}</p></details>`;
   const t = realRow("Další oteplení do roku 2050", realInfo("O kolik stupňů bude v roce 2050 tepleji než v letech 2015 až 2019. Víc stupňů znamená méně elektřiny na vytápění a také méně výroby z teplárenské kogenerace. Schodek se proto skoro nemění."), REAL.dT.min, REAL.dT.max, .1, v => { realCfg.dT = v; realDraw(); }, zdrojeVne(REAL.dT));
-  const p = realRow("Obyvatel kraje v roce 2050", realInfo("Kolik lidí bude v kraji žít. Méně lidí znamená menší spotřebu domácností, aut a vytápění. Menší schodek z úbytku lidí není dobrá zpráva."), REAL.pop.min, REAL.pop.max, 1, v => { realCfg.dpop = (v - REAL.pop.default) / REAL.pop.base; realDraw(); }, zdrojeVne(REAL.pop));
+  const p = realRow("Počet obyvatel kraje v roce 2050", realInfo("Kolik lidí bude v kraji žít. Méně lidí znamená menší spotřebu domácností, aut a vytápění. Menší schodek z úbytku lidí není dobrá zpráva."), REAL.pop.min, REAL.pop.max, 1, v => { realCfg.dpop = (v - REAL.pop.default) / REAL.pop.base; realDraw(); }, zdrojeVne(REAL.pop));
   ext.appendChild(t.row); ext.appendChild(p.row);
   REAL_REFS.ext.dT = t; REAL_REFS.ext.pop = p;
-  $("realSrcTable").innerHTML = `<table class="grades"><tr><th>Indikátor</th><th>Výchozí</th><th>Jistota</th><th>Pracovní podklad: průběh a váhy</th><th>Podíl na poloze v modelu</th><th>Z čeho je výchozí hodnota</th></tr>` + REAL.ind.map(r => `<tr><td>${esc(r.indikator)}</td><td class="n">${NF2.format(Number(r.x))}</td><td>${esc(r.jistota)}</td><td>${esc(r.podklad.rezim)}. ${esc(r.podklad.zmeny)}</td><td>${realUse(r.id)}${REAL_USED.has(r.id) ? "" : ` ${esc(r.vaha0)}`}</td><td>${r.zdroj ? realLink(r.zdroj, r.url) : "Bez zdroje, odhad"}</td></tr>`).join("") + `</table><p class="viewnote">Váhy podkladu jsou neověřený odhad a jejich součet může být nad 1, model je normuje. Kde se průběh liší, u velkých událostí rozhoduje model: skokem jsou reaktor, datová centra a pece, ostatní položky jdou plynule.</p>`;
+  $("realSrcTable").innerHTML = `<table class="grades"><tr><th>Indikátor</th><th>Výchozí</th><th>Jistota</th><th>Pracovní podklad: průběh a váhy</th><th>Podíl na posunu v modelu</th><th>Z čeho je výchozí hodnota</th></tr>` + REAL.ind.map(r => `<tr><td>${esc(r.indikator)}</td><td class="n">${NF2.format(Number(r.x))}</td><td>${esc(r.jistota)}</td><td>${esc(r.podklad.rezim)}. ${esc(r.podklad.zmeny)}</td><td>${realUse(r.id)}${REAL_USED.has(r.id) ? "" : ` ${esc(r.vaha0)}`}</td><td>${r.zdroj ? realLink(r.zdroj, r.url) : "Bez zdroje, odhad"}</td></tr>`).join("") + `</table><p class="viewnote">Váhy podkladu jsou neověřený odhad a jejich součet může být nad 1, model je normuje. Kde se průběh liší, u velkých událostí rozhoduje model: skokem jsou reaktor, datová centra a pece, ostatní položky jdou plynule.</p>`;
 }
 function realSync(r){
   for(const c of REAL_REFS.cats){ const v = realCatValue(c.cat); c.input.value = v; c.val.textContent = c.cat.used.length ? NF2.format(v) : "bez vlivu"; }
@@ -1685,8 +1685,8 @@ function realSync(r){
     const d = REAL_REFS.dec[k];
     d.buttons.forEach(({b, v}) => b.setAttribute("aria-pressed", realCfg[k] === v));
     if(k === "gas"){ d.val.textContent = realCfg.gas === "oznamene" ? "283 MW" : "683 MW"; continue; }
-    const word = k === "pec" ? {plna:"plná", prvni:"první pec", zadna:"žádná"}[r.dec.pec] : r.dec[k] ? "ano" : "ne";
-    d.val.textContent = k === "dc" ? `${word}, skóre ${NF2.format(r.prob.dc)}` : k === "pec" ? (r.dec.pec === "prvni" ? `první pec, odhad ${NF.format(r.prob.pecPrvni * 100)} %` : word) : `${word}, odhad ${NF.format(r.prob[k] * 100)} %`;
+    const word = k === "pec" ? {plna:"plná elektrifikace", prvni:"první pec", zadna:"žádná pec"}[r.dec.pec] : r.dec[k] ? "ano" : "ne";
+    d.val.textContent = k === "dc" ? `${word}, indikátory ${NF2.format(r.prob.dc)}` : k === "pec" ? (r.dec.pec === "prvni" ? `první pec, odhad ${NF.format(r.prob.pecPrvni * 100)} %` : word) : `${word}, odhad ${NF.format(r.prob[k] * 100)} %`;
   }
   const e = REAL_REFS.ext;
   e.year.input.value = realCfg.smrYear; e.year.val.textContent = realCfg.smrYear > 2050 ? `${realCfg.smrYear}, bez účinku do 2050` : realCfg.smrYear;
@@ -1713,7 +1713,7 @@ function realReset(){ realCfg = realInit(); realPreset = "def"; realPresetCfg = 
 function realDrawFig(){
   const lv = realLevels(REAL_DEFAULT_X), keys = REAL_GROUP_KEYS, H = 40 + keys.length * 30, L = 230, R = 960, host = $("realFig");
   host.innerHTML = "";
-  const svg = mk("svg", {viewBox:`0 0 1000 ${H}`, role:"img", "aria-label":"Poloha skupin položek mezi konzervativní a progresivní cestou"}, host);
+  const svg = mk("svg", {viewBox:`0 0 1000 ${H}`, role:"img", "aria-label":"Posun skupin položek mezi konzervativní a progresivní cestou"}, host);
   mk("text", {x:L, y:16, "text-anchor":"middle"}, svg, "K");
   mk("text", {x:R, y:16, "text-anchor":"middle"}, svg, "P");
   keys.forEach((g, j) => {
@@ -1723,7 +1723,7 @@ function realDrawFig(){
     mk("circle", {cx, cy:y, r:7, fill:"var(--real)"}, svg);
     mk("text", {x:Math.min(cx + 12, R - 24), y:y - 8}, svg, NF2.format(lv[g]));
   });
-  $("realFigCap").textContent = "Co je nakresleno: poloha a každé skupiny položek ve výchozím nastavení, 0 je konzervativní cesta, 1 progresivní. Výpočet: vážený průměr indikátorů skupiny. Ukazuje, že výchozí stav není jeden společný posun, skupiny leží na různých místech.";
+  $("realFigCap").textContent = "Co je nakresleno: posun a každé skupiny položek ve výchozím nastavení, 0 je konzervativní cesta, 1 progresivní. Výpočet: vážený průměr indikátorů skupiny. Ukazuje, že výchozí stav není jeden společný posun, skupiny leží na různých místech.";
 }
 $("realDefault").addEventListener("click", realReset);
 $("realAllK").addEventListener("click", () => realSetAll(0));
@@ -1738,29 +1738,29 @@ realDrawFig();
 function realStatic(){
   const b = REAL.pasmo, q = (v, i) => NF.format(v[i][v[i].length - 1]), tri = v => `${q(v, 0)} až ${q(v, 2)} GWh, medián ${q(v, 1)} GWh`;
   const bars = b.hist.hrany.slice(0, -1), hmax = Math.max(...bars.map((_, i) => b.hist.bez[i] + b.hist.s[i])), W2 = 1000, H2 = 150, bw = (W2 - 40) / bars.length;
-  let hist = `<svg viewBox="0 0 ${W2} ${H2 + 24}" role="img" aria-label="Rozdělení schodku 2050 ve větvích s SMR a bez SMR">`;
+  let hist = `<svg viewBox="0 0 ${W2} ${H2 + 24}" role="img" aria-label="Rozdělení schodku 2050 ve variantách s SMR a bez SMR">`;
   bars.forEach((e, i) => {
     const h1 = b.hist.bez[i] / hmax * H2, h2 = b.hist.s[i] / hmax * H2, x = 20 + i * bw;
     hist += `<rect x="${x.toFixed(1)}" y="${(H2 - h1).toFixed(1)}" width="${(bw - 1).toFixed(1)}" height="${h1.toFixed(1)}" fill="var(--real)" opacity=".85"></rect><rect x="${x.toFixed(1)}" y="${(H2 - h1 - h2).toFixed(1)}" width="${(bw - 1).toFixed(1)}" height="${h2.toFixed(1)}" fill="var(--ok)" opacity=".85"></rect>`;
     if(e % 2000 === 0) hist += `<text x="${x.toFixed(1)}" y="${H2 + 18}" text-anchor="middle">${NF.format(e / 1000)}</text>`;
   });
   hist += "</svg>";
-  $("realBandText").innerHTML = `<p class="plain">Pásmo platí pro výchozí nastavení a posuvníky ho nemění. Roční schodek 2050 ve všech bězích: ${tri(b.vse.schodek)}. Větev bez SMR: ${tri(b.vetve.bez.schodek)}. Větev s SMR: ${tri(b.vetve.s.schodek)}. SMR se objevil v ${NF.format(b.podil_smr * 100)} % běhů.</p>` +
+  $("realBandText").innerHTML = `<p class="plain">Pásmo platí pro výchozí nastavení a posuvníky ho nemění. Roční schodek 2050 ve všech simulacích: ${tri(b.vse.schodek)}. Varianta bez SMR: ${tri(b.vetve.bez.schodek)}. Varianta s SMR: ${tri(b.vetve.s.schodek)}. SMR se objevil v ${NF.format(b.podil_smr * 100)} % simulací.</p>` +
     `<div class="tablewrap"><table class="grades"><tr><th>Zdroj nejistoty</th><th>Šířka schodku, jen tento zdroj</th><th>Šířka výroby</th><th>Šířka spotřeby</th><th>O kolik se zúží celek bez něj</th></tr>` +
     b.rozklad.map(t => `<tr><td>${esc(t.zdroj)}</td><td class="n">${NF.format(t.sam)}</td><td class="n">${NF.format(t.sam_vyroba)}</td><td class="n">${NF.format(t.sam_spotreba)}</td><td class="n">${NF.format(t.ubude)}</td></tr>`).join("") +
     `<tr><td><b>Všechny zdroje</b></td><td class="n">${NF.format(b.sirka_vse)}</td><td></td><td></td><td></td></tr></table></div>` +
-    `<p class="viewnote">Šířka je rozdíl P90 a P10 v roce 2050, GWh. Sloupce se nesčítají, zdroje na sebe působí a malé hodnoty v posledním sloupci jsou v mezích šumu simulace. Největší část je rozsah řádků tabulky, který je z velké části náš odhad a může se překrývat s indikátory. Indikátory samy hýbou výrobou i spotřebou stejným směrem, proto na schodku působí málo. Datová centra a plná elektrifikace Třince v pásmu nejsou, obhajitelné číslo pro ně neexistuje.</p>` +
-    `<p class="viewnote">Provázání indikátorů společnými faktory, jen tento zdroj, šířka výroby a spotřeby: nezávisle ${NF.format(b.provazani.nezavisle.vyroba)} a ${NF.format(b.provazani.nezavisle.spotreba)} GWh, s faktory ${NF.format(b.provazani.vychozi.vyroba)} a ${NF.format(b.provazani.vychozi.spotreba)} GWh. Schodek se tím naopak mírně zúží, ${NF.format(b.provazani.nezavisle.schodek)} a ${NF.format(b.provazani.vychozi.schodek)} GWh, protože výroba a spotřeba rostou společně. Síla faktorů je úsudek.</p>` +
-    `<div class="figsvg">${hist}</div><p class="viewnote">Co je nakresleno: počet běhů podle schodku 2050 v TWh, fialově větev bez SMR, zeleně s SMR. Výpočet: ${NF.format(b.behu)} běhů. Schodek má v součtu ${b.vrcholy.schodek === 1 ? "jeden vrchol, protože rozsah řádků dva vrcholy větví překryje" : b.vrcholy.schodek + " vrcholy"}, výroba ${b.vrcholy.vyroba === 1 ? "jeden" : b.vrcholy.vyroba === 2 ? "dva, s reaktorem a bez něj" : b.vrcholy.vyroba}. Větve se liší, proto jsou uvedené zvlášť.</p>` +
+    `<p class="viewnote">Šířka je rozsah, ve kterém leží prostředních 80 % simulací v roce 2050, GWh. Sloupce se nesčítají, zdroje na sebe působí a malé hodnoty v posledním sloupci jsou v mezích náhodného kolísání simulace. Největší část je rozsah položek tabulky, který je z velké části náš odhad a může se překrývat s indikátory. Indikátory samy hýbou výrobou i spotřebou stejným směrem, proto na schodku působí málo. Datová centra a plná elektrifikace Třince v pásmu nejsou, obhajitelné číslo pro ně neexistuje.</p>` +
+    `<p class="viewnote">Indikátory se v simulaci pohybují částečně společně. Při započtení jen tohoto zdroje je šířka výroby a spotřeby u nezávislých indikátorů ${NF.format(b.provazani.nezavisle.vyroba)} a ${NF.format(b.provazani.nezavisle.spotreba)} GWh, se společnými faktory ${NF.format(b.provazani.vychozi.vyroba)} a ${NF.format(b.provazani.vychozi.spotreba)} GWh. Šířka schodku se tím naopak mírně zúží, z ${NF.format(b.provazani.nezavisle.schodek)} na ${NF.format(b.provazani.vychozi.schodek)} GWh, protože výroba a spotřeba rostou společně. Síla společných faktorů je úsudek.</p>` +
+    `<div class="figsvg">${hist}</div><p class="viewnote">Co je nakresleno: počet simulací podle schodku 2050 v TWh, fialově varianta bez SMR, zeleně s SMR. Výpočet: ${NF.format(b.behu)} simulací. Schodek má v součtu ${b.vrcholy.schodek === 1 ? "jeden vrchol, protože rozsah položek dva vrcholy variant překryje" : b.vrcholy.schodek + " vrcholy"}, výroba ${b.vrcholy.vyroba === 1 ? "jeden" : b.vrcholy.vyroba === 2 ? "dva, s reaktorem a bez něj" : b.vrcholy.vyroba}. Varianty se liší, proto jsou uvedené zvlášť.</p>` +
     `<h3 class="realh">Co udělá jedna událost, výchozí stav, ostatní beze změny</h3><div class="tablewrap"><table class="grades"><tr><th>Událost</th><th>Výroba</th><th>Spotřeba</th><th>Schodek, GWh</th></tr>` + REAL.udalosti.map(c => `<tr><td>${esc(c.nazev)}</td><td class="n">${NF.format(c.vyroba)}</td><td class="n">${NF.format(c.spotreba)}</td><td class="n">${NF.format(c.schodek)}</td></tr>`).join("") + `</table></div>` +
-    `<h3 class="realh">Citlivost na způsob výpočtu, výchozí stav, větev bez SMR</h3><div class="tablewrap"><table class="grades"><tr><th>Výpočet polohy</th><th>Výroba</th><th>Spotřeba</th><th>Schodek, GWh</th></tr>` + REAL.citlivost.map(c => `<tr><td>${esc(c.nazev)}</td><td class="n">${NF.format(c.vyroba)}</td><td class="n">${NF.format(c.spotreba)}</td><td class="n">${NF.format(c.schodek)}</td></tr>`).join("") + `</table></div>` +
+    `<h3 class="realh">Citlivost na způsob výpočtu, výchozí stav, varianta bez SMR</h3><div class="tablewrap"><table class="grades"><tr><th>Výpočet posunu</th><th>Výroba</th><th>Spotřeba</th><th>Schodek, GWh</th></tr>` + REAL.citlivost.map(c => `<tr><td>${esc(c.nazev)}</td><td class="n">${NF.format(c.vyroba)}</td><td class="n">${NF.format(c.spotreba)}</td><td class="n">${NF.format(c.schodek)}</td></tr>`).join("") + `</table></div>` +
     `<h3 class="realh">Kontrola tempa výstavby</h3><p class="viewnote">Vítr ${NF.format(REAL.tempo.vitr_mw)} MW v roce 2050 je ${NF1.format(REAL.tempo.vitr_rok)} MW za rok proti největšímu ročnímu přírůstku kraje ${NF1.format(REAL.tempo.vitr_rekord)} MW. Znamenalo by to rekord každý rok po celých 25 let. Fotovoltaika ${NF.format(REAL.tempo.fve_mw)} MWp je ${NF1.format(REAL.tempo.fve_rok)} MWp za rok proti rekordu ${NF1.format(REAL.tempo.fve_rekord)} MWp. Zdroj rekordů: ERÚ, Roční zpráva 2025, kap. 4.6.8.</p>`;
   const h = REAL.hodiny, cell = (a, f) => `<tr><td>${a}</td><td class="n">${f(h.bez)}</td><td class="n">${f(h.s)}</td></tr>`, n = v => NF.format(v);
   $("realHourText").innerHTML = `<p class="viewnote">Hodinový výpočet platí jen pro výchozí nastavení, průměr 5 povětrnostních let. Po změně posuvníků se nepřepočítává. Kraj v tomto výpočtu nic nevyváží. Největší hodinový dovoz vychází nízko, protože rozvrh plynu zná celý rok dopředu, skutečná špička by byla vyšší.</p><div class="tablewrap"><table class="grades"><tr><th>Rok 2050</th><th>Bez SMR</th><th>S SMR</th></tr>` +
     cell("Roční výpočet: výroba, GWh", x => n(x.prumer.rocni_vyroba)) + cell("Roční výpočet: spotřeba, GWh", x => n(x.prumer.rocni_spotreba)) +
     cell("Hodinově: dovoz, GWh", x => n(x.prumer.dovoz)) + cell("Hodinově: přebytek bez využití, GWh", x => n(x.prumer.vyvoz)) + cell("Hodinově: plyn, GWh", x => n(x.prumer.plyn)) +
     cell("Elektřina ze sítě pro vodík, GWh", x => n(x.prumer.elektrolyza_sit)) + cell("Největší hodinový dovoz, nejhorší rok, MW", x => n(x.prumer.spicka_dovozu_max)) + cell("Největší zatížení, průměr let, MW", x => n(x.prumer.spicka_zatizeni)) +
-    cell("Baterie, GWh a MW", x => `${NF1.format(x.zarizeni.baterie_GWh)} a ${n(x.zarizeni.baterie_MW)}`) + cell("Elektrolyzér, MW, a nádrž, t", x => `${n(x.zarizeni.elektrolyzer_MW)} a ${NF1.format(x.zarizeni.nadrz_t)}`) + cell("Plynové bloky, MW", x => n(x.zarizeni.plyn_MW)) + `</table></div><p class="viewnote">Zařízení je úsudek: elektrolyzér a nádrž úměrně vodíku flotily, baterie lineárně mezi cestami podle polohy větru. Není hledané znovu.</p>`;
+    cell("Baterie, GWh a MW", x => `${NF1.format(x.zarizeni.baterie_GWh)} a ${n(x.zarizeni.baterie_MW)}`) + cell("Elektrolyzér, MW, a nádrž, t", x => `${n(x.zarizeni.elektrolyzer_MW)} a ${NF1.format(x.zarizeni.nadrz_t)}`) + cell("Plynové bloky, MW", x => n(x.zarizeni.plyn_MW)) + `</table></div><p class="viewnote">Velikost zařízení je úsudek: elektrolyzér a nádrž úměrně vodíku pro dopravu, baterie lineárně mezi cestami podle posunu větru. Znovu se nehledala.</p>`;
 }
 realStatic();
 
