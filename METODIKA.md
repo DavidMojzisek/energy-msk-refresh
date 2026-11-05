@@ -229,3 +229,7 @@ Literatura k této části, přečtený text: OECD a JRC 2008, Handbook on Const
 ## Zdroje k metodě
 
 Plné údaje a stav přečtení jsou v záložce Metodika, blok Literatura k metodě. Přečtené: Bishop a kol. 2007, Dreborg 1996, Slach a kol. (kapitola 9), Kosow a Gaßner 2008 (vybrané strany). Jen výtah, záznam nebo citace jinde: Börjeson a kol. 2006, Cherp a kol. 2021, Craig a kol. 2002, Fisher a Pry 1971, Fritsch a Carlson 1980, Robinson 1990.
+
+## Dlaždice
+
+Dlaždice nad grafem toků přepisují řádky zvolené cesty ve vybraném roce na počty, například turbín, aut nebo domů. Počítají se ze stejných čísel jako graf a mění se s posuvníky. Je to přepočet, ne sčítání. Plynové bloky a baterie mají velikost danou cestou a rokem. Výkon turbíny 6,2 MW je z jednoho záměru v kraji, domácí elektrárna 10 kWp a plocha pozemní fotovoltaiky jsou odhad, nájezd nákladního auta 60 000 km za rok je úsudek. Rok 2025 se u nákladních aut neuvádí, řádek je tam dopočet.

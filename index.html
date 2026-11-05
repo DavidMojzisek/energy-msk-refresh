@@ -166,7 +166,11 @@ svg .lab{font:600 12px "DM Sans",sans-serif;fill:var(--ink)}
 .bubble.wide b{font-weight:700}
 @media (max-width:680px){#realCard .tipwrap{position:static}}
 .pinwrap{position:relative}
-@media (min-width:1000px) and (min-height:560px){
+.tipwrap.up .bubble{top:auto;bottom:calc(100% + 6px)}
+@media (min-width:1000px) and (max-height:700px){
+.pin.stuck .kpirow .name{display:none}
+}
+@media (min-width:1000px) and (min-height:500px){
 .pin{position:sticky;top:var(--barh,53px);z-index:3;background:var(--bg);padding:4px 0 6px;margin-bottom:16px}
 .pin.stuck{border-bottom:1px solid var(--line);box-shadow:0 6px 10px -8px rgb(0 0 0/.25)}
 .pin.stuck .kpi{grid-template-columns:repeat(auto-fit,minmax(420px,1fr));gap:2px 24px;margin-bottom:2px}
@@ -180,15 +184,22 @@ svg .lab{font:600 12px "DM Sans",sans-serif;fill:var(--ink)}
 .pin.stuck .yearrow{margin:0}
 }
 .tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(205px,1fr));gap:8px;margin-top:10px}
-.tile{--c:var(--muted);display:grid;grid-template-columns:30px 1fr;column-gap:8px;padding:8px 10px;border:1px solid var(--line);border-left:4px solid var(--c);border-radius:8px;background:var(--surface);cursor:default;text-align:left}
+.tile{--c:var(--muted);display:grid;grid-template-columns:46px 1fr;column-gap:10px;align-items:center;padding:8px 10px;border:1px solid var(--line);border-left:4px solid var(--c);border-radius:8px;background:var(--surface);cursor:default;text-align:left}
 .tile:focus-visible{outline:2px solid var(--c);outline-offset:1px}
 .tile.vyroba{--c:#008A7A}.tile.spotreba{--c:#B7791F}.tile.kontext{--c:var(--muted)}
-.tile svg{width:28px;height:28px;color:var(--c);fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.tile svg{width:46px;height:46px;color:var(--c);fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 .tile .tl{font:600 12.5px/1.25 "DM Sans",sans-serif;color:var(--ink);align-self:center}
 .tile .tv{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:baseline;gap:0 7px;margin-top:4px}
 .tile .td{font-size:11.5px;color:var(--muted);width:100%}
 .tile b{font:500 23px/1.15 "JetBrains Mono",monospace;font-variant-numeric:tabular-nums}
 .tile .tu{font-size:12px;color:var(--muted)}
+.tile[data-zero="1"] svg{opacity:.4}
+.tile .spin{transform-box:view-box;animation:tspin var(--t,6s) linear infinite}
+.tile .spin.c12{transform-origin:12px 12px}
+.tile .spin.c10{transform-origin:12px 10px}
+.tile[data-zero="1"] .spin{animation:none}
+@keyframes tspin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.tile .spin{animation:none}}
 .grades{border-collapse:collapse;margin:8px 0;font-size:14px}
 .grades td,.grades th{border-top:1px solid var(--line);padding:6px 14px 6px 0;text-align:left;vertical-align:top}
 .grades th{color:var(--muted);font-weight:600;font-size:12.5px;border-top:0}
@@ -300,6 +311,7 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
   <div id="main"></div>
   <div class="yearrow"><label for="year">Rok</label><input id="year" type="range" min="2025" max="2050" step="1" value="2050"><span class="mono" id="yearv"></span></div>
 </section>
+<div class="pinspacer" id="mainPinSp"></div>
 <p class="viewnote" id="viewNote" hidden></p>
 <div class="kpiview" id="kpiView" hidden></div>
 <section class="card only-simple" id="sliderCard">
@@ -314,6 +326,7 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
   <p class="viewnote">Posuvníky mění vybranou cestu, věta nahoře platí pro výchozí nastavení. Posuvník skupiny v jednoduché verzi přepíše ruční nastavení jejích položek.</p>
   <div class="cols" id="detailLists"></div>
 </div>
+</div>
 <details class="box only-detail" id="trendCard">
   <summary>Velké trendy do roku 2050</summary>
   <div class="trendhead">
@@ -325,9 +338,9 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
   </div>
   <div class="trendgrid" id="trends"></div>
 </details>
-</div>
 <section class="card" id="tileCard">
   <h2 id="tileTitle"></h2>
+  <p class="plain" id="tilePath"></p>
   <p class="viewnote">Co zvolená cesta znamená v číslech, která si lze představit. Šedé číslo je dnešní stav. Přesné hodnoty a přepočet ukáže najetí nebo klepnutí. Počty jsou přepočet z řádků modelu, ne sčítání.</p>
   <div class="tiles" id="tiles"></div>
   <details class="box"><summary>Z čeho jsou přepočty</summary><div id="tileSrc"></div></details>
@@ -369,6 +382,7 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
   <div class="legend" id="realLegend"></div>
   <div id="realMain"></div>
   </div>
+  <div class="pinspacer" id="realPinSp"></div>
   <div class="cols">
     <div><h3 class="realh">Velké události</h3><div id="realDecisions"></div><h3 class="realh">Vnější vlivy</h3><div id="realExternal"></div></div>
     <div>
@@ -482,6 +496,11 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
       <div class="figsvg" id="realFig"></div>
       <p class="viewnote" id="realFigCap"></p>
     </details>
+  </section>
+
+  <section class="card">
+    <h2>Dlaždice a zamčený graf</h2>
+    <p>Dlaždice přepisují řádky zvolené cesty na věci, které si lze představit: počty turbín, aut nebo domů. Počítají se ze stejných čísel jako graf, s posuvníky se mění. Je to přepočet, ne sčítání. Plynové bloky a baterie mají velikost danou cestou a rokem, posuvníky je nemění. Počet nákladních aut stojí na úsudku 60 000 km za rok. Při posouvání přes posuvníky se graf zmenší a zůstane nahoře, aby bylo vidět, co posuvník dělá.</p>
   </section>
 
   <section class="card">
@@ -968,7 +987,7 @@ function drawMain(){
     }
     /* Popisky událostí: první řádek, kde se text vejde vedle předchozího. */
     const rowEnd = [];
-    for(const ev of small ? shown.filter(e => /SMR|Dětmarov|Třin/.test(e.label)) : shown){
+    for(const ev of small || PIN_STATE.mainPin ? shown.filter(e => /SMR|Dětmarov|Třin/.test(e.label)) : shown){
       const x = xScale(ev.year) + 4;
       let row = rowEnd.findIndex(end => x > end + 8);
       if(row < 0) row = rowEnd.length;
@@ -1343,6 +1362,7 @@ function drawTrends(){
   }
 }
 /* Dlaždice: stejná čísla jako horní graf a toky, tedy zvolená cesta, posuvníky a rok. Vzorce a texty jsou v datech stránky. */
+const TILE_PATH = {progresivni:"Progresivní cesta: jeden malý reaktor, vítr a slunce podle podílu kraje, rychlá elektrifikace dopravy a tepla, část kamionů a autobusů na vodík.", konzervativni:"Konzervativní cesta: bez reaktoru, hlavně plynové bloky, málo větru a slunce, pomalejší elektrifikace, doprava bez vodíku."};
 const TILE = DATA.real.dlazdice, TILE_NAMES = ["path", "i", "year", "g", "D", "t", "m", "gen", "use", "bat", "interp", "jump", "SMR_UNIT", "SMR_MW", "K", "tab", "N", "N1", "P", "ELECTROLYSER_HOURS"];
 const tileFn = expr => new Function(...TILE_NAMES, `"use strict"; return (${expr});`);
 const TILES = TILE.tiles.map(t => ({...t, fn:tileFn(t.vzorec), hoverFn:t.hover.map(tileFn), el:null}));
@@ -1365,6 +1385,12 @@ function tileRound(x, how){
   return Math.round(Math.round(x / m) * m);
 }
 const tilePlural = (u, v) => v === 1 ? u[0] : v >= 2 && v <= 4 && Number.isInteger(v) ? u[1] : u[2];
+/* Střídmě: točí se jen větrník, pomalu paprsky slunce a dráhy atomu. Nula a omezený pohyb animaci vypnou. */
+const TILE_ANIM = {
+  vitr:'<path d="M12 10.5V22M9 22h6"/><g class="spin c10" style="--t:7s"><path d="M12 10V2.5M12 10l6.5 3.75M12 10l-6.5 3.75"/></g><circle cx="12" cy="10" r="1.2"/>',
+  strechy:'<circle cx="12" cy="12" r="4"/><g class="spin c12" style="--t:40s"><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g>',
+  smr:'<circle cx="12" cy="12" r="1.7"/><g class="spin c12" style="--t:24s"><ellipse cx="12" cy="12" rx="10" ry="4"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(120 12 12)"/></g>',
+};
 let tileHover = null;
 function tileTip(t){
   const a = tileInputs(), v = t.fn(...a), shown = v === null ? null : tileRound(v, t.zaokrouhleni);
@@ -1386,7 +1412,7 @@ function tileBuild(){
     const el = document.createElement("div");
     el.className = "tile " + t.side;
     el.tabIndex = 0;
-    el.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true">${t.ikona_svg || FLOW.icons[t.icon] || ""}</svg><span class="tl">${esc(t.label)}</span><div class="tv"><span class="td">${esc(t.dnes)}</span><b></b><span class="tu"></span></div>`;
+    el.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true">${TILE_ANIM[t.id] || t.ikona_svg || FLOW.icons[t.icon] || ""}</svg><span class="tl">${esc(t.label)}</span><div class="tv"><span class="td">${t.dnes === "0" ? "dnes 0" : esc(t.dnes)}</span><b></b><span class="tu"></span></div>`;
     t.el = el; t.big = el.querySelector("b"); t.unit = el.querySelector(".tu"); t.name = el.querySelector(".tl");
     for(const type of ["pointerenter", "pointerdown", "focus"]) el.addEventListener(type, () => tileShow(t));
     for(const type of ["pointerleave", "blur"]) el.addEventListener(type, tileHide);
@@ -1396,10 +1422,12 @@ function tileBuild(){
 }
 function tileDraw(){
   if(!TILES[0].el) tileBuild();
-  $("tileTitle").textContent = `Co ${PATHNAME[state.path].toLowerCase()} cesta znamená v roce ${state.year}`;
+  $("tileTitle").textContent = `Co znamená ${PATHNAME[state.path].toLowerCase()} cesta v roce ${state.year}`;
+  $("tilePath").textContent = TILE_PATH[state.path];
   const a = tileInputs(), gen = a[7], use = a[8];
   for(const t of TILES){
     const v = t.fn(...a), r = v === null ? null : tileRound(v, t.zaokrouhleni);
+    t.el.dataset.zero = r === 0 && t.id !== "uhli" ? "1" : "0";
     if(t.id === "dovoz" && gen > use){
       t.name.textContent = "Přebytek elektřiny"; t.big.textContent = NF.format(tileRound(gen - use, "sig2")); t.unit.textContent = "GWh"; continue;
     }
@@ -1415,7 +1443,7 @@ const PIN_STATE = {mainPin:false, realPin:false};
 function pinnedHeight(id, hostId, normal){
   if(!PIN_STATE[id]) return normal;
   const width = $(hostId).clientWidth || W;
-  return Math.max(190, Math.round(innerHeight * .3 * W / width));
+  return Math.max(innerHeight < 700 ? 165 : 190, Math.round(innerHeight * .3 * W / width));
 }
 function refresh(){ syncPreset(); drawMain(); drawBalance(); drawKpi(); FLOW.draw(); formulaLabels.forEach(f => f()); realDraw(); tileDraw(); }
 
@@ -1716,7 +1744,7 @@ function realSetAll(value){
   realPreset = value ? "p" : "k"; realPresetCfg = JSON.stringify(realCfg);
   realDraw();
 }
-function realReset(){ realCfg = realInit(); realPreset = "def"; realPresetCfg = JSON.stringify(realCfg); realDraw(); }
+function realReset(){ realCfg = realInit(); realPreset = "def"; realPresetCfg = JSON.stringify(realCfg); realDraw(); pinResync(); }
 /* Obrázek v Metodice: poloha každé skupiny mezi cestami ve výchozím stavu. */
 function realDrawFig(){
   const lv = realLevels(REAL_DEFAULT_X), keys = REAL_GROUP_KEYS, H = 40 + keys.length * 30, L = 230, R = 960, host = $("realFig");
@@ -1736,10 +1764,10 @@ function realDrawFig(){
 $("realDefault").addEventListener("click", realReset);
 $("realAllK").addEventListener("click", () => realSetAll(0));
 $("realAllP").addEventListener("click", () => realSetAll(1));
-$("realCmpP").addEventListener("click", () => { realCompare.progresivni = !realCompare.progresivni; realDraw(); });
-$("realCmpK").addEventListener("click", () => { realCompare.konzervativni = !realCompare.konzervativni; realDraw(); });
-$("realBranch").addEventListener("click", () => { realShowBranch = !realShowBranch; realDraw(); });
-$("realBand").addEventListener("click", () => { realShowBand = !realShowBand; realDraw(); });
+$("realCmpP").addEventListener("click", () => { realCompare.progresivni = !realCompare.progresivni; realDraw(); pinResync(); });
+$("realCmpK").addEventListener("click", () => { realCompare.konzervativni = !realCompare.konzervativni; realDraw(); pinResync(); });
+$("realBranch").addEventListener("click", () => { realShowBranch = !realShowBranch; realDraw(); pinResync(); });
+$("realBand").addEventListener("click", () => { realShowBand = !realShowBand; realDraw(); pinResync(); });
 realBuild();
 realDrawFig();
 /* Výsledky výchozího nastavení, posuvníky je nemění a text to říká. */
@@ -1794,7 +1822,7 @@ document.querySelectorAll("[data-path]").forEach(b => b.addEventListener("click"
 }));
 $("compare").addEventListener("click", () => {
   state.compare = !state.compare;
-  applyPath(); drawLegend(); refresh();
+  applyPath(); drawLegend(); refresh(); pinResync();
 });
 const VIEW_NOTE = {
   winter:"Zimní špička je roční maximum zatížení, počítané s nulovým výkonem slunce a větru. Elektrolýza a elektrokotle jsou vypnuté, plyn běží výkonem z Dopadové studie. Hodinový model dává pro rok 2050 vyšší zatížení, protože skládá každou hodinu ze skutečného průběhu počasí a celostátních tvarů spotřeby, zatímco stránka je nastavená na metodu studie. Ani jedno číslo není mez. V progresivní cestě má plyn palivo jen asi na 266 hodin za rok. Hodnoty jsou výchozí odhad bez pásma.",
@@ -1810,7 +1838,7 @@ function applyView(){
 }
 document.querySelectorAll("[data-view]").forEach(b => b.addEventListener("click", () => {
   state.view = b.dataset.view;
-  applyView(); drawLegend(); refresh();
+  applyView(); drawLegend(); refresh(); pinResync();
 }));
 function setMode(mode){
   state.mode = mode;
@@ -1839,7 +1867,7 @@ function resetAll(){
   state.show.vyroba = true; state.show.spotreba = true;
   $("year").value = 2050;
   document.querySelectorAll("[data-show]").forEach(x => x.setAttribute("aria-pressed", true));
-  applyPath(); applyView(); drawTrends(); drawLists(); drawLegend(); refresh();
+  applyPath(); applyView(); drawTrends(); drawLists(); drawLegend(); refresh(); pinResync();
 }
 $("reset").addEventListener("click", resetAll);
 /* Volba Vítr na mezi: „maximum větru a slunce“. Přidané GWh jsou z hodinového výpočtu s malou nádrží. */
@@ -2382,6 +2410,7 @@ function showTab(name){
   document.querySelectorAll("[data-tab]").forEach(b => {
     if(b.dataset.tab === name) b.setAttribute("aria-current", "page"); else b.removeAttribute("aria-current");
   });
+  setBarHeight(); pinLayout();
 }
 document.querySelectorAll("[data-tab]").forEach(b => b.addEventListener("click", () => {
   showTab(b.dataset.tab);
@@ -2503,31 +2532,84 @@ function setBarHeight(){
   const bar = document.querySelector(".pathbar");
   if(bar && bar.offsetHeight){ barHeight = bar.offsetHeight; document.documentElement.style.setProperty("--barh", barHeight + "px"); }
 }
+let pinBusy = false;
+const PIN_SPACER = {mainPin:"mainPinSp", realPin:"realPinSp"}, PIN_COMPACT = {};
 function pinSet(id, on){
-  const pin = $(id);
   PIN_STATE[id] = on;
-  pin.classList.toggle("stuck", on);
+  $(id).classList.toggle("stuck", on);
+  $("tip").style.display = "none";
+  pinBusy = true; /* realDraw sám volá pinLayout */
   if(id === "mainPin") drawMain(); else realDraw();
+  pinBusy = false;
 }
 function pinLayout(){
-  if(typeof getComputedStyle === "undefined") return;
+  if(pinBusy || typeof getComputedStyle === "undefined") return;
   for(const id of Object.keys(PIN_STATE)){
     const pin = $(id);
     if(!pin.closest || !pin.classList) continue;
     const box = pin.closest(".pinwrap").getBoundingClientRect();
     if(!box.height) continue;
-    const want = getComputedStyle(pin).position === "sticky" && box.top < barHeight - 1;
+    const sticky = getComputedStyle(pin).position === "sticky";
+    /* Plný graf nejdřív odjede o rozdíl výšek a teprve potom se zmenší, takže pod ním nevznikne prázdný pás. */
+    const delta = !sticky || PIN_STATE[id] ? 0 : Math.max(0, pin.offsetHeight - (PIN_COMPACT[id] || Math.round(innerHeight * .3 + 125)));
+    if(!PIN_STATE[id]) pin.style.top = sticky ? (barHeight - delta) + "px" : "";
+    const want = sticky && (PIN_STATE[id] ? box.top < barHeight - 1 - (pin.dataset.delta ? Number(pin.dataset.delta) : 0) : box.top < barHeight - 1 - delta);
     if(want === PIN_STATE[id]) continue;
+    const sp = $(PIN_SPACER[id]);
     if(want){
       const full = pin.offsetHeight;
+      pin.style.top = "";
       pinSet(id, true);
-      pin.style.marginBottom = (full - pin.offsetHeight + 16) + "px";
+      PIN_COMPACT[id] = pin.offsetHeight;
+      pin.dataset.delta = delta;
+      sp.style.height = (full - pin.offsetHeight) + "px";
     } else {
-      pin.style.marginBottom = "";
+      sp.style.height = "0";
+      pin.dataset.delta = "";
       pinSet(id, false);
     }
   }
+  const bottom = Math.max(0, ...Object.keys(PIN_STATE).filter(i => PIN_STATE[i]).map(i => $(i).getBoundingClientRect().bottom));
+  document.documentElement.style.scrollPaddingTop = bottom ? (bottom + 8) + "px" : "";
 }
+/* Po změně, která mění výšku zámku: přepínače, pohledy, obnovení. Obsah pod zámkem zůstane, kde byl. */
+function pinResync(){
+  if(typeof getComputedStyle === "undefined") return;
+  const root = document.documentElement;
+  for(const id of Object.keys(PIN_STATE)){
+    if(!PIN_STATE[id]) continue;
+    root.style.overflowAnchor = "none";
+    const pin = $(id), sp = $(PIN_SPACER[id]);
+    let ref = sp.nextElementSibling;
+    while(ref && !ref.getBoundingClientRect().height) ref = ref.nextElementSibling;
+    if(!ref) continue;
+    const before = ref.getBoundingClientRect().top;
+    sp.style.height = "0";
+    pinSet(id, false);
+    const full = pin.offsetHeight;
+    pinSet(id, true);
+    PIN_COMPACT[id] = pin.offsetHeight;
+    sp.style.height = (full - pin.offsetHeight) + "px";
+    scrollBy({top:ref.getBoundingClientRect().top - before, behavior:"instant"});
+    requestAnimationFrame(() => { root.style.overflowAnchor = ""; });
+  }
+}
+/* Bublina se u okraje okna posune nebo otevře nahoru. */
+function bubblePlace(w){
+  const b = w.querySelector(".bubble");
+  if(!b) return;
+  w.classList.remove("up");
+  b.style.transform = "";
+  const r = b.getBoundingClientRect();
+  const stuck = Object.keys(PIN_STATE).filter(i => PIN_STATE[i]).map(i => $(i).getBoundingClientRect().bottom);
+  if(r.bottom > innerHeight - 8 && w.getBoundingClientRect().top - r.height > Math.max(barHeight, ...stuck)) w.classList.add("up");
+  const over = r.right - (document.documentElement.clientWidth - 8);
+  if(over > 0) b.style.transform = `translateX(${-over}px)`;
+}
+if(document.addEventListener) for(const ev of ["pointerover", "focusin", "click"]) document.addEventListener(ev, e => {
+  const w = e.target.closest && e.target.closest(".tipwrap");
+  if(w) bubblePlace(w);
+});
 setBarHeight();
 if(typeof addEventListener !== "undefined"){
   let pinQueued = false;
@@ -2538,7 +2620,7 @@ if(typeof addEventListener !== "undefined"){
   }, {passive:true});
   addEventListener("resize", () => {
     setBarHeight();
-    for(const id of Object.keys(PIN_STATE)) if(PIN_STATE[id]){ $(id).style.marginBottom = ""; pinSet(id, false); }
+    for(const id of Object.keys(PIN_STATE)){ if(PIN_STATE[id]) pinSet(id, false); $(PIN_SPACER[id]).style.height = "0"; delete PIN_COMPACT[id]; }
     pinLayout();
   });
 }
