@@ -227,7 +227,7 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
 <header>
   <h1>Bilance elektřiny Moravskoslezského kraje</h1>
   <div class="controls">
-    <button class="btn" id="reset">Obnovit výchozí</button>
+    <span class="tipwrap"><button class="btn" id="reset">Obnovit výchozí</button><span class="bubble r" role="tooltip">Vrátí celou stránku do výchozího nastavení, včetně realistického scénáře.</span></span>
     <button class="btn" id="theme" aria-label="Přepnout světlý a tmavý režim">Světlý a tmavý režim</button>
   </div>
 </header>
@@ -249,11 +249,11 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
     <span class="tipwrap"><button data-path="progresivni" aria-pressed="true">Progresivní</button><span class="bubble" role="tooltip">Jeden SMR, vítr a slunce podle podílu kraje, rychlá elektrifikace, část dopravy na vodík.</span></span>
     <span class="tipwrap"><button data-path="konzervativni" aria-pressed="false">Konzervativní</button><span class="bubble" role="tooltip">Bez SMR, hlavně plynové bloky, pomalejší elektrifikace, doprava bez vodíku.</span></span>
   </div>
-  <span class="tipwrap"><button class="chip" id="compare" aria-pressed="false">Oba scénáře</button><span class="bubble" role="tooltip">Přidá do grafu tenké křivky druhé cesty.</span></span>
-  <span class="tipwrap" data-must="progresivni"><button class="chip" id="presetVitr" aria-pressed="false" aria-describedby="presetTip">Vítr na mezi</button><span class="bubble" id="presetTip" role="tooltip">Vítr 2 014 MW a 1,7 GWp fotovoltaiky navíc. Uzavře rok, v hodinách se dál dováží. Další klepnutí vrátí výchozí hodnoty.</span></span>
+  <span class="tipwrap"><button class="chip" id="compare" aria-pressed="false">Oba scénáře</button><span class="bubble" role="tooltip">Přidá do horního grafu a do čísel druhou cestu.</span></span>
+  <span class="tipwrap" data-must="progresivni"><button class="chip" id="presetVitr" aria-pressed="false" aria-describedby="presetTip">Vítr na mezi</button><span class="bubble" id="presetTip" role="tooltip">Vítr 2 014 MW a 1,7 GWp fotovoltaiky navíc. Uzavře rok, v hodinách se dál dováží. Mění progresivní cestu, proto se pohne i realistický scénář. Další klepnutí vrátí výchozí hodnoty.</span></span>
   <div class="pills small verze" role="group" aria-label="Verze stránky">
-    <span class="tipwrap"><button data-ui="simple" aria-pressed="true">Jednoduchá</button><span class="bubble r" role="tooltip">Posuvníky po skupinách a krátké texty.</span></span>
-    <span class="tipwrap"><button data-ui="detail" aria-pressed="false">Podrobná</button><span class="bubble r" role="tooltip">Posuvníky po položkách, velké trendy a plné tabulky.</span></span>
+    <span class="tipwrap"><button data-ui="simple" aria-pressed="true">Jednoduchá</button><span class="bubble r" role="tooltip">Platí pro celou stránku. Posuvníky po skupinách, u realistického scénáře 10 kategorií, a krátké texty.</span></span>
+    <span class="tipwrap"><button data-ui="detail" aria-pressed="false">Podrobná</button><span class="bubble r" role="tooltip">Platí pro celou stránku. Posuvníky po položkách, u realistického scénáře 34 indikátorů, velké trendy a plné tabulky.</span></span>
   </div>
 </div>
 <section class="answer">
@@ -262,7 +262,7 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
 <section class="card">
   <div class="toggles" id="toggles">
     <div class="pills" role="group" aria-label="Co graf ukazuje">
-      <button data-view="energy" aria-pressed="true">Roční energie</button>
+      <span class="tipwrap"><button data-view="energy" aria-pressed="true">Roční energie</button><span class="bubble" role="tooltip">Kolik elektřiny se za celý rok vyrobí a spotřebuje.</span></span>
       <span class="tipwrap"><button data-view="winter" aria-pressed="false">Zimní špička</button><span class="bubble" role="tooltip">Nejtěžší zimní hodina podle metody studie, vítr a slunce nula.</span></span>
       <span class="tipwrap"><button data-view="summer" aria-pressed="false">Letní poledne</button><span class="bubble r" role="tooltip">Slunečné víkendové poledne: kolik přebytku vznikne a kam jde.</span></span>
     </div>
@@ -323,13 +323,13 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
       <span class="tipwrap"><button id="realAllP" aria-pressed="false">Vše progresivně</button><span class="bubble" role="tooltip">Všechny indikátory na 1 a žádné odchylky. Křivka je přesně progresivní cesta: SMR od roku 2045, velká datová centra, plná elektrifikace Třince.</span></span>
     </div>
     <div class="controls">
-      <button class="chip" id="realBand" aria-pressed="false">Pásmo nejistoty</button>
-      <button class="chip" id="realBranch" aria-pressed="false">Druhá větev SMR</button>
-      <button class="chip" id="realCmpP" aria-pressed="false">Přidat progresivní</button>
-      <button class="chip" id="realCmpK" aria-pressed="false">Přidat konzervativní</button>
+      <span class="tipwrap"><button class="chip" id="realBand" aria-pressed="false">Pásmo nejistoty</button><span class="bubble" role="tooltip">Plocha, kde leží 80 % simulací kolem výroby a spotřeby. Platí pro výchozí nastavení a posuvníky ji nemění.</span></span>
+      <span class="tipwrap"><button class="chip" id="realBranch" aria-pressed="false">Ukázat i s reaktorem</button><span class="bubble" role="tooltip">Reaktor SMR buď stojí celý, nebo vůbec. Křivka jde jednou z těchto možností, tlačítko přidá tenkými čarami tu druhou. S reaktorem se staví méně plynových bloků.</span></span>
+      <span class="tipwrap"><button class="chip" id="realCmpP" aria-pressed="false">Přidat progresivní</button><span class="bubble r" role="tooltip">Přidá tenké křivky progresivní cesty pro srovnání. Realistickou křivku neposouvá, k tomu slouží Vše progresivně.</span></span>
+      <span class="tipwrap"><button class="chip" id="realCmpK" aria-pressed="false">Přidat konzervativní</button><span class="bubble r" role="tooltip">Přidá tenké křivky konzervativní cesty pro srovnání. Realistickou křivku neposouvá, k tomu slouží Vše konzervativně.</span></span>
     </div>
   </div>
-  <p class="viewnote">Volba Cesta nahoře platí pro horní graf a posuvníky položek, tato křivka se podle ní nemění. Přednastavení Vše konzervativně a Vše progresivně přesunou křivku na danou cestu. Schodek obou cest je podobný, proto sledujte i výrobu a spotřebu.</p>
+  <p class="viewnote">Volba Cesta, Oba scénáře, pohled Zimní špička a posuvník Rok ovládají horní graf a toky, tuto křivku ne. Křivku posouvají přednastavení a ovládání v této části. Schodek obou cest je podobný, proto sledujte i výrobu a spotřebu.</p>
   <div class="kpi" id="realKpi"></div>
   <div class="legend" id="realLegend"></div>
   <div id="realMain"></div>
@@ -1387,9 +1387,9 @@ function realDraw(){
   const r = realCompute(realCfg), other = realCompute({...realCfg, smr:r.smrOn ? "ne" : "ano", smrYear:r.smrOn ? realCfg.smrYear : Math.min(realCfg.smrYear, 2050)});
   const last = DATA.years.length - 1, cell = (a, v) => `<div><small>${a}</small><b>${NF.format(v)}</b><span class="unit">GWh</span></div>`;
   const row = (name, x) => { const gap = x.use[last] - x.gen[last]; return `<div class="kpirow"><div class="name">${name}, rok 2050. Výroba pokryje ${NF.format(x.gen[last] / x.use[last] * 100)} % spotřeby.</div><div class="cells">${cell("Výroba", x.gen[last])}${cell("Spotřeba", x.use[last])}${cell(gap >= 0 ? "Schodek" : "Přebytek", Math.abs(gap))}</div></div>`; };
-  const branchName = on => on ? "Větev s SMR" : realCfg.gas === "oznamene" ? "Větev bez SMR, jen oznámené plynové bloky 283 MW" : "Větev bez SMR, plynové bloky 683 MW";
+  const branchName = on => on ? "S reaktorem SMR" : realCfg.gas === "oznamene" ? "Bez reaktoru SMR, jen oznámené plynové bloky 283 MW" : "Bez reaktoru SMR, plynové bloky 683 MW";
   let html = row(branchName(r.smrOn), r);
-  if(realShowBranch) html += row("Druhá větev: " + branchName(other.smrOn).toLowerCase(), other);
+  if(realShowBranch) html += row("Pro srovnání: " + branchName(other.smrOn).toLowerCase(), other);
   for(const p of Object.keys(PATHNAME)) if(realCompare[p]) html += row(`${PATHNAME[p]} cesta`, {gen:totals(p, "vyroba"), use:totals(p, "spotreba")});
   $("realKpi").innerHTML = html;
   const pct = NF.format(r.prob.smr * 100);
@@ -1442,7 +1442,7 @@ function realChart(r, other){
     const box = svg.getBoundingClientRect(), y = Math.round(2023 + ((e.clientX - box.left) / box.width * W - X0) / (X1 - X0) * 27), el = $("tip");
     if(y < 2025 || y > 2050){ el.style.display = "none"; return; }
     const i = y - 2025, line2 = (a, v) => `<div><span>${a}</span><span class="mono">${NF.format(v)} GWh</span></div>`;
-    el.innerHTML = `<b class="mono">${y}</b>` + line2("Výroba", r.gen[i]) + line2("Spotřeba", r.use[i]) + (realShowBranch ? line2("Druhá větev, výroba", other.gen[i]) + line2("Druhá větev, spotřeba", other.use[i]) : "");
+    el.innerHTML = `<b class="mono">${y}</b>` + line2("Výroba", r.gen[i]) + line2("Spotřeba", r.use[i]) + (realShowBranch ? line2(`${other.smrOn ? "S reaktorem" : "Bez reaktoru"}, výroba`, other.gen[i]) + line2(`${other.smrOn ? "S reaktorem" : "Bez reaktoru"}, spotřeba`, other.use[i]) : "");
     el.style.display = "block";
     el.style.left = Math.max(4, Math.min(e.clientX + 14, innerWidth - 240)) + "px";
     el.style.top = Math.max(4, Math.min(e.clientY + 14, innerHeight - el.offsetHeight - 4)) + "px";
@@ -1450,7 +1450,7 @@ function realChart(r, other){
   hit.addEventListener("pointermove", tip);
   hit.addEventListener("pointerdown", tip);
   hit.addEventListener("pointerleave", () => { $("tip").style.display = "none"; });
-  $("realLegend").innerHTML = `<span><i style="border-color:var(--real)"></i>Spotřeba</span><span><i style="border-color:var(--real);border-top-style:dashed"></i>Výroba</span>` + (realShowBranch ? `<span><i style="border-color:var(--real);opacity:.6;border-top-width:1.2px"></i>Druhá větev SMR</span>` : "") + (band ? `<span>Plocha: pásmo pro výchozí nastavení této větve, P10 až P90, posuvníky ho nemění</span>` : "") + (realCompare.progresivni ? `<span><i style="border-color:var(--prog);border-top-width:1.5px"></i>Progresivní</span>` : "") + (realCompare.konzervativni ? `<span><i style="border-color:var(--kons);border-top-width:1.5px"></i>Konzervativní</span>` : "");
+  $("realLegend").innerHTML = `<span><i style="border-color:var(--real)"></i>Spotřeba</span><span><i style="border-color:var(--real);border-top-style:dashed"></i>Výroba</span>` + (realShowBranch ? `<span><i style="border-color:var(--real);opacity:.6;border-top-width:1.2px"></i>${r.smrOn ? "Bez reaktoru" : "S reaktorem"}</span>` : "") + (band ? `<span>Plocha: pásmo pro výchozí nastavení této větve, P10 až P90, posuvníky ho nemění</span>` : "") + (realCompare.progresivni ? `<span><i style="border-color:var(--prog);border-top-width:1.5px"></i>Progresivní</span>` : "") + (realCompare.konzervativni ? `<span><i style="border-color:var(--kons);border-top-width:1.5px"></i>Konzervativní</span>` : "");
 }
 /* Kategorie: posuvník přepočte své indikátory poměrem vůči výchozím hodnotám, konce 0 a 1 dávají všem indikátorům 0 a 1. */
 const REAL_DEFAULT_X = realInit().x;
@@ -1585,6 +1585,7 @@ function realSync(r){
   $("realAllK").setAttribute("aria-pressed", same && realPreset === "k");
   $("realAllP").setAttribute("aria-pressed", same && realPreset === "p");
   $("realBranch").setAttribute("aria-pressed", realShowBranch);
+  $("realBranch").textContent = r.smrOn ? "Ukázat i bez reaktoru" : "Ukázat i s reaktorem";
   $("realBand").setAttribute("aria-pressed", realShowBand);
 }
 function realSetAll(value){
