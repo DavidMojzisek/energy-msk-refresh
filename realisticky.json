@@ -2209,16 +2209,16 @@
 "hodiny": {
 "bez": {
 "prumer": {
-"dovoz": 3952.8,
+"dovoz": 3893.1,
 "vyvoz": 0.0,
 "plyn": 2279.5,
 "vyroba": 4798.8,
-"spotreba": 8718.8,
-"spicka_dovozu": 472.2,
-"spicka_zatizeni": 1458.9,
+"spotreba": 8659.1,
+"spicka_dovozu": 458.1,
+"spicka_zatizeni": 1423.2,
 "elektrolyza_sit": 507.8,
-"nabijeni_sit": 273.0,
-"spicka_dovozu_max": 536.8,
+"nabijeni_sit": 273.5,
+"spicka_dovozu_max": 506.2,
 "rocni_vyroba": 4798.8,
 "rocni_spotreba": 8696.8
 },
@@ -2233,16 +2233,16 @@
 },
 "s": {
 "prumer": {
-"dovoz": 2042.5,
+"dovoz": 1982.4,
 "vyvoz": 0.0,
 "plyn": 502.6,
 "vyroba": 6963.9,
-"spotreba": 8978.4,
-"spicka_dovozu": 387.6,
-"spicka_zatizeni": 1488.5,
+"spotreba": 8918.8,
+"spicka_dovozu": 387.5,
+"spicka_zatizeni": 1452.8,
 "elektrolyza_sit": 507.7,
-"nabijeni_sit": 162.5,
-"spicka_dovozu_max": 480.5,
+"nabijeni_sit": 150.4,
+"spicka_dovozu_max": 480.3,
 "rocni_vyroba": 6963.9,
 "rocni_spotreba": 8956.4
 },
