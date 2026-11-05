@@ -2328,8 +2328,8 @@ Třetí křivka mezi pevnými cestami, není to předpověď. Plynulá položka:
 | Politická kultura | Institucionální a politické řízení | 0,52 | nízká | ano |
 | Občanská participace | Institucionální a politické řízení | 0,22 | nízká | ano |
 | Komunikace stavu energetického systému | Institucionální a politické řízení | 0,33 | odhad | váha 0 |
-| Vnímání energetické transformace | Sociální akceptace transformace | 0,32 | střední | ano |
-| Přijetí nové infrastruktury | Sociální akceptace transformace | 0,191 | střední | ano |
+| Vnímání energetické transformace | Sociální akceptace transformace | 0,36 | střední | ano |
+| Přijetí nové infrastruktury | Sociální akceptace transformace | 0,32 | střední | ano |
 | Vztah k technologiím | Sociální akceptace transformace | 0,418 | nízká | ano |
 | Interpretace blackoutů | Sociální akceptace transformace | 0,5 | odhad | váha 0 |
 | Vnímání energetické soběstačnosti jako garance bezpečnosti v multipolárním světě | Sociální akceptace transformace | 0,62 | střední | ano |
@@ -2340,23 +2340,23 @@ Třetí křivka mezi pevnými cestami, není to předpověď. Plynulá položka:
 | Trh práce | Lidský kapitál a demografie | 0,32 | střední | ano |
 | Průmyslový rozvoj | Ekonomická transformace a investice | 0,46 | nízká | ano |
 | Pilotní projekty | Ekonomická transformace a investice | 0,4 | střední | ano |
-| Časová náročnost implementace nových technologií | Ekonomická transformace a investice | 0,33 | střední | ano |
-| Souvislost mezi populací a investicemi do energetické infrastruktury | Ekonomická transformace a investice | 0,65 | nízká | ano |
+| Časová náročnost implementace nových technologií | Ekonomická transformace a investice | 0,33 | střední | váha 0 |
+| Souvislost mezi populací a investicemi do energetické infrastruktury | Ekonomická transformace a investice | 0,65 | nízká | váha 0 |
 | Sociální soudržnost | Sociální soudržnost a distribuce přínosů | 0,5 | odhad | ano |
 | Energetická chudoba | Sociální soudržnost a distribuce přínosů | 0,32 | nízká | ano |
 | Sociální nerovnosti | Sociální soudržnost a distribuce přínosů | 0,24 | střední | ano |
 | Energetická bezpečnost | Energetická infrastruktura a decentralizace | 0,271 | střední | váha 0 |
 | Komunitní energetika | Energetická infrastruktura a decentralizace | 0,26 | odhad | ano |
 | Krizová připravenost domácností | Energetická infrastruktura a decentralizace | 0,34 | odhad | váha 0 |
-| Dezinformace a hybridní hrozby | Informační prostředí a epistemická odolnost | 0,28 | střední | ano |
-| Spolehlivost predikčních modelů využítých k prosazování energetické tranzice | Informační prostředí a epistemická odolnost | 0,53 | nízká | váha 0 |
+| Dezinformace a hybridní hrozby | Informační prostředí a epistemická odolnost | 0,42 | střední | ano |
+| Spolehlivost predikčních modelů využitých k prosazování energetické tranzice | Informační prostředí a epistemická odolnost | 0,53 | nízká | váha 0 |
 | Informační pokrytí havarijních situací | Informační prostředí a epistemická odolnost | 0,58 | nízká | váha 0 |
 | Regionální identita a vize | Regionální identita a symbolický rámec | 0,367 | nízká | ano |
 | Symbolická pozice regionu v ČR | Regionální identita a symbolický rámec | 0,154 | nízká | ano |
 | Kulturně-historický narativ | Regionální identita a symbolický rámec | 0,217 | nízká | ano |
 | Zdraví a kvalita života | Environmentální a zdravotní dopady | 0,51 | střední | váha 0 |
 | Vnímání odpadu | Environmentální a zdravotní dopady | 0,625 | nízká | ano |
-| Mobilita a životní styl | Mobilita a životní styl | 0,75 | střední | ano |
+| Mobilita a životní styl | Mobilita a životní styl | 0,48 | střední | ano |
 
 ## 12. Seznam zdrojů
 
