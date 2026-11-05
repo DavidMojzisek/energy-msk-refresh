@@ -73,7 +73,7 @@ R(t) = (1 − a) · K(t) + a · P(t), a = Σ w · x / Σ w
 
 Poloha a je vážený průměr indikátorů x dané skupiny položek. Všechny indikátory leží na jedné ose: x = 0 je popis stavu konzervativní cesty, x = 1 popis stavu progresivní cesty. Hodnota 1 znamená příznivý vývoj, ne menší schodek, protože elektrifikace zvyšuje spotřebu.
 
-Všechny indikátory na 0 nebo na 1, bez odchylek a s pecí v Nové huti, dají přesně krajní cestu. V roce 2050 je to výroba 3 956 a spotřeba 8 262 GWh, nebo výroba 7 862 a spotřeba 12 526 GWh.
+Všechny indikátory na 0 nebo na 1, bez odchylek a s pecí v Nové huti, u konzervativní cesty navíc s plynovými bloky 683 MW, dají přesně krajní cestu. V roce 2050 je to výroba 3 956 a spotřeba 8 262 GWh, nebo výroba 7 862 a spotřeba 12 526 GWh.
 
 Rovnice je dohoda o interpolaci. Zdroj dokládající lineární převod ze společenského indexu na výstavbu jsme nenašli. Nenašli jsme ani použitelnou elasticitu nebo práh pro vítr a slunce v regionu. Hledání bylo cílené, ne systematické. Literatura dokládá S-křivky v čase, ne v poloze a (Grubler a kol. 2016, Odenweller a kol. 2022). Skupiny s podobným průměrem preferencí mohou dopadnout velmi odlišně (Granovetter 1978).
 
@@ -111,7 +111,7 @@ SMR navíc nebere E06, protože podpora obnovitelných zdrojů neměří přijet
 
 Každý indikátor má ukazatel, dvě kotvy a zdroj, nebo označení odhad. Kotvy jsou úsudek. Výchozí x je od 0,154 do 0,65. Jistota je u jednoho indikátoru vysoká, u 15 střední, u 13 nízká a 5 je odhad. Šest výchozích hodnot je přepsaných, protože dnešní stav neříká dost o období do roku 2050: E06, E07, E24, E25, E26 a E34. Důvod je u každého indikátoru. Bez dat platí 0,5 a označení odhad.
 
-Citlivost na výpočet polohy mění schodek 2050 větve bez SMR málo, z 3 898 na 3 790 až 3 989 GWh. Výroba se přitom pohybuje od 4 469 do 5 127 GWh a spotřeba od 8 259 do 9 116 GWh. Varianty jsou geometrický průměr, stejné váhy, zjednodušené váhy 3 a 1, skóre z tabulky indikátorů, mocniny a s exponentem 1,5 a 1/1,5 a S-křivka v a jako ilustrace. Úzký rozsah schodku znamená, že výroba a spotřeba se hýbou spolu, ne že je výsledek přesný.
+Citlivost na výpočet polohy mění schodek 2050 větve bez SMR málo, z 5 129 na 5 021 až 5 220 GWh. Výroba se přitom pohybuje od 3 202 do 3 860 GWh a spotřeba od 8 223 do 9 080 GWh. Varianty jsou geometrický průměr, stejné váhy, zjednodušené váhy 3 a 1, skóre z tabulky indikátorů, mocniny a s exponentem 1,5 a 1/1,5 a S-křivka v a jako ilustrace. Úzký rozsah schodku znamená, že výroba a spotřeba se hýbou spolu, ne že je výsledek přesný.
 
 ### Události a prahy
 
@@ -120,12 +120,13 @@ Velká událost je celý řádek, nikdy zlomek. Skóre z indikátorů není prav
 | Událost | Odhad | Volba podle indikátorů nebo odhadů | Výchozí stav | Schodek 2050 po změně, GWh |
 |---|---|---|---|---|
 | SMR | 25 %, rozpětí 15 až 40 %, aspoň jeden blok v provozu do konce roku 2049 | Výchozí skóre 0,464 odpovídá 25 %, konce 0 a 1 zůstávají, ano od 50 % | bez SMR | s SMR 1 993 |
-| Velká datová centra | žádné obhajitelné číslo | Skóre 0,389, ano od 0,75 | řádek konzervativní cesty, 70,1 GWh | 4 552 |
-| Třinec, první pec | 60 %, rozpětí 40 až 75 % | Ano od 50 % | první pec | žádná pec 3 375 |
-| Třinec, plná elektrifikace | žádné obhajitelné číslo | Skóre 0,46, ano od 0,75 | ne | 4 421 |
-| Nová huť | 45 %, rozpětí 25 až 60 % | Ano od 50 % | bez pece | s pecí 4 598 |
+| Plynové bloky bez SMR | 30 % pro aspoň jeden blok bez doloženého řízení | Přepínač | 283 MW | 683 MW 3 898 |
+| Velká datová centra | žádné obhajitelné číslo | Skóre 0,389, ano od 0,75 | řádek konzervativní cesty, 70,1 GWh | 5 783 |
+| Třinec, první pec | 60 %, rozpětí 40 až 75 % | Ano od 50 % | první pec | žádná pec 4 607 |
+| Třinec, plná elektrifikace | žádné obhajitelné číslo | Skóre 0,46, ano od 0,75 | ne | 5 653 |
+| Nová huť | 45 %, rozpětí 25 až 60 % | Ano od 50 % | bez pece | s pecí 5 829 |
 
-Výchozí schodek je 3 898 GWh. Každý řádek mění jen jednu událost. Výchozí stav bere u každého odhadu častější stav. Datová centra a plná elektrifikace jsou ve výchozím stavu ne.
+Výchozí schodek je 5 129 GWh. Každý řádek mění jen jednu událost. Výchozí stav bere u každého odhadu častější stav. Datová centra a plná elektrifikace jsou ve výchozím stavu ne.
 
 Odhad 25 % je úsudek z řetězu kroků: první blok ve Wales, Temelín, potom Dětmarovice. Lokalita Dětmarovice není vybraná a rozhodnutí o stavbě chybí. Výchozí rok spuštění je 2048, plán kraje a studie uvádějí 2045. Spuštění po roce 2050 znamená do roku 2050 větev bez SMR.
 
@@ -137,20 +138,22 @@ Nová huť má v obou cestách stejný řádek, 736,3 GWh, a je to odchylka mimo
 
 Plynové bloky nejdou od začátku po řádku své větve. Reaktor spuštěný v roce 2048 nemůže měnit plyn v roce 2030. Obě větve proto mají společný plyn:
 
-G(t) = (1 − s) · K(t) + s · P(t)
+G(t) = (1 − s) · L(t) + s · P(t)
 
-Tady s je skóre SMR, výchozí 0,464. V roce 2030 je to 722,4 GWh v obou větvích.
+Tady s je skóre SMR, výchozí 0,464. L(t) je konečný výkon větve bez reaktoru. Ve výchozím stavu je to řádek K omezený hodnotou roku 2030, 896,8 GWh a 283 MW, při volbě 683 MW celý řádek K. V roce 2030 je G 722,4 GWh v obou větvích.
 
 - S reaktorem jde plyn od roku před spuštěním po řádku P. Jeho útlum je posunutý o odklad proti roku 2045. V roce 2050 je to 387,4 GWh a plynové bloky 433 MW.
-- Bez reaktoru se 10 let před plánovaným spuštěním začne přecházet na řádek K. V roce 2050 je to 2 164,3 GWh a plynové bloky 683 MW. Těch 10 let je úsudek.
+- Bez reaktoru se 10 let před plánovaným spuštěním začne přecházet na L(t). V roce 2050 je to 896,8 GWh a plynové bloky 283 MW. Těch 10 let je úsudek.
 
-Větev s SMR má proto před spuštěním větší schodek, nejvýš o 551 GWh v roce 2047. Bez reaktoru se totiž staví víc plynu.
+Před spuštěním se větve liší málo. Větev s SMR má nejvýš o 141 GWh větší schodek, v roce 2047, protože společný plyn klesá s řádkem P a bez reaktoru plyn přechází na L(t).
 
-Volba 283 MW omezuje řádek K hodnotou roku 2030, 896,8 GWh, a dává schodek 5 129 GWh. Doložené nebo oznámené projekty bez bloků s nejistou lokalitou dávají 283 MW. Bloky bez doloženého řízení mají odhad 30 % pro aspoň jeden. Bez reaktoru je ale potřeba výkonu větší a tuto podmíněnou hodnotu nikdo neuvádí. Výchozí proto zůstává 683 MW a volba je otevřená.
+Výchozích 283 MW tvoří doložené a oznámené projekty bez bloků s nejistou lokalitou. Plyn navíc se uměle nepřidává. Bloky bez doloženého řízení mají odhad 30 % pro aspoň jeden. Bez reaktoru může být potřeba výkonu větší a tuto hodnotu nikdo neuvádí. Volba 683 MW dává v roce 2050 2 164,3 GWh a schodek 3 898 GWh.
+
+Výchozí schodek 5 129 GWh je větší než v obou cestách, 4 664 GWh v progresivní a 4 306 GWh v konzervativní. Chybí tu reaktor z progresivní cesty i plynové bloky navíc z konzervativní cesty.
 
 ### Demografie a oteplení jako odchylky
 
-Obě odchylky leží mimo osu cest, stejně jako Nová huť. Křivka proto smí vyjít mimo rozsah cest. Menší schodek přitom není vždy dobrá zpráva, vzniká i tehdy, když z kraje odchází průmysl nebo lidé.
+Obě odchylky leží mimo osu cest, stejně jako Nová huť a plynové bloky 283 MW. Křivka proto smí vyjít mimo rozsah cest. Menší schodek přitom není vždy dobrá zpráva, vzniká i tehdy, když z kraje odchází průmysl nebo lidé.
 
 Obě cesty počítají s projekcí ČSÚ, 999 tisíc obyvatel v roce 2050, a EUROPOP2025 dává také 999 tisíc. Výchozí odchylka je proto nula. Varianty Eurostatu jsou 965 až 1 022 tisíc. Změřený stav k 1. 1. 2026 je o 4 207 osob nad projekcí. Odchylka roste lineárně do roku 2050 a působí stejnými vzorci jako velké trendy, na osobní auta, domácnosti bez vytápění, tepelná čerpadla, přímotopy a chlazení.
 
@@ -164,29 +167,29 @@ Pásmo je prostředních 80 % z 6 000 běhů simulace, tedy P10 až P90, pro vý
 
 | | Všechny běhy | Větev bez SMR | Větev s SMR |
 |---|---|---|---|
-| Výroba | 3 363, 4 989, 7 474 | 3 237, 4 543, 6 030 | 6 376, 7 185, 8 561 |
-| Spotřeba | 7 588, 9 126, 10 886 | 7 514, 9 068, 10 803 | 7 799, 9 341, 11 086 |
-| Schodek | 1 261, 3 979, 6 374 | 2 427, 4 513, 6 682 | 56, 2 038, 4 056 |
+| Výroba | 3 224, 4 721, 7 456 | 3 124, 4 206, 5 785 | 6 376, 7 185, 8 561 |
+| Spotřeba | 7 585, 9 119, 10 881 | 7 509, 9 057, 10 798 | 7 799, 9 341, 11 086 |
+| Schodek | 1 349, 4 198, 6 621 | 2 680, 4 785, 6 862 | 56, 2 038, 4 056 |
 
 | Zdroj nejistoty | Co se losuje | Šířka schodku, jen tento zdroj, GWh | O kolik se celek zúží bez něj, GWh |
 |---|---|---|---|
-| Míry naplnění | x podle jistoty, se společným faktorem a faktorem kategorie | 475 | 30 |
-| Váhy | násobek každé váhy | 102 | −44 |
-| Tvar vazby | a na g, mimo skóre událostí | 861 | 69 |
-| Velké události | SMR, rok spuštění, plyn bez doloženého řízení, obě pece | 3 975 | 1 384 |
-| Demografie a oteplení | oteplení +0,5 až +2,1 °C, obyvatelé 965 až 1 022 tisíc | 85 | −19 |
-| Technická nejistota řádků | rozsahy řádků obou cest se stejným losem | 3 595 | 1 465 |
-| Všechny zdroje | | 5 113 | |
+| Míry naplnění | x podle jistoty, se společným faktorem a faktorem kategorie | 475 | 35 |
+| Váhy | násobek každé váhy | 102 | 10 |
+| Tvar vazby | a na g, mimo skóre událostí | 861 | 113 |
+| Velké události | SMR, rok spuštění, plyn bez doloženého řízení, obě pece | 3 975 | 1 542 |
+| Demografie a oteplení | oteplení +0,5 až +2,1 °C, obyvatelé 965 až 1 022 tisíc | 85 | 0 |
+| Technická nejistota řádků | rozsahy řádků obou cest se stejným losem | 3 595 | 1 462 |
+| Všechny zdroje | | 5 271 | |
 
-Losované podíly událostí jsou úsudek. SMR má 25 % běhů a rok spuštění 2045, 2047 nebo 2049 s podíly 20, 28 a 52 %. Nízký plyn 283 MW má 50 % běhů. Pece mají společné rozdělení: obě 30 %, jen Třinec 30 %, jen Nová huť 15 %, žádná 25 %. Síly faktorů a rozptyly jsou také úsudek.
+Losované podíly událostí jsou úsudek. SMR má 25 % běhů a rok spuštění 2045, 2047 nebo 2049 s podíly 20, 28 a 52 %. Plynové bloky 683 MW jsou ve 30 % běhů, v ostatních 283 MW. Pece mají společné rozdělení: obě 30 %, jen Třinec 30 %, jen Nová huť 15 %, žádná 25 %. Síly faktorů a rozptyly jsou také úsudek.
 
 Společné faktory rozšiřují výrobu i spotřebu a schodek zužují, protože výroba a spotřeba rostou spolu. Při nezávislých indikátorech je šířka výroby 266, spotřeby 539 a schodku 562 GWh. S výchozími faktory je to 574, 881 a 475 GWh, se silnějšími 717, 1 054 a 435 GWh.
 
 Co pásmo neznamená:
 
 - Není to statistický interval. Budoucnost nemá výběr dat a většina rozsahů je náš odhad.
-- Tabulka není rozklad rozptylu (OECD a JRC 2008, kap. 7). Sloupce se nesčítají, zdroje na sebe působí a malé hodnoty v posledním sloupci, včetně záporných, jsou v mezích šumu simulace.
-- Výchozí křivka není střed pásma. Její schodek 3 898 GWh je jeden stav událostí, P50 všech běhů je 3 979 GWh.
+- Tabulka není rozklad rozptylu (OECD a JRC 2008, kap. 7). Sloupce se nesčítají, zdroje na sebe působí a malé hodnoty v posledním sloupci jsou v mezích šumu simulace.
+- Výchozí křivka není střed pásma. Její schodek 5 129 GWh je jeden stav událostí, P50 všech běhů je 4 198 GWh.
 - Datová centra a plná elektrifikace Třince v pásmu nejsou, obhajitelné číslo pro ně neexistuje. Jejich účinek je v tabulce událostí.
 - Los SMR nezávisí na losovaných indikátorech, má vždy podíl 25 %.
 - Největší část tvoří události a rozsah řádků. Rozsah řádků je z velké části náš odhad a může se překrývat s indikátory.
@@ -198,20 +201,20 @@ Výchozí řádky roku 2050 v obou větvích procházejí hodinovým modelem, 5 
 
 | Rok 2050 | Bez SMR | S SMR |
 |---|---|---|
-| Roční výpočet: výroba, GWh | 4 798,8 | 6 963,9 |
-| Roční výpočet: spotřeba, GWh | 8 696,8 | 8 956,4 |
-| Hodinově: dovoz, GWh | 3 893,1 | 1 982,4 |
+| Roční výpočet: výroba, GWh | 3 531,3 | 6 963,9 |
+| Roční výpočet: spotřeba, GWh | 8 660,8 | 8 956,4 |
+| Hodinově: dovoz, GWh | 5 124,6 | 1 982,4 |
 | Hodinově: přebytek bez využití, GWh | 0,0 | 0,0 |
-| Hodinově: plyn, GWh | 2 279,5 | 502,6 |
+| Hodinově: plyn, GWh | 1 012,0 | 502,6 |
 | Elektřina ze sítě pro vodík, GWh | 507,8 | 507,7 |
 | Nabíjení baterie ze sítě, GWh | 273,5 | 150,4 |
-| Největší hodinový dovoz, nejhorší rok, MW | 506,2 | 480,3 |
-| Největší zatížení, MW | 1 423,2 | 1 452,8 |
-| Plynové bloky, MW | 683 | 433 |
+| Největší hodinový dovoz, nejhorší rok, MW | 902,2 | 480,3 |
+| Největší zatížení, MW | 1 419,1 | 1 452,8 |
+| Plynové bloky, MW | 283 | 433 |
 
 Zařízení je v obou větvích stejné a je to úsudek, není hledané znovu. Baterie je 5,12 GWh a 1 000 MW, lineárně mezi cestami podle polohy větru. Elektrolyzér je 81 MW a nádrž 8,2 t, úměrně vodíku flotily, tedy 0,409 progresivní cesty.
 
-Výpočet platí jen pro výchozí nastavení a po změně posuvníků se nepřepočítává. Největší hodinový dovoz vychází nízko, protože rozvrh plynu zná celý rok dopředu. Skutečná špička by byla vyšší. Platí i meze hodinového modelu z bodu 9 části Postup. Zimní špička a letní poledne se pro tuto křivku nepočítají.
+Výpočet platí jen pro výchozí nastavení a po změně posuvníků se nepřepočítává. Největší hodinový dovoz je podhodnocený, protože rozvrh plynu zná celý rok dopředu. Skutečná špička by byla vyšší. Platí i meze hodinového modelu z bodu 9 části Postup. Zimní špička a letní poledne se pro tuto křivku nepočítají.
 
 ### Meze
 

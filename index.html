@@ -165,6 +165,20 @@ svg .lab{font:600 12px "DM Sans",sans-serif;fill:var(--ink)}
 .bubble.wide{max-width:min(340px,80vw);font-weight:400}
 .bubble.wide b{font-weight:700}
 @media (max-width:680px){#realCard .tipwrap{position:static}}
+.pinwrap{position:relative}
+@media (min-width:1000px) and (min-height:560px){
+.pin{position:sticky;top:var(--barh,53px);z-index:3;background:var(--bg);padding:4px 0 6px;margin-bottom:16px}
+.pin.stuck{border-bottom:1px solid var(--line);box-shadow:0 6px 10px -8px rgb(0 0 0/.25)}
+.pin.stuck .kpi{grid-template-columns:repeat(auto-fit,minmax(420px,1fr));gap:2px 24px;margin-bottom:2px}
+.pin.stuck .kpirow .name{font-size:12px;margin-bottom:0}
+.pin.stuck .kpirow .cells{gap:0 28px}
+.pin.stuck .kpirow small{display:inline;font-size:12px;margin-right:5px}
+.pin.stuck .kpirow b{font-size:17px;line-height:1.3}
+.pin.stuck .kpirow .unit{font-size:12px}
+.pin.stuck .toggles{margin-bottom:2px}
+.pin.stuck .legend{margin-bottom:0}
+.pin.stuck .yearrow{margin:0}
+}
 .grades{border-collapse:collapse;margin:8px 0;font-size:14px}
 .grades td,.grades th{border-top:1px solid var(--line);padding:6px 14px 6px 0;text-align:left;vertical-align:top}
 .grades th{color:var(--muted);font-weight:600;font-size:12.5px;border-top:0}
@@ -252,16 +266,15 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
     <span class="tipwrap"><button data-path="konzervativni" aria-pressed="false">Konzervativní</button><span class="bubble" role="tooltip">Bez SMR, hlavně plynové bloky, pomalejší elektrifikace, doprava bez vodíku.</span></span>
   </div>
   <span class="tipwrap"><button class="chip" id="compare" aria-pressed="false">Oba scénáře</button><span class="bubble" role="tooltip">Přidá do horního grafu a do čísel druhou cestu.</span></span>
-  <span class="tipwrap" data-must="progresivni"><button class="chip" id="presetVitr" aria-pressed="false" aria-describedby="presetTip">Vítr na mezi</button><span class="bubble" id="presetTip" role="tooltip">Vítr 2 014 MW a 1,7 GWp fotovoltaiky navíc. Uzavře rok, v hodinách se dál dováží. Mění progresivní cestu, proto se pohne i realistický scénář. Další klepnutí vrátí výchozí hodnoty.</span></span>
+  <span class="tipwrap" data-must="progresivni"><button class="chip" id="presetVitr" aria-pressed="false" aria-describedby="presetTip">Vítr na mezi</button><span class="bubble wide" id="presetTip" role="tooltip"><b>Co to ukáže:</b> kolik by se muselo postavit, aby progresivní cesta za rok vyrobila tolik, kolik spotřebuje.<br><b>Co je mez:</b> 2 014 MW je potenciál větrných elektráren v kraji podle Dopadové studie. Je to výkon, ne počasí: místo 623 MW stojí víc větrníků a fouká jako v běžném roce. Zbytek dorovná 1,7 GWp fotovoltaiky navíc.<br><b>Jak je to reálné:</b> je to horní hranice, ne plán. Vítr by se musel stavět 78,9 MW ročně, 8,7 × rychleji než dosavadní rekord. V hodinách se dál dováží.<br>Pohne to i realistickým scénářem. Další klepnutí vrátí výchozí hodnoty.</span></span>
   <div class="pills small verze" role="group" aria-label="Verze stránky">
     <span class="tipwrap"><button data-ui="simple" aria-pressed="true">Jednoduchá</button><span class="bubble r" role="tooltip">Platí pro celou stránku. Posuvníky po skupinách, u realistického scénáře 10 kategorií, a krátké texty.</span></span>
     <span class="tipwrap"><button data-ui="detail" aria-pressed="false">Podrobná</button><span class="bubble r" role="tooltip">Platí pro celou stránku. Posuvníky po položkách, u realistického scénáře 34 indikátorů, velké trendy a plné tabulky.</span></span>
   </div>
 </div>
-<section class="answer">
+<div class="pinwrap">
+<section class="card pin" id="mainPin">
   <div class="kpi" id="kpi"></div>
-</section>
-<section class="card">
   <div class="toggles" id="toggles">
     <div class="pills" role="group" aria-label="Co graf ukazuje">
       <span class="tipwrap"><button data-view="energy" aria-pressed="true">Roční energie</button><span class="bubble" role="tooltip">Kolik elektřiny se za celý rok vyrobí a spotřebuje.</span></span>
@@ -276,9 +289,9 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
   <div class="legend" id="legend"></div>
   <div id="main"></div>
   <div class="yearrow"><label for="year">Rok</label><input id="year" type="range" min="2025" max="2050" step="1" value="2050"><span class="mono" id="yearv"></span></div>
-  <p class="viewnote" id="viewNote" hidden></p>
-  <div class="kpiview" id="kpiView" hidden></div>
 </section>
+<p class="viewnote" id="viewNote" hidden></p>
+<div class="kpiview" id="kpiView" hidden></div>
 <section class="card only-simple" id="sliderCard">
   <div class="sechead" id="modebar">
     <h2>Posuvníky položek</h2>
@@ -302,6 +315,7 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
   </div>
   <div class="trendgrid" id="trends"></div>
 </details>
+</div>
 <section class="card" id="flowCard">
   <h2>Toky elektřiny v kraji</h2>
   <p class="viewnote" id="flowCaption"></p>
@@ -318,6 +332,10 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
   <div class="sechead"><h2>Realistický scénář při těchto předpokladech</h2></div>
   <p class="plain">Výchozí stav ukazuje vývoj, pokud to půjde podobně jako dnes. Posuvníky ukazují, co by znamenaly jiné podmínky, ne účinek konkrétního opatření. Blíž k progresivní cestě znamená víc elektřiny, ne automaticky menší schodek.</p>
   <p class="plain" id="realLead"></p>
+  <p class="viewnote">Volba Cesta, Oba scénáře, pohled Zimní špička a posuvník Rok ovládají horní graf a toky, tuto křivku ne. Křivku posouvají přednastavení a ovládání v této části. Schodek obou cest je podobný, proto sledujte i výrobu a spotřebu.</p>
+  <p class="viewnote">Obě cesty jsou krajní body a předpoklad, že jsou krajní, je náš. Křivka nemění horní graf. Posuvníky položek nahoře krajní body mění, a tím i tuto křivku. Demografie, oteplení a Nová huť se přičítají přímo, křivka proto smí vyjít mimo rozsah cest. Menší schodek není vždy dobrá zpráva: vzniká i tehdy, když z kraje odchází průmysl nebo lidé. Opačnou vazbu, že dostatek elektřiny přiláká investora, model nezachytí.</p>
+  <div class="pinwrap">
+  <div class="pin" id="realPin">
   <div class="toggles">
     <div class="pills small" role="group" aria-label="Přednastavení realistického scénáře">
       <span class="tipwrap"><button id="realDefault" aria-pressed="true">Výchozí</button><span class="bubble" role="tooltip">Hodnoty ze zdrojů a odhadů pro období do roku 2050. Bez SMR, velkých datových center a Nové huti, plynové bloky jen oznámené, v Třinci první pec, oteplení +1,2 °C.</span></span>
@@ -331,17 +349,17 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
       <span class="tipwrap"><button class="chip" id="realCmpK" aria-pressed="false">Přidat konzervativní</button><span class="bubble r" role="tooltip">Přidá tenké křivky konzervativní cesty pro srovnání. Realistickou křivku neposouvá, k tomu slouží Vše konzervativně.</span></span>
     </div>
   </div>
-  <p class="viewnote">Volba Cesta, Oba scénáře, pohled Zimní špička a posuvník Rok ovládají horní graf a toky, tuto křivku ne. Křivku posouvají přednastavení a ovládání v této části. Schodek obou cest je podobný, proto sledujte i výrobu a spotřebu.</p>
   <div class="kpi" id="realKpi"></div>
   <div class="legend" id="realLegend"></div>
   <div id="realMain"></div>
-  <p class="viewnote">Obě cesty jsou krajní body a předpoklad, že jsou krajní, je náš. Křivka nemění horní graf. Posuvníky položek nahoře krajní body mění, a tím i tuto křivku. Demografie, oteplení a Nová huť se přičítají přímo, křivka proto smí vyjít mimo rozsah cest. Menší schodek není vždy dobrá zpráva: vzniká i tehdy, když z kraje odchází průmysl nebo lidé. Opačnou vazbu, že dostatek elektřiny přiláká investora, model nezachytí.</p>
+  </div>
   <div class="cols">
     <div><h3 class="realh">Velké události</h3><div id="realDecisions"></div><h3 class="realh">Vnější vlivy</h3><div id="realExternal"></div></div>
     <div>
       <div class="only-simple"><h3 class="realh">Jak se bude dařit: 1 je příznivý vývoj, 0 nepříznivý</h3><p class="viewnote">Význam každé škály vysvětluje značka i. Příznivý vývoj nemusí znamenat menší schodek, protože elektrifikace zvyšuje spotřebu.</p><div id="realCats"></div></div>
       <div class="only-detail"><h3 class="realh">34 indikátorů: 1 je příznivý vývoj, 0 nepříznivý</h3><p class="viewnote">Význam každé škály vysvětluje značka i. Příznivý vývoj nemusí znamenat menší schodek, protože elektrifikace zvyšuje spotřebu.</p><div id="realInds"></div></div>
     </div>
+  </div>
   </div>
   <details class="box" id="realBandBox"><summary>Pásmo nejistoty a co ho tvoří</summary><div id="realBandText"></div></details>
   <details class="box" id="realHours"><summary>Hodinový výpočet výchozího stavu</summary><div id="realHourText"></div></details>
@@ -894,7 +912,7 @@ function xScale(y){ return X0 + (y - 2023) / 27 * (X1 - X0); }
 
 function drawMain(){
   setGeometry();
-  const small = isSmall(), H = small ? 400 : 430, YB = H - 34, host = $("main");
+  const small = isSmall(), H = pinnedHeight("mainPin", "main", small ? 400 : 430), YB = H - 34, host = $("main");
   host.innerHTML = "";
   const svg = mk("svg", {viewBox:`0 0 ${W} ${H}`, role:"img", "aria-label":"Výroba a spotřeba elektřiny po letech"}, host);
   const show = state.show;
@@ -1308,6 +1326,13 @@ function drawTrends(){
     host.appendChild(row);
   }
 }
+/* Zamčené grafy. Výška se počítá tak, aby graf zabíral asi 30 % výšky okna na plnou šířku. */
+const PIN_STATE = {mainPin:false, realPin:false};
+function pinnedHeight(id, hostId, normal){
+  if(!PIN_STATE[id]) return normal;
+  const width = $(hostId).clientWidth || W;
+  return Math.max(190, Math.round(innerHeight * .3 * W / width));
+}
 function refresh(){ syncPreset(); drawMain(); drawBalance(); drawKpi(); FLOW.draw(); formulaLabels.forEach(f => f()); realDraw(); }
 
 /* Realistický scénář. Stejný výpočet je v graf_scenare/realisticky/model_realisticky.py. Neupravuje state ani horní graf. */
@@ -1400,10 +1425,11 @@ function realDraw(){
   $("realLead").textContent = `Křivka není předpověď ani nejpravděpodobnější vývoj, je to důsledek zvolených předpokladů. Odhad pravděpodobnosti SMR v kraji do konce roku 2049 je ${pct} % a křivka ${r.smrOn ? "jde větví s reaktorem" : "jde větví bez reaktoru"}. ${other.smrOn ? "S reaktorem" : "Bez reaktoru"} by byl schodek ${NF.format(other.use[other.use.length - 1] - other.gen[other.gen.length - 1])} GWh. Ve výchozím nastavení je to schodek řádově ${NF1.format(REAL.udalosti[0].schodek / 1000)} TWh a pásmo větve ${NF1.format(REAL.pasmo.vetve.bez.schodek[0][25] / 1000)} až ${NF1.format(REAL.pasmo.vetve.bez.schodek[2][25] / 1000)} TWh. Výchozí křivka je jedna z nejčastějších kombinací stavů událostí, ne střed pásma.${beyond}`;
   realChart(r, other);
   realSync(r);
+  pinLayout();
 }
 function realChart(r, other){
   setGeometry();
-  const small = isSmall(), H = small ? 380 : 400, YB = H - 34, host = $("realMain"), last = DATA.years.length - 1;
+  const small = isSmall(), H = pinnedHeight("realPin", "realMain", small ? 380 : 400), YB = H - 34, host = $("realMain"), last = DATA.years.length - 1;
   host.innerHTML = "";
   const svg = mk("svg", {viewBox:`0 0 ${W} ${H}`, role:"img", "aria-label":"Realistický scénář: výroba a spotřeba po letech"}, host);
   const paths = Object.keys(PATHNAME).filter(p => realCompare[p]).map(p => ({p, gen:totals(p, "vyroba"), use:totals(p, "spotreba")}));
@@ -2387,6 +2413,51 @@ if(typeof location !== "undefined" && ["#volby", "#metodika", "#nedostatky"].inc
   $("gradeCount").textContent = `Stupeň D, tedy odhad bez publikovaného zdroje, má ${weak} z ${uniqueRows} řádků tabulky.`;
 }
 
+/* Zamčený graf je nižší, na celou šířku, proto se překreslí a popisky zůstanou čitelné. Rozdíl výšky se přidá jako okraj pod ním, obsah pod grafem neposkočí. */
+let barHeight = 53;
+function setBarHeight(){
+  const bar = document.querySelector(".pathbar");
+  if(bar && bar.offsetHeight){ barHeight = bar.offsetHeight; document.documentElement.style.setProperty("--barh", barHeight + "px"); }
+}
+function pinSet(id, on){
+  const pin = $(id);
+  PIN_STATE[id] = on;
+  pin.classList.toggle("stuck", on);
+  if(id === "mainPin") drawMain(); else realDraw();
+}
+function pinLayout(){
+  if(typeof getComputedStyle === "undefined") return;
+  for(const id of Object.keys(PIN_STATE)){
+    const pin = $(id);
+    if(!pin.closest || !pin.classList) continue;
+    const box = pin.closest(".pinwrap").getBoundingClientRect();
+    if(!box.height) continue;
+    const want = getComputedStyle(pin).position === "sticky" && box.top < barHeight - 1;
+    if(want === PIN_STATE[id]) continue;
+    if(want){
+      const full = pin.offsetHeight;
+      pinSet(id, true);
+      pin.style.marginBottom = (full - pin.offsetHeight + 16) + "px";
+    } else {
+      pin.style.marginBottom = "";
+      pinSet(id, false);
+    }
+  }
+}
+setBarHeight();
+if(typeof addEventListener !== "undefined"){
+  let pinQueued = false;
+  addEventListener("scroll", () => {
+    if(pinQueued) return;
+    pinQueued = true;
+    requestAnimationFrame(() => { pinQueued = false; pinLayout(); });
+  }, {passive:true});
+  addEventListener("resize", () => {
+    setBarHeight();
+    for(const id of Object.keys(PIN_STATE)) if(PIN_STATE[id]){ $(id).style.marginBottom = ""; pinSet(id, false); }
+    pinLayout();
+  });
+}
 $("foot").innerHTML = "Výroba je brutto. Spotřeba je součet sektorů plus ztráty v sítích. Zdroje skutečnosti: Dopadová studie energetické bezpečnosti a soběstačnosti MSK (2024), Tab. 1 a Tab. 6; zprávy ERÚ o provozu elektrizační soustavy, tabulky 6.1 a 6.3, předběžné údaje. Stupně důkazu: A měření, B publikovaná studie, C technický výpočet, D odhad bez publikovaného zdroje. Meze P10 a P90 jsou téměř všude odhad. <a href=\"polozky.csv\">Tabulka položek</a>, <a href=\"polozky_poznamky.md\">poznámky ke zdrojům</a>, <a href=\"grafy_polozek.pdf\">grafy položek</a>, <a href=\"hodinovy/PREPOCET.md\">přepočet s hodinami</a>, <a href=\"EXPORT_BILANCE_MSK.md\">souhrnný export všech čísel</a>. Část zdrojů je neveřejná. Zdroj je neveřejná studie, uvedena jsou jen čísla potřebná k výpočtu.";
 resetValues();
 applyPath(); drawLegend(); drawTrends(); drawLists(); refresh();

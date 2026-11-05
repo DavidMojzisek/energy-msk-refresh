@@ -135,6 +135,8 @@ def fill_numbers(template):
     data = json.loads((NUMBERS / "stranka_cisla.json").read_text(encoding="utf-8"))
     texty = json.loads((NUMBERS / "stranka_texty.json").read_text(encoding="utf-8"))
     t = dict(data["T"], **texty["T"])
+    mez = next(r for r in data["tempo"] if r["jmeno"] == "Vítr na mezi a zbytek FVE")
+    t = dict(t, mez_rok=mez["vitr_rok"].replace(" MW", ""), mez_krat=mez["vitr_krat"])
     values = dict(t, html_must=html_must(data["must"]), html_tempo=html_tempo(data["tempo"], t), html_rezerva=html_rezerva(data["rezerva"]),
                   html_otevrene=html_otevrene(texty["otevrene"]), html_radky8=html_radky8(texty["radky8"]), html_rozpory=html_rozpory(),
                   html_urovne=html_urovne(texty["metoda"]), html_blackout=html_blackout(texty["metoda"]), blackout_meritko=texty["metoda"]["meritko"], blackout_chybi=texty["metoda"]["chybi"])
