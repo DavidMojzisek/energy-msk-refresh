@@ -74,6 +74,7 @@ svg .lab{font:600 12px "DM Sans",sans-serif;fill:var(--ink)}
 .tabs button{border:0;background:none;color:var(--muted);font:600 15px "Saira",sans-serif;padding:8px 14px;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-1px}
 .tabs button[aria-current=page]{color:var(--ink);border-bottom-color:var(--accent)}
 .method{max-width:800px;margin:0 auto}
+.method.wide{max-width:none}
 .method .card{margin-bottom:32px}
 .method p{margin:8px 0;line-height:1.55}
 .method p.f{margin:6px 0;padding:6px 10px;background:var(--surface-2);border-radius:6px;overflow-x:auto;white-space:nowrap;font:13px/1.6 "JetBrains Mono",monospace;font-variant-numeric:tabular-nums;color:var(--ink);overflow-wrap:normal}
@@ -122,6 +123,7 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
 </header>
 <nav class="tabs" aria-label="Části stránky">
   <button data-tab="bilance" aria-current="page">Bilance</button>
+  <button data-tab="volby">Návrhové volby</button>
   <button data-tab="metodika">Metodika</button>
   <button data-tab="nedostatky">Nedostatky</button>
 </nav>
@@ -204,10 +206,24 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
   <p class="plain only-detail">Tempo výstavby je průměr 2026 až 2050, skutečný vrchol křivky by byl vyšší. Srovnává se s největším ročním přírůstkem v kraji (ERÚ, Roční zpráva 2025): vítr 9,1 MW v roce 2024, fotovoltaika 83,3 MW v roce 2023.</p>
   <div class="tablewrap only-detail">{{html_tempo}}</div>
 </section>
-<section class="card only-detail" id="planCard">
+<section class="answer" id="infoCard">
+  <h2>Jak výsledek číst</h2>
+  <p class="plain">Baterie, elektrolyzér a nádrž jsou v záložce Návrhové volby.</p>
+  <p class="plain">Závislost plyne z toho, kolik elektráren cesty předpokládají a kolik elektřiny spotřebují, není to fyzikální mez. Polovinu výroby progresivní cesty dává jeden SMR, bez něj by výroba pokryla {{bez_smr_pokryti}} % spotřeby. Co by se muselo postavit navíc, ukazuje blok Co by muselo platit. Soběstačnost tu znamená jen elektřinu vyrobenou v kraji. Palivo pro SMR i zemní plyn je dovezené.</p>
+  <div class="defs">
+    <div><h3 class="p">Progresivní cesta</h3><p>Vítr a slunce podle dnešního podílu kraje na celostátním plánu, tedy {{vitr_prog}} MW větru z možných 2 014 MW, jeden malý modulární reaktor (SMR) a rychlý přechod průmyslu, dopravy a vytápění na elektřinu. Polovina MHD a nákladní dopravy jezdí na vodík vyrobený v kraji, osobní auta jezdí na baterie.</p></div>
+    <div><h3 class="k">Konzervativní cesta</h3><p>Bez reaktoru, jen desetina růstu větru a slunce proti progresivní cestě a většina výroby z plynových bloků. Doprava a vytápění přecházejí na elektřinu pomaleji, vodík v dopravě není.</p></div>
+  </div>
+  <p class="viewnote">SMR je malý jaderný blok. Tady má 500 MW a běží od roku 2045, studie uvádí 350 MW. Cesty nejsou předpovědi. Ukazují, co by z daných předpokladů vyšlo.</p>
+  <p class="notice">Čísla se mění s posuvníky, věty nahoře platí pro výchozí nastavení. Podíl běhů simulace nejistoty, ve kterých vyjde rok bez schodku, je {{mc_pas_prog}} v progresivní cestě a {{mc_pas_kons}} v konzervativní cestě. Schodek roku 2050 je v simulaci {{sim_p_od}} až {{sim_p_do}} GWh v progresivní a {{sim_k_od}} až {{sim_k_do}} GWh v konzervativní cestě, P10 až P90. Hodnoty po roce 2025 jsou odhady, přes polovinu položek je odhad bez publikovaného zdroje.</p>
+</section>
+</div>
+<div id="tab-volby" hidden>
+<article class="method wide">
+<section class="card" id="planCard">
   <h2>Baterie a vodík v roce 2050</h2>
-  <p class="plain" data-must="konzervativni">Konzervativní cesta nemá vodík v dopravě a nese jen dnešních {{bat_kons}} MW baterií. Návrh níže platí pro progresivní cestu.</p>
-  <div data-must="progresivni">
+  <p class="plain">Návrh platí pro progresivní cestu. Konzervativní cesta nemá vodík v dopravě a nese jen dnešních {{bat_kons}} MW baterií.</p>
+  <div>
   <p class="plain"><b>Výchozí nastavení</b> je baterie {{bat_gwh}} GWh a {{bat_mw}} MW s vyrovnáním dne, elektrolyzér {{el_mw}} MW a malá nádrž asi 50 t. Roční dovoz je v něm {{vs_dovoz}} GWh, vývoz {{vs_vyvoz}} GWh a zimní špička dovozu {{vs_spicka}} MW. Čísla tohoto bloku platí pro něj, jiný běh je u čísla pojmenovaný.</p>
   <p class="plain"><b>Vodík je z {{vs_h2_sit_pct}} % z elektřiny ze sítě.</b> Nákladní doprava a MHD napůl na vodík potřebují {{q}} GWh elektřiny za rok. Přebytek před baterií, kotli a elektrolyzérem je jen {{vs_prebytek}} GWh za rok. Z něj bere {{vs_h2}} GWh vodík, {{vs_kotle}} GWh elektrokotle, {{vs_bat_pre}} GWh baterie a {{vs_vyvoz}} GWh zbude na vývoz. Ze sítě jde do vodíku {{vs_h2_sit}} GWh. Vodík v dopravě zvedá roční dovoz z {{dov_baterie}} GWh při dopravě na bateriích na {{vs_dovoz}} GWh.</p>
   <div class="tablewrap"><table class="grades">
@@ -227,16 +243,7 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
   <p class="viewnote">Progresivní cesta 2050, 1 SMR, průměr 5 povětrnostních let. Rozvrh plynu, elektrolýzy ze sítě a nádrže zná celý rok dopředu, skutečný provoz by špičku dovozu zvýšil, velikost je v záložce Nedostatky. Ceny nádrží jsou řádový odhad, jen nákup nádrže bez instalace a údržby: 500 až 850 USD za kg uloženého vodíku pro nádrž 160 bar, tedy cíl pro rok 2020 a stav roku 2015 (<a href="https://www.energy.gov/sites/prod/files/2015/08/f25/fcto_myrdd_delivery.pdf">americké ministerstvo energetiky, Multi-Year RD&amp;D Plan, část 3.2, 2015, s. 3.2-16</a>). Pro vyšší tlak uvádí tentýž zdroj 600 až 2 000 USD/kg. Na eura je to přepočtené průměrem denních kurzů za rok 2015, 24,6 Kč/USD a 27,283 Kč/EUR (<a href="https://www.cnb.cz/en/financial-markets/foreign-exchange-market/central-bank-exchange-rate-fixing/central-bank-exchange-rate-fixing/year.txt?year=2015">ČNB</a>). <a href="hodinovy/PREPOCET.md">Úplný přepočet</a>.</p>
   </div>
 </section>
-<section class="answer" id="infoCard">
-  <h2>Jak výsledek číst</h2>
-  <p class="plain">Závislost plyne z toho, kolik elektráren cesty předpokládají a kolik elektřiny spotřebují, není to fyzikální mez. Polovinu výroby progresivní cesty dává jeden SMR, bez něj by výroba pokryla {{bez_smr_pokryti}} % spotřeby. Co by se muselo postavit navíc, ukazuje blok Co by muselo platit. Soběstačnost tu znamená jen elektřinu vyrobenou v kraji. Palivo pro SMR i zemní plyn je dovezené.</p>
-  <div class="defs">
-    <div><h3 class="p">Progresivní cesta</h3><p>Vítr a slunce podle dnešního podílu kraje na celostátním plánu, tedy {{vitr_prog}} MW větru z možných 2 014 MW, jeden malý modulární reaktor (SMR) a rychlý přechod průmyslu, dopravy a vytápění na elektřinu. Polovina MHD a nákladní dopravy jezdí na vodík vyrobený v kraji, osobní auta jezdí na baterie.</p></div>
-    <div><h3 class="k">Konzervativní cesta</h3><p>Bez reaktoru, jen desetina růstu větru a slunce proti progresivní cestě a většina výroby z plynových bloků. Doprava a vytápění přecházejí na elektřinu pomaleji, vodík v dopravě není.</p></div>
-  </div>
-  <p class="viewnote">SMR je malý jaderný blok. Tady má 500 MW a běží od roku 2045, studie uvádí 350 MW. Cesty nejsou předpovědi. Ukazují, co by z daných předpokladů vyšlo.</p>
-  <p class="notice">Čísla se mění s posuvníky, věty nahoře platí pro výchozí nastavení. Podíl běhů simulace nejistoty, ve kterých vyjde rok bez schodku, je {{mc_pas_prog}} v progresivní cestě a {{mc_pas_kons}} v konzervativní cestě. Schodek roku 2050 je v simulaci {{sim_p_od}} až {{sim_p_do}} GWh v progresivní a {{sim_k_od}} až {{sim_k_do}} GWh v konzervativní cestě, P10 až P90. Hodnoty po roce 2025 jsou odhady, přes polovinu položek je odhad bez publikovaného zdroje.</p>
-</section>
+</article>
 </div>
 <div id="tab-metodika" hidden>
 <article class="method">
@@ -1130,7 +1137,7 @@ if(typeof addEventListener !== "undefined"){
 
 /* Záložky. */
 function showTab(name){
-  for(const tab of ["bilance", "metodika", "nedostatky"]) $("tab-" + tab).hidden = name !== tab;
+  for(const tab of ["bilance", "volby", "metodika", "nedostatky"]) $("tab-" + tab).hidden = name !== tab;
   $("reset").style.visibility = name === "bilance" ? "visible" : "hidden";
   document.querySelectorAll("[data-tab]").forEach(b => {
     if(b.dataset.tab === name) b.setAttribute("aria-current", "page"); else b.removeAttribute("aria-current");
@@ -1140,7 +1147,7 @@ document.querySelectorAll("[data-tab]").forEach(b => b.addEventListener("click",
   showTab(b.dataset.tab);
   if(typeof history !== "undefined") history.replaceState(null, "", "#" + b.dataset.tab);
 }));
-if(typeof location !== "undefined" && ["#metodika", "#nedostatky"].includes(location.hash)) showTab(location.hash.slice(1));
+if(typeof location !== "undefined" && ["#volby", "#metodika", "#nedostatky"].includes(location.hash)) showTab(location.hash.slice(1));
 {
   const uniqueRows = DATA.items.length, weak = DATA.items.filter(it => it.grade === "D").length;
   $("gradeCount").textContent = `Stupeň D, tedy odhad bez publikovaného zdroje, má ${weak} z ${uniqueRows} řádků tabulky.`;
