@@ -687,7 +687,7 @@
 "rok": "2014",
 "kotva_x0": "50",
 "kotva_x1": "90",
-"zdroj": "Vliv plánovaného zařízení KIC Odpady (ZEVO) v Karviné na postoje obyvatel a síla vlivu NIMBY efektu, J. Ryba, diplomová práce VŠE, 2014 (n=204)",
+"zdroj": "Vliv plánovaného zařízení KIC Odpady (ZEVO) v Karviné na postoje obyvatel a síla vlivu NIMBY efektu, diplomová práce VŠE, 2014 (n=204)",
 "url": "https://insis.vse.cz/zp/47006",
 "vaha0": "",
 "ps": "1",
@@ -706,8 +706,8 @@
 "uzemi": "MSK (hodnota); ČR (prognóza a kotvy)",
 "hodnota": "0.6",
 "rok": "2025",
-"kotva_x0": "7.3",
-"kotva_x1": "71.5",
+"kotva_x0": "19 % aut, řádek konzervativní cesty",
+"kotva_x1": "95 % aut, řádek progresivní cesty",
 "zdroj": "Electric Drive (3.9.2025) přebírá registr CDV; Euroenergy, Predikce vývoje elektromobility v ČR, aktualizace (MPO); Eurostat tran_r_vehst; Eurostat lfsa_ehomp",
 "url": "https://www.electricdrive.cz/cesko-prekonalo-hranici-50-tisic-elektromobilu-horizont-2030-cili-na-ctvrt-milionu/ ; https://mpo.gov.cz/assets/cz/energetika/strategicke-a-koncepcni-dokumenty/narodni-akcni-plan-pro-chytre-site/2024/6/Elektromobilita-predikce-aktualizace.pdf ; https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/tran_r_vehst?format=JSON&geo=CZ08&vehicle=CAR&unit=P_THAB ; https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/lfsa_ehomp?format=JSON&geo=CZ&sex=T&age=Y15-64&wstatus=EMP&frequenc=USU&unit=PC",
 "vaha0": "",
@@ -1182,7 +1182,7 @@
 "key": "gas",
 "nazev": "Plynové bloky ve větvi bez SMR",
 "stav": "Konzervativní cesta má 683 MW, doložené nebo oznámené projekty bez bloků s nejistou lokalitou dávají 283 MW.",
-"odhad": "Bloky bez doloženého řízení mají odhad 30 % pro aspoň jeden. Bez reaktoru je ale potřeba výkonu větší a tuto podmíněnou hodnotu nikdo neuvádí. Výchozí zůstává potřebný výkon.",
+"odhad": "Bloky bez doloženého řízení mají odhad 30 % pro aspoň jeden. Bez reaktoru je ale potřeba výkonu větší a tuto podmíněnou hodnotu nikdo neuvádí. Výchozí křivka bere potřebný výkon, v pásmu je menší výkon v polovině běhů, úsudek.",
 "zdroje": [
 [
 "Ekonomický deník, Třebovice, 7. 10. 2026",
@@ -1194,7 +1194,7 @@
 "key": "dc",
 "nazev": "Velká datová centra",
 "stav": "V kraji nebyl nalezen žádný jmenovaný projekt od 100 MW. Rezervace připojení nejsou veřejné.",
-"odhad": "Obhajitelné číslo neexistuje a skóre z indikátorů není pravděpodobnost. Volba Podle indikátorů dá ano až od skóre 0,75. Do pásma událost nevstupuje, účinek je v citlivosti.",
+"odhad": "Obhajitelné číslo neexistuje a skóre z indikátorů není pravděpodobnost. Volba Podle indikátorů dá ano až od skóre 0,75. Do pásma událost nevstupuje, účinek je v tabulce událostí.",
 "zdroje": [
 [
 "Zakazka.cz podle EGU, 9. 6. 2026",

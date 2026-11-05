@@ -106,6 +106,7 @@ svg .lab{font:600 12px "DM Sans",sans-serif;fill:var(--ink)}
 @media (max-width:640px){.kpirow b{font-size:24px}.kpirow .cells{gap:8px 24px}svg text{font-size:15px}svg .ev{font-size:14px}svg .lab{font-size:15px}.grades{font-size:13px}.grades td,.grades th{padding-right:10px}}
 .realh{font:700 15px "Saira",sans-serif;margin:16px 0 6px}
 #realDecisions .pills{flex-wrap:wrap;border-radius:14px;margin-top:6px}
+#realCard{--accent:var(--real)}
 #realCard .item{position:relative}
 .info{width:17px;height:17px;padding:0;margin-left:6px;border:1px solid var(--muted);border-radius:50%;background:none;color:var(--muted);font:600 11px/15px "DM Sans",sans-serif;cursor:help;vertical-align:1px}
 .info:hover,.info:focus-visible{color:var(--ink);border-color:var(--ink)}
@@ -268,7 +269,7 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
   <p class="plain" id="realLead"></p>
   <div class="toggles">
     <div class="pills small" role="group" aria-label="Přednastavení realistického scénáře">
-      <span class="tipwrap"><button id="realDefault" aria-pressed="true">Výchozí</button><span class="bubble" role="tooltip">Hodnoty ze zdrojů a odhadů pro období do roku 2050. Bez SMR, datových center a Nové huti, v Třinci první pec, oteplení +1,2 °C.</span></span>
+      <span class="tipwrap"><button id="realDefault" aria-pressed="true">Výchozí</button><span class="bubble" role="tooltip">Hodnoty ze zdrojů a odhadů pro období do roku 2050. Bez SMR, velkých datových center a Nové huti, v Třinci první pec, oteplení +1,2 °C.</span></span>
       <span class="tipwrap"><button id="realAllK" aria-pressed="false">Vše konzervativně</button><span class="bubble" role="tooltip">Všechny indikátory na 0 a žádné odchylky. Křivka je přesně konzervativní cesta: bez SMR, plyn 683 MW, v Třinci první pec.</span></span>
       <span class="tipwrap"><button id="realAllP" aria-pressed="false">Vše progresivně</button><span class="bubble" role="tooltip">Všechny indikátory na 1 a žádné odchylky. Křivka je přesně progresivní cesta: SMR od roku 2045, velká datová centra, plná elektrifikace Třince.</span></span>
     </div>
@@ -383,16 +384,16 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
     <p class="f">R(t) = (1 &minus; a) &middot; K(t) + a &middot; P(t) &nbsp; &nbsp; a = &Sigma; w &middot; x / &Sigma; w &nbsp; &nbsp; x = 0 popis K, x = 1 popis P</p>
     <p class="f">Společný plyn: (1 &minus; s) &middot; K + s &middot; P, s je skóre SMR &nbsp; &nbsp; s SMR od spuštění řádek P, bez SMR od rozhodnutí řádek K</p>
     <details class="more"><summary>Podrobnosti</summary>
-      <p><b>Co je převzaté a co je náš úsudek.</b> Seznam 34 indikátorů, popisy stavů a skóre dopadu jsou z pracovní tabulky scénářů kraje. Vazby a váhy vycházejí z pracovního podkladu k indikátorům po opravě. Kotvy a výchozí hodnoty jsou naše. Všechno to je odhad a stránka to tak ukazuje. Rovnice je dohoda o interpolaci. Zdroj dokládající lineární převod ze společenského indexu na výstavbu jsme nenašli, stejně jako použitelnou elasticitu nebo práh pro vítr a slunce v regionu. Literatura dokládá S-křivky v čase (Grubler a kol. 2016, Odenweller a kol. 2022) a varuje, že skupiny s podobným průměrem preferencí mohou dopadnout velmi odlišně (Granovetter 1978).</p>
+      <p><b>Co je převzaté a co je náš úsudek.</b> Seznam 34 indikátorů, popisy stavů a skóre dopadu jsou z pracovní tabulky indikátorů. Vazby a váhy vycházejí z pracovního podkladu k indikátorům po opravě. Kotvy a výchozí hodnoty jsou naše. Všechno to je odhad a stránka to tak ukazuje. Rovnice je dohoda o interpolaci. Zdroj dokládající lineární převod ze společenského indexu na výstavbu jsme nenašli, stejně jako použitelnou elasticitu nebo práh pro vítr a slunce v regionu. Literatura dokládá S-křivky v čase (Grubler a kol. 2016, Odenweller a kol. 2022) a varuje, že skupiny s podobným průměrem preferencí mohou dopadnout velmi odlišně (Granovetter 1978).</p>
       <p><b>Váhy.</b> Výchozí váhy jsou neověřený odhad z pracovního podkladu k indikátorům, po opravě. Průměr je normuje, proto součet nad 1 nevadí a položka nepřestřelí druhou cestu. Váhu 0 má deset indikátorů, důvod je u každého z nich. Jádro nebere podporu obnovitelných zdrojů. Nákladní doprava, úspory a rok spuštění využití odpadu v podkladu vazbu nemají, tu je náš úsudek. Váha vyjadřuje směnu mezi indikátory, ne jejich důležitost (OECD a JRC 2008, s. 33; Paruolo a kol. 2013). Jiné váhy jsou porovnané v citlivosti u pásma. Skóre dopadu z tabulky indikátorů je vidět u každého indikátoru, jako váha se nepoužívá, protože význam škály není doložený.</p>
       <p><b>Kategorie.</b> Posuvník kategorie přepočítá její indikátory poměrem vůči výchozím hodnotám. Hodnoty 0 a 1 nastaví všechny na 0 a 1, jiné pořadí nevzniká. Ruční nastavení indikátorů v kategorii tím přepíše.</p>
-      <p><b>Velké události.</b> SMR má skóre z indikátorů a to se převádí na odhad pravděpodobnosti tak, že výchozí skóre odpovídá odhadu 25 % z řetězu kroků a konce 0 a 1 zůstávají. Práh pro ano je 50 %. U datových center a plné elektrifikace Třince obhajitelné číslo neexistuje. Skóre u nich není pravděpodobnost, ano dá až od 0,75 a do pásma nevstupují. Křivka nikdy nebere zlomek. Odhady jsou subjektivní a podmíněné, přímé expertní hodnocení by je mělo nahradit (Morgan a Keith 2008). Spuštění po roce 2050 znamená do roku 2050 větev bez SMR.</p>
+      <p><b>Velké události.</b> SMR má skóre z indikátorů a to se převádí na odhad pravděpodobnosti tak, že výchozí skóre odpovídá odhadu 25 % z řetězu kroků a konce 0 a 1 zůstávají. Práh pro ano je 50 %. U datových center a plné elektrifikace Třince obhajitelné číslo neexistuje. Skóre u nich není pravděpodobnost, ano dá až od 0,75 a do pásma nevstupují. Křivka nikdy nebere zlomek. Odhady jsou subjektivní a podmíněné. Spuštění po roce 2050 znamená do roku 2050 větev bez SMR.</p>
       <p><b>Plyn a větve.</b> Reaktor spuštěný v roce 2048 nemůže měnit plyn v roce 2030. Proto mají obě větve společný plyn. S reaktorem klesá až s jeho spuštěním. Bez reaktoru se 10 let před plánovaným spuštěním začne přecházet na výstavbu konzervativní cesty. Těch 10 let je náš úsudek. Větev bez SMR končí na 683 MW z konzervativní cesty, volba ji umí omezit na oznámených 283 MW. Vlastní spotřeba a ztráty v sítích jsou vzorce z vypočtených řádků.</p>
       <p><b>Demografie a oteplení.</b> Obě cesty mají stejnou projekci ČSÚ, proto se počítá jen odchylka, stejným vzorcem jako velké trendy. Klima položek odpovídá povětrnostním rokům 2015 až 2019. Další oteplení násobí vytápění a teplárenskou výrobu poměrem z hodinového modelu, s plnou hodnotou v roce 2050. Chlazení násobek nemá, oteplení je už v podílu chlazených domácností.</p>
       <p><b>Pásmo.</b> Simulace pro výchozí nastavení losuje míry naplnění s jedním společným faktorem a faktorem kategorie, váhy, tvar vazby jako a na g, události, oteplení s demografií a rozsah řádků tabulky obou cest. Síly faktorů a rozptyly jsou úsudek. Tabulka zdrojů není rozklad rozptylu, ukazuje každý zdroj samotný a co ubude bez něj, protože zdroje na sebe působí (OECD a JRC 2008, kap. 7).</p>
-      <p><b>Hodiny.</b> Výchozí řádky obou větví projdou stejným hodinovým výpočtem jako cesty, s pěti povětrnostními roky. Čísla z ročního a hodinového výpočtu jsou označená zvlášť. Ve výchozím stavu sedí roční schodek a hodinový dovoz.</p>
+      <p><b>Hodiny.</b> Výchozí řádky obou větví projdou stejným hodinovým výpočtem jako cesty, s pěti povětrnostními roky. Čísla z ročního a hodinového výpočtu jsou označená zvlášť. Ve výchozím stavu se roční schodek a hodinový dovoz liší jen o jednotky GWh.</p>
       <p><b>Výchozí hodnoty.</b> Každý indikátor má ukazatel, dvě kotvy a zdroj, nebo označení odhad. Kotvy jsou úsudek. Kde dnešní hodnota neříká nic o období do roku 2050, je výchozí hodnota z prognózy nebo z pravidla, které je u indikátoru uvedené. Bez dat platí 0,5 a označení odhad.</p>
-      <p class="small">Zdroje: Grubler, Wilson, Nemet 2016, ERSS 22; Odenweller a kol. 2022, Nature Energy 7; Granovetter 1978, AJS 83(6); OECD a JRC 2008, Handbook on Constructing Composite Indicators; Paruolo, Saisana, Saltelli 2013, JRSS A 176(3); Morgan, Keith 2008, Climatic Change 90.</p>
+      <p class="small">Zdroje: Grubler, Wilson, Nemet 2016, ERSS 22; Odenweller a kol. 2022, Nature Energy 7; Granovetter 1978, AJS 83(6); OECD a JRC 2008, Handbook on Constructing Composite Indicators; Paruolo, Saisana, Saltelli 2013, JRSS A 176(3).</p>
       <div class="figsvg" id="realFig"></div>
       <p class="viewnote" id="realFigCap"></p>
     </details>
@@ -1343,7 +1344,7 @@ function realDraw(){
   for(const p of Object.keys(PATHNAME)) if(realCompare[p]) html += row(`${PATHNAME[p]} cesta`, {gen:totals(p, "vyroba"), use:totals(p, "spotreba")});
   $("realKpi").innerHTML = html;
   const pct = NF.format(r.prob.smr * 100);
-  $("realLead").textContent = `Křivka není předpověď ani nejpravděpodobnější vývoj, je to důsledek zvolených předpokladů. Odhad pravděpodobnosti SMR v kraji do konce roku 2049 je ${pct} % a křivka ${r.smrOn ? "jde větví s reaktorem" : "jde větví bez reaktoru"}. ${other.smrOn ? "S reaktorem" : "Bez reaktoru"} by byl schodek ${NF.format(other.use[other.use.length - 1] - other.gen[other.gen.length - 1])} GWh. Ve výchozím nastavení je to schodek řádově ${NF1.format(REAL.udalosti[0].schodek / 1000)} TWh a pásmo větve ${NF1.format(REAL.pasmo.vetve.bez.schodek[0][25] / 1000)} až ${NF1.format(REAL.pasmo.vetve.bez.schodek[2][25] / 1000)} TWh. Výchozí křivka je nejčastější kombinace stavů událostí, ne střed pásma.`;
+  $("realLead").textContent = `Křivka není předpověď ani nejpravděpodobnější vývoj, je to důsledek zvolených předpokladů. Odhad pravděpodobnosti SMR v kraji do konce roku 2049 je ${pct} % a křivka ${r.smrOn ? "jde větví s reaktorem" : "jde větví bez reaktoru"}. ${other.smrOn ? "S reaktorem" : "Bez reaktoru"} by byl schodek ${NF.format(other.use[other.use.length - 1] - other.gen[other.gen.length - 1])} GWh. Ve výchozím nastavení je to schodek řádově ${NF1.format(REAL.udalosti[0].schodek / 1000)} TWh a pásmo větve ${NF1.format(REAL.pasmo.vetve.bez.schodek[0][25] / 1000)} až ${NF1.format(REAL.pasmo.vetve.bez.schodek[2][25] / 1000)} TWh. Výchozí křivka je jedna z nejčastějších kombinací stavů událostí, ne střed pásma.`;
   realChart(r, other);
   realSync(r);
 }
@@ -1431,7 +1432,7 @@ const REAL_CAT_TEXT = {
 };
 const REAL_DEC_TEXT = {
   gas:"Kolik plynových bloků se postaví, když reaktor nepřijde. 683 MW je výstavba konzervativní cesty. 283 MW jsou doložené a oznámené projekty, schodek je pak větší.",
-  smr:"Má v kraji stát malý jaderný reaktor? Ano přidá celou výrobu reaktoru a nové plynové bloky pak jdou podle progresivní cesty. Ne znamená bez reaktoru a s plynovými bloky podle konzervativní cesty. Podle indikátorů rozhodne odhad pravděpodobnosti, ano od 50 %.",
+  smr:"Má v kraji stát malý jaderný reaktor? Ano přidá celou výrobu reaktoru a plynové bloky po spuštění ubývají jako v progresivní cestě. Ne znamená bez reaktoru a s více plynovými bloky, jako v konzervativní cestě. Podle indikátorů rozhodne odhad pravděpodobnosti, ano od 50 %.",
   dc:"Přijdou do kraje velká datová centra? Ano znamená spotřebu podle progresivní cesty, ne jen desetinu této spotřeby. Podle indikátorů dá ano až vysoké skóre, od 0,75. Skóre není pravděpodobnost.",
   pec:"Kolik oceli v Třinci půjde přes elektřinu. Plná elektrifikace je nejvyšší spotřeba a konec hutních plynů. Jen první pec je polovina výroby. Žádná pec nechává dnešní stav.",
   huta:"Začne se v Ostravě znovu vyrábět ocel v elektrické peci? Ano přidá asi 675 GWh spotřeby. Ne tuto spotřebu ubere, ale menší schodek tu neznamená dobrou zprávu.",
@@ -1527,7 +1528,7 @@ function realSync(r){
   e.year.input.value = realCfg.smrYear; e.year.val.textContent = realCfg.smrYear > 2050 ? `${realCfg.smrYear}, bez účinku do 2050` : realCfg.smrYear;
   e.dT.input.value = realCfg.dT; e.dT.val.textContent = "+" + NF1.format(realCfg.dT) + " °C";
   const people = REAL.pop.default + realCfg.dpop * REAL.pop.base;
-  e.pop.input.value = people; e.pop.val.textContent = NF.format(people) + " tis.";
+  e.pop.input.value = people; e.pop.input.disabled = !state.trendOn; e.pop.val.textContent = state.trendOn ? NF.format(people) + " tis." : "bez účinku, trendy jsou vypnuté";
   $("realCmpP").setAttribute("aria-pressed", realCompare.progresivni);
   $("realCmpK").setAttribute("aria-pressed", realCompare.konzervativni);
   const same = JSON.stringify(realCfg) === realPresetCfg;
