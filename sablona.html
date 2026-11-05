@@ -265,7 +265,10 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
       <button id="realAllK">Vše konzervativně</button>
       <button id="realAllP">Vše progresivně</button>
     </div>
-    <button class="chip" id="realPaths" aria-pressed="false">Oba původní scénáře</button>
+    <div class="controls">
+      <button class="chip" id="realBranch" aria-pressed="false">Druhá větev SMR</button>
+      <button class="chip" id="realPaths" aria-pressed="false">Oba původní scénáře</button>
+    </div>
   </div>
   <div class="kpi" id="realKpi"></div>
   <div class="legend" id="realLegend"></div>
@@ -1244,7 +1247,7 @@ function refresh(){ syncPreset(); drawMain(); drawBalance(); drawKpi(); FLOW.dra
 const REAL = DATA.real;
 const REAL_LINKS = REAL.links, REAL_GROUP_KEYS = Object.keys(REAL.groupNames);
 const realInit = () => ({x:Object.fromEntries(REAL.ind.map(r => [r.id, Number(r.x)])), smr:"ind", dc:"ind", pec:"ind", huta:"ind", smrYear:REAL.smrYear, dpop:0, dT:REAL.dT.default});
-let realCfg = realInit(), realShowPaths = true;
+let realCfg = realInit(), realShowPaths = false, realShowBranch = false;
 const realWeighted = (x, w) => { let a = 0, b = 0; for(const k in w){ a += w[k] * x[k]; b += w[k]; } return a / b; };
 function realLevels(x){ const out = {}; for(const g in REAL.weights) out[g] = realWeighted(x, REAL.weights[g]); return out; }
 function realProb(levels){
@@ -1311,10 +1314,11 @@ function realDraw(){
   const last = DATA.years.length - 1, cell = (a, v) => `<div><small>${a}</small><b>${NF.format(v)}</b><span class="unit">GWh</span></div>`;
   const row = (name, x) => { const gap = x.use[last] - x.gen[last]; return `<div class="kpirow"><div class="name">${name}, rok 2050. Výroba pokryje ${NF.format(x.gen[last] / x.use[last] * 100)} % spotřeby.</div><div class="cells">${cell("Výroba", x.gen[last])}${cell("Spotřeba", x.use[last])}${cell(gap >= 0 ? "Schodek" : "Přebytek", Math.abs(gap))}</div></div>`; };
   const branchName = on => on ? "Větev s SMR" : "Větev bez SMR, plynové bloky podle konzervativní cesty";
-  let html = row(branchName(r.smrOn), r) + row("Druhá větev: " + branchName(other.smrOn).toLowerCase(), other);
+  let html = row(branchName(r.smrOn), r);
+  if(realShowBranch) html += row("Druhá větev: " + branchName(other.smrOn).toLowerCase(), other);
   $("realKpi").innerHTML = html;
   const pct = NF.format(r.prob.smr * 100);
-  $("realLead").textContent = `Křivka není předpověď ani nejpravděpodobnější vývoj, je to důsledek zvolených předpokladů. Odhad pravděpodobnosti SMR v kraji do konce roku 2049 je ${pct} % a křivka ${r.smrOn ? "jde větví s reaktorem" : "jde větví bez reaktoru"}, druhá větev je v grafu tenká.`;
+  $("realLead").textContent = `Křivka není předpověď ani nejpravděpodobnější vývoj, je to důsledek zvolených předpokladů. Odhad pravděpodobnosti SMR v kraji do konce roku 2049 je ${pct} % a křivka ${r.smrOn ? "jde větví s reaktorem" : "jde větví bez reaktoru"}. ${other.smrOn ? "S reaktorem" : "Bez reaktoru"} by byl schodek ${NF.format(other.use[other.use.length - 1] - other.gen[other.gen.length - 1])} GWh.`;
   realChart(r, other);
   realSync(r);
 }
@@ -1324,7 +1328,7 @@ function realChart(r, other){
   host.innerHTML = "";
   const svg = mk("svg", {viewBox:`0 0 ${W} ${H}`, role:"img", "aria-label":"Realistický scénář: výroba a spotřeba po letech"}, host);
   const paths = realShowPaths ? Object.keys(PATHNAME).map(p => ({p, gen:totals(p, "vyroba"), use:totals(p, "spotreba")})) : [];
-  const top = Math.max(...r.gen, ...r.use, ...other.gen, ...other.use, ...paths.flatMap(x => x.gen.concat(x.use)));
+  const top = Math.max(...r.gen, ...r.use, ...(realShowBranch ? other.gen.concat(other.use) : []), ...paths.flatMap(x => x.gen.concat(x.use)));
   const step = 2000, ymax = Math.ceil(top / step) * step, yS = v => YB - v / ymax * (YB - Y0);
   for(let v = 0; v <= ymax; v += step){
     mk("line", {x1:X0, x2:X1, y1:yS(v), y2:yS(v), stroke:"var(--line)"}, svg);
@@ -1338,20 +1342,27 @@ function realChart(r, other){
     mk("path", {d:line(x.use), fill:"none", stroke:c, "stroke-width":1.5}, svg);
     mk("path", {d:line(x.gen), fill:"none", stroke:c, "stroke-width":1.5, "stroke-dasharray":"8 5"}, svg);
   }
-  mk("path", {d:line(other.use), fill:"none", stroke:"var(--real)", "stroke-width":1.2, opacity:.6}, svg);
-  mk("path", {d:line(other.gen), fill:"none", stroke:"var(--real)", "stroke-width":1.2, opacity:.6, "stroke-dasharray":"8 5"}, svg);
+  if(realShowBranch){
+    mk("path", {d:line(other.use), fill:"none", stroke:"var(--real)", "stroke-width":1.2, opacity:.6}, svg);
+    mk("path", {d:line(other.gen), fill:"none", stroke:"var(--real)", "stroke-width":1.2, opacity:.6, "stroke-dasharray":"8 5"}, svg);
+  }
+  /* Plocha mezi výrobou a spotřebou je schodek, na ni se má čtenář dívat první. */
+  const upper = DATA.years.map((y, i) => [xScale(y), yS(Math.max(r.gen[i], r.use[i]))]), lower = DATA.years.map((y, i) => [xScale(y), yS(Math.min(r.gen[i], r.use[i]))]).reverse();
+  mk("path", {d:pathD(upper.concat(lower)) + "Z", fill:"var(--real)", opacity:.12}, svg);
   mk("path", {d:line(r.use), fill:"none", stroke:"var(--real)", "stroke-width":3}, svg);
   mk("path", {d:line(r.gen), fill:"none", stroke:"var(--real)", "stroke-width":3, "stroke-dasharray":"8 5"}, svg);
   const labels = [{y:yS(r.use[last]), t:"Spotřeba"}, {y:yS(r.gen[last]), t:"Výroba"}].sort((a, c) => a.y - c.y);
   if(labels[1].y - labels[0].y < 18) labels[1].y = labels[0].y + 18;
   for(const l of labels) mk("text", {class:"lab", x:X1 + 8, y:l.y + 4}, svg, l.t);
+  const gap2050 = r.use[last] - r.gen[last];
+  mk("text", {class:"ev", x:xScale(2050) - 8, y:yS((r.use[last] + r.gen[last]) / 2) + 4, "text-anchor":"end"}, svg, `${gap2050 >= 0 ? "Schodek" : "Přebytek"} ${NF.format(Math.abs(gap2050))} GWh`);
   mk("line", {x1:X0, x2:X1, y1:YB, y2:YB, stroke:"var(--muted)"}, svg);
   const hit = mk("rect", {x:X0, y:Y0, width:X1 - X0, height:YB - Y0, fill:"transparent"}, svg);
   const tip = e => {
     const box = svg.getBoundingClientRect(), y = Math.round(2023 + ((e.clientX - box.left) / box.width * W - X0) / (X1 - X0) * 27), el = $("tip");
     if(y < 2025 || y > 2050){ el.style.display = "none"; return; }
     const i = y - 2025, line2 = (a, v) => `<div><span>${a}</span><span class="mono">${NF.format(v)} GWh</span></div>`;
-    el.innerHTML = `<b class="mono">${y}</b>` + line2("Výroba", r.gen[i]) + line2("Spotřeba", r.use[i]) + line2("Druhá větev, výroba", other.gen[i]) + line2("Druhá větev, spotřeba", other.use[i]);
+    el.innerHTML = `<b class="mono">${y}</b>` + line2("Výroba", r.gen[i]) + line2("Spotřeba", r.use[i]) + (realShowBranch ? line2("Druhá větev, výroba", other.gen[i]) + line2("Druhá větev, spotřeba", other.use[i]) : "");
     el.style.display = "block";
     el.style.left = Math.max(4, Math.min(e.clientX + 14, innerWidth - 240)) + "px";
     el.style.top = Math.max(4, Math.min(e.clientY + 14, innerHeight - el.offsetHeight - 4)) + "px";
@@ -1359,7 +1370,7 @@ function realChart(r, other){
   hit.addEventListener("pointermove", tip);
   hit.addEventListener("pointerdown", tip);
   hit.addEventListener("pointerleave", () => { $("tip").style.display = "none"; });
-  $("realLegend").innerHTML = `<span><i style="border-color:var(--real)"></i>Spotřeba</span><span><i style="border-color:var(--real);border-top-style:dashed"></i>Výroba</span><span><i style="border-color:var(--real);opacity:.6;border-top-width:1.2px"></i>Druhá větev SMR</span>` + (realShowPaths ? `<span><i style="border-color:var(--prog);border-top-width:1.5px"></i>Progresivní</span><span><i style="border-color:var(--kons);border-top-width:1.5px"></i>Konzervativní</span>` : "");
+  $("realLegend").innerHTML = `<span><i style="border-color:var(--real)"></i>Spotřeba</span><span><i style="border-color:var(--real);border-top-style:dashed"></i>Výroba</span>` + (realShowBranch ? `<span><i style="border-color:var(--real);opacity:.6;border-top-width:1.2px"></i>Druhá větev SMR</span>` : "") + (realShowPaths ? `<span><i style="border-color:var(--prog);border-top-width:1.5px"></i>Progresivní</span><span><i style="border-color:var(--kons);border-top-width:1.5px"></i>Konzervativní</span>` : "");
 }
 /* Kategorie: posuvník přepočte své indikátory poměrem vůči výchozím hodnotám, konce 0 a 1 dávají všem indikátorům 0 a 1. */
 const REAL_DEFAULT_X = realInit().x;
@@ -1451,12 +1462,13 @@ function realSync(r){
   const people = REAL.pop.default + realCfg.dpop * REAL.pop.base;
   e.pop.input.value = people; e.pop.val.textContent = NF.format(people) + " tis.";
   $("realPaths").setAttribute("aria-pressed", realShowPaths);
+  $("realBranch").setAttribute("aria-pressed", realShowBranch);
 }
 function realSetAll(value){
   realCfg = {x:Object.fromEntries(REAL.ind.map(r => [r.id, value])), smr:"ind", dc:"ind", pec:"ind", huta:"ano", smrYear:smrProgressive.jump, dpop:0, dT:0};
   realDraw();
 }
-function realReset(){ realCfg = realInit(); realShowPaths = true; realDraw(); }
+function realReset(){ realCfg = realInit(); realShowPaths = false; realShowBranch = false; realDraw(); }
 /* Obrázek v Metodice: poloha každé skupiny mezi cestami ve výchozím stavu. */
 function realDrawFig(){
   const lv = realLevels(REAL_DEFAULT_X), keys = REAL_GROUP_KEYS, H = 40 + keys.length * 30, L = 230, R = 960, host = $("realFig");
@@ -1477,6 +1489,7 @@ $("realDefault").addEventListener("click", realReset);
 $("realAllK").addEventListener("click", () => realSetAll(0));
 $("realAllP").addEventListener("click", () => realSetAll(1));
 $("realPaths").addEventListener("click", () => { realShowPaths = !realShowPaths; realDraw(); });
+$("realBranch").addEventListener("click", () => { realShowBranch = !realShowBranch; realDraw(); });
 realBuild();
 realDrawFig();
 
@@ -1539,7 +1552,7 @@ $("year").addEventListener("input", e => { state.year = Number(e.target.value); 
 /* Obnovení vrací celou stránku do výchozího nastavení, pro které platí věty nahoře. */
 function resetAll(){
   resetValues();
-  realCfg = realInit(); realShowPaths = true;
+  realCfg = realInit(); realShowPaths = false; realShowBranch = false;
   setMode("simple");
   state.preset = null;
   $("presetVitr").setAttribute("aria-pressed", false);
