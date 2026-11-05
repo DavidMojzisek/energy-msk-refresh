@@ -450,7 +450,7 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
 
   <section class="card">
     <h2>Dlaždice a zamčený graf</h2>
-    <p>Dlaždice přepisují řádky zvolené cesty na věci, které si lze představit: počty turbín, aut nebo domů. Počítají se ze stejných čísel jako graf, s posuvníky se mění. Je to přepočet, ne sčítání. Plynové bloky a baterie mají velikost danou cestou a rokem, posuvníky je nemění. Počet nákladních aut stojí na úsudku 60 000 km za rok. Při posouvání přes posuvníky se graf zmenší a zůstane nahoře, aby bylo vidět, co posuvník dělá.</p>
+    <p>Dlaždice přepisují řádky zvolené cesty na věci, které si lze představit: počty turbín, aut nebo domů. Počítají se ze stejných čísel jako graf, s posuvníky se mění. Je to přepočet, ne sčítání. Plynové bloky a baterie mají velikost danou cestou a rokem, posuvníky je nemění. Počet nákladních aut stojí na úsudku 60 000 km za rok. U zařízení, kde na to je zdroj, bublina ukáže řádovou cenu výstavby, bez součtu. Při posouvání přes posuvníky se graf zmenší a zůstane nahoře, aby bylo vidět, co posuvník dělá.</p>
   </section>
 
   <section class="card">
@@ -1315,7 +1315,19 @@ function drawTrends(){
 const TILE_PATH = {progresivni:"Progresivní cesta: jeden malý reaktor, vítr a slunce podle podílu kraje, rychlá elektrifikace dopravy a tepla, část kamionů a autobusů na vodík.", konzervativni:"Konzervativní cesta: bez reaktoru, hlavně plynové bloky, málo větru a slunce, pomalejší elektrifikace, doprava bez vodíku."};
 const TILE = DATA.real.dlazdice, TILE_NAMES = ["path", "i", "year", "g", "D", "t", "m", "gen", "use", "bat", "interp", "jump", "SMR_UNIT", "SMR_MW", "K", "tab", "N", "N1", "P", "ELECTROLYSER_HOURS"];
 const tileFn = expr => new Function(...TILE_NAMES, `"use strict"; return (${expr});`);
-const TILES = TILE.tiles.map(t => ({...t, fn:tileFn(t.vzorec), hoverFn:t.hover.map(tileFn), el:null}));
+const TILES = TILE.tiles.map(t => ({...t, fn:tileFn(t.vzorec), hoverFn:t.hover.map(tileFn), costFn:t.cena ? tileFn(t.cena.mnozstvi) : null, el:null}));
+/* Cena výstavby: dvě platné číslice, od miliardy v mld. Pod milion EUR se nic neukazuje. */
+function tileMoney(x){
+  const r = v => { const m = Math.pow(10, Math.floor(Math.log10(v)) - 1); return Math.round(v / m) * m; };
+  return r(x);
+}
+function tileCost(t, a){
+  if(!t.costFn) return "";
+  const q = t.costFn(...a), low = q * t.cena.low / 1e6, high = q * t.cena.high / 1e6;
+  if(!(low >= 1)) return "";
+  const big = high >= 1000, show = v => big ? new Intl.NumberFormat("cs-CZ", {maximumFractionDigits:1}).format(tileMoney(v) / 1000) : NF.format(tileMoney(v));
+  return `Cena výstavby řádově ${show(low)} až ${show(high)} ${big ? "mld." : "mil."} EUR v dnešních cenách, bez připojení k síti a financování.${t.cena.pozn ? " " + t.cena.pozn : ""}`;
+}
 function tileInputs(){
   const path = state.path, year = state.year, i = year - 2025, vy = values(path, "vyroba", i), sp = values(path, "spotreba", i), all = vy.concat(sp);
   const row = n => all.find(x => x.it.name === n);
@@ -1345,6 +1357,8 @@ let tileHover = null;
 function tileTip(t){
   const a = tileInputs(), v = t.fn(...a), shown = v === null ? null : tileRound(v, t.zaokrouhleni);
   const lines = shown === 0 && t.hover_pri_nule ? [t.hover_pri_nule] : t.hoverFn.map(f => f(...a)).filter(Boolean);
+  const cost = tileCost(t, a);
+  if(cost) lines.push(cost);
   $("tip").innerHTML = `<div class="tiphead"><b>${esc(t.label)}</b></div>` + lines.map(l => `<p style="margin:4px 0 0;max-width:300px">${esc(l)}</p>`).join("");
 }
 function tileShow(t){
@@ -1368,7 +1382,7 @@ function tileBuild(){
     for(const type of ["pointerleave", "blur"]) el.addEventListener(type, tileHide);
     host.appendChild(el);
   }
-  $("tileSrc").innerHTML = `<p class="viewnote">Počty vycházejí z činnosti a intenzity v řádcích modelu. Konstanty mimo model:</p><ul class="flaws">` + TILE.zdroje.map(z => `<li>${realLink(z.nazev, z.url)}${z.druh === "odhad" ? ", odhad" : ""}.</li>`).join("") + `</ul><p class="viewnote">Nájezd nákladního auta 60 000 km za rok je úsudek. Skutečný počet nákladních aut v kraji není zjištěn, proto se před rokem 2030 neuvádí.</p>`;
+  $("tileSrc").innerHTML = `<p class="viewnote">Počty vycházejí z činnosti a intenzity v řádcích modelu. Konstanty mimo model:</p><ul class="flaws">` + TILE.zdroje.map(z => `<li>${realLink(z.nazev, z.url)}${z.druh === "odhad" ? ", odhad" : ""}.</li>`).join("") + `</ul><p class="viewnote">Nájezd nákladního auta 60 000 km za rok je úsudek. Skutečný počet nákladních aut v kraji není zjištěn, proto se před rokem 2030 neuvádí.</p><p class="plain"><b>Ceny výstavby.</b> Jsou řádové, v dnešních cenách a platí jen pro nově postavené zařízení proti dnešku. Nezahrnují připojení k síti, financování ani výměny během období a dotace se neodečítají. Záměrně se nesčítají: platí je různí investoři a část se překrývá, například plyn a pec v Třinci. U aut a datových center cena není, auta se kupují tak jako tak a datová centra jsou soukromá investice bez konkrétního projektu.</p><ul class="flaws">` + TILES.filter(t => t.cena).map(t => `<li>${esc(t.label)}: ${realLink(t.cena.zdroj, t.cena.url)}${t.cena.url2 ? `, <a href="${esc(t.cena.url2)}" target="_blank" rel="noopener">druhý zdroj</a>` : ""}.</li>`).join("") + `</ul>`;
 }
 function tileDraw(){
   if(!TILES[0].el) tileBuild();

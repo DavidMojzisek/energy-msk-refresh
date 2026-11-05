@@ -2685,7 +2685,16 @@
 "`Výkon 500 MW je volba cesty, studie uvádí 350 MWe. Další reaktor nemá podklad.`"
 ],
 "hover_pri_nule": "Cesta s reaktorem nepočítá, nebo reaktor ve zvoleném roce ještě neběží.",
-"dnes": "0"
+"dnes": "0",
+"cena": {
+"low": 8600000,
+"high": 16000000,
+"mnozstvi": "Math.round(g(\"SMR\") / SMR_UNIT) * SMR_MW",
+"pozn": "První kusy, cena je velmi nejistá. ČEZ uvádí, že na určení ceny je zatím brzy.",
+"zdroj": "Ekonomický deník, 24. 4. 2026, odhad autora článku; World Nuclear News, Darlington, 23. 5. 2025",
+"url": "https://ekonomickydenik.cz/reaktor-rolls-royce-vyroste-v-temeline-pozdeji/",
+"url2": "https://www.world-nuclear-news.org/articles/what-is-the-budget-for-canadas-first-smr-project"
+}
 },
 {
 "id": "vitr",
@@ -2706,7 +2715,16 @@
 "`Počítáno na turbínu 6,2 MW, jako v jednom záměru v kraji: 27 turbín, 167 MW.`"
 ],
 "hover_pri_nule": "Žádná turbína nad dnešních 41,8 MW.",
-"dnes": "dnes 41,8 MW"
+"dnes": "dnes 41,8 MW",
+"cena": {
+"low": 1300000,
+"high": 2200000,
+"mnozstvi": "Math.max(0, g(\"vítr\") * 1000 / K.H_VITR.v - K.VITR_DNES_MW.v)",
+"pozn": "",
+"zdroj": "Fraunhofer ISE 2024, tabulka 1; e15, projekt 20,5 MW v Česku, 9. 6. 2026",
+"url": "https://www.ise.fraunhofer.de/content/dam/ise/de/documents/publications/studies/DE2024_ISE_Studie_Stromgestehungskosten_Erneuerbare_Energien.pdf",
+"url2": "https://www.e15.cz/byznys/skupina-innogy-v-cesku-zvysila-zisk-a-do-roku-2035-planuje-investovat-100-miliard-korun-1433443"
+}
 },
 {
 "id": "strechy",
@@ -2727,7 +2745,16 @@
 "`Odpovídá ${P((g(\"fotovoltaika střešní\") * 1000 / K.H_PV.v) * 1000 / K.KWP_STRECHA.v / K.ROD_DOMY.v)} z ${N(K.ROD_DOMY.v)} rodinných domů v kraji.`"
 ],
 "hover_pri_nule": null,
-"dnes": "2025: asi 20 000"
+"dnes": "2025: asi 20 000",
+"cena": {
+"low": 900000,
+"high": 2000000,
+"mnozstvi": "Math.max(0, g(\"fotovoltaika střešní\") - 198.531) * 1000 / K.H_PV.v",
+"pozn": "Cena je bez domácí baterie.",
+"zdroj": "Fraunhofer ISE 2024, tabulka 1",
+"url": "https://www.ise.fraunhofer.de/content/dam/ise/de/documents/publications/studies/DE2024_ISE_Studie_Stromgestehungskosten_Erneuerbare_Energien.pdf",
+"url2": ""
+}
 },
 {
 "id": "pole",
@@ -2747,7 +2774,16 @@
 "`Plocha je odhad podle jedné elektrárny: 19 ha na 22 MWp. Je to ${P((g(\"fotovoltaika pozemní\") * 1000 / K.H_PV.v) * K.HA_NA_MWP.v / 100 / K.KM2_KRAJ.v)} rozlohy kraje.`"
 ],
 "hover_pri_nule": null,
-"dnes": "2025: asi 48 ha"
+"dnes": "2025: asi 48 ha",
+"cena": {
+"low": 700000,
+"high": 900000,
+"mnozstvi": "Math.max(0, g(\"fotovoltaika pozemní\") - 52.3173) * 1000 / K.H_PV.v",
+"pozn": "",
+"zdroj": "Fraunhofer ISE 2024, tabulka 1; oEnergetice, dvě elektrárny ČEZ, 5. 4. 2024",
+"url": "https://www.ise.fraunhofer.de/content/dam/ise/de/documents/publications/studies/DE2024_ISE_Studie_Stromgestehungskosten_Erneuerbare_Energien.pdf",
+"url2": "https://oenergetice.cz/obnovitelne-zdroje-energie/cez-vybuduje-na-chomutovsku-dve-velke-solarni-elektrarny-za-celkem-42-mld-kc"
+}
 },
 {
 "id": "plyn",
@@ -2768,7 +2804,16 @@
 "`Výkon je daný cestou, posuvník výroby mění jen hodiny.`"
 ],
 "hover_pri_nule": "Nové bloky do roku 2027 neběží.",
-"dnes": "dnes 0 MW"
+"dnes": "dnes 0 MW",
+"cena": {
+"low": 1300000,
+"high": 2600000,
+"mnozstvi": "interp(bat.gasYears, bat.gasMw, year)",
+"pozn": "České projekty obsahují i výrobu tepla.",
+"zdroj": "Fraunhofer ISE 2024, tabulka 1; ČEZ, paroplyn v Třinci, 16. 6. 2026",
+"url": "https://www.ise.fraunhofer.de/content/dam/ise/de/documents/publications/studies/DE2024_ISE_Studie_Stromgestehungskosten_Erneuerbare_Energien.pdf",
+"url2": "https://www.cez.cz/cs/pro-media/tiskove-zpravy/misto-uhli-plyn.-v-trinci-se-stavi-novy-paroplynovy-zdroj-s-vykonem-pres-60-mw-235454"
+}
 },
 {
 "id": "uhli",
@@ -2892,7 +2937,16 @@
 "`Výkon plyne z řádků vodíku při ${N(ELECTROLYSER_HOURS)} hodinách plného výkonu za rok. Hodiny jsou z hodinového výpočtu a posuvníky je nemění.`"
 ],
 "hover_pri_nule": "Tato cesta s flotilou na vodík nepočítá.",
-"dnes": "0 MW"
+"dnes": "0 MW",
+"cena": {
+"low": 1700000,
+"high": 2300000,
+"mnozstvi": "m.electro",
+"pozn": "Bez nádrže a komprese.",
+"zdroj": "IEA, Global Hydrogen Review 2025, příloha; Argus, 19. 6. 2026",
+"url": "https://iea.blob.core.windows.net/assets/15673ab3-a86a-4434-bff4-490bb42d3563/GlobalHydrogenReview2025AssumptionsAnnex.pdf",
+"url2": "https://www.argusmedia.com/pt/news-and-insights/latest-market-news/2841836-green-h2-electrolyser-sector-enters-consolidation-iea"
+}
 },
 {
 "id": "tc",
@@ -2912,7 +2966,16 @@
 "`Spotřeba ${N(g(\"vytápění tepelnými čerpadly\"))} GWh za rok, včetně běžné spotřeby domu na tomto tarifu.`"
 ],
 "hover_pri_nule": null,
-"dnes": "2025: asi 50 000"
+"dnes": "2025: asi 50 000",
+"cena": {
+"low": 15000,
+"high": 23000,
+"mnozstvi": "Math.max(0, Math.max(0, g(\"vytápění tepelnými čerpadly\") / D(\"vytápění tepelnými čerpadly\") - tab(K.TC_PODNIK.v.roky, K.TC_PODNIK.v[path], year)) * 1000 / K.MWH_TC.v - 49602.5)",
+"pozn": "Je to cena celé instalace, ne rozdíl proti novému kotli, který by dům časem koupil také.",
+"zdroj": "Bosch, ceny tepelných čerpadel vzduch-voda, jeden výrobce",
+"url": "https://www.bosch-homecomfort.com/cz/cs/rodinne-domy-a-byty/rady-a-informace/rady-a-tipy-tepelna-cerpadla/tepelne-cerpadlo-cena/",
+"url2": ""
+}
 },
 {
 "id": "primotopy",
@@ -2954,7 +3017,16 @@
 "`Posuvník spotřeby mění GWh. Počet pecí se mění, až když přírůstek přeroste půl pece.`"
 ],
 "hover_pri_nule": "Žádná nová pec ve zvoleném roce neběží.",
-"dnes": "dnes 0 nových"
+"dnes": "dnes 0 nových",
+"cena": {
+"low": 690000000,
+"high": 810000000,
+"mnozstvi": "Math.max(0, Math.round((g(\"Třinecké železárny\") - K.TRINEC_ZAKLAD.v) / K.TRINEC_PEC.v)) + Math.max(0, Math.round((g(\"Nová huť\") - K.HUT_ZAKLAD.v) / K.HUT_PEC.v))",
+"pozn": "Oznámené hodnoty, bez výsledku soutěže. Pec nad rámec oznámení má přenesenou cenu.",
+"zdroj": "Ekonomický deník, Nová huť, 4. 9. 2026; e15, Třinec, 4. 8. 2026",
+"url": "https://ekonomickydenik.cz/nova-hut-dostala-sanci-obnovit-vyrobu/",
+"url2": "https://www.e15.cz/byznys/prumysl-a-energetika/ocel-je-bezpecnost-v-trineckych-zelezarnach-varuji-pred-evropskou-chybou-1434663"
+}
 },
 {
 "id": "datacentra",
@@ -2995,7 +3067,16 @@
 "`Velikost je z hodinového výpočtu, posuvníky ji nemění.`"
 ],
 "hover_pri_nule": null,
-"dnes": "dnes 0,01 GWh"
+"dnes": "dnes 0,01 GWh",
+"cena": {
+"low": 180000,
+"high": 600000,
+"mnozstvi": "Math.max(0, tab(K.BAT_E.v.roky, K.BAT_E.v[path], year) - 0.01) * 1000",
+"pozn": "Baterie se během období bude měnit, výměna v ceně není.",
+"zdroj": "Fraunhofer ISE 2024, tabulka 1; oEnergetice, přehled baterií v Česku, 11. 1. 2026",
+"url": "https://oenergetice.cz/en/energy-storage/billion-koruna-investments-overview-of-the-largest-planned-battery-storage-facilities-in-the-czech-republic",
+"url2": "https://www.ise.fraunhofer.de/content/dam/ise/de/documents/publications/studies/DE2024_ISE_Studie_Stromgestehungskosten_Erneuerbare_Energien.pdf"
+}
 },
 {
 "id": "obyvatele",
