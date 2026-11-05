@@ -2317,6 +2317,47 @@ Pokles je jeden krok v březnu 2026, ne mezi prosincem a červnem. ERÚ neudáv�
 6. **Zimní vítr je počítán jako nula.** P10 a P50 jsou nula podle pravidla Dopadové studie s.73, není to medián. Změřený medián při 14 zimních maximech ČR je 0,192 instalovaného výkonu. S touto hodnotou je zimní bilance 2050 -552.3 MW v progresivní cestě a -393.4 MW v konzervativní cestě.
 7. **Výkon a palivo plynu.** Výkon bloků v zimní špičce je z Tab.30 × 0,9 a na energii řádku nezávisí, palivo omezuje jen počet hodin.
 
+## 11a. Realistický scénář
+
+Třetí křivka mezi pevnými cestami, není to předpověď. Plynulá položka: R = (1 − a) K + a P, a je vážený průměr indikátorů skupiny, x = 0 je popis konzervativní cesty, x = 1 progresivní. Události jsou celý řádek. Plyn ve větvi s SMR jde po progresivní cestě, bez SMR po konzervativní. Vzorce vlastní spotřeby a ztrát zůstávají. Demografie, oteplení a Nová huť jsou odchylky mimo osu cest. Váhy a kotvy jsou úsudek. Obě cesty ani jejich čísla se nemění.
+
+| Indikátor | Kategorie | Výchozí x | Jistota | Vliv |
+|---|---|---|---|---|
+| Institucionální kapacita | Institucionální a politické řízení | 0,44 | střední | ano |
+| Důvěra ve veřejné instituce | Institucionální a politické řízení | 0,42 | střední | ano |
+| Politická kultura | Institucionální a politické řízení | 0,52 | nízká | ano |
+| Občanská participace | Institucionální a politické řízení | 0,22 | nízká | ano |
+| Komunikace stavu energetického systému | Institucionální a politické řízení | 0,33 | odhad | váha 0 |
+| Vnímání energetické transformace | Sociální akceptace transformace | 0,32 | střední | ano |
+| Přijetí nové infrastruktury | Sociální akceptace transformace | 0,191 | střední | ano |
+| Vztah k technologiím | Sociální akceptace transformace | 0,418 | nízká | ano |
+| Interpretace blackoutů | Sociální akceptace transformace | 0,5 | odhad | váha 0 |
+| Vnímání energetické soběstačnosti jako garance bezpečnosti v multipolárním světě | Sociální akceptace transformace | 0,62 | střední | ano |
+| Mezigenerační vztahy | Sociální akceptace transformace | 0,525 | nízká | ano |
+| Demografie | Lidský kapitál a demografie | 0,31 | vysoká | váha 0 |
+| Vzdělávání a lidský kapitál | Lidský kapitál a demografie | 0,32 | střední | ano |
+| Atraktivita regionu | Lidský kapitál a demografie | 0,31 | střední | ano |
+| Trh práce | Lidský kapitál a demografie | 0,32 | střední | váha 0 |
+| Průmyslový rozvoj | Ekonomická transformace a investice | 0,46 | nízká | ano |
+| Pilotní projekty | Ekonomická transformace a investice | 0,4 | střední | ano |
+| Časová náročnost implementace nových technologií | Ekonomická transformace a investice | 0,33 | střední | váha 0 |
+| Souvislost mezi populací a investicemi do energetické infrastruktury | Ekonomická transformace a investice | 0,65 | nízká | váha 0 |
+| Sociální soudržnost | Sociální soudržnost a distribuce přínosů | 0,5 | odhad | ano |
+| Energetická chudoba | Sociální soudržnost a distribuce přínosů | 0,32 | nízká | ano |
+| Sociální nerovnosti | Sociální soudržnost a distribuce přínosů | 0,24 | střední | váha 0 |
+| Energetická bezpečnost | Energetická infrastruktura a decentralizace | 0,271 | střední | váha 0 |
+| Komunitní energetika | Energetická infrastruktura a decentralizace | 0,26 | odhad | ano |
+| Krizová připravenost domácností | Energetická infrastruktura a decentralizace | 0,34 | odhad | váha 0 |
+| Dezinformace a hybridní hrozby | Informační prostředí a epistemická odolnost | 0,28 | střední | ano |
+| Spolehlivost predikčních modelů využítých k prosazování energetické tranzice | Informační prostředí a epistemická odolnost | 0,53 | nízká | váha 0 |
+| Informační pokrytí havarijních situací | Informační prostředí a epistemická odolnost | 0,58 | nízká | váha 0 |
+| Regionální identita a vize | Regionální identita a symbolický rámec | 0,367 | nízká | ano |
+| Symbolická pozice regionu v ČR | Regionální identita a symbolický rámec | 0,154 | nízká | váha 0 |
+| Kulturně-historický narativ | Regionální identita a symbolický rámec | 0,217 | nízká | ano |
+| Zdraví a kvalita života | Environmentální a zdravotní dopady | 0,51 | střední | váha 0 |
+| Vnímání odpadu | Environmentální a zdravotní dopady | 0,625 | nízká | ano |
+| Mobilita a životní styl | Mobilita a životní styl | 0,75 | střední | ano |
+
 ## 12. Seznam zdrojů
 
 Strany u položek jsou strany PDF. Část zdrojů je neveřejná, a to studie ZEVO. U některých webových zdrojů je v poli Poznámka u položky uvedeno, že byl dostupný jen souhrn vyhledávače. U webových článků je uveden popis obsahu, ne vždy přesný titulek.

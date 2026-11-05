@@ -217,7 +217,7 @@ def build_data():
                                            "grade": text(r, "stupen"), "src": text(r, "zdroj")}
     derived = {"ownCal": OWN_CAL, "ownRates": OWN_RATES, "lossK": LOSS_K, "localOther": LOCAL_OTHER}
     return {"years": YEARS.tolist(), "history": HISTORY, "items": items, "bands": bands, "battery": battery, "trends": trends, "derived": derived, "gapRuns": gap_runs,
-            "den": json.loads((HERE / "stranka_texty.json").read_text(encoding="utf-8"))["den"]}
+            "den": json.loads((HERE / "stranka_texty.json").read_text(encoding="utf-8"))["den"], "real": json.loads((HERE / "realisticky.json").read_text(encoding="utf-8"))}
 
 
 def fonts_css():

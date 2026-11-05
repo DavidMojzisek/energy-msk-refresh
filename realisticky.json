@@ -1,0 +1,1161 @@
+{
+"ind": [
+{
+"id": "E01",
+"kategorie": "Institucionální a politické řízení",
+"indikator": "Institucionální kapacita",
+"popis_x1": "Efektivní spolupráce kraje, obcí, univerzit a podniků.",
+"popis_x0": "Fragmentované řízení a krátkodobost rozhodování.",
+"x": "0.44",
+"duvod_prepisu": "",
+"jistota": "střední",
+"ukazatel": "European Quality of Government Index (EQI), skóre regionu; EU průměr 0, vyšší = lepší kvalita, nestrannost a nízká korupce veřejných služeb",
+"uzemi": "MSK (NUTS 2 CZ08, totožné s krajem)",
+"hodnota": "-0.179",
+"rok": "2024",
+"kotva_x0": "-1.5",
+"kotva_x1": "1.5",
+"zdroj": "EQI 2024, regional level 2010-2024; codebook EQI 2024. Quality of Government Institute, Univerzita v Göteborgu, 2024/2025",
+"url": "https://www.qogdata.pol.gu.se/data/qog_eqi_long_24.csv",
+"vaha0": ""
+},
+{
+"id": "E02",
+"kategorie": "Institucionální a politické řízení",
+"indikator": "Důvěra ve veřejné instituce",
+"popis_x1": "Vysoká důvěra podpořená transparentní komunikací.",
+"popis_x0": "Nízká důvěra v instituce a energetické společnosti.",
+"x": "0.42",
+"duvod_prepisu": "",
+"jistota": "střední",
+"ukazatel": "Podíl občanů důvěřujících svému krajskému zastupitelstvu (rozhodně + spíše), v %",
+"uzemi": "ČR (národní data místo MSK)",
+"hodnota": "37",
+"rok": "2026",
+"kotva_x0": "20",
+"kotva_x1": "60",
+"zdroj": "Důvěra ústavním institucím, březen/duben 2026. CVVM, Sociologický ústav AV ČR, 2026",
+"url": "https://cvvm.soc.cas.cz/images/articles/files/6230/pi260429.pdf",
+"vaha0": ""
+},
+{
+"id": "E03",
+"kategorie": "Institucionální a politické řízení",
+"indikator": "Politická kultura",
+"popis_x1": "Převaha dlouhodobě orientovaných politik.",
+"popis_x0": "Převaha krátkodobých a populistických řešení.",
+"x": "0.52",
+"duvod_prepisu": "",
+"jistota": "nízká",
+"ukazatel": "Schopnost státu vládnout s výhledem a udržitelnost přijímaných politik: SGI 2024, kategorie Governing with Foresight a Sustainable Policymaking, stupnice 1 až 10, srovnání 30 zemí OECD a EU",
+"uzemi": "Česko (národní údaj, ne kraj); krajský doklad je jen kontrola",
+"hodnota": "Governing with Foresight 6,64 (16. z 30); Sustainable Policymaking 6,13 (20. z 30)",
+"rok": "SGI 2024, sledované období 2022 až 2023",
+"kotva_x0": "Nejhorší země souboru: Governing with Foresight 4,16 (Maďarsko); Sustainable Policymaking 4,61 (Maďarsko)",
+"kotva_x1": "Nejlepší země souboru: Governing with Foresight 8,31 (Dánsko); Sustainable Policymaking 8,04 (Švédsko)",
+"zdroj": "Sustainable Governance Indicators 2024, Czechia Report SGI 2024, Bertelsmann Stiftung, 2024",
+"url": "https://www.sgi-network.org/2024",
+"vaha0": ""
+},
+{
+"id": "E04",
+"kategorie": "Institucionální a politické řízení",
+"indikator": "Občanská participace",
+"popis_x1": "Aktivní zapojení obyvatel do rozhodování a komunitní energetiky s dopomocí názorných grafických nástrojů, zejména na úrovní menších komunit (jednotlivé bytové domy apod.)",
+"popis_x0": "Nízká participace a slabý pocit spoluvlastnictví energetických řešení.",
+"x": "0.22",
+"duvod_prepisu": "",
+"jistota": "nízká",
+"ukazatel": "Volební účast v krajských volbách, v %",
+"uzemi": "MSK",
+"hodnota": "29.97",
+"rok": "2024",
+"kotva_x0": "20",
+"kotva_x1": "66.31",
+"zdroj": "Zápis o výsledku voleb do zastupitelstva kraje Moravskoslezský, ČSÚ a kraj, 2024",
+"url": "https://volby.gov.cz/appdata/kz2024/zapis/13.pdf",
+"vaha0": ""
+},
+{
+"id": "E05",
+"kategorie": "Institucionální a politické řízení",
+"indikator": "Komunikace stavu energetického systému",
+"popis_x1": "Komunikace je veřejně dostupná real-time, názorná, přiměřeně zjednodušená, podporující participaci.",
+"popis_x0": "Informace nejsou dostupné, či je příliš komplexní na to, aby bylo informativní pro průměrného obyvatele.",
+"x": "0.33",
+"duvod_prepisu": "",
+"jistota": "odhad",
+"ukazatel": "Vlastní kontrolní seznam 6 vlastností z popisu x=1: veřejná dostupnost 1; real-time 0,5; názornost 0,5; zjednodušení 0; podpora participace 0; regionální pohled MSK 0",
+"uzemi": "ČR a MSK (vlastní posouzení webů, ne měření)",
+"hodnota": "2.0",
+"rok": "2026",
+"kotva_x0": "0",
+"kotva_x1": "6",
+"zdroj": "ČEPS, Data; ČEZ Distribuce, Nejde mi elektřina; SMARD, Bundesnetzagentur; web MSEC. Stav 2026-11-05",
+"url": "https://www.ceps.cz/cs/data ; https://www.cezdistribuce.cz/nejde-mi-elektrina ; https://www.smard.de/en ; https://www.mskec.cz/",
+"vaha0": "Měřítko je vlastní hodnocení webů a položka modelu na tom nezávisí."
+},
+{
+"id": "E06",
+"kategorie": "Sociální akceptace transformace",
+"indikator": "Vnímání energetické transformace",
+"popis_x1": "Široká společenská podpora OZE, akumulace, decentralizace a energetické soběstačnosti.",
+"popis_x0": "Skepticismus vůči novým technologiím a preference tradičních řešení.",
+"x": "0.32",
+"duvod_prepisu": "Střed dvou čtení: Eurobarometr 2025, důležitost podpory obnovitelných zdrojů, x = 0,64, a CVVM 2025, Zelená dohoda 42 % pro a 47 % proti, x = 0 při stejných kotvách.",
+"jistota": "střední",
+"ukazatel": "Podíl (%) odpovědí, že je důležité, aby česká vláda podporovala rozvoj obnovitelných zdrojů (QD8.2, důležité celkem)",
+"uzemi": "ČR (krajská data nenalezena; národní údaj místo MSK)",
+"hodnota": "75",
+"rok": "2025",
+"kotva_x0": "50",
+"kotva_x1": "89",
+"zdroj": "Special Eurobarometer 565 Climate Change, Evropská komise, 2025 (terén STEM/MARK, n=1005, 18. 2. až 3. 3. 2025; otevřena kopie PDF)",
+"url": "https://europokune.eu/dok/2025/EBSp565KlimShangh/EBSp565_ClimateChange.pdf",
+"vaha0": ""
+},
+{
+"id": "E07",
+"kategorie": "Sociální akceptace transformace",
+"indikator": "Přijetí nové infrastruktury",
+"popis_x1": "Veřejnost podporuje výstavbu nových zařízení a využití brownfieldů.",
+"popis_x0": "Výrazný NIMBY efekt a konflikty při povolování infrastruktury.",
+"x": "0.191",
+"duvod_prepisu": "",
+"jistota": "střední",
+"ukazatel": "Podíl (%) místních referend v MSK o energetických záměrech 2025 a 2026 s výsledkem pro záměr (1 ze 7)",
+"uzemi": "MSK",
+"hodnota": "14.3",
+"rok": "2026",
+"kotva_x0": "0",
+"kotva_x1": "75",
+"zdroj": "Obyvatelé tří obcí na Bruntálsku větrníky nechtějí, Drbna Ostravská, 11. 10. 2026; dále Ekonomický deník 29. 9. 2026 (Čaková) a oEnergetice 22. 11. 2025 (Rohov)",
+"url": "https://ostravska.drbna.cz/politika/902698-obyvatele-tri-obci-na-bruntalsku-vetrniky-nechteji-jak-dopadla-referenda-v-kraji.html",
+"vaha0": ""
+},
+{
+"id": "E08",
+"kategorie": "Sociální akceptace transformace",
+"indikator": "Vztah k technologiím",
+"popis_x1": "Nové technologie jsou spojovány s prosperitou a rozvojem regionu.",
+"popis_x0": "Technologie jsou často spojovány s rizikem a nejistotou.",
+"x": "0.418",
+"duvod_prepisu": "",
+"jistota": "nízká",
+"ukazatel": "Podíl (%) obyvatel Ostravska a Karvinska souhlasících se stavbou objektu pro velkého zaměstnavatele (gigafactory) na zelené ploše",
+"uzemi": "MSK (Ostravsko a Karvinsko, ne celý kraj)",
+"hodnota": "66.7",
+"rok": "2024",
+"kotva_x0": "50",
+"kotva_x1": "90",
+"zdroj": "Dvě třetiny tamních obyvatel souhlasí s gigafactory na Karvinsku, Novinky.cz, 20. 3. 2024 (průzkum STEM pro MSK a MSID, únor 2024)",
+"url": "https://www.novinky.cz/clanek/domaci-dve-tretiny-tamnich-obyvatel-souhlasi-s-gigafactory-na-karvinsku-40464938",
+"vaha0": ""
+},
+{
+"id": "E09",
+"kategorie": "Sociální akceptace transformace",
+"indikator": "Interpretace blackoutů",
+"popis_x1": "Blackouty posilují podporu decentralizace.",
+"popis_x0": "Blackouty jsou interpretovány jako selhání transformace.",
+"x": "0.5",
+"duvod_prepisu": "",
+"jistota": "odhad",
+"ukazatel": "Přímý ukazatel neexistuje: žádný nalezený průzkum se v ČR neptal na výklad příčiny blackoutu",
+"uzemi": "ČR a Španělsko jako okolní signály; pro MSK nic",
+"hodnota": "",
+"rok": "2025",
+"kotva_x0": "",
+"kotva_x1": "",
+"zdroj": "Blackouty budou častější, myslí si Češi, Newstream/ČTK, 31. 8. 2025 (Ipsos pro epet, n=1047); Iberian Blackout Polling in Spain and UK, CAAD, 2025",
+"url": "https://www.newstream.cz/zpravy-z-firem/blackouty-budou-castejsi-mysli-si-cesi-jejich-pripravenost-na-ne-je-vsak-slaba",
+"vaha0": "Působí jen po blackoutu a tuto událost model nemá."
+},
+{
+"id": "E10",
+"kategorie": "Sociální akceptace transformace",
+"indikator": "Vnímání energetické soběstačnosti jako garance bezpečnosti v multipolárním světě",
+"popis_x1": "Energetická soběstačnost je společenským tématem z hlediska bezpečnosti.",
+"popis_x0": "Energetická soběstačnost není společenským tématem z hlediska bezpečnosti.",
+"x": "0.62",
+"duvod_prepisu": "",
+"jistota": "střední",
+"ukazatel": "Podíl (%) lidí, pro které by ztráta soběstačnosti znamenala přímé ohrožení bezpečnosti státu",
+"uzemi": "ČR (krajská data nenalezena; národní údaj místo MSK)",
+"hodnota": "31",
+"rok": "2026",
+"kotva_x0": "0",
+"kotva_x1": "50",
+"zdroj": "Češi požadují energetickou soběstačnost, podpora jádra dosáhla rekordních 85 %, Ipsos pro ČEZ, 6. 5. 2026 (n=513, kvótní výběr, osobní rozhovory)",
+"url": "https://www.ipsos.com/sites/default/files/ct/news/documents/2026-05/Tiskov%C3%A1%20zpr%C3%A1va_%C4%8Ce%C5%A1i%20a%20jadern%C3%A1%20energetika_6.%205.%202026.pdf",
+"vaha0": ""
+},
+{
+"id": "E11",
+"kategorie": "Sociální akceptace transformace",
+"indikator": "Mezigenerační vztahy",
+"popis_x1": "Transformace je chápána jako investice do budoucích generací.",
+"popis_x0": "Rostoucí generační rozdíly ve vztahu k technologiím a energetické transformaci.",
+"x": "0.525",
+"duvod_prepisu": "",
+"jistota": "nízká",
+"ukazatel": "Rozdíl (p.b.) v podpoře ozelenění energetiky mezi věkem 18 až 29 (55 %) a 50 až 65 let (36 %)",
+"uzemi": "ČR (krajská data nenalezena; národní údaj místo MSK)",
+"hodnota": "19",
+"rok": "2023",
+"kotva_x0": "40",
+"kotva_x1": "0",
+"zdroj": "Mezi Čechy je nejvíc odpůrců zelené tranzice a fotovoltaiky, Ekonomický deník, 14. 12. 2023 (Norstat, podzim 2023, přes 26 000 lidí v 26 zemích)",
+"url": "https://ekonomickydenik.cz/mezi-cechy-je-nejvic-odpurcu-zelene-tranzice-a-fotovoltaiky-vetrne-parky-vadi-norum-a-francouzum/",
+"vaha0": ""
+},
+{
+"id": "E12",
+"kategorie": "Lidský kapitál a demografie",
+"indikator": "Demografie",
+"popis_x1": "Stabilizace populace a vyšší podíl obyvatel v produktivním věku.",
+"popis_x0": "Odliv mladé populace a pokračující stárnutí společnosti.",
+"x": "0.31",
+"duvod_prepisu": "",
+"jistota": "vysoká",
+"ukazatel": "Změna podílu obyvatel ve věku 15 až 64 let mezi 2025 a 2050, základní projekce EUROPOP2025 (procentní body). Hodnota je změna do roku 2050, ne dnešní stav; dnešní podíl je 63,7 %.",
+"uzemi": "MSK (CZ080); kotvy z krajů ČR",
+"hodnota": "-8",
+"rok": "2025 až 2050",
+"kotva_x0": "-9.1",
+"kotva_x1": "-5.5",
+"zdroj": "Population structure indicators, EUROPOP2025, proj_25rpind; Eurostat, 2026",
+"url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/proj_25rpind?geo=CZ080&format=JSON&time=2025&time=2050",
+"vaha0": "Demografie je v obou cestách stejná a přičítá se přímo jako odchylka."
+},
+{
+"id": "E13",
+"kategorie": "Lidský kapitál a demografie",
+"indikator": "Vzdělávání a lidský kapitál",
+"popis_x1": "Silná energetická a technologická gramotnost. Úspěšné rekvalifikace pracovníků.",
+"popis_x0": "Nedostatečná adaptace vzdělávacího systému. Nedostatek kvalifikované pracovní síly.",
+"x": "0.32",
+"duvod_prepisu": "",
+"jistota": "střední",
+"ukazatel": "Podíl terciárně vzdělaných ve věku 25 až 34 let (%)",
+"uzemi": "MSK (CZ08 = CZ080); kotva x1 EU27",
+"hodnota": "32.3",
+"rok": "2025",
+"kotva_x0": "26.5",
+"kotva_x1": "44.8",
+"zdroj": "Population by educational attainment, edat_lfse_04; Eurostat, 2026",
+"url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/edat_lfse_04?geo=CZ08&geo=CZ&geo=EU27_2020&format=JSON&sinceTimePeriod=2019&age=Y25-34&sex=T&isced11=ED5-8",
+"vaha0": ""
+},
+{
+"id": "E14",
+"kategorie": "Lidský kapitál a demografie",
+"indikator": "Atraktivita regionu",
+"popis_x1": "Příliv investic, talentů a technologických firem. Region slouží jako laboratoř energetických inovací.",
+"popis_x0": "Pokles atraktivity pro investory i kvalifikovanou pracovní sílu.",
+"x": "0.31",
+"duvod_prepisu": "",
+"jistota": "střední",
+"ukazatel": "Tvorba hrubého fixního kapitálu na obyvatele (EUR, 2024, běžné ceny; populace k 1. 1. 2024)",
+"uzemi": "MSK (CZ08); kotvy z regionů NUTS 2 ČR",
+"hodnota": "5416.09",
+"rok": "2024",
+"kotva_x0": "4565.39",
+"kotva_x1": "7292.82",
+"zdroj": "Gross fixed capital formation by NUTS 2, nama_10r_2gfcf; population demo_r_pjangrp3; Eurostat, 2026",
+"url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nama_10r_2gfcf?geo=CZ01&geo=CZ02&geo=CZ03&geo=CZ04&geo=CZ05&geo=CZ06&geo=CZ07&geo=CZ08&format=JSON&nace_r2=TOTAL&currency=MIO_EUR&time=2024&time=2019",
+"vaha0": ""
+},
+{
+"id": "E15",
+"kategorie": "Lidský kapitál a demografie",
+"indikator": "Trh práce",
+"popis_x1": "Vznik nových kvalifikovaných pracovních míst.",
+"popis_x0": "Strukturální nesoulad na trhu práce.",
+"x": "0.32",
+"duvod_prepisu": "",
+"jistota": "střední",
+"ukazatel": "Uchazeči o zaměstnání na 1 volné pracovní místo, 30. 9. 2026",
+"uzemi": "MSK; kotva x1 ČR",
+"hodnota": "8.26",
+"rok": "2026",
+"kotva_x0": "10.5",
+"kotva_x1": "3.53",
+"zdroj": "Nezaměstnanost v Ústeckém kraji k 30. 9. 2026 (podle MPSV), ČSÚ, 14. 10. 2026; Tisková zpráva KrP ÚP Ostrava, 10. 8. 2026",
+"url": "https://csu.gov.cz/docs/107855/c4891c3a-0550-c69a-c2da-e823493c164f/Nezaměstnanost_0926_pro_pdf.pdf?version=1.0 ; https://up.gov.cz/cms/documents/591eae24-fde0-60b0-92ff-aafaaa506bb7/MSK_TZ_nezamestnanost_ČERVENEC_26_fin.pdf",
+"vaha0": "Výsledek vzdělání a investic, ne příčina."
+},
+{
+"id": "E16",
+"kategorie": "Ekonomická transformace a investice",
+"indikator": "Průmyslový rozvoj",
+"popis_x1": "Rozvoj nových průmyslových odvětví spojených s energetikou.",
+"popis_x0": "Postupný zánik tradičních průmyslových struktur.",
+"x": "0.46",
+"duvod_prepisu": "",
+"jistota": "nízká",
+"ukazatel": "Průměrné roční tempo změny počtu pracujících v průmyslu (NACE B až E, trend 2014 až 2024) a stupeň rozpracovanosti nových energetických průmyslových projektů v kraji (úsudek)",
+"uzemi": "Moravskoslezský kraj (CZ080)",
+"hodnota": "-0,86 % ročně (168,09 tis. pracujících v průmyslu v roce 2024 proti 181,77 tis. v roce 2014); rozpracovanost projektů 0,25",
+"rok": "2014 až 2024; stav projektů k listopadu 2026",
+"kotva_x0": "-2.63 % ročně, tedy polovina průmyslových pracovních míst do roku 2050; u projektů 0 = žádný nový energetický průmysl není ohlášen",
+"kotva_x1": "0 % ročně nebo lépe, tedy úbytek tradičních oborů plně nahrazen; u projektů 1 = nové energetické výroby v provozu ve velkém",
+"zdroj": "Eurostat, regionální účty, dataset nama_10r_3empers (kraj CZ080), aktualizace 2026-07-31; ČSÚ, Základní tendence demografického, sociálního a ekonomického vývoje Moravskoslezského kraje, 2025",
+"url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nama_10r_3empers?geo=CZ080&nace_r2=B-E&nace_r2=C&wstatus=EMP&unit=THS&format=JSON",
+"vaha0": ""
+},
+{
+"id": "E17",
+"kategorie": "Ekonomická transformace a investice",
+"indikator": "Pilotní projekty",
+"popis_x1": "Úspěšné a medializované pilotní projekty. Příklady úspěšného využití zdrojů a dotací.",
+"popis_x0": "Absence úspěšných pilotních projektů, příklady zneužití zdrojů a dotací.",
+"x": "0.4",
+"duvod_prepisu": "",
+"jistota": "střední",
+"ukazatel": "Proplacený podíl alokace OP Spravedlivá transformace v MSK k 3/2026 (%), 3,7 z 17,6 mld. Kč",
+"uzemi": "MSK",
+"hodnota": "21.02",
+"rok": "2026",
+"kotva_x0": "0",
+"kotva_x1": "53.12",
+"zdroj": "Moravskoslezský kraj: Region v transformaci, Stav čerpání OP ST, Jednání zastupitelstva kraje, 16. 3. 2026; Moravskoslezský kraj",
+"url": "https://www.msk.cz/assets/kraj/zastupitelstvo/5_17_restart_prezentace.pdf",
+"vaha0": ""
+},
+{
+"id": "E18",
+"kategorie": "Ekonomická transformace a investice",
+"indikator": "Časová náročnost implementace nových technologií",
+"popis_x1": "MSK drží krok s progresvními regiony, stálá nebo stoupající atraktivita regionu.",
+"popis_x0": "MSK zaostává za ostatními regiony, klesá atraktivita, odliv obyvatelstva.",
+"x": "0.33",
+"duvod_prepisu": "",
+"jistota": "střední",
+"ukazatel": "Osobní bateriové elektromobily (M1) na 1 000 obyvatel, 31. 12. 2024; populace k 1. 1. 2025",
+"uzemi": "MSK; kotvy z krajů ČR",
+"hodnota": "2.24",
+"rok": "2024",
+"kotva_x0": "1.77",
+"kotva_x1": "3.18",
+"zdroj": "Počet elektromobilů jezdících v ČR se loni zvýšil o 14 000 na více než 36 000; ČTK / České noviny podle CDV, 2025",
+"url": "https://www.ceskenoviny.cz/zpravy/pocet-elektromobilu-jezdicich-v-cr-se-loni-zvysil-o-14000-na-vice-nez-36000/2615272",
+"vaha0": "Zpoždění jsou samy položky modelu. Hodí se pro kontrolu, ne jako příčina."
+},
+{
+"id": "E19",
+"kategorie": "Ekonomická transformace a investice",
+"indikator": "Souvislost mezi populací a investicemi do energetické infrastruktury",
+"popis_x1": "Klesání populace nevede k pochybnostem o rentabilnosti investic do moderní energetické infrastruktury.",
+"popis_x0": "Klesání populace vede k pozastavení investic do nové infrastruktury.",
+"x": "0.65",
+"duvod_prepisu": "",
+"jistota": "nízká",
+"ukazatel": "Investice v sekcích B, D, E (těžba, energetika, voda) na obyvatele: MSK jako násobek ČR, 2024. Vypočteno jako B-E minus C.",
+"uzemi": "MSK (CZ08) proti ČR",
+"hodnota": "0.82",
+"rok": "2024",
+"kotva_x0": "0.5",
+"kotva_x1": "1",
+"zdroj": "Gross fixed capital formation by NUTS 2, nama_10r_2gfcf; population demo_r_pjangrp3; Eurostat, 2026",
+"url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nama_10r_2gfcf?geo=CZ08&geo=CZ&format=JSON&sinceTimePeriod=2015",
+"vaha0": "Model nemá položku sítě a rentabilita SMR nezávisí na počtu obyvatel kraje."
+},
+{
+"id": "E20",
+"kategorie": "Sociální soudržnost a distribuce přínosů",
+"indikator": "Sociální soudržnost",
+"popis_x1": "Transformace jako společný projekt regionu.",
+"popis_x0": "Polarizace společnosti.",
+"x": "0.5",
+"duvod_prepisu": "",
+"jistota": "odhad",
+"ukazatel": "Bez použitelného ukazatele: krajské měření polarizace ani vnímání transformace jako společného projektu nebyl nalezen.",
+"uzemi": "MSK",
+"hodnota": "",
+"rok": "",
+"kotva_x0": "",
+"kotva_x1": "",
+"zdroj": "Volby 2025, Moravskoslezský kraj; Seznam Zprávy, 2025 (jen jako kontext)",
+"url": "https://www.seznamzpravy.cz/clanek/volby-do-poslanecke-snemovny-2025-vysledky-moravskoslezsky-kraj-287608",
+"vaha0": ""
+},
+{
+"id": "E21",
+"kategorie": "Sociální soudržnost a distribuce přínosů",
+"indikator": "Energetická chudoba",
+"popis_x1": "Klesající počet domácností ohrožených vysokými cenami energií.",
+"popis_x0": "Rostoucí počet zranitelných domácností.",
+"x": "0.32",
+"duvod_prepisu": "",
+"jistota": "nízká",
+"ukazatel": "Počet lidí v energetické chudobě, ČR, 2025 (mil. osob). Regionální časová řada nebyla nalezena.",
+"uzemi": "ČR (NÁRODNÍ DATA MÍSTO KRAJSKÝCH); úroveň MSK jen za 2023",
+"hodnota": "1.14",
+"rok": "2025",
+"kotva_x0": "1.3",
+"kotva_x1": "0.8",
+"zdroj": "Energetická chudoba v Česku; Ekonomický deník a ČTK, 22. 9. 2026 (podle Ostravské univerzity, Hnutí DUHA, Platformy pro sociální bydlení)",
+"url": "https://ekonomickydenik.cz/energeticka-chudoba-cesko-rodiny/",
+"vaha0": ""
+},
+{
+"id": "E22",
+"kategorie": "Sociální soudržnost a distribuce přínosů",
+"indikator": "Sociální nerovnosti",
+"popis_x1": "Transformace přináší široce sdílené ekonomické přínosy.",
+"popis_x0": "Transformace zvýhodňuje pouze vybrané skupiny.",
+"x": "0.24",
+"duvod_prepisu": "",
+"jistota": "střední",
+"ukazatel": "Míra ohrožení chudobou nebo sociálním vyloučením (AROPE), průměr 2023 až 2025 (%)",
+"uzemi": "MSK (CZ08); kotva x1 ČR",
+"hodnota": "16.13",
+"rok": "2023 až 2025",
+"kotva_x0": "17.6",
+"kotva_x1": "11.6",
+"zdroj": "Persons at risk of poverty or social exclusion by NUTS 2, ilc_peps11n; Eurostat, 2026",
+"url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/ilc_peps11n?geo=CZ08&geo=CZ&geo=CZ01&geo=CZ04&format=JSON&sinceTimePeriod=2019",
+"vaha0": "Čistý energetický účinek je zanedbatelný."
+},
+{
+"id": "E23",
+"kategorie": "Energetická infrastruktura a decentralizace",
+"indikator": "Energetická bezpečnost",
+"popis_x1": "Energetická soběstačnost jako strategická hodnota regionu.",
+"popis_x0": "Akceptace dlouhodobé závislosti na externích dodávkách energie. Rezignace na historickou energetickou soběstačnost.",
+"x": "0.271",
+"duvod_prepisu": "",
+"jistota": "střední",
+"ukazatel": "Krytí spotřeby elektřiny výrobou v kraji: výroba brutto / spotřeba netto (%)",
+"uzemi": "MSK",
+"hodnota": "44.2",
+"rok": "2024",
+"kotva_x0": "23.4",
+"kotva_x1": "100",
+"zdroj": "ČSÚ, Energetika v Moravskoslezském kraji v roce 2024; VŠB-TUO, Dopadová studie energetické bezpečnosti a soběstačnosti MSK (11/2024)",
+"url": "https://csu.gov.cz/msk/energetika-v-moravskoslezskem-kraji-v-roce-2024 ; https://mskec.cz/wp-content/uploads/2025/12/Dopadova-studie-energeticke-bezpecnosti.pdf",
+"vaha0": "Je to definice rozdílu mezi cestami."
+},
+{
+"id": "E24",
+"kategorie": "Energetická infrastruktura a decentralizace",
+"indikator": "Komunitní energetika",
+"popis_x1": "Rozvoj energetických komunit, mikrosítí a lokálních zdrojů.",
+"popis_x0": "Minimální rozvoj komunitních projektů.",
+"x": "0.26",
+"duvod_prepisu": "Dnešní podíl je x = 0,02 a prognóza neexistuje. Stavový ukazatel bez prognózy: polovina cesty mezi dneškem a neutrální hodnotou 0,5. Odhad.",
+"jistota": "odhad",
+"ukazatel": "Podíl odběrných míst zapojených do sdílení elektřiny na všech odběrných místech (%)",
+"uzemi": "ČR (národní data místo MSK)",
+"hodnota": "0.79",
+"rok": "2026",
+"kotva_x0": "0",
+"kotva_x1": "50",
+"zdroj": "Deník.cz (4.8.2026) přebírá data EDC; Sdělení ERÚ 207/2025 Sb.; Friends of the Earth Europe k CE Delft 2016",
+"url": "https://www.denik.cz/ekonomika/cesko-zajem-o-sdilnou-elektrinu-roste-chystaji-se-novinky/ ; https://www.zakonyprolidi.cz/cs/2025-207 ; https://friendsoftheearth.eu/publication/ce-delft-the-potential-of-energy-citizens-in-the-european-union/",
+"vaha0": ""
+},
+{
+"id": "E25",
+"kategorie": "Energetická infrastruktura a decentralizace",
+"indikator": "Krizová připravenost domácností",
+"popis_x1": "Běžné vybavení domácností záložními zdroji a plány.",
+"popis_x0": "Vysoká závislost na centrální infrastruktuře.",
+"x": "0.34",
+"duvod_prepisu": "Dnešní podíl je x = 0,18 a prognóza neexistuje. Stejné pravidlo jako u komunitní energetiky. Odhad.",
+"jistota": "odhad",
+"ukazatel": "Podíl respondentů se záložním zdrojem energie (%)",
+"uzemi": "ČR (národní data místo MSK)",
+"hodnota": "13.0",
+"rok": "2026",
+"kotva_x0": "5",
+"kotva_x1": "50",
+"zdroj": "Ipsos pro epet, červen 2026, přes ČTK (Epoch Times ČR, oEnergetice, ČT24)",
+"url": "https://www.epochtimes.cz/ceska-republika/pruzkum-cesi-se-blackoutu-neobavaji-jejich-pripravenost-se-po-lonsku-nezmenila-a282215.html",
+"vaha0": "Patří do hodnocení blackoutu, ne do roční bilance."
+},
+{
+"id": "E26",
+"kategorie": "Informační prostředí a epistemická odolnost",
+"indikator": "Dezinformace a hybridní hrozby",
+"popis_x1": "Vysoká odolnost vůči dezinformacím.",
+"popis_x0": "Silný vliv dezinformačních kampaní.",
+"x": "0.28",
+"duvod_prepisu": "Střed dvou čtení: nejvěrohodnější nepravdivý narativ obecně x = 0,52, a energetický narativ o elektromobilech 58 % v roce 2024, x = 0,04.",
+"jistota": "střední",
+"ukazatel": "Podíl lidí, kteří považují za věrohodný nejvěrohodnější nepravdivý narativ vlny CEDMO Trends, v %; nižší = blíže x=1",
+"uzemi": "ČR (národní data místo MSK)",
+"hodnota": "34",
+"rok": "2025",
+"kotva_x0": "60",
+"kotva_x1": "10",
+"zdroj": "CEDMO Trends: Česká společnost v době změn, 21. vlna očima Medianu. CEDMO, Median, 2025",
+"url": "https://cedmohub.eu/wp-content/uploads/2025/02/CEDMO-Trends-21.-Vlna-Ocima-Medianu-.pdf",
+"vaha0": ""
+},
+{
+"id": "E27",
+"kategorie": "Informační prostředí a epistemická odolnost",
+"indikator": "Spolehlivost predikčních modelů využítých k prosazování energetické tranzice",
+"popis_x1": "Modely jsou dostatečně spolehlivé, odchylky jsou jasně vysvětleny a nejsou zneužity dezinformační kampaní.",
+"popis_x0": "Modely nejsou spolehlivé a selhání jsou zveličeny v dezinformačních kampaních.",
+"x": "0.53",
+"duvod_prepisu": "",
+"jistota": "nízká",
+"ukazatel": "Relativní odchylka skutečného instalovaného výkonu FVE v ČR k 31. 12. 2025 od lineární cesty plánu 2019 (+1 900 MW do 2030 z 2 069,1 MW), v %; nižší = blíže x=1",
+"uzemi": "ČR (národní data místo MSK)",
+"hodnota": "52.6",
+"rok": "2025",
+"kotva_x0": "100",
+"kotva_x1": "10",
+"zdroj": "Roční zpráva o provozu elektrizační soustavy ČR za rok 2025, ERÚ, 2026; Svaz: Česko má slabé plány pro rozvoj moderní energetiky, oEnergetice.cz, 2019",
+"url": "https://eru.gov.cz/sites/default/files/obsah/prilohy/eruelektro2025.pdf ; https://oenergetice.cz/energetika-v-cr/svaz-cesko-ma-slabe-plany-pro-rozvoj-moderni-energetiky",
+"vaha0": "Výsledek modelu by závisel na hodnocení téhož modelu."
+},
+{
+"id": "E28",
+"kategorie": "Informační prostředí a epistemická odolnost",
+"indikator": "Informační pokrytí havarijních situací",
+"popis_x1": "Informovoání je faktické, preventivní, edukativní.",
+"popis_x0": "Informování je tendenční, alarmistické, populistické.",
+"x": "0.58",
+"duvod_prepisu": "",
+"jistota": "nízká",
+"ukazatel": "Průměr dvou podílů lidí s dostatkem informací, jak se chovat: povodně 2024 (86 %) a příprava na výpadek elektřiny 2026 (\"necelá polovina\", horní mez 50 %), v %",
+"uzemi": "ČR (národní data místo MSK)",
+"hodnota": "68.0",
+"rok": "2024 a 2026",
+"kotva_x0": "30",
+"kotva_x1": "95",
+"zdroj": "Bleskový výzkum k povodním a ke krajským volbám, STEM pro CNN Prima News, 2024; Průzkum: Češi se blackoutu neobávají, ČTK (Ipsos pro epet), 2026",
+"url": "https://www.stem.cz/wp-content/uploads/2024/09/STEM_pro_CNNPRIMANEWS_blesk_povodne.pdf ; https://www.ceskenoviny.cz/zpravy/pruzkum-cesi-se-blackoutu-neobavaji-jejich-pripravenost-se-nezmenila/2847314",
+"vaha0": "Působí jen po blackoutu a tuto událost model nemá."
+},
+{
+"id": "E29",
+"kategorie": "Regionální identita a symbolický rámec",
+"indikator": "Regionální identita a vize",
+"popis_x1": "Proměna identity MSK z uhelného regionu na technologicky vyspělý a energeticky odolný region. Sdílená dlouhodobá vize rozvoje.",
+"popis_x0": "Přetrvávání identity založené na fosilním průmyslu. Absence přesvědčivé vize budoucnosti regionu.",
+"x": "0.367",
+"duvod_prepisu": "",
+"jistota": "nízká",
+"ukazatel": "Podíl (%) obyvatel MSK, kteří si kraj bez těžkého průmyslu neumějí představit",
+"uzemi": "MSK",
+"hodnota": "68",
+"rok": "2024",
+"kotva_x0": "90",
+"kotva_x1": "30",
+"zdroj": "Většina obyvatel Moravskoslezského kraje chce zachovat těžký průmysl, Novinky.cz, 31. 8. 2024 (STEM/MARK pro SP ČR a Třinecké železárny, červenec 2024, asi 1000 lidí 15 až 70 let)",
+"url": "https://www.novinky.cz/clanek/ekonomika-vetsina-obyvatel-moravskoslezskeho-kraje-chce-zachovat-tezky-prumysl-40485797",
+"vaha0": ""
+},
+{
+"id": "E30",
+"kategorie": "Regionální identita a symbolický rámec",
+"indikator": "Symbolická pozice regionu v ČR",
+"popis_x1": "MSK jako příklad úspěšné transformace.",
+"popis_x0": "MSK jako strukturálně problémový region.",
+"x": "0.154",
+"duvod_prepisu": "",
+"jistota": "nízká",
+"ukazatel": "Pořadí MSK mezi 14 kraji ve výzkumu Místo pro život",
+"uzemi": "MSK",
+"hodnota": "12",
+"rok": "2025",
+"kotva_x0": "14",
+"kotva_x1": "1",
+"zdroj": "Místo pro život, 15. ročník, Datank, přes České noviny/ČTK, 18. 6. 2025 (88 kritérií, 23 zdrojů, průzkum spokojenosti 1600 lidí, březen 2025)",
+"url": "https://www.ceskenoviny.cz/zpravy/2688224",
+"vaha0": "Výsledek atraktivity kraje."
+},
+{
+"id": "E31",
+"kategorie": "Regionální identita a symbolický rámec",
+"indikator": "Kulturně-historický narativ",
+"popis_x1": "Posun od tradičního historického narativu Ostravy jako fosilního regionu.",
+"popis_x0": "Historická zkušenost působí jako brzda změn.",
+"x": "0.217",
+"duvod_prepisu": "",
+"jistota": "nízká",
+"ukazatel": "Podíl (%) obyvatel MSK, kteří by na ukončení ocelářství v kraji reagovali negativně",
+"uzemi": "MSK",
+"hodnota": "77",
+"rok": "2024",
+"kotva_x0": "90",
+"kotva_x1": "30",
+"zdroj": "Většina obyvatel Moravskoslezského kraje chce zachovat těžký průmysl, Novinky.cz, 31. 8. 2024 (STEM/MARK pro SP ČR a Třinecké železárny, červenec 2024)",
+"url": "https://www.novinky.cz/clanek/ekonomika-vetsina-obyvatel-moravskoslezskeho-kraje-chce-zachovat-tezky-prumysl-40485797",
+"vaha0": ""
+},
+{
+"id": "E32",
+"kategorie": "Environmentální a zdravotní dopady",
+"indikator": "Zdraví a kvalita života",
+"popis_x1": "Lepší kvalita ovzduší, zlepšení zdravotních podmínek, a vyšší atraktivita regionu.",
+"popis_x0": "Omezené zlepšení životního prostředí.",
+"x": "0.51",
+"duvod_prepisu": "",
+"jistota": "střední",
+"ukazatel": "Roční koncentrace PM2,5, městské pozadí, stanice Ostrava-Zábřeh, 2025 (µg/m³)",
+"uzemi": "MSK (jedna stanice aglomerace Ostrava/Karviná/Frýdek-Místek); kotvy EU a ČR",
+"hodnota": "14.9",
+"rok": "2025",
+"kotva_x0": "20",
+"kotva_x1": "10",
+"zdroj": "Průměrný ukazatel expozice PM2.5 2023 až 2025; ČHMÚ. Limity: Evropský parlament, Legislative Train; město Ostrava, 9. 3. 2026",
+"url": "https://ovzdusi.chmi.cz/tabelarniRocenky/2025_enh/pdf/AverageExposureIndicatorPM2_5.pdf ; https://www.europarl.europa.eu/legislative-train/theme-a-european-green-deal/file-revision-of-eu-ambient-air-quality-legislation ; https://ostrava.cz/en/o-meste/aktualne/air-quality-in-ostrava-remains-in-excellent-condition",
+"vaha0": "Důsledek přechodu a saldo migrace je už v demografii."
+},
+{
+"id": "E33",
+"kategorie": "Environmentální a zdravotní dopady",
+"indikator": "Vnímání odpadu",
+"popis_x1": "Odpad jako významný energetický zdroj.",
+"popis_x0": "Odpad vnímán pouze jako environmentální problém.",
+"x": "0.625",
+"duvod_prepisu": "",
+"jistota": "nízká",
+"ukazatel": "Podíl (%) respondentů z MSK souhlasících, aby se v ČR stavělo více ZEVO",
+"uzemi": "MSK",
+"hodnota": "75",
+"rok": "2014",
+"kotva_x0": "50",
+"kotva_x1": "90",
+"zdroj": "Vliv plánovaného zařízení KIC Odpady (ZEVO) v Karviné na postoje obyvatel a síla vlivu NIMBY efektu, J. Ryba, diplomová práce VŠE, 2014 (n=204)",
+"url": "https://insis.vse.cz/zp/47006",
+"vaha0": ""
+},
+{
+"id": "E34",
+"kategorie": "Mobilita a životní styl",
+"indikator": "Mobilita a životní styl",
+"popis_x1": "Rozvoj elektromobility, sdílené mobility a práce na dálku.",
+"popis_x0": "Přetrvávající závislost na individuální automobilové dopravě.",
+"x": "0.75",
+"duvod_prepisu": "Dnešní podíl je pod nízkým scénářem roku 2045, takže x z dneška je 0. Výchozí je střední scénář 2045 studie pro ČEPS a distributory, 55,7 %.",
+"jistota": "střední",
+"ukazatel": "Podíl osobních bateriových elektromobilů na osobních vozidlech v kraji (%)",
+"uzemi": "MSK (hodnota); ČR (prognóza a kotvy)",
+"hodnota": "0.6",
+"rok": "2025",
+"kotva_x0": "7.3",
+"kotva_x1": "71.5",
+"zdroj": "Electric Drive (3.9.2025) přebírá registr CDV; Euroenergy, Predikce vývoje elektromobility v ČR, aktualizace (MPO); Eurostat tran_r_vehst; Eurostat lfsa_ehomp",
+"url": "https://www.electricdrive.cz/cesko-prekonalo-hranici-50-tisic-elektromobilu-horizont-2030-cili-na-ctvrt-milionu/ ; https://mpo.gov.cz/assets/cz/energetika/strategicke-a-koncepcni-dokumenty/narodni-akcni-plan-pro-chytre-site/2024/6/Elektromobilita-predikce-aktualizace.pdf ; https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/tran_r_vehst?format=JSON&geo=CZ08&vehicle=CAR&unit=P_THAB ; https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/lfsa_ehomp?format=JSON&geo=CZ&sex=T&age=Y15-64&wstatus=EMP&frequenc=USU&unit=PC",
+"vaha0": ""
+}
+],
+"weights": {
+"vitr": {
+"E01": 3.0,
+"E06": 3.0,
+"E07": 3.0,
+"E10": 1.0,
+"E13": 1.0,
+"E02": 0.333333,
+"E11": 0.333333,
+"E20": 0.333333,
+"E26": 0.333333,
+"E29": 0.333333,
+"E31": 0.333333
+},
+"strechy": {
+"E24": 3.0,
+"E13": 3.0,
+"E04": 1.0,
+"E06": 1.0,
+"E17": 1.0,
+"E21": 1.0
+},
+"teplo": {
+"E13": 3.0,
+"E21": 3.0,
+"E08": 1.0
+},
+"auta": {
+"E34": 3.0,
+"E08": 1.0
+},
+"flotila": {
+"E01": 1.0,
+"E08": 1.0,
+"E13": 1.0,
+"E16": 1.0
+},
+"prumysl": {
+"E16": 3.0,
+"E14": 3.0
+},
+"uspory": {
+"E08": 1.0,
+"E13": 1.0,
+"E21": 1.0
+},
+"odpad": {
+"E33": 3.0,
+"E07": 1.0
+},
+"rozhodnuti_smr": {
+"E01": 3.0,
+"E03": 3.0,
+"E10": 3.0,
+"E07": 1.0,
+"E02": 1.0,
+"E26": 1.0
+},
+"rozhodnuti_dc": {
+"E14": 3.0,
+"E16": 1.0
+},
+"rozhodnuti_pec": {
+"E16": 3.0,
+"E14": 1.0
+}
+},
+"links": [
+{
+"name": "černé uhlí: Dětmarovice",
+"kind": "stejne",
+"group": "",
+"warm": ""
+},
+{
+"name": "černé uhlí: teplárny a průmysl",
+"kind": "plynula",
+"group": "teplo",
+"warm": ""
+},
+{
+"name": "hnědé uhlí",
+"kind": "plynula",
+"group": "teplo",
+"warm": ""
+},
+{
+"name": "zemní plyn: stávající kogenerace",
+"kind": "plynula",
+"group": "teplo",
+"warm": "cog"
+},
+{
+"name": "hutní plyny (vysokopecní a koksárenský)",
+"kind": "pec",
+"group": "pec",
+"warm": ""
+},
+{
+"name": "důlní plyn",
+"kind": "stejne",
+"group": "",
+"warm": ""
+},
+{
+"name": "ostatní paliva a odpadní teplo (přidaná položka)",
+"kind": "stejne",
+"group": "",
+"warm": ""
+},
+{
+"name": "fotovoltaika střešní",
+"kind": "plynula",
+"group": "strechy",
+"warm": ""
+},
+{
+"name": "fotovoltaika pozemní",
+"kind": "plynula",
+"group": "vitr",
+"warm": ""
+},
+{
+"name": "vítr",
+"kind": "plynula",
+"group": "vitr",
+"warm": ""
+},
+{
+"name": "malé vodní elektrárny",
+"kind": "stejne",
+"group": "",
+"warm": ""
+},
+{
+"name": "biomasa",
+"kind": "stejne",
+"group": "",
+"warm": ""
+},
+{
+"name": "bioplyn",
+"kind": "stejne",
+"group": "",
+"warm": ""
+},
+{
+"name": "geotermální energie",
+"kind": "stejne",
+"group": "",
+"warm": ""
+},
+{
+"name": "SMR",
+"kind": "smr",
+"group": "smr",
+"warm": ""
+},
+{
+"name": "nové plynové bloky",
+"kind": "plyn",
+"group": "smr",
+"warm": ""
+},
+{
+"name": "syntetický plyn z odpadu",
+"kind": "stejne",
+"group": "",
+"warm": ""
+},
+{
+"name": "energetické využití odpadu",
+"kind": "plynula",
+"group": "odpad",
+"warm": ""
+},
+{
+"name": "baterie",
+"kind": "stejne",
+"group": "",
+"warm": ""
+},
+{
+"name": "jiné skladování",
+"kind": "stejne",
+"group": "",
+"warm": ""
+},
+{
+"name": "vodík zpět na elektřinu",
+"kind": "stejne",
+"group": "",
+"warm": ""
+},
+{
+"name": "Třinecké železárny",
+"kind": "pec",
+"group": "pec",
+"warm": ""
+},
+{
+"name": "Nová huť",
+"kind": "huta",
+"group": "huta",
+"warm": ""
+},
+{
+"name": "ostatní průmysl a chemie",
+"kind": "plynula",
+"group": "prumysl",
+"warm": ""
+},
+{
+"name": "doly",
+"kind": "stejne",
+"group": "",
+"warm": ""
+},
+{
+"name": "domácnosti bez vytápění",
+"kind": "stejne",
+"group": "",
+"warm": ""
+},
+{
+"name": "služby a veřejný sektor",
+"kind": "stejne",
+"group": "",
+"warm": ""
+},
+{
+"name": "vytápění tepelnými čerpadly",
+"kind": "plynula",
+"group": "teplo",
+"warm": "hp"
+},
+{
+"name": "přímotopy",
+"kind": "plynula",
+"group": "teplo",
+"warm": "prim"
+},
+{
+"name": "elektrokotle v teplárnách",
+"kind": "plynula",
+"group": "teplo",
+"warm": ""
+},
+{
+"name": "chlazení",
+"kind": "plynula",
+"group": "teplo",
+"warm": "cool"
+},
+{
+"name": "osobní auta",
+"kind": "plynula",
+"group": "auta",
+"warm": ""
+},
+{
+"name": "nákladní doprava",
+"kind": "plynula",
+"group": "flotila",
+"warm": ""
+},
+{
+"name": "vlaky",
+"kind": "plynula",
+"group": "flotila",
+"warm": ""
+},
+{
+"name": "MHD",
+"kind": "plynula",
+"group": "flotila",
+"warm": ""
+},
+{
+"name": "datacentra",
+"kind": "rozhodnuti",
+"group": "dc",
+"warm": ""
+},
+{
+"name": "výroba vodíku",
+"kind": "plynula",
+"group": "flotila",
+"warm": ""
+},
+{
+"name": "výroba vodíku: osobní auta",
+"kind": "stejne",
+"group": "",
+"warm": ""
+},
+{
+"name": "výroba vodíku: nákladní doprava",
+"kind": "plynula",
+"group": "flotila",
+"warm": ""
+},
+{
+"name": "výroba vodíku: MHD",
+"kind": "plynula",
+"group": "flotila",
+"warm": ""
+},
+{
+"name": "výroba syntetického plynu",
+"kind": "stejne",
+"group": "",
+"warm": ""
+},
+{
+"name": "vlastní spotřeba zdrojů",
+"kind": "vzorec",
+"group": "",
+"warm": ""
+},
+{
+"name": "ostatní energetika (přidaná položka)",
+"kind": "stejne",
+"group": "",
+"warm": ""
+},
+{
+"name": "ztráty v sítích",
+"kind": "vzorec",
+"group": "",
+"warm": ""
+},
+{
+"name": "ztráty baterií",
+"kind": "plynula",
+"group": "vitr",
+"warm": ""
+},
+{
+"name": "zemědělství a stavebnictví",
+"kind": "stejne",
+"group": "",
+"warm": ""
+},
+{
+"name": "úspory a účinnost",
+"kind": "plynula",
+"group": "uspory",
+"warm": ""
+}
+],
+"warm": {
+"dT": [
+0.0,
+0.5,
+1.0,
+1.5,
+2.0,
+2.5
+],
+"hp": [
+1.0,
+0.96073,
+0.923013,
+0.88692,
+0.852507,
+0.819706
+],
+"prim": [
+1.0,
+0.971412,
+0.943485,
+0.916349,
+0.890123,
+0.864784
+],
+"cool": [
+1.0,
+1.13218,
+1.277875,
+1.435993,
+1.60627,
+1.788894
+],
+"cog": [
+1.0,
+0.954135,
+0.909329,
+0.865793,
+0.823717,
+0.783064
+],
+"hdd": [
+1.0,
+0.942669,
+0.886662,
+0.832241,
+0.779646,
+0.72883
+]
+},
+"score0": 0.46925,
+"pSmrRef": 0.25,
+"pPec": 0.6,
+"pHuta": 0.45,
+"smrYear": 2048,
+"dT": {
+"default": 1.2,
+"min": 0.0,
+"max": 2.5,
+"text": "Další oteplení proti klimatu let 2015 až 2019. Výchozí hodnota je odhad: CMIP6 pro ČR dává +1,1 °C při SSP2-4.5 a +1,5 °C při SSP5-8.5, pozorovaný trend +1,2 až +1,5 °C, široké rozpětí +0,5 až +2,1 °C. Data pro ČR, přebírá se pro kraj.",
+"zdroje": [
+[
+"World Bank CCKP, CMIP6 pro ČR",
+"https://cckpapi.worldbank.org/api/v1/cmip6-x0.25_timeseries_tas_timeseries_annual_2015-2100_median_ssp245_ensemble_all_mean/CZE?_format=json"
+],
+[
+"Eurostat nrg_chddr2_a, denostupně CZ080",
+"https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nrg_chddr2_a?format=JSON&geo=CZ080&indic_nrg=HDD&indic_nrg=CDD&unit=NR"
+]
+]
+},
+"pop": {
+"default": 999.144,
+"base": 1182.589793,
+"min": 950,
+"max": 1050,
+"text": "Obyvatel kraje v roce 2050. Obě cesty už počítají s projekcí ČSÚ, 999 tisíc, a EUROPOP2025 dává 999 tisíc. Výchozí odchylka je proto nula. Varianty Eurostatu jsou 965 až 1 022 tisíc. Změřený stav k 1. 1. 2026 je o 4 207 osob nad projekcí.",
+"zdroje": [
+[
+"ČSÚ, Projekce obyvatelstva v krajích ČR do roku 2080",
+"https://csu.gov.cz/produkty/projekce-obyvatelstva-v-krajich-cr-do-roku-2080"
+],
+[
+"Eurostat, EUROPOP2025",
+"https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/proj_25rpind?geo=CZ080"
+]
+]
+},
+"rozhodnuti": [
+{
+"key": "smr",
+"nazev": "Malý reaktor SMR v kraji",
+"stav": "Memorandum o přípravě lokalit z července 2026, lokalita Dětmarovice není vybraná, řízení EIA pro ni nebylo nalezeno, rozhodnutí o stavbě chybí.",
+"odhad": "Odhad 25 %, rozpětí 15 až 40 %, pro aspoň jeden blok v provozu do konce roku 2049. Je to úsudek z řetězu kroků: první blok ve Wales, Temelín, potom Dětmarovice. Podmíněně na provoz je rok spuštění spíše 2048 než 2045.",
+"zdroje": [
+[
+"ČEZ, tisková zpráva o memorandu, 21. 7. 2026",
+"https://www.cez.cz/cs/pro-media/tiskove-zpravy/cez-bude-se-statem-a-britskym-rolls-royce-smr-rozvijet-dalsi-lokality-pro-vystavbu-malych-modularnich-reaktoru-236488"
+],
+[
+"WNISR 2025, přehled jaderného průmyslu",
+"https://www.worldnuclearreport.org/"
+]
+]
+},
+{
+"key": "dc",
+"nazev": "Velká datová centra",
+"stav": "V kraji nebyl nalezen žádný jmenovaný projekt od 100 MW. Rezervace připojení nejsou veřejné.",
+"odhad": "Obhajitelné číslo neexistuje. Stránka bere skóre indikátorů jako viditelný odhad.",
+"zdroje": [
+[
+"Zakazka.cz podle EGU, 9. 6. 2026",
+"https://www.zakazka.cz/vysoke-ceny-energii-zabrzdi-podle-egu-plany-na-vystavbu-az-40-datovych-center-v-cr/"
+]
+]
+},
+{
+"key": "pec",
+"nazev": "Elektrická pec v Třinci",
+"stav": "První pec není konečně rozhodnutá, firma ji odložila nejméně do roku 2030. Druhá etapa není v žádném nalezeném dokumentu.",
+"odhad": "První pec: odhad 60 %, rozpětí 40 až 75 %, úsudek. Plná elektrifikace: viditelný odhad ze skóre indikátorů.",
+"zdroje": [
+[
+"Třinecké železárny, tisková zpráva, 24. 6. 2025",
+"https://www.trz.cz/o-nas/tiskove-zpravy/2025-06-24-trzby-mezirocne-klesly-ocelarsky-prumysl-je-stale-pod-tlakem/"
+],
+[
+"E15, 4. 8. 2026",
+"https://www.e15.cz/byznys/prumysl-a-energetika/ocel-je-bezpecnost-v-trineckych-zelezarnach-varuji-pred-evropskou-chybou-1434663"
+]
+]
+},
+{
+"key": "huta",
+"nazev": "Oblouková pec v Nové huti",
+"stav": "Záměr prošel zjišťovacím řízením bez plného posouzení, dotace je přislíbená, rozhodnutí o stavbě chybí. Obě cesty s pecí počítají stejně, proto je to odchylka mimo osu cest.",
+"odhad": "Odhad 45 %, rozpětí 25 až 60 %, úsudek.",
+"zdroje": [
+[
+"CENIA, záměr MSK2481",
+"https://portal.cenia.cz/eiasea/detail/EIA_MSK2481?lang=cs"
+],
+[
+"Nová huť, projekt",
+"https://www.novahut.cz/news/projekt-novahut/index.html"
+]
+]
+}
+],
+"groupNames": {
+"vitr": "Vítr a pozemní fotovoltaika",
+"strechy": "Střešní fotovoltaika",
+"teplo": "Teplo a chlazení",
+"auta": "Osobní auta",
+"flotila": "Nákladní doprava a vodík",
+"prumysl": "Ostatní průmysl",
+"uspory": "Úspory",
+"odpad": "Využití odpadu, rok spuštění"
+}
+}
