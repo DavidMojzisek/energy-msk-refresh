@@ -2493,5 +2493,551 @@
 "schodek": 5116,
 "nazev": "S-křivka v a se středem 0,5, jen ilustrace"
 }
+],
+"dlazdice": {
+"K": {
+"H_PV": {
+"v": 942
+},
+"H_VITR": {
+"v": 2471
+},
+"VITR_DNES_MW": {
+"v": 41.8
+},
+"VITR_MEZ_MW": {
+"v": 2014
+},
+"MW_TURBINA": {
+"v": 6.2
+},
+"ROD_DOMY": {
+"v": 163913
+},
+"KWP_STRECHA": {
+"v": 10.2875
+},
+"HA_NA_MWP": {
+"v": 0.8636363636363636
+},
+"KM2_KRAJ": {
+"v": 5431
+},
+"MWH_AUTO": {
+"v": 2.295
+},
+"AUTA_DNES": {
+"v": 625545
+},
+"KWH_KM_NAKL": {
+"v": 1.3187
+},
+"KM_ROK_NAKL": {
+"v": 60000
+},
+"KM_FLOTILA_NAKL": {
+"v": 996800000
+},
+"KM_ROK_BUS": {
+"v": 80000
+},
+"H2_TAB": {
+"v": {
+"roky": [
+2030,
+2040,
+2050
+],
+"nakl_kg": [
+8.73,
+8.19,
+7.65
+],
+"bus_kg": [
+7.2653,
+6.8159,
+6.3665
+],
+"kwh": [
+55.1,
+53.23,
+51.36
 ]
+}
+},
+"NADRZ_T": {
+"v": 20
+},
+"MWH_TC": {
+"v": 8.9
+},
+"TC_PODNIK": {
+"v": {
+"roky": [
+2025,
+2030,
+2040,
+2050
+],
+"progresivni": [
+10.9755,
+14.659,
+22.12,
+29.54
+],
+"konzervativni": [
+10.9755,
+0,
+0,
+0
+]
+}
+},
+"OM_PRIMO": {
+"v": 131000
+},
+"MWH_PRIMO": {
+"v": 7.045641221374046
+},
+"TRINEC_ZAKLAD": {
+"v": 769.2308
+},
+"TRINEC_PEC": {
+"v": 390
+},
+"HUT_ZAKLAD": {
+"v": 61.32
+},
+"HUT_PEC": {
+"v": 675
+},
+"DC_VYUZITI": {
+"v": 0.8
+},
+"BAT_E": {
+"v": {
+"roky": [
+2025,
+2030,
+2040,
+2050
+],
+"progresivni": [
+0.01,
+0.05,
+1.53,
+2.7
+],
+"konzervativni": [
+0.01,
+0.01,
+3.853,
+6.8
+]
+}
+},
+"OBYV_ZAKLAD": {
+"v": 1182613
+},
+"OSOB_DOM": {
+"v": 2.1029
+}
+},
+"zdroje": [
+{
+"nazev": "Výkon turbíny: Ekonomický deník, 13. 2. 2025, záměr 27 turbín a 167 MW",
+"url": "https://ekonomickydenik.cz/investor-chce-u-bridlicne-postavit-az-27-vetrnych-elektraren-cast-mistnich-ziska-elektrinu-zdarma/",
+"druh": "doc"
+},
+{
+"nazev": "Domácí elektrárna asi 10 kWp: Seznam Zprávy, 10. 1. 2024, 80 000 elektráren a 823 MWp v roce 2023",
+"url": "https://www.seznamzpravy.cz/clanek/ekonomika-firmy-loni-se-v-cesku-postavil-rekordni-pocet-solarnich-elektraren-243354",
+"druh": "odhad"
+},
+{
+"nazev": "Plocha pozemní fotovoltaiky: Newstream, jeden projekt, 19 ha a přes 22 MWp",
+"url": "https://www.newstream.cz/zpravy-z-firem/pre-stavi-na-sokolovsku-svou-dosud-nejvetsi-fotovoltaickou-elektrarnu",
+"druh": "odhad"
+},
+{
+"nazev": "Rozloha kraje: Deník veřejné správy, 2024",
+"url": "https://www.dvs.cz/clanek.asp?id=6975573",
+"druh": "doc"
+}
+],
+"tiles": [
+{
+"id": "smr",
+"label": "Malé reaktory SMR",
+"side": "vyroba",
+"icon": "atom",
+"ikona_svg": null,
+"jednotka": [
+"reaktor",
+"reaktory",
+"reaktorů"
+],
+"vzorec": "Math.round(g(\"SMR\") / SMR_UNIT)",
+"zaokrouhleni": "cele",
+"hover": [
+"`Výroba ${N(g(\"SMR\"))} GWh za rok, to je ${P(g(\"SMR\") / Math.max(use, 1))} spotřeby kraje.`",
+"`Jeden reaktor ${N(SMR_MW)} MW a ${N(SMR_UNIT)} GWh, tedy 7 884 hodin plného výkonu.`",
+"`Výkon 500 MW je volba cesty, studie uvádí 350 MWe. Další reaktor nemá podklad.`"
+],
+"hover_pri_nule": "Cesta s reaktorem nepočítá, nebo reaktor ve zvoleném roce ještě neběží.",
+"dnes": "0"
+},
+{
+"id": "vitr",
+"label": "Nové větrné turbíny",
+"side": "vyroba",
+"icon": "wind",
+"ikona_svg": null,
+"jednotka": [
+"turbína navíc",
+"turbíny navíc",
+"turbín navíc"
+],
+"vzorec": "Math.max(0, g(\"vítr\") * 1000 / K.H_VITR.v - K.VITR_DNES_MW.v) / K.MW_TURBINA.v",
+"zaokrouhleni": "sig2",
+"hover": [
+"`Výroba ${N(g(\"vítr\"))} GWh za rok při ${N(K.H_VITR.v)} hodinách plného výkonu.`",
+"`Celkem ${N(g(\"vítr\") * 1000 / K.H_VITR.v)} MW, což je ${P((g(\"vítr\") * 1000 / K.H_VITR.v) / K.VITR_MEZ_MW.v)} potenciálu ${N(K.VITR_MEZ_MW.v)} MW podle Dopadové studie.`",
+"`Počítáno na turbínu 6,2 MW, jako v jednom záměru v kraji: 27 turbín, 167 MW.`"
+],
+"hover_pri_nule": "Žádná turbína nad dnešních 41,8 MW.",
+"dnes": "dnes 41,8 MW"
+},
+{
+"id": "strechy",
+"label": "Střechy s fotovoltaikou",
+"side": "vyroba",
+"icon": "sun",
+"ikona_svg": null,
+"jednotka": [
+"střecha po 10 kWp",
+"střechy po 10 kWp",
+"střech po 10 kWp"
+],
+"vzorec": "g(\"fotovoltaika střešní\") * 1000 / K.H_PV.v * 1000 / K.KWP_STRECHA.v",
+"zaokrouhleni": "sig2",
+"hover": [
+"`Výroba ${N(g(\"fotovoltaika střešní\"))} GWh za rok, ${N(g(\"fotovoltaika střešní\") * 1000 / K.H_PV.v)} MWp při 942 hodinách.`",
+"`Je to přepočet: střechou se rozumí domácí elektrárna asi 10 kWp. Firemní střechy jsou větší, skutečných střech je méně.`",
+"`Odpovídá ${P((g(\"fotovoltaika střešní\") * 1000 / K.H_PV.v) * 1000 / K.KWP_STRECHA.v / K.ROD_DOMY.v)} z ${N(K.ROD_DOMY.v)} rodinných domů v kraji.`"
+],
+"hover_pri_nule": null,
+"dnes": "2025: asi 20 000"
+},
+{
+"id": "pole",
+"label": "Pozemní fotovoltaika",
+"side": "vyroba",
+"icon": "sun",
+"ikona_svg": "<circle cx=\"18\" cy=\"5\" r=\"2\"/><path d=\"M5 9h14l3 7H2z\"/><path d=\"M12 9v7M8.5 9l-1.5 7M15.5 9l1.5 7M3.5 12.5h17M12 16v5M8 21h8\"/>",
+"jednotka": [
+"ha",
+"ha",
+"ha"
+],
+"vzorec": "g(\"fotovoltaika pozemní\") * 1000 / K.H_PV.v * K.HA_NA_MWP.v",
+"zaokrouhleni": "sig2",
+"hover": [
+"`Výroba ${N(g(\"fotovoltaika pozemní\"))} GWh za rok, ${N(g(\"fotovoltaika pozemní\") * 1000 / K.H_PV.v)} MWp při 942 hodinách.`",
+"`Plocha je odhad podle jedné elektrárny: 19 ha na 22 MWp. Je to ${P((g(\"fotovoltaika pozemní\") * 1000 / K.H_PV.v) * K.HA_NA_MWP.v / 100 / K.KM2_KRAJ.v)} rozlohy kraje.`"
+],
+"hover_pri_nule": null,
+"dnes": "2025: asi 48 ha"
+},
+{
+"id": "plyn",
+"label": "Nové plynové bloky",
+"side": "vyroba",
+"icon": "flame",
+"ikona_svg": null,
+"jednotka": [
+"MW",
+"MW",
+"MW"
+],
+"vzorec": "interp(bat.gasYears, bat.gasMw, year)",
+"zaokrouhleni": "cele",
+"hover": [
+"`Výroba ${N(g(\"nové plynové bloky\") + g(\"syntetický plyn z odpadu\"))} GWh za rok.`",
+"`Při tom běží ${N((g(\"nové plynové bloky\") + g(\"syntetický plyn z odpadu\")) * 1000 / Math.max(interp(bat.gasYears, bat.gasMw, year), 1))} hodin plného výkonu z 8 760.`",
+"`Výkon je daný cestou, posuvník výroby mění jen hodiny.`"
+],
+"hover_pri_nule": "Nové bloky do roku 2027 neběží.",
+"dnes": "dnes 0 MW"
+},
+{
+"id": "uhli",
+"label": "Elektřina z uhlí",
+"side": "vyroba",
+"icon": "coal",
+"ikona_svg": null,
+"jednotka": [
+"GWh",
+"GWh",
+"GWh"
+],
+"vzorec": "g(\"černé uhlí: Dětmarovice\") + g(\"černé uhlí: teplárny a průmysl\") + g(\"hnědé uhlí\")",
+"zaokrouhleni": "sig2",
+"hover": [
+"`Podíl na výrobě kraje ${P((g(\"černé uhlí: Dětmarovice\") + g(\"černé uhlí: teplárny a průmysl\") + g(\"hnědé uhlí\")) / Math.max(gen, 1))}.`",
+"`Dětmarovice 600 MW skončily v roce 2025, teplárny a průmysl končí později.`"
+],
+"hover_pri_nule": "Výroba z uhlí ve zvoleném roce skončila.",
+"dnes": "2025: 1 161 GWh"
+},
+{
+"id": "eauta",
+"label": "Elektromobily",
+"side": "spotreba",
+"icon": "car",
+"ikona_svg": "<path d=\"M3 16v-3l2-5a2 2 0 0 1 2-1h10a2 2 0 0 1 2 1l2 5v3\"/><path d=\"M3 13h18M3 16h18\"/><circle cx=\"7.5\" cy=\"17.5\" r=\"1.8\"/><circle cx=\"16.5\" cy=\"17.5\" r=\"1.8\"/>",
+"jednotka": [
+"auto",
+"auta",
+"aut"
+],
+"vzorec": "g(\"osobní auta\") * 1000 / (K.MWH_AUTO.v * t.eff_auta)",
+"zaokrouhleni": "sig2",
+"hover": [
+"`${P(Math.min(1, (g(\"osobní auta\") * 1000 / (K.MWH_AUTO.v * t.eff_auta)) / (K.AUTA_DNES.v * t.pop_msk * t.auta_na_os)))} ze všech ${N(K.AUTA_DNES.v * t.pop_msk * t.auta_na_os)} aut v kraji, včetně dodávek.`",
+"`Spotřeba ${N(g(\"osobní auta\"))} GWh za rok. Osobní auta vodík nepoužívají.`",
+"`Jedno auto ${N1(K.MWH_AUTO.v * t.eff_auta)} MWh za rok: 13 500 km a klesající spotřeba na km.`"
+],
+"hover_pri_nule": null,
+"dnes": "2024: 2 648"
+},
+{
+"id": "nakl_bat",
+"label": "Nákladní auta na baterie",
+"side": "spotreba",
+"icon": "truck",
+"ikona_svg": null,
+"jednotka": [
+"auto",
+"auta",
+"aut"
+],
+"vzorec": "year < 2030 ? null : g(\"nákladní doprava\") * 1e6 / (K.KWH_KM_NAKL.v * t.eff_nakladni) / K.KM_ROK_NAKL.v",
+"zaokrouhleni": "sig2",
+"hover": [
+"`Spotřeba ${N(g(\"nákladní doprava\"))} GWh za rok.`",
+"`Přepočet: 60 000 km za rok a 1,32 kWh/km jako u 40t soupravy. Rozvozová auta jezdí méně a berou méně, skutečných aut by bylo více.`",
+"year < 2030 ? \"Počet se před rokem 2030 neuvádí, základ řádku je dopočet, ne počet aut.\" : `Podíl na celém nájezdu ${P((g(\"nákladní doprava\") * 1e6 / (K.KWH_KM_NAKL.v * t.eff_nakladni) / K.KM_ROK_NAKL.v) * K.KM_ROK_NAKL.v / K.KM_FLOTILA_NAKL.v)}.`"
+],
+"hover_pri_nule": null,
+"dnes": "počet nezjištěn"
+},
+{
+"id": "nakl_h2",
+"label": "Kamiony na vodík",
+"side": "spotreba",
+"icon": "truck",
+"ikona_svg": "<path d=\"M2.5 16V7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v9\"/><path d=\"M14.5 10h4l3 3.5V16\"/><path d=\"M2.5 16h2M9.5 16h5.5M20 16h1.5\"/><circle cx=\"7\" cy=\"17\" r=\"2.2\"/><circle cx=\"17.5\" cy=\"17\" r=\"2.2\"/><path d=\"M6 9v4M6 11h3M9 9v4M11.5 13h2l-2-2.2c.8-1.2 2-.5 1.8.3\"/>",
+"jednotka": [
+"kamion",
+"kamiony",
+"kamionů"
+],
+"vzorec": "(k => g(\"výroba vodíku: nákladní doprava\") * 1000 / tab(k.roky, k.kwh, year) * 1000 / tab(k.roky, k.nakl_kg, year) * 100 / K.KM_ROK_NAKL.v)(K.H2_TAB.v)",
+"zaokrouhleni": "sig2",
+"hover": [
+"`Elektřina na vodík ${N(g(\"výroba vodíku: nákladní doprava\"))} GWh za rok.`",
+"`${P(((k => g(\"výroba vodíku: nákladní doprava\") * 1000 / tab(k.roky, k.kwh, year) * 1000 / tab(k.roky, k.nakl_kg, year) * 100 / K.KM_ROK_NAKL.v)(K.H2_TAB.v)) * K.KM_ROK_NAKL.v / K.KM_FLOTILA_NAKL.v)} nájezdu nákladní dopravy. Cílový poměr flotily je 70 : 30 baterie : vodík.`",
+"`Přepočet: 60 000 km za rok, odhad.`"
+],
+"hover_pri_nule": "Tato cesta zůstává na bateriích, nebo kamiony na vodík ve zvoleném roce ještě nejezdí.",
+"dnes": "0"
+},
+{
+"id": "bus_h2",
+"label": "Autobusy na vodík",
+"side": "spotreba",
+"icon": "bus",
+"ikona_svg": "<rect x=\"4\" y=\"4\" width=\"16\" height=\"13\" rx=\"2\"/><path d=\"M4 11h16M9 4v7M15 4v7\"/><circle cx=\"8\" cy=\"18.5\" r=\"1.5\"/><circle cx=\"16\" cy=\"18.5\" r=\"1.5\"/>",
+"jednotka": [
+"autobus",
+"autobusy",
+"autobusů"
+],
+"vzorec": "(k => g(\"výroba vodíku: MHD\") * 1000 / tab(k.roky, k.kwh, year) * 1000 / tab(k.roky, k.bus_kg, year) * 100 / K.KM_ROK_BUS.v)(K.H2_TAB.v)",
+"zaokrouhleni": "sig2",
+"hover": [
+"`Elektřina na vodík ${N1(g(\"výroba vodíku: MHD\"))} GWh za rok.`",
+"`Přepočet: 80 000 km za rok na autobus. Třicet procent se bere z řádku MHD, který obsahuje i tramvaje.`"
+],
+"hover_pri_nule": "Tato cesta zůstává na bateriích, nebo autobusy na vodík ve zvoleném roce ještě nejezdí.",
+"dnes": "0"
+},
+{
+"id": "elektrolyzer",
+"label": "Elektrolyzér",
+"side": "spotreba",
+"icon": "cell",
+"ikona_svg": null,
+"jednotka": [
+"MW",
+"MW",
+"MW"
+],
+"vzorec": "m.electro",
+"zaokrouhleni": "cele",
+"hover": [
+"`Vyrobí ${N((k => (g(\"výroba vodíku: nákladní doprava\") + g(\"výroba vodíku: MHD\")) * 1000 / tab(k.roky, k.kwh, year))(K.H2_TAB.v))} t vodíku za rok pro kamiony a autobusy.`",
+"`Nádrž ${N(K.NADRZ_T.v)} t pokryje ${N1(K.NADRZ_T.v / Math.max((k => (g(\"výroba vodíku: nákladní doprava\") + g(\"výroba vodíku: MHD\")) * 1000 / tab(k.roky, k.kwh, year))(K.H2_TAB.v), 1) * 8760)} hodin odběru flotily.`",
+"`Výkon plyne z řádků vodíku při ${N(ELECTROLYSER_HOURS)} hodinách plného výkonu za rok. Hodiny jsou z hodinového výpočtu a posuvníky je nemění.`"
+],
+"hover_pri_nule": "Tato cesta s flotilou na vodík nepočítá.",
+"dnes": "0 MW"
+},
+{
+"id": "tc",
+"label": "Domy s tepelným čerpadlem",
+"side": "spotreba",
+"icon": "heat",
+"ikona_svg": null,
+"jednotka": [
+"dům",
+"domy",
+"domů"
+],
+"vzorec": "Math.max(0, g(\"vytápění tepelnými čerpadly\") / D(\"vytápění tepelnými čerpadly\") - tab(K.TC_PODNIK.v.roky, K.TC_PODNIK.v[path], year)) * 1000 / K.MWH_TC.v",
+"zaokrouhleni": "sig2",
+"hover": [
+"`${P((Math.max(0, g(\"vytápění tepelnými čerpadly\") / D(\"vytápění tepelnými čerpadly\") - tab(K.TC_PODNIK.v.roky, K.TC_PODNIK.v[path], year)) * 1000 / K.MWH_TC.v) / K.ROD_DOMY.v)} z ${N(K.ROD_DOMY.v)} rodinných domů v kraji.`",
+"`Spotřeba ${N(g(\"vytápění tepelnými čerpadly\"))} GWh za rok, včetně běžné spotřeby domu na tomto tarifu.`"
+],
+"hover_pri_nule": null,
+"dnes": "2025: asi 50 000"
+},
+{
+"id": "primotopy",
+"label": "Přímotopy a akumulace",
+"side": "spotreba",
+"icon": "bolt",
+"ikona_svg": null,
+"jednotka": [
+"odběrné místo",
+"odběrná místa",
+"odběrných míst"
+],
+"vzorec": "g(\"přímotopy\") / D(\"přímotopy\") * 1000 / K.MWH_PRIMO.v",
+"zaokrouhleni": "sig2",
+"hover": [
+"`Spotřeba ${N(g(\"přímotopy\"))} GWh za rok.`",
+"`Tarify přímého, akumulačního a smíšeného vytápění, domácnosti i firmy. Patří do nich i běžná spotřeba.`"
+],
+"hover_pri_nule": "Přímé a akumulační vytápění je v této cestě nahrazené.",
+"dnes": "2022: 131 000"
+},
+{
+"id": "pece",
+"label": "Nové obloukové pece",
+"side": "spotreba",
+"icon": "factory",
+"ikona_svg": null,
+"jednotka": [
+"pec",
+"pece",
+"pecí"
+],
+"vzorec": "Math.max(0, Math.round((g(\"Třinecké železárny\") - K.TRINEC_ZAKLAD.v) / K.TRINEC_PEC.v)) + Math.max(0, Math.round((g(\"Nová huť\") - K.HUT_ZAKLAD.v) / K.HUT_PEC.v))",
+"zaokrouhleni": "cele",
+"hover": [
+"`Třinec ${Math.max(0, Math.round((g(\"Třinecké železárny\") - K.TRINEC_ZAKLAD.v) / K.TRINEC_PEC.v))}, Nová huť ${Math.max(0, Math.round((g(\"Nová huť\") - K.HUT_ZAKLAD.v) / K.HUT_PEC.v))}. Spotřeba ${N(g(\"Třinecké železárny\") + g(\"Nová huť\"))} GWh za rok, ${P((g(\"Třinecké železárny\") + g(\"Nová huť\")) / Math.max(use, 1))} spotřeby kraje.`",
+"`O peci v Nové huti zatím nebylo rozhodnuto. Přírůstek na tunu oceli je odhad: Třinec 0,30 MWh, Nová huť 0,45 MWh.`",
+"Math.max(0, Math.round((g(\"Třinecké železárny\") - K.TRINEC_ZAKLAD.v) / K.TRINEC_PEC.v)) > 1 ? \"Druhá pec v Třinci je čtení modelu pro plnou elektrifikaci, podnik uvádí jednu.\" : \"\"",
+"`Posuvník spotřeby mění GWh. Počet pecí se mění, až když přírůstek přeroste půl pece.`"
+],
+"hover_pri_nule": "Žádná nová pec ve zvoleném roce neběží.",
+"dnes": "dnes 0 nových"
+},
+{
+"id": "datacentra",
+"label": "Datacentra",
+"side": "spotreba",
+"icon": "office",
+"ikona_svg": null,
+"jednotka": [
+"MW",
+"MW",
+"MW"
+],
+"vzorec": "g(\"datacentra\") * 1000 / (K.DC_VYUZITI.v * 8760)",
+"zaokrouhleni": "sig2",
+"hover": [
+"`Spotřeba ${N(g(\"datacentra\"))} GWh za rok při využití 80 %.`",
+"`Největší nejistota mezi novými odběry. Konkrétní projekt v kraji podklady neuvádějí.`"
+],
+"hover_pri_nule": "Nová datacentra ve zvoleném roce nejsou, stávající jsou v řádku služby.",
+"dnes": "dnes ve službách"
+},
+{
+"id": "baterie",
+"label": "Baterie v síti",
+"side": "kontext",
+"icon": "battery",
+"ikona_svg": null,
+"jednotka": [
+"GWh",
+"GWh",
+"GWh"
+],
+"vzorec": "tab(K.BAT_E.v.roky, K.BAT_E.v[path], year)",
+"zaokrouhleni": "des2",
+"hover": [
+"`Výkon ${N(interp(bat.years, bat.daily, year))} MW.`",
+"`Zásoba vystačí na ${N1(tab(K.BAT_E.v.roky, K.BAT_E.v[path], year) * 8760 / Math.max(use, 1))} hodiny průměrné spotřeby kraje. Vyrovnává den, není záloha.`",
+"`Velikost je z hodinového výpočtu, posuvníky ji nemění.`"
+],
+"hover_pri_nule": null,
+"dnes": "dnes 0,01 GWh"
+},
+{
+"id": "obyvatele",
+"label": "Obyvatelé kraje",
+"side": "kontext",
+"icon": "people",
+"ikona_svg": "<circle cx=\"9\" cy=\"8\" r=\"3\"/><path d=\"M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6\"/><circle cx=\"17\" cy=\"9\" r=\"2.3\"/><path d=\"M16 14c2.8 0 5 2.2 5 5\"/>",
+"jednotka": [
+"osoba",
+"osoby",
+"osob"
+],
+"vzorec": "K.OBYV_ZAKLAD.v * t.pop_msk",
+"zaokrouhleni": "sig3",
+"hover": [
+"`Asi ${N(Math.round((K.OBYV_ZAKLAD.v / K.OSOB_DOM.v * t.pop_msk * t.velikost_dom) / 1000) * 1000)} domácností.`",
+"`Na obyvatele ${N1(use * 1000 / (K.OBYV_ZAKLAD.v * t.pop_msk))} MWh elektřiny za rok.`"
+],
+"hover_pri_nule": null,
+"dnes": "1.1.2025: 1 182 613"
+},
+{
+"id": "dovoz",
+"label": "Dovoz elektřiny",
+"side": "kontext",
+"icon": "pylon",
+"ikona_svg": null,
+"jednotka": [
+"GWh",
+"GWh",
+"GWh"
+],
+"vzorec": "Math.max(use - gen, 0)",
+"zaokrouhleni": "sig2",
+"hover": [
+"`Kraj si pokryje ${P(gen / Math.max(use, 1))} roční spotřeby.`",
+"`${use >= gen ? \"Dovoz\" : \"Přebytek\"} odpovídá výrobě ${N1(Math.abs(use - gen) / SMR_UNIT)} reaktoru po 500 MW nebo ${N(Math.abs(use - gen) * 1000 / (K.MW_TURBINA.v * K.H_VITR.v))} turbín po 6,2 MW.`",
+"`Roční součet. Ani vyrovnaný rok neznamená bez dovozu v každé hodině.`"
+],
+"hover_pri_nule": null,
+"dnes": "2025: 4 265 GWh"
+}
+]
+}
 }

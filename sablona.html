@@ -129,6 +129,16 @@ svg .lab{font:600 12px "DM Sans",sans-serif;fill:var(--ink)}
 .pin.stuck .legend{margin-bottom:0}
 .pin.stuck .yearrow{margin:0}
 }
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(205px,1fr));gap:8px;margin-top:10px}
+.tile{--c:var(--muted);display:grid;grid-template-columns:30px 1fr;column-gap:8px;padding:8px 10px;border:1px solid var(--line);border-left:4px solid var(--c);border-radius:8px;background:var(--surface);cursor:default;text-align:left}
+.tile:focus-visible{outline:2px solid var(--c);outline-offset:1px}
+.tile.vyroba{--c:#008A7A}.tile.spotreba{--c:#B7791F}.tile.kontext{--c:var(--muted)}
+.tile svg{width:28px;height:28px;color:var(--c);fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.tile .tl{font:600 12.5px/1.25 "DM Sans",sans-serif;color:var(--ink);align-self:center}
+.tile .tv{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:baseline;gap:0 7px;margin-top:4px}
+.tile .td{font-size:11.5px;color:var(--muted);width:100%}
+.tile b{font:500 23px/1.15 "JetBrains Mono",monospace;font-variant-numeric:tabular-nums}
+.tile .tu{font-size:12px;color:var(--muted)}
 .grades{border-collapse:collapse;margin:8px 0;font-size:14px}
 .grades td,.grades th{border-top:1px solid var(--line);padding:6px 14px 6px 0;text-align:left;vertical-align:top}
 .grades th{color:var(--muted);font-weight:600;font-size:12.5px;border-top:0}
@@ -266,6 +276,12 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
   <div class="trendgrid" id="trends"></div>
 </details>
 </div>
+<section class="card" id="tileCard">
+  <h2 id="tileTitle"></h2>
+  <p class="viewnote">Co zvolená cesta znamená v číslech, která si lze představit. Šedé číslo je dnešní stav. Přesné hodnoty a přepočet ukáže najetí nebo klepnutí. Počty jsou přepočet z řádků modelu, ne sčítání.</p>
+  <div class="tiles" id="tiles"></div>
+  <details class="box"><summary>Z čeho jsou přepočty</summary><div id="tileSrc"></div></details>
+</section>
 <section class="card" id="flowCard">
   <h2>Toky elektřiny v kraji</h2>
   <p class="viewnote" id="flowCaption"></p>
@@ -1276,6 +1292,74 @@ function drawTrends(){
     host.appendChild(row);
   }
 }
+/* Dlaždice: stejná čísla jako horní graf a toky, tedy zvolená cesta, posuvníky a rok. Vzorce a texty jsou v datech stránky. */
+const TILE = DATA.real.dlazdice, TILE_NAMES = ["path", "i", "year", "g", "D", "t", "m", "gen", "use", "bat", "interp", "jump", "SMR_UNIT", "SMR_MW", "K", "tab", "N", "N1", "P", "ELECTROLYSER_HOURS"];
+const tileFn = expr => new Function(...TILE_NAMES, `"use strict"; return (${expr});`);
+const TILES = TILE.tiles.map(t => ({...t, fn:tileFn(t.vzorec), hoverFn:t.hover.map(tileFn), el:null}));
+function tileInputs(){
+  const path = state.path, year = state.year, i = year - 2025, vy = values(path, "vyroba", i), sp = values(path, "spotreba", i), all = vy.concat(sp);
+  const row = n => all.find(x => x.it.name === n);
+  const base = {pop_msk:1, velikost_dom:1, auta_na_os:1, eff_auta:1, eff_nakladni:1, teplo_budovy:1};
+
+  const m = moment(path, i);
+  return [path, i, year, n => row(n).gwh, n => driverAt(row(n).it, i), state.trendOn ? trendValues(i, true) : base, m,
+    vy.reduce((s, x) => s + x.gwh, 0), sp.reduce((s, x) => s + x.gwh, 0), DATA.battery[path], interp, n => state.jumps[jumpKey(row(n).it)], SMR_UNIT, SMR_MW, TILE.K,
+    (r, v, y) => { if(y <= r[0]) return v[0]; for(let j = 1; j < r.length; j++) if(y <= r[j]) return v[j - 1] + (v[j] - v[j - 1]) * (y - r[j - 1]) / (r[j] - r[j - 1]); return v[v.length - 1]; },
+    x => NF.format(x), x => NF1.format(x), x => x > 0 && x < .01 ? "pod 1 %" : NF.format(x * 100) + " %", ELECTROLYSER_HOURS];
+}
+function tileRound(x, how){
+  if(how === "cele") return Math.round(x);
+  if(how === "des2") return Math.round(x * 100) / 100;
+  if(!x) return 0;
+  const m = Math.pow(10, Math.floor(Math.log10(Math.abs(x))) - (how === "sig3" ? 2 : 1));
+  return Math.round(Math.round(x / m) * m);
+}
+const tilePlural = (u, v) => v === 1 ? u[0] : v >= 2 && v <= 4 && Number.isInteger(v) ? u[1] : u[2];
+let tileHover = null;
+function tileTip(t){
+  const a = tileInputs(), v = t.fn(...a), shown = v === null ? null : tileRound(v, t.zaokrouhleni);
+  const lines = shown === 0 && t.hover_pri_nule ? [t.hover_pri_nule] : t.hoverFn.map(f => f(...a)).filter(Boolean);
+  $("tip").innerHTML = `<div class="tiphead"><b>${esc(t.label)}</b></div>` + lines.map(l => `<p style="margin:4px 0 0;max-width:300px">${esc(l)}</p>`).join("");
+}
+function tileShow(t){
+  tileHover = t;
+  tileTip(t);
+  const tip = $("tip"), box = t.el.getBoundingClientRect();
+  tip.style.display = "block";
+  tip.style.left = Math.max(4, Math.min(box.left, innerWidth - 340)) + "px";
+  tip.style.top = (box.bottom + 190 > innerHeight ? Math.max(4, box.top - (tip.offsetHeight || 170) - 6) : box.bottom + 6) + "px";
+}
+function tileHide(){ tileHover = null; $("tip").style.display = "none"; }
+function tileBuild(){
+  const host = $("tiles");
+  for(const t of TILES){
+    const el = document.createElement("div");
+    el.className = "tile " + t.side;
+    el.tabIndex = 0;
+    el.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true">${t.ikona_svg || FLOW.icons[t.icon] || ""}</svg><span class="tl">${esc(t.label)}</span><div class="tv"><span class="td">${esc(t.dnes)}</span><b></b><span class="tu"></span></div>`;
+    t.el = el; t.big = el.querySelector("b"); t.unit = el.querySelector(".tu"); t.name = el.querySelector(".tl");
+    for(const type of ["pointerenter", "pointerdown", "focus"]) el.addEventListener(type, () => tileShow(t));
+    for(const type of ["pointerleave", "blur"]) el.addEventListener(type, tileHide);
+    host.appendChild(el);
+  }
+  $("tileSrc").innerHTML = `<p class="viewnote">Počty vycházejí z činnosti a intenzity v řádcích modelu. Konstanty mimo model:</p><ul class="flaws">` + TILE.zdroje.map(z => `<li>${realLink(z.nazev, z.url)}${z.druh === "odhad" ? ", odhad" : ""}.</li>`).join("") + `</ul><p class="viewnote">Nájezd nákladního auta 60 000 km za rok je úsudek. Skutečný počet nákladních aut v kraji není zjištěn, proto se před rokem 2030 neuvádí.</p>`;
+}
+function tileDraw(){
+  if(!TILES[0].el) tileBuild();
+  $("tileTitle").textContent = `Co ${PATHNAME[state.path].toLowerCase()} cesta znamená v roce ${state.year}`;
+  const a = tileInputs(), gen = a[7], use = a[8];
+  for(const t of TILES){
+    const v = t.fn(...a), r = v === null ? null : tileRound(v, t.zaokrouhleni);
+    if(t.id === "dovoz" && gen > use){
+      t.name.textContent = "Přebytek elektřiny"; t.big.textContent = NF.format(tileRound(gen - use, "sig2")); t.unit.textContent = "GWh"; continue;
+    }
+    if(t.id === "dovoz") t.name.textContent = t.label;
+    if(t.id === "uhli" && r === 0){ t.big.textContent = "bez uhlí"; t.unit.textContent = ""; continue; }
+    t.big.textContent = r === null ? "neuvádí se" : t.zaokrouhleni === "des2" ? new Intl.NumberFormat("cs-CZ", {maximumFractionDigits:2}).format(r) : NF.format(r);
+    t.unit.textContent = r === null ? "" : tilePlural(t.jednotka, r);
+  }
+  if(tileHover) tileTip(tileHover);
+}
 /* Zamčené grafy. Výška se počítá tak, aby graf zabíral asi 30 % výšky okna na plnou šířku. */
 const PIN_STATE = {mainPin:false, realPin:false};
 function pinnedHeight(id, hostId, normal){
@@ -1283,7 +1367,7 @@ function pinnedHeight(id, hostId, normal){
   const width = $(hostId).clientWidth || W;
   return Math.max(190, Math.round(innerHeight * .3 * W / width));
 }
-function refresh(){ syncPreset(); drawMain(); drawBalance(); drawKpi(); FLOW.draw(); formulaLabels.forEach(f => f()); realDraw(); }
+function refresh(){ syncPreset(); drawMain(); drawBalance(); drawKpi(); FLOW.draw(); formulaLabels.forEach(f => f()); realDraw(); tileDraw(); }
 
 /* Realistický scénář. Stejný výpočet je v graf_scenare/realisticky/model_realisticky.py. Neupravuje state ani horní graf. */
 const REAL = DATA.real;
@@ -2238,7 +2322,7 @@ const FLOW = (() => {
       " Zdroje a dovoz dávají dohromady 100 %, odběry také. Přesná čísla ukáže najetí na bublinu nebo klepnutí.";
     paint();
   }
-  return {draw};
+  return {draw, icons:ICONS};
 })();
 
 /* Záložky. */
