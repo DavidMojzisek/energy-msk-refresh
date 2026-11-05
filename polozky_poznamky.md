@@ -70,7 +70,7 @@ Kapacita sítě a dostupnost tepelných čerpadel nejsou číselně ověřeny.
 
 ## 8. Křížová kontrola
 
-Progresivní P50 2050: výroba 7 862 GWh, spotřeba 13 128 GWh včetně ztrát. Konzervativní: 3 956 a 8 244 GWh.
+Progresivní P50 2050: výroba 7 862 GWh, spotřeba 12 526 GWh včetně ztrát. Konzervativní: 3 956 a 8 244 GWh.
 Dopadová studie netto 2050: očekávaný 7 229,9 GWh (Obr. 28), extrémní 9 917,3 GWh (Obr. 38, přiřazení barvy je výklad modelu), obojí bez 887 GWh lokální části a ztrát. Spotřeba progresivní cesty je výrazně vyšší než extrémní scénář. Hlavní důvody jsou vodík pro nákladní dopravu a MHD, datacentra a plná elektrifikace oceli, které studie nemá nebo má méně.
 
 ## 9. Řádky D podle velikosti P50 2050
@@ -78,19 +78,19 @@ Dopadová studie netto 2050: očekávaný 7 229,9 GWh (Obr. 28), extrémní 9 91
 Úsudek. Pořadí je podle GWh, u dvou cest větší hodnota. Důvod je u každé položky ve sloupci odvozeni.
 
 1. ostatní průmysl a chemie, 1 992
-2. výroba vodíku: nákladní doprava, 1 958
-3. Třinecké železárny, 1 549
-4. vítr, 1 540
-5. vytápění tepelnými čerpadly, 1 189
+2. Třinecké železárny, 1 549
+3. vítr, 1 540
+4. vytápění tepelnými čerpadly, 1 189
+5. výroba vodíku: nákladní doprava, 1 175
 6. ostatní energetika, 1 001
 7. služby a veřejný sektor, 996
 8. fotovoltaika střešní, 948
 9. osobní auta, 938
-10. Nová huť, 736
-11. datacentra, 701
-12. fotovoltaika pozemní, 632
-13. přímotopy, 627
-14. nákladní doprava, 559
+10. nákladní doprava, 782
+11. Nová huť, 736
+12. datacentra, 701
+13. fotovoltaika pozemní, 632
+14. přímotopy, 627
 15. domácnosti bez vytápění, 424
 
 ## 10. Rozpory ve zdrojích, doslovně
@@ -139,9 +139,9 @@ Rozpor s hlavním zdrojem: Dopadová studie s.137 píše „nelze předpokládat
 
 Nezjištěno: vývoj spotřeby těžkých nákladních aut (studie ICCT nešly otevřít), údaje starších edic projekce ČSÚ (jen souhrn vyhledávače), hodnota 2025 v řadě aut na osobu (bráno 2024), objem nákladní přepravy do 2050.
 
-## 13. Flotila 50 % vodík a 50 % baterie, progresivní cesta 2050 (volba modelu č. 27)
+## 13. Flotila 70 % baterie a 30 % vodík, progresivní cesta 2050 (volba modelu č. 27)
 
-Flotila je nákladní doprava a MHD, každá z nich napůl na vodík a napůl na baterie. Osobní auta na vodík nejezdí. Veškerý vodík flotily se vyrábí v kraji z elektřiny a tato elektřina je ve spotřebě. Konzervativní cesta zůstává na bateriích, řádky vodíku flotily mají nulu.
+Flotila je nákladní doprava a MHD, každá z nich 70 % na baterie a 30 % na vodík. Osobní auta na vodík nejezdí. Veškerý vodík flotily se vyrábí v kraji z elektřiny a tato elektřina je ve spotřebě. Konzervativní cesta zůstává na bateriích, řádky vodíku flotily mají nulu.
 
 Výsledek: přebytek kraje pokrývá jen malou část vodíku, většina elektřiny na něj jde ze sítě. Čísla jsou v přepočtu, oddíl 4.
 
@@ -157,10 +157,10 @@ Výpočet: vozidla × km × kg H2/100 km × kWh/kg. Celá aritmetika je ve sloup
 | Komprese, kWh/kg | 3,1 | 1,7 až 6,4 | DOE záznam 9013 z roku 2009, změřený průměr demonstračních stanic; 2,23 je tam jen modelová hodnota |
 
 Volby modelu nad rámec definice cesty:
-- 50 % se bere z celé nákladní dopravy a MHD, druhá polovina zůstává na bateriích.
-- Ve 2040 je vodík 7,6 % km nákladní dopravy, v roce 2050 je to 50 %. Je to úsudek. Většina nově prodaných nákladních aut by musela být na vodík už kolem roku 2040.
+- 30 % se bere z celé nákladní dopravy a MHD, zbylých 70 % zůstává na bateriích.
+- Ve 2040 je vodík 4,6 % km nákladní dopravy, v roce 2050 je to 30 %. Je to úsudek. Znamená to rychlou obnovu parku po roce 2040.
 - Vozokilometry nákladní dopravy: 1 314,4 GWh / 1,3187 kWh/km = 996,8 mil. km. Hodnota 1,3187 je Oeko přepočtené na 40 t, aby seděla k 9 kg/100 km pro tutéž soupravu. S 0,96 kWh/km by P50 vyšlo o 37,4 % víc, to je zahrnuto v P90.
-- MHD obsahuje tramvaje, 50 % se bere z celého řádku. Je to záměrné zjednodušení, P50 baterií proto klesá pod základ 19,464.
+- MHD obsahuje tramvaje, 70 % na bateriích a 30 % na vodíku se bere z celého řádku. Je to záměrné zjednodušení, P50 baterií proto klesá pod základ 19,464.
 - ridic je u nových řádků prázdný, vlivy jsou přímo v hodnotách.
 
 45 760 MWh z Dopadové studie: studie neříká, pro koho je. Není to tedy prokazatelně vodík flotily a řádek zůstává. Překryv nelze vyloučit a nejvýš je to 45,8 GWh. Číslo sedí na 3 025 + 7 × 6 105, tedy malou variantu Tab. 25; dopočet je náš. Horní mez 260 370 MWh je 16 665 + 7 × 34 815.
@@ -177,7 +177,7 @@ Syntetický plyn se vyrábí z odpadu, ne z elektřiny. Dostupný odpad je 360 0
 
 ## Návrh z hodinového výpočtu
 
-Řádek ztráty baterií odpovídá baterii 2,6 GWh a 650 MW, nabito minus vybito 67,4 GWh při 190,2 cyklu. Velikost je medián denního výkyvu zbytkového zatížení, základ návrhu, ne nákladové optimum. Baterie vyrovnává den a nabíjí se i ze sítě. Vodík ve flotile je dán definicí cesty: MHD 50 %, nákladní doprava 50 %, osobní auta na vodík nejezdí.
+Řádek ztráty baterií odpovídá baterii 2,7 GWh a 675 MW, nabito minus vybito 57,8 GWh při 156,9 cyklu. Velikost je medián denního výkyvu zbytkového zatížení, základ návrhu, ne nákladové optimum. Baterie vyrovnává den a nabíjí se i ze sítě. Vodík ve flotile je dán definicí cesty: MHD 30 %, nákladní doprava 30 %, osobní auta na vodík nejezdí.
 
 ## Hodiny FVE a větru a křivky
 

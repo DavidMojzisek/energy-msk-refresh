@@ -48,8 +48,8 @@ def html_must(rows):
     return f'<table class="grades">{head}{body}</table>'
 
 
-TEMPO_NAMES = {"Tabulka, progresivní": "Výchozí progresivní cesta", "Půl na půl pro úroveň 1, flotila 50/50": "Vítr a fotovoltaika půl na půl, vyrovnaný rok",
-               "Vítr na mezi a zbytek FVE, flotila 50/50": "Vítr na mezi, zbytek fotovoltaika, vyrovnaný rok", "Jen FVE, flotila 50/50": "Jen fotovoltaika, vyrovnaný rok"}
+TEMPO_NAMES = {"Tabulka, progresivní": "Výchozí progresivní cesta", "Půl na půl pro úroveň 1": "Vítr a fotovoltaika půl na půl, vyrovnaný rok",
+               "Vítr na mezi a zbytek FVE": "Vítr na mezi, zbytek fotovoltaika, vyrovnaný rok", "Jen FVE": "Jen fotovoltaika, vyrovnaný rok"}
 
 
 def html_tempo(rows, t):

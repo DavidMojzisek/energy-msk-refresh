@@ -21,13 +21,13 @@ Měření upřesňuje definici. Celostátní zimní maxima 2023 až 2026 padla v
 
 | Položka | Zimní špička | Letní poledne |
 |---|---|---|
-| Řádky výroba vodíku a výroba syntetického plynu | vypnuto, malá nádrž přečká špičku | elektrolyzér = řádky flotily × (1 + míra ztrát sítě) × 1 000 / plné hodiny, 3 758 h z hodinového výpočtu, 550 MW v roce 2050. Řádek výroba vodíku ze studie běží jako rovnoměrná zátěž mimo tento výkon |
+| Řádky výroba vodíku a výroba syntetického plynu | vypnuto, malá nádrž přečká špičku | elektrolyzér = řádky flotily × (1 + míra ztrát sítě) × 1 000 / plné hodiny z hodinového výpočtu. Řádek výroba vodíku ze studie běží jako rovnoměrná zátěž mimo tento výkon |
 | Elektrokotle | vypnuto, jen přebytek do limitu výkonu, Dopadová studie s.165: „V zimním období se průmyslové elektrokotle příliš neuplatní“ | 30 % výkonu, teplo v létě je jen ohřev vody |
-| Baterie | změřený pokles špičky z hodinového modelu, nikdy celý výkon | nabíjení do jmenovitého výkonu, progresivní 650 MW v roce 2050, konzervativní 10 MW |
+| Baterie | změřený pokles špičky z hodinového modelu, nikdy celý výkon | nabíjení do jmenovitého výkonu, konzervativní cesta 10 MW |
 
-Přebytek se rozdělí v pořadí baterie, elektrokotle, elektrolýza. Sloupec Zbývá pro vodík je to, co zbude, nejvýš potřeba elektrolýzy. Vypnutí elektrolýzy v zimě je předpoklad o skladu vodíku, zatím nepodložený. Bez něj by zimní bilance byla horší o stovky MW.
+Přebytek se v této jedné hodině rozdělí v pořadí elektrolýza do svého výkonu, baterie, elektrokotle, zbytek je nevyužitý. Je to jen pohled na jednu hodinu, velikost ani řízení baterie a roční čísla neovlivňuje. Vypnutí elektrolýzy v zimě je předpoklad o malé nádrži, zatím nepodložený. Bez něj by zimní bilance byla horší o výkon elektrolyzéru.
 
-**Baterie.** Velikost je z hodinového výpočtu: progresivní cesta 2,6 GWh a 650 MW, medián denního výkyvu zbytkového zatížení a 4 h. Je to základ návrhu, ne nákladové optimum. V roce 2040 je 56,7 % této velikosti. Konzervativní cesta nese jen dnešních 10 MW. Zimní pokles špičky je změřený jen pro rok 2050: medián 142 MW, nejhorší povětrnostní rok 55 MW. Hlavní bilance baterie nezapočítává, protože nejsou zdroj.
+**Baterie.** Velikost je z hodinového výpočtu: medián denního výkyvu zbytkového zatížení a 4 h. Je to základ návrhu, ne nákladové optimum. V roce 2040 je 56,7 % této velikosti. Konzervativní cesta nese jen dnešních 10 MW. Zimní pokles špičky je změřený jen pro rok 2050, hodnoty jsou v přepočtu. Hlavní bilance baterie nezapočítává, protože nejsou zdroj.
 
 ## Rozsah: čistá spotřeba proti sektorům
 
@@ -81,12 +81,12 @@ Zatížení MSK nikdo neměří. Dopadová studie s.73 až 74: „Roční maximu
 |---|---|---|---|
 | Dopadová studie očekávaný, Obr. 36 | 7 229,9 / (1 − 0,03547) / 5 869 = 1 277,2 MW | 1 325,4 MW | +48,2 MW |
 | Dopadová studie extrémní, Obr. 40, Tab.46 | 1 752,0 MW | 1 731,5 − 378,0 = 1 353,5 MW | −398,5 MW |
-| Progresivní cesta | 1535,7 MW | 879,8 MW | -655,9 MW; s baterií podle hodinového modelu -514,3 MW, nejhorší rok -601,0 MW; s měřeným větrem -536,1 MW |
+| Progresivní cesta | 1551,9 MW | 879,8 MW | -672,1 MW; s baterií podle hodinového modelu -665,1 MW, nejhorší rok -672,0 MW; s měřeným větrem -552,3 MW |
 | Konzervativní cesta | 1145,7 MW | 733,9 MW | -411,7 MW; s měřeným větrem -393,3 MW |
 
-Dostupný výkon cest je po odečtení lokální části 80,1 MW, aby šel srovnat se studií. Hlavní příčiny rozdílu jsou v cestách: progresivní cesta má 433 MW plynu místo 683 MW, konzervativní nemá SMR. Přesný rozklad zbytku není k dispozici, Dopadová studie dosažitelný výkon po zdrojích pro 2050 netiskne. Obr. 36 a 40 Dětmarovice nepočítají, ty přidává až Tab.46. Metoda studie s τ na celé energii by dala progresivní cestě (13128,1 − 886,8) / 5,869 = 2085,7 MW, protože by započetla i elektrolýzu ve špičce.
+Dostupný výkon cest je po odečtení lokální části 80,1 MW, aby šel srovnat se studií. Hlavní příčiny rozdílu jsou v cestách: progresivní cesta má 433 MW plynu místo 683 MW, konzervativní nemá SMR. Přesný rozklad zbytku není k dispozici, Dopadová studie dosažitelný výkon po zdrojích pro 2050 netiskne. Obr. 36 a 40 Dětmarovice nepočítají, ty přidává až Tab.46. Metoda studie s τ na celé energii by dala progresivní cestě (12525,9 − 886,8) / 5,869 = 1983,1 MW, protože by započetla i elektrolýzu ve špičce.
 
-**Léto 2050.** Progresivní cesta má přebytek 457,5 MW. Po bateriích a elektrokotlích zbývá elektrolýze 0,0 MW z potřebných 550,0 MW. Polední přebytek sám roční objem vodíku nepokryje, stejně jako měsíční bilance v měsíční tabulce, kde schodek trvá celý rok. Konzervativní cesta má -540,6 MW a přebytek nemá, řízený plyn v záloze je 614,7 MW.
+**Léto 2050.** Progresivní cesta má přebytek 440,0 MW. Elektrolyzér z něj bere 197,0 MW ze svých 197,0 MW, baterie 243,0 MW a elektrokotle 0,0 MW. Polední přebytek sám roční objem vodíku nepokryje, stejně jako měsíční bilance v měsíční tabulce, kde schodek trvá celý rok. Konzervativní cesta má -540,6 MW a přebytek nemá, řízený plyn v záloze je 614,7 MW.
 <!-- AUTO-2050 konec -->
 
 ## Co je stupeň D

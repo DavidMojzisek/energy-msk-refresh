@@ -830,10 +830,10 @@ function tipForNode(id){
   } else if(id === "nadrz"){
     html += rowHtml("Přítok", mw(flowOf(s, "h2Nadrz")) + " MW") + rowHtml("Odběr flotily", mw(flowOf(s, "h2Flotila")) + " MW") + rowHtml("Změna zásoby", mw(m.tankDelta) + " MW", "sum");
     if(!annual && m.tankT !== undefined) html += rowHtml("V nádrži", NF1.format(m.tankT) + " t");
-    html += `<p>Malá nádrž ${NF0.format(DATA.equip.nadrzT)} t pokryje jen hodiny, ne sezónu. Vodík z ní jde jen do flotily, do sítě se nevrací. Toky jsou v MW elektřiny potřebné k výrobě.</p>`;
+    html += `<p>Malá nádrž ${NF0.format(DATA.equip.nadrzT)} t pokryje jen hodiny. Vodík z ní jde jen do flotily, do sítě se nevrací. Toky jsou v MW elektřiny potřebné k výrobě.</p>`;
   } else if(id === "flotila"){
     html += rowHtml("Odběr z nádrže", mw(flowOf(s, "h2Flotila")) + " MW", "sum");
-    html += `<p>Polovina MHD a polovina nákladní dopravy, odběr je rovnoměrný po celý rok, v MW elektřiny potřebné k výrobě vodíku. Osobní auta jsou v tabulce vedená bez vodíku.</p>`;
+    html += `<p>Vodíková část flotily, 30 % MHD a 30 % nákladní dopravy, odběr je rovnoměrný po celý rok, v MW elektřiny potřebné k výrobě vodíku. Osobní auta jsou v tabulce vedená bez vodíku.</p>`;
   } else {
     const v = flowOf(s, id);
     html += itemRows(s, id);

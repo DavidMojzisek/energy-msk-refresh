@@ -108,8 +108,9 @@ for(const e of DATA.edges){
 check(neg === 0, `záporné toky ${neg} z ${flows}`);
 check(tankToGrid === 0, "nádrž má jediný odtok, do flotily");
 check(DATA.nodes.find(n => n.id === "flotila").items.length === 0 && !JSON.stringify(DATA.nodes).includes("Vodík pro osobní auta"), "osobní auta na vodíku nikde nejsou");
+const BAT = JSON.parse(fs.readFileSync(path.join(ROOT, "graf_scenare/hodinovy_model/vysledky/pevna_prepocet_baterie.json"), "utf8")).baterie;
 const eqProg = DATA.equip;
-check(eqProg.bateriePWh === 2.6 && eqProg.bateriePMW === 650 && eqProg.elektrolyzerMW === 550 && eqProg.nadrzT === 50 && eqProg.plynMW.progresivni === 433 && eqProg.kotleMW.progresivni === 70, "zařízení 2,6 GWh, 650 MW, 550 MW, 50 t, 433 MW, 70 MW čteno z modelu");
+check(eqProg.bateriePWh === BAT.E_GWh && eqProg.bateriePMW === BAT.P_MW && eqProg.elektrolyzerMW === BAT.elektrolyzer_MW && eqProg.nadrzT === 20 && eqProg.plynMW.progresivni === 433 && eqProg.kotleMW.progresivni === 70, `zařízení ${BAT.E_GWh} GWh, ${BAT.P_MW} MW, ${BAT.elektrolyzer_MW} MW, 20 t, 433 MW, 70 MW čteno z modelu`);
 
 /* ---------- 3. Výchozí stav proti zveřejněnému přepočtu ---------- */
 const csvOf = name => {
@@ -123,10 +124,10 @@ const sp = DATA.sums.progresivni["1011"], sk = DATA.sums.konzervativni["1011"];
 for(const [name, got, want] of [["progresivní výroba", sp.vyroba, +pr.vyroba_GWh], ["progresivní spotřeba", sp.spotreba, +pr.spotreba_GWh], ["progresivní bilance", sp.bilance, +pr.rocni_bilance_tabulka_GWh], ["konzervativní výroba", sk.vyroba, +kr.vyroba_GWh], ["konzervativní spotřeba", sk.spotreba, +kr.spotreba_GWh], ["konzervativní bilance", sk.bilance, +kr.rocni_bilance_tabulka_GWh], ["konzervativní dovoz", sk.dovoz, +kr.dovoz_GWh]]){
   check(Math.abs(got - want) <= 0.5, `${name}: ${got} proti ${want} GWh`);
 }
-const tanks = csvOf("pevna_nadrz_male.csv").filter(r => r.varianta_t === "50");
+const tanks = csvOf("pevna_nadrz_male.csv").filter(r => r.varianta_t === "20");
 const meanImp = tanks.reduce((a, r) => a + +r.dovoz_GWh, 0) / tanks.length;
-check(Math.abs(sp.dovoz - meanImp) <= 0.5, `nádrž 50 t, dovoz: ${sp.dovoz} proti ${meanImp.toFixed(2)} GWh`);
-check(Math.abs(sp.spickaZima - Math.max(...tanks.map(r => +r.zima_spicka_dovozu_MW))) <= 1, `nádrž 50 t, největší dovoz v zimě ${sp.spickaZima} MW`);
+check(Math.abs(sp.dovoz - meanImp) <= 0.5, `nádrž 20 t, dovoz: ${sp.dovoz} proti ${meanImp.toFixed(2)} GWh`);
+check(Math.abs(sp.spickaZima - Math.max(...tanks.map(r => +r.zima_spicka_dovozu_MW))) <= 1, `nádrž 20 t, největší dovoz v zimě ${sp.spickaZima} MW`);
 const base = DATA.baseSum.progresivni;
 check(Math.abs(base.dovoz - (base.spotreba - base.vyroba)) <= 0.5, `2025 dovoz ${base.dovoz} GWh sedí na základ tabulky`);
 

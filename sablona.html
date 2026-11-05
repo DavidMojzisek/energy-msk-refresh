@@ -77,6 +77,11 @@ svg .lab{font:600 12px "DM Sans",sans-serif;fill:var(--ink)}
 .method.wide{max-width:none}
 .method .card{margin-bottom:32px}
 .method p{margin:8px 0;line-height:1.55}
+.method .small{font-size:12.5px;color:var(--muted)}
+.demo{display:grid;grid-template-columns:minmax(0,2fr) minmax(200px,1fr);gap:16px;align-items:center;margin:12px 0}
+.democtl label{display:flex;justify-content:space-between;font-size:12.5px;color:var(--muted);margin-top:10px}
+.democtl input{width:100%;accent-color:var(--accent)}
+@media (max-width:640px){.demo{grid-template-columns:1fr}}
 .method p.f{margin:6px 0;padding:6px 10px;background:var(--surface-2);border-radius:6px;overflow-x:auto;white-space:nowrap;font:13px/1.6 "JetBrains Mono",monospace;font-variant-numeric:tabular-nums;color:var(--ink);overflow-wrap:normal}
 .method details.more{margin-top:10px;color:var(--ink);font-size:15px}
 .method details.more>summary{cursor:pointer;font-weight:600;color:var(--muted);font-size:14px}
@@ -131,6 +136,7 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
 <section class="answer top">
   <p class="question">Může být Moravskoslezský kraj v roce 2050 soběstačný v elektřině, nebo zůstane závislý na dovozu?</p>
   <p class="lead">S elektrárnami, které obě cesty předpokládají, zůstane kraj v roce 2050 závislý na dovozu elektřiny. Výroba pokryje {{pokryti_prog}} % roční spotřeby v progresivní cestě a {{pokryti_kons}} % v konzervativní cestě.</p>
+  <p class="plain">Progresivní cesta se dá číst dvojím způsobem. První je výstavba podle dnešního podílu kraje na celostátním plánu, tedy {{vitr_prog}} MW větru. Výroba v ní pokryje {{pokryti_prog}} % roční spotřeby. Druhý vychází z definice cesty, „maximum větru a slunce“, čtené jako vítr na mezi 2 014 MW a k tomu {{fve_rok}} GWp fotovoltaiky navíc, které uzavřou rok. Bilance prosince až února je pak {{pv_djf}} GWh, října až března {{pv_pulrok}} GWh. V hodinách se i tak doveze {{pv_dovoz}} GWh a {{pv_vyvoz}} GWh přebytku zůstane bez využití. Druhý případ nastaví volba Vítr na mezi.</p>
 </section>
 <div class="pathbar">
   <span class="label">Cesta</span>
@@ -139,6 +145,7 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
     <button data-path="konzervativni" aria-pressed="false">Konzervativní</button>
   </div>
   <button class="chip" id="compare" aria-pressed="false">Ukázat i druhou cestu</button>
+  <button class="chip" id="presetVitr" aria-pressed="false">Vítr na mezi</button>
   <div class="pills small verze" role="group" aria-label="Verze stránky">
     <button data-ui="simple" aria-pressed="true">Jednoduchá</button>
     <button data-ui="detail" aria-pressed="false">Podrobná</button>
@@ -200,8 +207,8 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
   <p class="viewnote only-simple">Tabulky možností a tempo výstavby jsou v podrobné verzi.</p>
   <p class="plain only-detail">Při nezměněné spotřebě by vyrovnanou bilanci roku nebo uvedeného období přinesla jedna z těchto změn navíc proti výchozímu nastavení vybrané cesty. Vyrovnaná bilance neznamená, že kraj nedováží. Sloupce se nesčítají, každý je samostatná možnost. Posuvníky tento blok nemění.</p>
   <div class="tablewrap only-detail">{{html_must}}</div>
-  <p class="viewnote only-detail">Vítr má v kraji mez 2 014 MW podle Dopadové studie (s. 135). GWp je výkon fotovoltaiky při plném slunci. Podíl modulu je jen výpočet, posuvník pracuje s celými moduly. Druhý a další SMR v kraji žádný podklad neuvádí, sloupec ukazuje jen velikost. SMR se počítá po odečtení vlastní spotřeby {{smr_vlastni}} GWh na blok, je to náš výpočet z celostátní míry a kalibrace kraje, bez kalibrace by to bylo {{smr_vlastni_bez}} GWh. Řádky období počítají s rovnoměrnou elektrolýzou bez nádrže, ve výchozím nastavení je bilance prosince až února {{t50_djf}} GWh.</p>
-  <p class="plain only-detail" data-must="progresivni"><b>Progresivní cestě nestačí samotný vítr uvnitř meze. Potřebuje k němu další zdroj, nebo jinou možnost z tabulky.</b> V tabulce je rok v ročním součtu, hodinový výpočet s rovnoměrnou elektrolýzou ho uzavře při větru na mezi a {{fve_rok}} GWp fotovoltaiky navíc. V hodinách přesto zůstane dovoz {{pv_dovoz}} GWh a {{pv_vyvoz}} GWh přebytku bez využití. Bez dovozu by bylo jen {{pv_hod}} % hodin a největší dovoz {{pv_max}} MW. Prosinec až únor vyrovná vítr na mezi a {{fve_djf}} GWp fotovoltaiky navíc. I potom zůstane dovoz {{fve_djf_dov}} GWh za rok a {{fve_djf_vyvoz}} GWh přebytku bez využití.</p>
+  <p class="viewnote only-detail">Vítr má v kraji mez 2 014 MW podle Dopadové studie (s. 135). GWp je výkon fotovoltaiky při plném slunci. Podíl modulu je jen výpočet, posuvník pracuje s celými moduly. Druhý a další SMR v kraji žádný podklad neuvádí, sloupec ukazuje jen velikost. SMR se počítá po odečtení vlastní spotřeby {{smr_vlastni}} GWh na blok, je to náš výpočet z celostátní míry a kalibrace kraje, bez kalibrace by to bylo {{smr_vlastni_bez}} GWh. Řádky období počítají s rovnoměrnou elektrolýzou bez nádrže, ve výchozím nastavení je bilance prosince až února {{nadrz_djf}} GWh.</p>
+  <p class="plain only-detail" data-must="progresivni"><b>Progresivní cestě nestačí samotný vítr uvnitř meze. Potřebuje k němu další zdroj, nebo jinou možnost z tabulky.</b> V tabulce je rok v ročním součtu, hodinový výpočet s malou nádrží ho uzavře při větru na mezi a {{fve_rok}} GWp fotovoltaiky navíc. V hodinách přesto zůstane dovoz {{pv_dovoz}} GWh a {{pv_vyvoz}} GWh přebytku bez využití. Bez dovozu by bylo jen {{pv_hod}} % hodin a největší dovoz {{pv_max}} MW. Prosinec až únor vyrovná vítr na mezi a {{fve_djf}} GWp fotovoltaiky navíc. I potom zůstane dovoz {{fve_djf_dov}} GWh za rok a {{fve_djf_vyvoz}} GWh přebytku bez využití.</p>
   <p class="plain only-detail" data-must="konzervativni"><b>Konzervativní cesta by mohla uzavřít rok větrem uvnitř meze.</b> Stačí {{kv_pridat}} MW navíc, tedy {{kv_vitr}} MW celkem. Tempo výstavby by bylo {{kv_tempo}} MW za rok, {{kv_krat}}krát víc než největší roční přírůstek kraje. V hodinách přesto zůstane dovoz {{kv_dovoz}} GWh a {{kv_vyvoz}} GWh přebytku bez využití. Bez dovozu by bylo jen {{kv_hod}} % hodin a největší dovoz {{kv_max}} MW. Plynové bloky této cesty přitom běží na dovezené palivo.</p>
   <p class="plain only-detail">Tempo výstavby je průměr 2026 až 2050, skutečný vrchol křivky by byl vyšší. Srovnává se s největším ročním přírůstkem v kraji (ERÚ, Roční zpráva 2025): vítr 9,1 MW v roce 2024, fotovoltaika 83,3 MW v roce 2023.</p>
   <div class="tablewrap only-detail">{{html_tempo}}</div>
@@ -211,7 +218,7 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
   <p class="plain">Baterie, elektrolyzér a nádrž jsou v záložce Návrhové volby.</p>
   <p class="plain">Závislost plyne z toho, kolik elektráren cesty předpokládají a kolik elektřiny spotřebují, není to fyzikální mez. Polovinu výroby progresivní cesty dává jeden SMR, bez něj by výroba pokryla {{bez_smr_pokryti}} % spotřeby. Co by se muselo postavit navíc, ukazuje blok Co by muselo platit. Soběstačnost tu znamená jen elektřinu vyrobenou v kraji. Palivo pro SMR i zemní plyn je dovezené.</p>
   <div class="defs">
-    <div><h3 class="p">Progresivní cesta</h3><p>Vítr a slunce podle dnešního podílu kraje na celostátním plánu, tedy {{vitr_prog}} MW větru z možných 2 014 MW, jeden malý modulární reaktor (SMR) a rychlý přechod průmyslu, dopravy a vytápění na elektřinu. Polovina MHD a nákladní dopravy jezdí na vodík vyrobený v kraji, osobní auta jezdí na baterie.</p></div>
+    <div><h3 class="p">Progresivní cesta</h3><p>Vítr a slunce podle dnešního podílu kraje na celostátním plánu, tedy {{vitr_prog}} MW větru z možných 2 014 MW, jeden malý modulární reaktor (SMR) a rychlý přechod průmyslu, dopravy a vytápění na elektřinu. MHD a nákladní doprava jezdí ze 70 % na baterie a ze 30 % na vodík vyrobený v kraji, osobní auta jezdí na baterie.</p></div>
     <div><h3 class="k">Konzervativní cesta</h3><p>Bez reaktoru, jen desetina růstu větru a slunce proti progresivní cestě a většina výroby z plynových bloků. Doprava a vytápění přecházejí na elektřinu pomaleji, vodík v dopravě není.</p></div>
   </div>
   <p class="viewnote">SMR je malý jaderný blok. Tady má 500 MW a běží od roku 2045, studie uvádí 350 MW. Cesty nejsou předpovědi. Ukazují, co by z daných předpokladů vyšlo.</p>
@@ -224,23 +231,23 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
   <h2>Baterie a vodík v roce 2050</h2>
   <p class="plain">Návrh platí pro progresivní cestu. Konzervativní cesta nemá vodík v dopravě a nese jen dnešních {{bat_kons}} MW baterií.</p>
   <div>
-  <p class="plain"><b>Výchozí nastavení</b> je baterie {{bat_gwh}} GWh a {{bat_mw}} MW s vyrovnáním dne, elektrolyzér {{el_mw}} MW a malá nádrž asi 50 t. Roční dovoz je v něm {{vs_dovoz}} GWh, vývoz {{vs_vyvoz}} GWh a zimní špička dovozu {{vs_spicka}} MW. Čísla tohoto bloku platí pro něj, jiný běh je u čísla pojmenovaný.</p>
-  <p class="plain"><b>Vodík je z {{vs_h2_sit_pct}} % z elektřiny ze sítě.</b> Nákladní doprava a MHD napůl na vodík potřebují {{q}} GWh elektřiny za rok. Přebytek před baterií, kotli a elektrolyzérem je jen {{vs_prebytek}} GWh za rok. Z něj bere {{vs_h2}} GWh vodík, {{vs_kotle}} GWh elektrokotle, {{vs_bat_pre}} GWh baterie a {{vs_vyvoz}} GWh zbude na vývoz. Ze sítě jde do vodíku {{vs_h2_sit}} GWh. Vodík v dopravě zvedá roční dovoz z {{dov_baterie}} GWh při dopravě na bateriích na {{vs_dovoz}} GWh.</p>
+  <p class="plain"><b>Výchozí nastavení</b> je baterie {{bat_gwh}} GWh a {{bat_mw}} MW s vyrovnáním dne, elektrolyzér {{el_mw}} MW a malá nádrž {{nadrz_t}} t. Roční dovoz je v něm {{vs_dovoz}} GWh, vývoz {{vs_vyvoz}} GWh a zimní špička dovozu {{vs_spicka}} MW. Čísla tohoto bloku platí pro něj, jiný běh je u čísla pojmenovaný.</p>
+  <p class="plain"><b>Vodík je z {{vs_h2_sit_pct}} % z elektřiny ze sítě.</b> Nákladní doprava a MHD ze 30 % na vodík potřebují {{q}} GWh elektřiny za rok. Přebytek před baterií, kotli a elektrolyzérem je jen {{vs_prebytek}} GWh za rok. Z něj bere {{vs_h2}} GWh vodík, {{vs_kotle}} GWh elektrokotle, {{vs_bat_pre}} GWh baterie a {{vs_vyvoz}} GWh zbude na vývoz. Ze sítě jde do vodíku {{vs_h2_sit}} GWh. Vodík v dopravě zvedá roční dovoz z {{dov_baterie}} GWh při dopravě na bateriích na {{vs_dovoz}} GWh.</p>
   <div class="tablewrap"><table class="grades">
     <tr><th>Prvek</th><th>Velikost</th><th>Co dělá</th></tr>
     <tr><td>Baterie</td><td class="n">{{bat_gwh}} GWh, {{bat_mw}} MW</td><td>Energii určuje medián denního výkyvu spotřeby, kterou nepokryjí vlastní neřízené zdroje, {{bat_e}} GWh. Výkon je zvolené čtyřhodinové trvání. Není to nákladové optimum. Baterie vyrovnává den a v běžný den se vybije o {{vs_den}} GWh. V hodinách s nízkým zbytkovým zatížením se nabíjí i ze sítě, {{vs_sit}} GWh za rok, a {{vs_bat_pre}} GWh bere z přebytku. Není to krytí celé noci ani záloha pro výpadek, celou noc nepokryje skoro nikdy. Večer sníží dovoz o {{vs_vecer}} GWh za rok a přesune ho do jiných hodin, roční dovoz klesne jen o {{vs_rocne}} GWh.</td></tr>
-    <tr><td>Elektrolyzér</td><td class="n">{{el_mw}} MW</td><td>Bere přebytek a jinak běží ze sítě. Velikost je určená při elektrolyzéru mimo prosinec až únor: při {{el_h}} hodinách na plný výkon za rok zbude na vývoz {{vyvoz}} GWh, pod 1 % přebytku. Úplně nulový vývoz by tam vyžadoval {{el0_mw}} MW a {{el0_h}} hodin na plný výkon.</td></tr>
-    <tr><td>Malá nádrž, výchozí</td><td class="n">asi 50 t vodíku</td><td>Vyrovnává výrobu o hodiny. Špička dovozu v zimě z hodinového výpočtu, průměr 5 let, klesne z {{t0_spicka}} MW bez nádrže na {{t50_spicka}} MW. Nejmenší vývoz je prakticky hotový do 50 t, špička klesá i dál, pomalu. (Pořízení řádově {{t50_cena_od}} až {{t50_cena_do}} mil. EUR.)</td></tr>
-    <tr><td>Velká sezónní nádrž, nepočítá se s ní</td><td class="n">{{tf_t}} t vodíku</td><td>Cenově nedává smysl (pořízení řádově {{tf_cena_od}} až {{tf_cena_do}} mld. EUR). Jen přesune výrobu ze zimy do zbytku roku. Bilance prosince až února se zlepší z {{t50_djf}} na {{tf_djf}} GWh a špička dovozu klesne na {{tf_spicka}} MW. Roční dovoz zůstane skoro stejný, {{tf_dovoz}} GWh.</td></tr>
+    <tr><td>Elektrolyzér</td><td class="n">{{el_mw}} MW</td><td>Bere přebytek a jinak běží ze sítě. Velikost je nejmenší výkon, při kterém výchozí nastavení s malou nádrží vyveze pod 1 % přebytku: při {{el_h}} hodinách na plný výkon za rok zbude na vývoz {{vyvoz}} GWh. Větší elektrolyzér podle přepočtu vývoz ani dovoz podstatně nesníží.</td></tr>
+    <tr><td>Malá nádrž, výchozí</td><td class="n">{{nadrz_t}} t vodíku</td><td>Vyrovnává výrobu o hodiny. Špička dovozu v zimě z hodinového výpočtu, průměr 5 let, klesne z {{t0_spicka}} MW bez nádrže na {{nadrz_spicka}} MW. Větší nádrž vývoz už nesníží, špička klesá dál pomalu. (Pořízení řádově {{nadrz_cena_od}} až {{nadrz_cena_do}} mil. EUR.)</td></tr>
+    <tr><td>Baterie na tři dny, varianta</td><td class="n">{{e3_gwh}} GWh, {{e3_mw}} MW</td><td>Definice cesty uvádí 3 dny akumulace. Tři dny průměrného zatížení {{e3_zat}} MW jsou {{e3_gwh}} GWh. Čtyřhodinové pravidlo by dalo {{e3_4h}} MW, výkon je proto největší hodinové zbytkové zatížení. Se stejným pravidlem, které plánuje jen den dopředu: roční dovoz {{e3_dovoz}} GWh, vývoz {{e3_vyvoz}} GWh, ztráty {{e3_ztraty}} GWh, zimní špička dovozu {{e3_spicka}} MW a {{e3_hod}} % hodin bez dovozu. Výchozí baterie má {{vs_dovoz}} GWh, {{vs_vyvoz}} GWh, {{vs_ztraty}} GWh, {{vs_spicka}} MW a {{vs_hod}} % hodin.</td></tr>
   </table></div>
-  <p class="plain"><b>Vyrovnání dne stojí víc dovozu, ale snižuje špičku.</b> Varianta jen z přebytku má menší ztráty a dovoz, zimní špičku ale skoro nesnižuje. Pokles špičky dovozu je změřený v hodinovém modelu po započtení plynu, v mediánu a v nejhorším povětrnostním roce. Před započtením plynu baterie ve výchozím nastavení špičku nesnižuje, protože rozvrh elektrolyzéru nejchladnější den vyrovnává sám. Při tomto pravidlu, které plánuje jen jeden den dopředu, větší baterie zimní špičku dál nesnižuje, baterie 5 GWh dá {{vs_e5_p50}} a {{vs_e5_min}} MW. Je to vlastnost pravidla, ne baterie. Stejná baterie s plánem na dva dny by dala {{vs_dva_p50}} a {{vs_dva_min}} MW. Při elektrolyzéru mimo prosinec až únor je pokles před plynem {{bv_pre_p50}} a {{bv_pre_min}} MW a s plánem na dva dny {{bv_dva_p50}} a {{bv_dva_min}} MW. Všechna tato čísla platí při přesné předpovědi. Plán na dva dny je jen zkouška tohoto výroku, model ho nepoužívá.</p>
+  <p class="plain"><b>Vyrovnání dne stojí víc dovozu, ale snižuje špičku.</b> Varianta jen z přebytku má menší ztráty a dovoz, zimní špičku ale skoro nesnižuje. Pokles špičky dovozu je změřený v hodinovém modelu po započtení plynu, v mediánu a v nejhorším povětrnostním roce. Před započtením plynu baterie ve výchozím nastavení špičku skoro nesnižuje, {{vs_pred_p50}} a {{vs_pred_min}} MW, protože rozvrh elektrolyzéru s malou nádrží nejchladnější den vyrovnává sám. Při tomto pravidlu, které plánuje jen jeden den dopředu, větší baterie zimní špičku dál nesnižuje, baterie 5 GWh dá {{vs_e5_p50}} a {{vs_e5_min}} MW. Je to vlastnost pravidla, ne baterie. Stejná baterie s plánem na dva dny by dala {{vs_dva_p50}} a {{vs_dva_min}} MW. Všechna tato čísla platí při přesné předpovědi. Plán na dva dny je jen zkouška tohoto výroku, model ho nepoužívá.</p>
   <div class="tablewrap"><table class="grades">
     <tr><th>Baterie {{bat_gwh}} GWh, malá nádrž</th><th>Roční dovoz, GWh</th><th>Ztráty baterie, GWh</th><th>Pokles zimní špičky dovozu, medián / nejhorší rok, MW</th></tr>
     <tr><td>Vyrovnání dne, výchozí</td><td class="n">{{vs_dovoz}}</td><td class="n">{{vs_ztraty}}</td><td class="n">{{vs_po_p50}} / {{vs_po_min}}</td></tr>
     <tr><td>Jen z přebytku, varianta</td><td class="n">{{vj_dovoz}}</td><td class="n">{{vj_ztraty}}</td><td class="n">{{vj_po_p50}} / {{vj_po_min}}</td></tr>
     <tr><td>Bez baterie</td><td class="n">{{vb_dovoz}}</td><td class="n">0</td><td class="n">0</td></tr>
   </table></div>
-  <p class="viewnote">Progresivní cesta 2050, 1 SMR, průměr 5 povětrnostních let. Rozvrh plynu, elektrolýzy ze sítě a nádrže zná celý rok dopředu, skutečný provoz by špičku dovozu zvýšil, velikost je v záložce Nedostatky. Ceny nádrží jsou řádový odhad, jen nákup nádrže bez instalace a údržby: 500 až 850 USD za kg uloženého vodíku pro nádrž 160 bar, tedy cíl pro rok 2020 a stav roku 2015 (<a href="https://www.energy.gov/sites/prod/files/2015/08/f25/fcto_myrdd_delivery.pdf">americké ministerstvo energetiky, Multi-Year RD&amp;D Plan, část 3.2, 2015, s. 3.2-16</a>). Pro vyšší tlak uvádí tentýž zdroj 600 až 2 000 USD/kg. Na eura je to přepočtené průměrem denních kurzů za rok 2015, 24,6 Kč/USD a 27,283 Kč/EUR (<a href="https://www.cnb.cz/en/financial-markets/foreign-exchange-market/central-bank-exchange-rate-fixing/central-bank-exchange-rate-fixing/year.txt?year=2015">ČNB</a>). <a href="hodinovy/PREPOCET.md">Úplný přepočet</a>.</p>
+  <p class="viewnote">Progresivní cesta 2050, 1 SMR, průměr 5 povětrnostních let. Rozvrh plynu, elektrolýzy ze sítě a nádrže zná celý rok dopředu, skutečný provoz by špičku dovozu zvýšil, velikost je v záložce Nedostatky. Cena nádrže je řádový odhad, jen nákup nádrže bez instalace a údržby: 500 až 850 USD za kg uloženého vodíku pro nádrž 160 bar, tedy cíl pro rok 2020 a stav roku 2015 (<a href="https://www.energy.gov/sites/prod/files/2015/08/f25/fcto_myrdd_delivery.pdf">americké ministerstvo energetiky, Multi-Year RD&amp;D Plan, část 3.2, 2015, s. 3.2-16</a>). Pro vyšší tlak uvádí tentýž zdroj 600 až 2 000 USD/kg. Na eura je to přepočtené průměrem denních kurzů za rok 2015, 24,6 Kč/USD a 27,283 Kč/EUR (<a href="https://www.cnb.cz/en/financial-markets/foreign-exchange-market/central-bank-exchange-rate-fixing/central-bank-exchange-rate-fixing/year.txt?year=2015">ČNB</a>). <a href="hodinovy/PREPOCET.md">Úplný přepočet</a>.</p>
   </div>
 </section>
 </article>
@@ -261,12 +268,21 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
 
   <section class="card">
     <h2>Metoda scénářů</h2>
-    <p>Dvě cesty jsou hlavní osa, volba politiky. Hybné síly se dělí na předurčené prvky, které platí všude, a kritické nejistoty. Soulad předpokladů, zpětná kontrola a pohled zpět od cíle ukazují, co cesty unesou.</p>
+    <p>Metodu scénářů používáme v širokém smyslu a neúplně. Dvě cesty jsou dané předem a model je rozpracovává v číslech, což odpovídá rozpracování pevných scénářů (Bishop a kol. 2007). Z pěti obecných fází (Kosow a Gaßner 2008) máme vymezení oblasti, klíčové faktory a zjednodušený rozbor. Scénáře jsme negenerovali a přenos do strategie je jen částečný. Progresivní cesta je zadaná jako žádoucí obraz, výpočet je průzkumný. Není to předpověď ani úplný backcasting.</p>
     <details class="more"><summary>Podrobnosti</summary>
-      <p>Hybné síly jsou seřazené podle účinku na roční schodek. Předurčené prvky jsou například konec Dětmarovic, konec uhlí v teplárnách, stárnutí obyvatel a směr elektrifikace aut a tepla. Kritické nejistoty jsou SMR, vodík v dopravě, vítr a fotovoltaika s povolováním a sítí, ocel, ostatní průmysl, datacentra a cena plynu a povolenek.</p>
-      <p>Druhá osa, hospodářství kraje, a překryv klimatu zatím v tabulce nejsou. Ukazuje je až samostatná stránka <a href="laborator/toky/">Toky elektřiny v kraji</a>. Dvě cesty svazují mnoho voleb dohromady, takže to není úplný prostor scénářů.</p>
-      <p>Kontrola vnitřního souladu našla u obou cest dvojice předpokladů v rozporu. Například vodík z přebytku neodpovídá skutečnému přebytku, {{vs_h2_sit_pct}} % vodíku je z elektřiny ze sítě. Proto jsou výroky podmíněné elektrárnami, které cesta předpokládá.</p>
-      <p>Zpětná kontrola drží hodnotu roku 2015 a srovnává ji s rokem 2025, netestuje tento model. Spotřeba se za deset let skoro nezměnila, výroba klesla kvůli uzavírání parních zdrojů, proto má výroba datované události. Pohled zpět od cíle je blok Co by muselo platit. Počet obyvatel a další vnější vlivy jsou vyměnitelné vstupy s uvedeným zdrojem.</p>
+      <p>Jednotný manuál metody neexistuje (Slach, Bosák a Rumpel, s. 180). Příběhy budoucnosti nepíšeme, takže platí jen širší pojetí scénáře jako alternativní budoucnosti (Bishop a kol. 2007, s. 6).</p>
+      <div class="tablewrap"><table class="grades">
+        <tr><th>Fáze (Kosow a Gaßner 2008, s. 25 až 30)</th><th>U nás</th><th>Stav</th></tr>
+        <tr><td>Vymezení oblasti</td><td>kraj, jen elektřina, roky 2025 až 2050</td><td>uděláno</td></tr>
+        <tr><td>Klíčové faktory</td><td>položky a hybné síly, ze zdrojů, bez workshopu</td><td>uděláno</td></tr>
+        <tr><td>Rozbor faktorů</td><td>meze P10 a P90 a změna po skupinách</td><td>zjednodušeně</td></tr>
+        <tr><td>Tvorba scénářů</td><td>cesty jsou dané, nevybírali jsme je ze souladných kombinací</td><td>neuděláno</td></tr>
+        <tr><td>Přenos, volitelný</td><td>Co by muselo platit, Návrhové volby</td><td>částečně</td></tr>
+      </table></div>
+      <p>Hybné síly a předem dané síly jsou pojmy Slacha a kol. (s. 183), kritické nejistoty pojem z citace u Kosowa a Gaßnera (s. 12). Zařazení a pořadí sil jsou náš úsudek a postup. Předurčené jsou například konec Dětmarovic a stárnutí obyvatel, nejisté SMR, vodík v dopravě, vítr a ocel. Osy matice 2 × 2 (Bishop a kol. 2007, s. 14) jsme netvořili, cesty se liší volbou politiky. Hospodářství kraje a klima ukazuje až stránka <a href="laborator/toky/">Toky elektřiny v kraji</a>.</p>
+      <p>Typy podle Börjesona a kol. 2006 jsou prediktivní, průzkumný a normativní (podle Bishopa a kol. 2007, s. 10). Progresivní cesta je zadaná jako žádoucí obraz (Slach a kol., s. 182), výpočet je průzkumný. Taková kombinace je běžná (Kosow a Gaßner 2008, s. 32).</p>
+      <p>Kontrola souladu dvojic je náš úsudek až nad hotovými cestami. Našla rozpory, například {{vs_h2_sit_pct}} % vodíku je z elektřiny ze sítě, proto jsou výroky podmíněné. Zpětná kontrola je náš postup, jen drží hodnotu roku 2015 a netestuje model. Staré výhledy jsme se skutečností nesrovnali, jak to dělají Craig a kol. 2002. Počet obyvatel a další vnější vlivy jsou vyměnitelné vstupy s uvedeným zdrojem.</p>
+      <p>Backcasting jde od žádoucího konce zpět k fyzické proveditelnosti a k tomu, „what policy measures would be required“ (Robinson 1990, podle Dreborga 1996, s. 814), a dává alternativní obrazy budoucnosti (s. 826). Blok Co by muselo platit jen spočítá, co vyrovná bilanci. Je to jeden krok backcastingu (s. 824). Opatření, aktéři a mezikroky na stránce nejsou.</p>
     </details>
   </section>
 
@@ -276,10 +292,20 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
     <p class="f">y(t) = D(t) &middot; (y<sub>2025</sub> + &Sigma; A<sub>j</sub> &middot; S(t)) &nbsp; &nbsp; S(2025) = 0, S(2050) = 1</p>
     <p class="f">L(t) = 1 / (1 + e<sup>&minus;k(t &minus; t<sub>m</sub>)</sup>) &nbsp; &nbsp; S(t) = (L(t) &minus; L(2025)) / (L(2050) &minus; L(2025))</p>
     <p class="f">změna posuvníkem: y(t) + &Delta;&middot;(3x&sup2; &minus; 2x&sup3;) &nbsp; &nbsp; x = (t &minus; 2030) / 20, omezené na 0 až 1</p>
+    <p>Logistická křivka říká, že změna začíná pomalu, pak zrychlí a nakonec se nasytí, jako když se nová technologie šíří mezi lidmi a firmami. Rok poloviny změny t<sub>m</sub> určuje, kdy je změna nejrychlejší. Rychlost k určuje, jak strmá je. Hodnota roku 2025 a cíl 2050 zůstávají stejné, parametry mění jen cestu mezi nimi. Vyzkoušejte si to:</p>
+    <div class="demo">
+      <div id="demo"></div>
+      <div class="democtl">
+        <label for="demoTm">Rok poloviny změny <span class="mono" id="demoTmV"></span></label><input id="demoTm" type="range" min="2028" max="2048" step="1">
+        <label for="demoK">Rychlost změny <span class="mono" id="demoKV"></span></label><input id="demoK" type="range" min="0.1" max="1.5" step="0.05">
+        <label for="demoD">Změna cíle posuvníkem <span class="mono" id="demoDV"></span></label><input id="demoD" type="range" min="-300" max="300" step="10">
+      </div>
+    </div>
+    <p class="small">Graf je obecná ukázka, ne skutečná položka: začíná na 100 GWh a míří k 500 GWh. Šedá křivka je výchozí průběh podle vzorce nahoře. Modrá křivka ukazuje změnu cíle posuvníkem, která se přidává plynule až od roku 2030, takže roky do té doby se nemění.</p>
     <details class="more"><summary>Podrobnosti</summary>
-      <p>Co se šíří postupně, má logistickou křivku (Fisher a Pry 1971): nejdřív pomalu, pak rychle, nakonec nasycení. Parametry k a t<sub>m</sub> se dopočítají z hodnot pro roky 2030 a 2040. Kde tabulka dává milníky, křivka jimi prochází monotónní interpolací PCHIP (Fritsch a Carlson 1980), protože ta mezi body nepřekmitne a nevymyslí hodnotu mimo milníky.</p>
+      <p>Co se šíří postupně, má logistickou křivku: nejdřív pomalu, pak rychle, nakonec nasycení. Fisher a Pry 1971 ji použili pro nahrazení jedné technologie druhou, Cherp a kol. 2021 popisují S-křivky u větru a slunce po státech. Použití na položky kraje a normování je náš postup, parametry k a t<sub>m</sub> se dopočítají z hodnot pro roky 2030 a 2040. Kde tabulka dává milníky, křivka jimi prochází monotónní kubickou interpolací (Fritsch a Carlson 1980), protože u monotónních dat mezi body nepřekmitne.</p>
       <p>Události s daným rokem, například konec dolů, jsou kalendářní skoky, protože jejich průběh neurčuje šíření, ale datum. Položka, která vzroste a zase klesne, je součet dvou křivek. Plochý řádek zůstává plochý.</p>
-      <p>Změna cíle posuvníkem se přičítá plynule až od roku 2030, protože výstavbu do té doby určují hlavně dnešní projekty. Demografie a účinnost násobí položku od roku 2025 a lze je změnit nebo vypnout ve Velkých trendech. Posuvník skupiny mění její položky ve stejném poměru. U fotovoltaiky, větru, tepelných čerpadel a osobních aut stránka v posuvnících po položkách upozorní, když položka roste rychleji než v minulosti. Další vzorce jsou v <a href="METODIKA.md">technickém popisu</a>.</p>
+      <p>Změna cíle posuvníkem se přičítá plynule až od roku 2030, protože výstavbu do té doby určují hlavně dnešní projekty, to je náš úsudek. Demografie a účinnost násobí položku od roku 2025 a lze je změnit nebo vypnout ve Velkých trendech. Posuvník skupiny mění její položky ve stejném poměru. U fotovoltaiky, větru, tepelných čerpadel a osobních aut stránka v posuvnících po položkách upozorní, když položka roste rychleji než v minulosti. Další vzorce jsou v <a href="METODIKA.md">technickém popisu</a>.</p>
     </details>
   </section>
 
@@ -289,8 +315,8 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
     <p class="f">ztráty = r / (1 &minus; r) &times; (spotřeba bez ztrát &minus; část mimo síť) &nbsp; &nbsp; r = 3,547 %</p>
     <p class="f">vlastní spotřeba = 1,4367 &times; &Sigma; m<sub>i</sub> &middot; výroba<sub>i</sub></p>
     <details class="more"><summary>Podrobnosti</summary>
-      <p>Míra r je ze studie za rok 2023. Část mimo síť je vlastní spotřeba zdrojů a další lokální spotřeba, která sítí neteče. Vzorec drží ztráty v souladu se spotřebou každého roku, takže více spotřeby znamená více ztrát a méně spotřeby méně ztrát.</p>
-      <p>Míry m<sub>i</sub> jsou celostátní podle druhu zdroje (ERÚ) a 1,4367 je kalibrace na kraj, aby rok 2025 seděl. Na jeden SMR to dává {{smr_vlastni}} GWh, bez kalibrace {{smr_vlastni_bez}} GWh. Kalibrace vznikla na dnešních parních zdrojích, u nového reaktoru je to odhad.</p>
+      <p>Míra r je ze studie za rok 2023 a tvar vzorce odpovídá její rovnici 7 (s. 74). Část mimo síť je vlastní spotřeba zdrojů a další lokální spotřeba, která sítí neteče, její odečtení je náš postup. Vzorec drží ztráty v souladu se spotřebou každého roku, takže více spotřeby znamená více ztrát a méně spotřeby méně ztrát.</p>
+      <p>Míry m<sub>i</sub> jsou celostátní podle druhu zdroje (ERÚ) a 1,4367 je naše kalibrace na kraj, aby rok 2025 seděl. Na jeden SMR to dává {{smr_vlastni}} GWh, bez kalibrace {{smr_vlastni_bez}} GWh. Kalibrace vznikla na dnešních parních zdrojích, u nového reaktoru je to odhad.</p>
     </details>
   </section>
 
@@ -301,10 +327,10 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
     <p class="f">baterie: E = medián dne &Sigma; max(R<sub>t</sub> &minus; R&#772;, 0) / &radic;0,88 = {{bat_e}} GWh &nbsp; &nbsp; P = E / 4 h</p>
     <p class="f">elektrolyzér: P = řádky vodíku &times; (1 + r) &times; 1 000 / plné hodiny = {{el_mw}} MW</p>
     <details class="more"><summary>Podrobnosti</summary>
-      <p>R<sub>t</sub> je zbytkové zatížení, tedy spotřeba bez elektrolýzy minus neřízené zdroje. Úrovně bere model z tabulky položek, tvary slunce, větru, spotřeby a teploty z PVGIS, OPSD a OTE. Roční součet neřekne, kdy elektřina chybí, proto tento výpočet. Pět let ukazuje rozdíly mezi roky, nejhorší možný rok to ale není.</p>
+      <p>Model je náš vlastní zjednodušený výpočet, ne převzatý nástroj. R<sub>t</sub> je zbytkové zatížení, tedy spotřeba bez elektrolýzy minus neřízené zdroje. Úrovně bere model z tabulky položek, tvary slunce, větru, spotřeby a teploty z PVGIS, OPSD a OTE. Roční součet neřekne, kdy elektřina chybí, proto tento výpočet. Pět let ukazuje rozdíly mezi roky, nejhorší možný rok to ale není.</p>
       <p>Přebytek bere elektrolyzér podle rozvrhu malé nádrže, elektrokotle do {{kotle_mw}} MW a baterie, zbytek je vývoz. Těch {{kotle_mw}} MW je náš součet z údajů studie, ne její mez. Schodek kryje baterie, potom plyn do ročního rozpočtu a zbytek dovoz. Doprava na vodík odebírá rovnoměrně a malá nádrž výrobu posouvá o hodiny.</p>
-      <p>Velikost baterie vychází z denního výkyvu, ne z ceny ani z cíle: v mediánovém dni je to energie nad denním průměrem, navýšená o účinnost jednoho směru. Každou půlnoc si baterie podle přesné křivky na další den určí nejnižší rovnou hladinu H, kterou udrží. Nad H vybíjí, pod H &minus; 100 MW nabíjí i ze sítě. Odstup 100 MW je úsudek.</p>
-      <p>Elektrolyzér je tak velký, aby na vývoz zbylo pod 1 % přebytku, protože hlavní cíl je přebytek využít. Plné hodiny jsou z hodinového výpočtu.</p>
+      <p>Velikost baterie je naše pravidlo, ne převzatá metoda. Vychází z denního výkyvu, ne z ceny ani z cíle: v mediánovém dni je to energie nad denním průměrem, navýšená o účinnost jednoho směru. Každou půlnoc si baterie podle přesné křivky na další den určí nejnižší rovnou hladinu H, kterou udrží. Nad H vybíjí, pod H &minus; 100 MW nabíjí i ze sítě. Odstup 100 MW je úsudek.</p>
+      <p>Velikost elektrolyzéru je také naše pravidlo. Je tak velký, aby na vývoz zbylo pod 1 % přebytku, protože hlavní cíl je přebytek využít. Plné hodiny jsou z hodinového výpočtu.</p>
       <p>Rozvrh plynu, elektrolýzy ze sítě a nádrže zná celý rok dopředu, skutečný provoz by špičku dovozu zvýšil, velikost je v záložce Nedostatky. Dvě další stránky jsou <a href="laborator/toky/">Toky elektřiny v kraji</a>, která používá předpočítané hodinové běhy a ukazuje nejbližší spočítaný stav, a <a href="laborator/grafy/">Grafy z hodinového modelu</a>.</p>
     </details>
   </section>
@@ -315,7 +341,7 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
     <p class="f">z<sub>i</sub> = &plusmn;&radic;0,6 &middot; F + &radic;0,4 &middot; &epsilon;<sub>i</sub> &nbsp; &nbsp; F, &epsilon; ~ N(0, 1)</p>
     <p class="f">y<sub>i</sub> = P50 + (z<sub>i</sub> / 1,2816) &middot; (P90 &minus; P50) pro z &ge; 0, jinak P50 + (z<sub>i</sub> / 1,2816) &middot; (P50 &minus; P10)</p>
     <details class="more"><summary>Podrobnosti</summary>
-      <p>Pro každou položku odhadujeme dolní a horní mez cíle a simulace je vylosuje i s načasováním. Sečíst všechny horní meze by přehánělo, protože by musely nastat najednou. F je společný faktor položek se stejnou příčinou, například elektrifikace nebo povolování, a znaménko říká, zda položka jde s ním, nebo proti němu. Korelace 0,6 je úsudek.</p>
+      <p>Pro každou položku odhadujeme dolní a horní mez cíle a simulace je vylosuje i s načasováním. Sečíst všechny horní meze by přehánělo, protože by musely nastat najednou. F je společný faktor položek se stejnou příčinou, například elektrifikace nebo povolování, a znaménko říká, zda položka jde s ním, nebo proti němu. Mnoho přípustných hodnot vstupů, případně s Monte Carlo, popisují u citlivostní analýzy Bishop a kol. 2007 (s. 19). Společný faktor a převod mezí na rozdělení jsou náš postup, korelace 0,6 je náš úsudek.</p>
       <p>Křivka je výchozí hodnota, ne střed pásma. Meze položek jsou nesymetrické, proto je střed simulace jinde, schodek progresivní cesty {{sim_p_stred}} GWh proti výchozím {{gap_prog}} GWh. Pásmo platí jen pro výchozí nastavení.</p>
       <p>Podíl běhů s vyrovnaným rokem se uvádí jen jako pásmo: {{mc_pas_prog}} v progresivní a {{mc_pas_kons}} v konzervativní cestě. Závisí totiž na neověřené korelaci a mezích. SMR je v progresivní cestě daný a případ bez něj se počítá zvlášť, pravděpodobnost, že nebude, výpočet nepřisuzuje.</p>
     </details>
@@ -323,17 +349,17 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
 
   <section class="card">
     <h2>Zimní špička a letní poledne</h2>
-    <p>Přepočet položek na výkon v jednom okamžiku podle metody Dopadové studie. V zimní špičce je vítr podle studie nula, je to nejhorší případ, ne běžná zima.</p>
+    <p>Bilance výkonu v nejhorším okamžiku je podle Dopadové studie (s. 73), přepočet položek koeficienty je náš postup. Studie do špičky počítá jen stabilní zdroje, proto je v zimní špičce vítr nula. Je to nejhorší případ, ne běžná zima.</p>
     <p class="f">spotřeba: MW = GWh &times; 1 000 / 8 760 &times; koeficient &nbsp; &nbsp; výroba: MW = instalované MW &times; dosažitelnost</p>
     <details class="more"><summary>Podrobnosti</summary>
-      <p>Koeficienty jsou nastavené na zimní zatížení 1 025,5 MW v roce 2023 z Dopadové studie, většina z nich je náš odhad. Jeden společný faktor srovná součet na tuto hodnotu, takže shoda v tom roce vzniká konstrukcí a sama nic nedokazuje.</p>
-      <p>Bilance je dostupný výkon minus zatížení. Hodinový model dává jiné zatížení, protože používá skutečné průběhy, ne koeficienty metody studie. Proto stránka ukazuje obě čísla vedle sebe a žádné nevydává za mez. Podrobný popis je v <a href="sezonni_metodika.md">metodice špičky a léta</a>.</p>
+      <p>Studie odhaduje zatížení kraje z roční spotřeby a doby trvání maxima (s. 74), po položkách ho nedělí. Naše koeficienty jsou nastavené na zimní zatížení 1 025,5 MW v roce 2023 z Dopadové studie, většina z nich je náš odhad. Jeden společný faktor srovná součet na tuto hodnotu, takže shoda v tom roce vzniká konstrukcí a sama nic nedokazuje.</p>
+      <p>Bilance je dostupný výkon minus zatížení. Hodinový model dává jiné zatížení, protože používá skutečné průběhy, ne koeficienty. Proto stránka ukazuje obě čísla vedle sebe a žádné nevydává za mez. Podrobný popis je v <a href="sezonni_metodika.md">metodice špičky a léta</a>.</p>
     </details>
   </section>
 
   <section class="card">
     <h2>Jak moc věřit číslům</h2>
-    <p>Každá položka má stupeň A změřená data, B publikovaná studie nebo plán, C technický výpočet ze známých parametrů, nebo D náš odhad bez publikovaného zdroje. Řídí se nejslabším vstupem hodnoty pro rok 2050.</p>
+    <p>Škála je naše. Každá položka má stupeň A změřená data, B publikovaná studie nebo plán, C technický výpočet ze známých parametrů, nebo D náš odhad bez publikovaného zdroje. Řídí se nejslabším vstupem hodnoty pro rok 2050.</p>
     <details class="more"><summary>Podrobnosti</summary>
     <table class="grades">
       <tr><th>Stupeň</th><th>Co znamená</th></tr>
@@ -368,6 +394,26 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
       <div class="tablewrap">{{html_rezerva}}</div>
     </details>
   </section>
+
+  <section class="card">
+    <h2>Literatura k metodě</h2>
+    <p>Přečtené texty:</p>
+    <ul class="flaws">
+      <li>Bishop P., Hines A., Collins T. (2007). The current state of scenario development: an overview of techniques. Foresight 9(1), s. 5 až 25. <a href="https://doi.org/10.1108/14636680710727516">DOI</a></li>
+      <li>Dreborg K. H. (1996). Essence of backcasting. Futures 28(9), s. 813 až 828.</li>
+      <li>Kosow H., Gaßner R. (2008). Methods of future and scenario analysis. DIE Studies 39, Bonn. Přečteny s. 12, 25 až 32 a 38. <a href="https://www.idos-research.de/uploads/media/Studies_39.2008.pdf">PDF</a></li>
+      <li>Slach O., Bosák V., Rumpel P. Kapitola 9 o metodě scénářů a jejím využití v plánování, s. 179 až 194. Kniha a rok v dostupné kopii uvedené nejsou.</li>
+    </ul>
+    <p>Viděli jsme jen výtah nebo záznam, případně citaci jinde:</p>
+    <ul class="flaws">
+      <li>Börjeson L., Höjer M., Dreborg K. H., Ekvall T., Finnveden G. (2006). Scenario types and techniques: towards a user's guide. Futures 38(7), s. 723 až 739. <a href="https://doi.org/10.1016/j.futures.2005.12.002">DOI</a></li>
+      <li>Cherp A., Vinichenko V., Tosun J., Gordon J. A., Jewell J. (2021). National growth dynamics of wind and solar power compared to the growth required for global climate targets. Nature Energy 6, s. 742 až 754. <a href="https://doi.org/10.1038/s41560-021-00863-0">DOI</a></li>
+      <li>Craig P. P., Gadgil A., Koomey J. G. (2002). What can history teach us? A retrospective examination of long-term energy forecasts for the United States. Annual Review of Energy and the Environment 27, s. 83 až 118. <a href="https://doi.org/10.1146/annurev.energy.27.122001.083425">DOI</a></li>
+      <li>Fisher J. C., Pry R. H. (1971). A simple substitution model of technological change. Technological Forecasting and Social Change 3, s. 75 až 88. <a href="https://doi.org/10.1016/S0040-1625(71)80005-7">DOI</a></li>
+      <li>Fritsch F. N., Carlson R. E. (1980). Monotone piecewise cubic interpolation. SIAM Journal on Numerical Analysis 17(2), s. 238 až 246. <a href="https://doi.org/10.1137/0717021">DOI</a></li>
+      <li>Robinson J. B. (1990). Futures under glass: a recipe for people who hate to predict. Futures 22(8), s. 820 až 842. Citujeme podle Dreborga 1996. <a href="https://doi.org/10.1016/0016-3287(90)90018-D">DOI</a></li>
+    </ul>
+  </section>
 </article>
 </div>
 <div id="tab-nedostatky" hidden>
@@ -384,7 +430,7 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
   <section class="card">
     <h2>Co víme, že nesedí</h2>
     <ul class="flaws">
-      <li><b>Znalost budoucnosti.</b> Baterie vidí křivku dalšího dne přesně. Když hladinu určí jen včerejší křivka, klesne pokles zimní špičky po plynu z {{vs_po_p50}} a {{vs_po_min}} MW na {{vp_po_p50}} a {{vp_po_min}} MW, medián a nejhorší rok, a baterie zvedne denní špičku {{vp_dny_od}} až {{vp_dny_do}} dnů v roce, nejvýš o {{vp_mw}} MW. Skutečná předpověď leží mezi oběma případy. Rozvrh plynu, elektrolýzy ze sítě a nádrže zná celý rok. Když plyn dostane práh z předchozího povětrnostního roku, stoupne zimní špička dovozu v nejhorším roce z {{gp_djf_z}} na {{gp_djf_na}} MW, po vyčerpání paliva roční špička na {{gp_rok}} MW, a v jiném roce zůstane až {{gp_nevyuzito}} GWh plynu nevyužito. Při elektrolyzéru mimo prosinec až únor je to {{gm_djf_z}} na {{gm_djf_na}} MW a {{gm_rok}} MW.</li>
+      <li><b>Znalost budoucnosti.</b> Baterie vidí křivku dalšího dne přesně. Když hladinu určí jen včerejší křivka, klesne pokles zimní špičky po plynu z {{vs_po_p50}} a {{vs_po_min}} MW na {{vp_po_p50}} a {{vp_po_min}} MW, medián a nejhorší rok, a baterie zvedne denní špičku {{vp_dny_od}} až {{vp_dny_do}} dnů v roce, nejvýš o {{vp_mw}} MW. Skutečná předpověď leží mezi oběma případy. Rozvrh plynu, elektrolýzy ze sítě a nádrže zná celý rok. Když plyn dostane práh z předchozího povětrnostního roku, stoupne zimní špička dovozu v nejhorším roce z {{gp_djf_z}} na {{gp_djf_na}} MW, po vyčerpání paliva roční špička na {{gp_rok}} MW, a v jiném roce zůstane až {{gp_nevyuzito}} GWh plynu nevyužito.</li>
       <li><b>Hodinové tvary jsou celostátní nebo z Ostravy.</b> Roční maximum zatížení kraje se nesleduje, proto je nelze ověřit proti změřené špičce.</li>
       <li><b>Zpětná kontrola neověřuje model.</b> Jen drží hodnotu roku 2015. Spotřeba tak vyjde s chybou {{h_spotreba}}, výroba s chybou {{h_vyroba}}, protože uzavírání parních zdrojů v datech toho roku není.</li>
       <li><b>Ztráty v sítích mají stejný vzorec v obou cestách.</b> Definice konzervativní cesty říká dvojnásobnou zátěž sítě. Násobek míry ztrát 1,7 je vypuštěný, protože vlastní zatížení cesty je nižší a čtení mu odporuje. Účinek na schodek konzervativní cesty je {{kons_ztraty_ucinek}} GWh.</li>
@@ -412,7 +458,8 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
     <ul class="flaws">
       <li>Meze P10 a P90 jsou většinou úsudek.</li>
       <li>Srovnání tempa s referenční třídou (Cherp a kol. 2021) je přečtené jen ve výtahu a je to národní měřítko.</li>
-      <li>Tři dny akumulace z definice cesty v návrhu nejsou. Hodnotu zálohy pro výpadek model neocení.</li>
+      <li>Tři dny akumulace z definice cesty ve výchozím nastavení nejsou, případ je v záložce Návrhové volby. Hodnotu zálohy pro výpadek model neocení.</li>
+      <li>Letní poledne je pohled na jednu hodinu. Pořadí elektrolyzér, baterie, kotle v něm není řízení hodinového modelu, kde baterie a rozvrh nádrže běží podle celého dne a roku.</li>
     </ul>
   </section>
   <section class="card">
@@ -611,8 +658,8 @@ function moment(path, i){
   /* Plynové bloky jsou v zimě výkon z Tab.30 × 0,9, nezávisle na energii řádku; palivo omezuje jen počet hodin. */
   if(winter) avail += interp(bat.gasYears, bat.gasMw, year) * 0.9;
   const balance = avail - load, surplus = Math.max(balance, 0);
-  const charge = Math.min(interp(bat.years, bat.daily, year), surplus), heat = Math.min(interp(bat.years, bat.boiler, year), surplus - charge);
-  const forH2 = Math.min(Math.max(surplus - charge - heat, 0), electro);
+  /* Jedna hodina: přebytek bere nejdřív elektrolyzér do svého výkonu, potom baterie, potom kotle. */
+  const forH2 = Math.min(surplus, electro), charge = Math.min(interp(bat.years, bat.daily, year), surplus - forH2), heat = Math.min(interp(bat.years, bat.boiler, year), surplus - forH2 - charge);
   /* Snížení špičky baterií je změřené v hodinovém modelu jen pro rok 2050. */
   const cut = year === 2050 && bat.cut ? bat.cut : null;
   return {load, avail, balance, cut, electro, charge, heat, forH2, spare:Math.max(surplus - charge - heat - forH2, 0)};
@@ -701,7 +748,15 @@ function drawMain(){
       /* Decentní plocha schodku. V letním pohledu je plocha nad zatížením přebytek a má vlastní barvu. */
       const summer = state.view === "summer", shownNow = series[state.path], top2 = DATA.years.map((y, i) => [xScale(y), yS(Math.max(shownNow.gen[i], shownNow.use[i]))]);
       const low = DATA.years.map((y, i) => [xScale(y), yS(summer ? shownNow.use[i] : shownNow.gen[i])]).reverse();
-      mk("path", {d:pathD(top2.concat(low)) + "Z", fill:summer ? "var(--ok)" : "var(--muted)", opacity:summer ? .3 : .1}, svg);
+      if(summer){
+        const defs = mk("defs", {}, svg), pat = mk("pattern", {id:"hatchS", width:8, height:8, patternUnits:"userSpaceOnUse", patternTransform:"rotate(45)"}, defs);
+        mk("rect", {width:8, height:8, fill:"var(--ok)", opacity:.18}, pat);
+        mk("line", {x1:0, y1:0, x2:0, y2:8, stroke:"var(--ok)", "stroke-width":2.5}, pat);
+      }
+      mk("path", {d:pathD(top2.concat(low)) + "Z", fill:summer ? "url(#hatchS)" : "var(--muted)", opacity:summer ? 1 : .1}, svg);
+      /* Cesta bez přebytku nemá v legendě co ukazovat. */
+      const legSurplus = document.getElementById("legSurplus");
+      if(legSurplus) legSurplus.hidden = !shownNow.gen.some((g, i) => g > shownNow.use[i]);
     }
     const labels = [];
     for(const p of Object.keys(PATHNAME)){
@@ -806,9 +861,9 @@ function drawKpi(){
   const hourly = winter && state.year === 2050 ? `<div><small>Zatížení, hodinový model, medián 5 let, spočítáno pro výchozí nastavení</small><b>${HOURLY_PEAK[state.path]}</b> MW</div>` : "";
   view.innerHTML = `<div><small>Cesta a rok</small><b style="font-size:15px">${PATHNAME[state.path]}, ${state.year}</b></div>` +
     mw("Dostupný výkon", m.avail) + mw(winter ? "Zatížení, metoda studie" : "Zatížení bez elektrolýzy a elektrokotlů", m.load) + hourly +
-    (winter ? mw("Bilance", m.balance) + (m.cut ? mw("Bilance s poklesem špičky baterií, běh s elektrolyzérem mimo prosinec až únor, spočítáno pro výchozí nastavení, medián", m.balance + m.cut.p50) + mw("Totéž, nejhorší rok", m.balance + m.cut.worst) : "")
+    (winter ? mw("Bilance", m.balance) + (m.cut ? mw("Bilance s poklesem špičky baterií, spočítáno pro výchozí nastavení, medián", m.balance + m.cut.p50) + mw("Totéž, nejhorší rok", m.balance + m.cut.worst) : "")
             : mw(m.balance >= 0 ? "Přebytek" : "Schodek", Math.abs(m.balance)) +
-              (m.balance > 0 ? mw("Do baterie", m.charge) + mw("Do elektrokotlů", m.heat) + mw(`Do vodíku, elektrolyzér ${NF.format(m.electro)} MW`, m.forH2) + mw("Nevyužito", m.spare) : ""));
+              (m.balance > 0 ? mw(`Do vodíku, elektrolyzér ${NF.format(m.electro)} MW`, m.forH2) + mw("Do baterie", m.charge) + mw("Do elektrokotlů", m.heat) + mw("Nevyužito", m.spare) : ""));
 }
 
 function esc(s){ return String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
@@ -1015,7 +1070,7 @@ function drawLegend(){
     (state.show.vyroba ? `<span><i style="border-color:var(--muted);border-top-style:dashed"></i>${energy ? "Výroba" : "Dostupný výkon"}</span>` : "") +
     (hasItems && energy ? `<span><i style="border-color:${color};border-top-width:8px;opacity:.25"></i>Pásmo nejistoty výchozího nastavení</span>` : "") +
     (hasItems && state.show.vyroba && state.show.spotreba && state.view !== "summer" ? `<span><i style="border-color:var(--muted);border-top-width:8px;opacity:.2"></i>Schodek mezi křivkami</span>` : "") +
-    (hasItems && state.show.vyroba && state.show.spotreba && state.view === "summer" ? `<span><i style="border-color:var(--ok);border-top-width:8px;opacity:.4"></i>Letní přebytek</span>` : "");
+    (hasItems && state.show.vyroba && state.show.spotreba && state.view === "summer" ? `<span id="legSurplus"><i style="border-color:var(--ok);border-top-width:8px;opacity:.7"></i>Letní přebytek, šrafovaně</span>` : "");
 }
 
 const TREND_UI = [
@@ -1083,7 +1138,7 @@ $("compare").addEventListener("click", () => {
 });
 const VIEW_NOTE = {
   winter:"Zimní špička je roční maximum zatížení, počítané s nulovým výkonem slunce a větru. Elektrolýza a elektrokotle jsou vypnuté, plyn běží výkonem z Dopadové studie. Hodinový model dává pro rok 2050 vyšší zatížení, protože skládá každou hodinu ze skutečného průběhu počasí a celostátních tvarů spotřeby, zatímco stránka je nastavená na metodu studie. Ani jedno číslo není mez. V progresivní cestě má plyn palivo jen asi na {{plyn_hod}} hodin za rok. Hodnoty jsou výchozí odhad bez pásma.",
-  summer:"Letní poledne je slunečný víkendový polední stav. Křivka zatížení je bez elektrolýzy a elektrokotlů. Plocha nad ní je letní přebytek. Přebytek jde nejdřív do baterie, potom do elektrokotlů do {{kotle_mw}} MW a do výroby vodíku. Hodnoty jsou výchozí odhad bez pásma.",
+  summer:"Letní poledne je slunečný víkendový polední stav. Křivka zatížení je bez elektrolýzy a elektrokotlů. Plocha nad ní je letní přebytek. Přebytek v této hodině bere nejdřív elektrolyzér do svého výkonu, potom baterie, potom elektrokotle do {{kotle_mw}} MW a zbytek zůstane nevyužitý. Hodnoty jsou výchozí odhad bez pásma.",
 };
 function applyView(){
   pressOnly("[data-view]", "view", state.view);
@@ -1114,14 +1169,29 @@ document.querySelectorAll("[data-show]").forEach(b => b.addEventListener("click"
 }));
 $("year").addEventListener("input", e => { state.year = Number(e.target.value); refresh(); });
 /* Obnovení vrací celou stránku do výchozího nastavení, pro které platí věty nahoře. */
-$("reset").addEventListener("click", () => {
+function resetAll(){
   resetValues();
   setMode("simple");
+  $("presetVitr").setAttribute("aria-pressed", false);
   state.path = "progresivni"; state.compare = false; state.view = "energy"; state.year = 2050;
   state.show.vyroba = true; state.show.spotreba = true;
   $("year").value = 2050;
   document.querySelectorAll("[data-show]").forEach(x => x.setAttribute("aria-pressed", true));
   applyPath(); applyView(); drawTrends(); drawLists(); drawLegend(); refresh();
+}
+$("reset").addEventListener("click", resetAll);
+/* Volba Vítr na mezi: „maximum větru a slunce“. Přidané GWh jsou z hodinového výpočtu s malou nádrží. */
+const PRESET_VITR_GWH = {{pv_preset_vitr}}, PRESET_FVE_GWH = {{pv_preset_fve}}, PRESET_KOTLE_GWH = {{pv_preset_kotle}}, PRESET_ZTRATY_GWH = {{pv_preset_ztraty}};
+$("presetVitr").addEventListener("click", () => {
+  resetAll();
+  const item = name => key(DATA.items.find(it => it.path === "progresivni" && it.name === name));
+  state.values[item("vítr")] += PRESET_VITR_GWH;
+  state.values[item("fotovoltaika střešní")] += PRESET_FVE_GWH;
+  /* Kotle a ztráty baterie jsou v tomto případě větší, řádky přebírají hodnotu hodinového běhu. */
+  state.values[item("elektrokotle v teplárnách")] = PRESET_KOTLE_GWH;
+  state.values[item("ztráty baterií")] = PRESET_ZTRATY_GWH;
+  $("presetVitr").setAttribute("aria-pressed", true);
+  drawLists(); refresh();
 });
 $("trendOn").addEventListener("click", () => { state.trendOn = true; drawTrends(); refresh(); });
 $("trendOff").addEventListener("click", () => { state.trendOn = false; drawTrends(); refresh(); });
@@ -1147,6 +1217,41 @@ document.querySelectorAll("[data-tab]").forEach(b => b.addEventListener("click",
   showTab(b.dataset.tab);
   if(typeof history !== "undefined") history.replaceState(null, "", "#" + b.dataset.tab);
 }));
+/* Ukázka S-křivky v metodice. */
+const demo = {tm:2038, k:0.3, d:0};
+function drawDemo(){
+  const host = $("demo"), W2 = 620, H2 = 300, L = 48, R = 610, T = 14, B = 262;
+  host.innerHTML = "";
+  const svg = mk("svg", {viewBox:`0 0 ${W2} ${H2}`, role:"img", "aria-label":"Ukázka S-křivky"}, host);
+  const xS = t => L + (t - 2025) / 25 * (R - L), yS = v => B - v / 800 * (B - T);
+  for(const v of [0, 200, 400, 600, 800]){
+    mk("line", {x1:L, x2:R, y1:yS(v), y2:yS(v), stroke:"var(--line)"}, svg);
+    mk("text", {x:L - 8, y:yS(v) + 4, "text-anchor":"end"}, svg, v);
+  }
+  for(const t of [2025, 2030, 2035, 2040, 2045, 2050]) mk("text", {x:xS(t), y:H2 - 16, "text-anchor":"middle"}, svg, t);
+  mk("text", {x:L, y:T - 2}, svg, "GWh za rok");
+  const years = [];
+  for(let t = 2025; t <= 2050; t += 0.25) years.push(t);
+  const base = t => 100 + 400 * sCurve(t, demo.tm, demo.k);
+  mk("line", {x1:xS(demo.tm), x2:xS(demo.tm), y1:T, y2:B, stroke:"var(--muted)", "stroke-dasharray":"2 4"}, svg);
+  mk("text", {class:"ev", x:xS(demo.tm) + 4, y:T + 14}, svg, "polovina změny");
+  mk("path", {d:pathD(years.map(t => [xS(t), yS(base(t))])), fill:"none", stroke:"var(--muted)", "stroke-width":2}, svg);
+  if(demo.d !== 0){
+    mk("line", {x1:xS(2030), x2:xS(2030), y1:T, y2:B, stroke:"var(--warn)", "stroke-dasharray":"2 4"}, svg);
+    mk("text", {class:"ev", x:xS(2030) + 4, y:B - 8}, svg, "od roku 2030");
+    mk("path", {d:pathD(years.map(t => [xS(t), yS(Math.max(0, base(t) + demo.d * sigma(t)))])), fill:"none", stroke:"var(--accent)", "stroke-width":2.8}, svg);
+  }
+  mk("circle", {cx:xS(2025), cy:yS(100), r:4.5, fill:"var(--ink)"}, svg);
+  mk("circle", {cx:xS(2050), cy:yS(500 + demo.d), r:4.5, fill:"var(--ink)"}, svg);
+  $("demoTmV").textContent = demo.tm;
+  $("demoKV").textContent = String(demo.k).replace(".", ",");
+  $("demoDV").textContent = (demo.d > 0 ? "+" : "") + demo.d + " GWh";
+}
+for(const [id, name] of [["demoTm","tm"],["demoK","k"],["demoD","d"]]){
+  $(id).value = demo[name];
+  $(id).addEventListener("input", e => { demo[name] = Number(e.target.value); drawDemo(); });
+}
+drawDemo();
 if(typeof location !== "undefined" && ["#volby", "#metodika", "#nedostatky"].includes(location.hash)) showTab(location.hash.slice(1));
 {
   const uniqueRows = DATA.items.length, weak = DATA.items.filter(it => it.grade === "D").length;
