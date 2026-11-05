@@ -106,6 +106,13 @@ svg .lab{font:600 12px "DM Sans",sans-serif;fill:var(--ink)}
 @media (max-width:640px){.kpirow b{font-size:24px}.kpirow .cells{gap:8px 24px}svg text{font-size:15px}svg .ev{font-size:14px}svg .lab{font-size:15px}.grades{font-size:13px}.grades td,.grades th{padding-right:10px}}
 .realh{font:700 15px "Saira",sans-serif;margin:16px 0 6px}
 #realDecisions .pills{flex-wrap:wrap;border-radius:14px;margin-top:6px}
+#realCard .item{position:relative}
+.info{width:17px;height:17px;padding:0;margin-left:6px;border:1px solid var(--muted);border-radius:50%;background:none;color:var(--muted);font:600 11px/15px "DM Sans",sans-serif;cursor:help;vertical-align:1px}
+.info:hover,.info:focus-visible{color:var(--ink);border-color:var(--ink)}
+.tipwrap[data-open="1"] .bubble{display:block}
+.bubble.wide{max-width:min(340px,80vw);font-weight:400}
+.bubble.wide b{font-weight:700}
+@media (max-width:680px){#realCard .tipwrap{position:static}}
 .grades{border-collapse:collapse;margin:8px 0;font-size:14px}
 .grades td,.grades th{border-top:1px solid var(--line);padding:6px 14px 6px 0;text-align:left;vertical-align:top}
 .grades th{color:var(--muted);font-weight:600;font-size:12.5px;border-top:0}
@@ -277,8 +284,8 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
   <div class="cols">
     <div><h3 class="realh">Velké události</h3><div id="realDecisions"></div><h3 class="realh">Vnější vlivy</h3><div id="realExternal"></div></div>
     <div>
-      <div class="only-simple"><h3 class="realh">Míra naplnění, 0 je konzervativní popis, 1 progresivní</h3><div id="realCats"></div></div>
-      <div class="only-detail"><h3 class="realh">34 indikátorů, 0 je konzervativní popis, 1 progresivní</h3><div id="realInds"></div></div>
+      <div class="only-simple"><h3 class="realh">Jak se bude dařit: 1 je příznivý vývoj, 0 nepříznivý</h3><p class="viewnote">Význam každé škály vysvětluje značka i. Příznivý vývoj nemusí znamenat menší schodek, protože elektrifikace zvyšuje spotřebu.</p><div id="realCats"></div></div>
+      <div class="only-detail"><h3 class="realh">34 indikátorů: 1 je příznivý vývoj, 0 nepříznivý</h3><p class="viewnote">Význam každé škály vysvětluje značka i. Příznivý vývoj nemusí znamenat menší schodek, protože elektrifikace zvyšuje spotřebu.</p><div id="realInds"></div></div>
     </div>
   </div>
   <details class="box" id="realSources"><summary>Zdroje výchozích hodnot</summary><div class="tablewrap" id="realSrcTable"></div></details>
@@ -1387,12 +1394,45 @@ function realCatApply(cat, c){
 }
 const realCatValue = cat => cat.used.length ? cat.used.reduce((s, r) => s + realCfg.x[r.id], 0) / cat.used.length : 0;
 const REAL_REFS = {cats:[], inds:{}, dec:{}, ext:{}};
+const REAL_CAT_TEXT = {
+  "Institucionální a politické řízení":["Jak dobře kraj, obce a stát spolupracují, povolují stavby a jestli politika myslí dlouhodobě.", "Instituce spolupracují a mají důvěru lidí, politika myslí dlouhodobě a povolování funguje.", "Řízení je roztříštěné, lidé institucím nevěří a převažují krátkodobá a populistická řešení."],
+  "Sociální akceptace transformace":["Jestli lidé přechod podporují a jestli přijmou nové stavby ve svém okolí.", "Široká podpora, obce souhlasí s větrem, fotovoltaikou a dalšími stavbami.", "Skepse a odpor v místě, stavby končí v konfliktech a v odmítnutí v referendech."],
+  "Lidský kapitál a demografie":["Jestli má kraj dost kvalifikovaných lidí, například pro montáž tepelných čerpadel a fotovoltaiky. Počet obyvatel se nastavuje zvlášť ve Vnějších vlivech.", "Dost odborníků, úspěšné rekvalifikace a kraj láká investory i talenty.", "Nedostatek kvalifikovaných lidí a pokles zájmu investorů."],
+  "Ekonomická transformace a investice":["Jestli v kraji vznikají nové průmyslové obory spojené s energetikou, nebo starý průmysl jen ubývá.", "Nové obory se rozvíjejí a nahrazují úbytek starých, pilotní projekty se daří.", "Tradiční průmysl postupně zaniká a nové projekty chybí."],
+  "Sociální soudržnost a distribuce přínosů":["Jestli si lidé mohou přechod dovolit a kdo z něj má prospěch. Do modelu tu vstupuje energetická chudoba, která brzdí výměnu vytápění.", "Méně domácností ohrožených cenami energií, přínosy jsou široce sdílené.", "Přibývá zranitelných domácností a přínosy má jen část lidí."],
+  "Energetická infrastruktura a decentralizace":["Jestli vznikají energetické komunity a lokální zdroje a jak kraj bere vlastní soběstačnost.", "Běžné jsou energetické komunity, mikrosítě a lokální zdroje.", "Komunitních projektů je minimum a kraj spoléhá na dodávky zvenčí."],
+  "Informační prostředí a epistemická odolnost":["Jak moc lidé věří nepravdivým tvrzením o energetice a jak fakticky se o ní informuje.", "Lidé jsou vůči dezinformacím odolní a informace jsou faktické.", "Dezinformační kampaně mají silný vliv a informování je alarmistické."],
+  "Regionální identita a symbolický rámec":["Jak se kraj vidí: jako region uhlí a těžkého průmyslu, nebo jako moderní a energeticky odolný.", "Sdílená vize technologicky vyspělého regionu.", "Identita zůstává u fosilního průmyslu a minulost brzdí změny."],
+  "Environmentální a zdravotní dopady":["Kvalita ovzduší a zdraví a vnímání odpadu jako zdroje. V tomto modelu jsou to spíš důsledky přechodu, proto škála výsledek nemění.", "Čistší ovzduší, lepší zdraví a odpad je vnímán jako zdroj.", "Omezené zlepšení prostředí a odpad je jen problém."],
+  "Mobilita a životní styl":["Jak rychle lidé přecházejí na elektromobily a sdílenou dopravu. Škála mění hlavně spotřebu elektřiny osobními auty.", "Elektromobily jsou běžné, rozvíjí se sdílená mobilita a práce na dálku. Spotřeba elektřiny roste.", "Lidé dál jezdí hlavně vlastními auty se spalovacím motorem. Elektřiny se spotřebuje méně."],
+};
+const REAL_DEC_TEXT = {
+  smr:"Má v kraji stát malý jaderný reaktor? Ano přidá celou výrobu reaktoru a nové plynové bloky pak jdou podle progresivní cesty. Ne znamená bez reaktoru a s plynovými bloky podle konzervativní cesty. Podle indikátorů rozhodne odhad pravděpodobnosti, ano od 50 %.",
+  dc:"Přijdou do kraje velká datová centra? Ano znamená spotřebu podle progresivní cesty, ne jen desetinu této spotřeby. Podle indikátorů rozhodne odhad, ano od 50 %.",
+  pec:"Kolik oceli v Třinci půjde přes elektřinu. Plná elektrifikace je nejvyšší spotřeba a konec hutních plynů. Jen první pec je polovina výroby. Žádná pec nechává dnešní stav.",
+  huta:"Začne se v Ostravě znovu vyrábět ocel v elektrické peci? Ano přidá asi 675 GWh spotřeby. Ne tuto spotřebu ubere, ale menší schodek tu neznamená dobrou zprávu.",
+};
+const realInfo = html => `<span class="tipwrap"><button type="button" class="info" aria-label="Vysvětlení">i</button><span class="bubble wide" role="tooltip">${html}</span></span>`;
+const realEnds = (what, one, zero) => `${what ? esc(what) + "<br>" : ""}<b>1:</b> ${esc(one)}<br><b>0:</b> ${esc(zero)}`;
+const REAL_EFFECT = {...REAL.groupNames, rozhodnuti_smr:"odhad SMR", rozhodnuti_dc:"odhad datových center", rozhodnuti_pec:"odhad plné elektrifikace Třince"};
+function realEffects(ids){
+  const out = Object.keys(REAL.weights).filter(g => ids.some(id => REAL.weights[g][id])).map(g => REAL_EFFECT[g]);
+  return out.length ? `<br><b>Mění:</b> ${esc(out.join(", ").toLowerCase().replace("smr", "SMR"))}.` : "<br><b>Mění:</b> nic, váha 0.";
+}
+function realBindInfo(row){
+  const b = row.querySelector(".info");
+  if(!b) return;
+  const wrap = b.closest(".tipwrap");
+  b.addEventListener("click", () => { wrap.dataset.open = wrap.dataset.open === "1" ? "0" : "1"; });
+  b.addEventListener("blur", () => { wrap.dataset.open = "0"; });
+}
 function realRow(label, tag, min, max, step, onInput, more){
   const row = document.createElement("div");
   row.className = "item";
   row.innerHTML = `<div class="top"><span>${esc(label)}${tag}</span><span class="val mono"></span></div><div class="track"><input type="range" min="${min}" max="${max}" step="${step}" aria-label="${esc(label)}"></div>${more || ""}`;
   const input = row.querySelector("input"), val = row.querySelector(".val");
   input.addEventListener("input", () => onInput(Number(input.value)));
+  realBindInfo(row);
   return {row, input, val};
 }
 const realLink = (name, url) => url ? `<a href="${esc(url.split(" ; ")[0])}" target="_blank" rel="noopener">${esc(name || url)}</a>` : esc(name);
@@ -1400,7 +1440,8 @@ function realBuild(){
   const cats = $("realCats"), inds = $("realInds"), decs = $("realDecisions"), ext = $("realExternal");
   for(const cat of REAL_CATS){
     const noEffect = !cat.used.length;
-    const r = realRow(cat.name, "", 0, 1, .01, c => { realCatApply(cat, c); realDraw(); }, noEffect ? `<p class="viewnote">Tyto indikátory mají váhu 0, na energii v modelu nepůsobí.</p>` : "");
+    const words = REAL_CAT_TEXT[cat.name];
+    const r = realRow(cat.name, realInfo(realEnds(words[0], words[1], words[2]) + realEffects(cat.members.map(m => m.id))), 0, 1, .01, c => { realCatApply(cat, c); realDraw(); }, noEffect ? `<p class="viewnote">Tyto indikátory mají váhu 0, na energii v modelu nepůsobí.</p>` : "");
     if(noEffect) r.input.disabled = true;
     cats.appendChild(r.row);
     REAL_REFS.cats.push({cat, ...r});
@@ -1410,7 +1451,7 @@ function realBuild(){
     const more = `<details><summary>Co to znamená a zdroj</summary><p><b>1:</b> ${esc(ind.popis_x1)}</p><p><b>0:</b> ${esc(ind.popis_x0)}</p>` +
       (ind.ukazatel ? `<p><b>Ukazatel:</b> ${esc(ind.ukazatel)}${ind.hodnota ? `, ${esc(ind.hodnota)}` : ""}${ind.rok ? ` (${esc(ind.rok)})` : ""}. Kotvy ${esc(ind.kotva_x0)} a ${esc(ind.kotva_x1)} jsou úsudek. Území: ${esc(ind.uzemi)}.</p>` : "") +
       (ind.duvod_prepisu ? `<p>${esc(ind.duvod_prepisu)}</p>` : "") + (ind.zdroj ? `<p><b>Zdroj:</b> ${realLink(ind.zdroj, ind.url)}</p>` : "") + `</details>`;
-    const r = realRow(ind.indikator, `<span class="grade${ind.jistota === "odhad" ? " D" : ""}">${esc(ind.jistota)}</span>`, 0, 1, .01, v => { realCfg.x[ind.id] = v; realDraw(); },
+    const r = realRow(ind.indikator, realInfo(realEnds("", ind.popis_x1, ind.popis_x0) + realEffects([ind.id])) + `<span class="grade${ind.jistota === "odhad" ? " D" : ""}">${esc(ind.jistota)}</span>`, 0, 1, .01, v => { realCfg.x[ind.id] = v; realDraw(); },
       (zero ? `<p class="viewnote">Váha 0. ${esc(ind.vaha0)}</p>` : "") + more);
     if(zero) r.input.disabled = true;
     inds.appendChild(r.row);
@@ -1420,7 +1461,8 @@ function realBuild(){
   for(const d of REAL.rozhodnuti){
     const row = document.createElement("div");
     row.className = "item";
-    row.innerHTML = `<div class="top"><span>${esc(d.nazev)}</span><span class="val mono"></span></div><p class="viewnote">${esc(d.stav)}</p><details><summary>Odhad a zdroj</summary><p>${esc(d.odhad)}</p><p>${d.zdroje.map(z => realLink(z[0], z[1])).join("; ")}</p></details>`;
+    row.innerHTML = `<div class="top"><span>${esc(d.nazev)}${realInfo(esc(REAL_DEC_TEXT[d.key]))}</span><span class="val mono"></span></div><p class="viewnote">${esc(d.stav)}</p><details><summary>Odhad a zdroj</summary><p>${esc(d.odhad)}</p><p>${d.zdroje.map(z => realLink(z[0], z[1])).join("; ")}</p></details>`;
+    realBindInfo(row);
     const pills = document.createElement("div");
     pills.className = "pills small";
     pills.setAttribute("role", "group");
@@ -1441,8 +1483,8 @@ function realBuild(){
     }
   }
   const zdrojeVne = z => `<details><summary>Zdroj</summary><p>${z.text ? esc(z.text) : ""}</p><p>${z.zdroje.map(s => realLink(s[0], s[1])).join("; ")}</p></details>`;
-  const t = realRow("Další oteplení do roku 2050", "", REAL.dT.min, REAL.dT.max, .1, v => { realCfg.dT = v; realDraw(); }, zdrojeVne(REAL.dT));
-  const p = realRow("Obyvatel kraje v roce 2050", "", REAL.pop.min, REAL.pop.max, 1, v => { realCfg.dpop = (v - REAL.pop.default) / REAL.pop.base; realDraw(); }, zdrojeVne(REAL.pop));
+  const t = realRow("Další oteplení do roku 2050", realInfo("O kolik stupňů bude v roce 2050 tepleji než v letech 2015 až 2019. Víc stupňů znamená méně elektřiny na vytápění a více na chlazení."), REAL.dT.min, REAL.dT.max, .1, v => { realCfg.dT = v; realDraw(); }, zdrojeVne(REAL.dT));
+  const p = realRow("Obyvatel kraje v roce 2050", realInfo("Kolik lidí bude v kraji žít. Méně lidí znamená menší spotřebu domácností, aut a vytápění. Menší schodek z úbytku lidí není dobrá zpráva."), REAL.pop.min, REAL.pop.max, 1, v => { realCfg.dpop = (v - REAL.pop.default) / REAL.pop.base; realDraw(); }, zdrojeVne(REAL.pop));
   ext.appendChild(t.row); ext.appendChild(p.row);
   REAL_REFS.ext.dT = t; REAL_REFS.ext.pop = p;
   $("realSrcTable").innerHTML = `<table class="grades"><tr><th>Indikátor</th><th>Výchozí</th><th>Jistota</th><th>Z čeho</th></tr>` + REAL.ind.map(r => `<tr><td>${esc(r.indikator)}</td><td class="n">${NF2.format(Number(r.x))}</td><td>${esc(r.jistota)}</td><td>${r.zdroj ? realLink(r.zdroj, r.url) : "Bez zdroje, odhad"}${REAL_USED.has(r.id) ? "" : `. Váha 0: ${esc(r.vaha0)}`}</td></tr>`).join("") + `</table>`;
