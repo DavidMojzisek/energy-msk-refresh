@@ -183,27 +183,27 @@ Velikost určuje běh s elektrolyzérem mimo prosinec až únor, tabulka je z n�
 | Jen přebytek | 2,6 | 631 | 3 275 | 0,8 | 0,2 % | 5 231 | 25 | 1,2 % | 2 042 |
 | Jen přebytek | 2,6 | 1 000 | 2 067 | 0,0 | 0,0 % | 5 231 | 26 | 1,2 % | 2 041 |
 
-Potřeba flotily je 2 067 GWh a přebytek 334 GWh. Podíl přebytku na vodíku je 11,8 % bez baterie a 2,0 % s baterií. Vývoz pod 1 % nyní dává 550 MW a 631 MW už pravidlo nevyžaduje. 314 MW je nejmenší elektrolyzér, který dodá roční vodík bez výroby ze sítě v prosinci až únoru, a vyveze 12,9 GWh, 3,9 % přebytku. Přechod z 314 na 550 MW sníží vývoz o 9,6 GWh a dovoz o stejnou hodnotu, tedy 236 MW navíc za 41 h využití. Na 631 MW je to další 1,6 GWh. Hlavní cíl zůstává nevyvážet, proto výchozí hodnota 550 MW platí, jen ji žádné ekonomické měřítko nepodpírá. Nulový vývoz by stál 1 177 MW.
+Potřeba flotily je 2 067 GWh a přebytek 334 GWh. Podíl přebytku na vodíku je 11,8 % bez baterie a 2,0 % s baterií. Vývoz pod 1 % nyní dává 550 MW a 631 MW už pravidlo nevyžaduje. 314 MW je nejmenší elektrolyzér, který dodá roční vodík bez výroby ze sítě v prosinci až únoru, a vyveze 12,9 GWh, 3,9 % přebytku. Přechod z 314 na 550 MW sníží vývoz o 9,6 GWh a dovoz o stejnou hodnotu, tedy 236 MW navíc za 41 h využití. Na 631 MW je to další 1,6 GWh. Hlavní cíl zůstává nevyvážet, proto výchozí hodnota 550 MW platí. Nulový vývoz by stál 1 177 MW.
 
 ### Nádrž při pevné kapacitě
 
-Baterie 2,6 GWh a 650 MW, elektrolyzér 550 MW, rovnoměrný odběr flotily. Výrobu rozvrhuje hodinový lineární program po jednotlivých letech s předvídáním: nejdřív co nejméně vývozu, potom co nejméně výroby ze sítě v prosinci až únoru, potom nižší zimní špička. Baterie pak vyrovnává to, co zbude. Ceny DOE MYRDD 2015 (500 a 600 USD/kg cíl, 850 USD/kg stav), bez údržby. Anuitní faktor 0,0963 je náš vlastní výběr bez zdroje.
+Baterie 2,6 GWh a 650 MW, elektrolyzér 550 MW, rovnoměrný odběr flotily. Výrobu rozvrhuje hodinový lineární program po jednotlivých letech s předvídáním: nejdřív co nejméně vývozu, potom co nejméně výroby ze sítě v prosinci až únoru, potom nižší zimní špička. Baterie pak vyrovnává to, co zbude.
 
-| Nádrž | Výroba H2 v prosinci až únoru GWh | Bilance prosinec až únor GWh | Bilance říjen až březen GWh | Zimní špička dovozu MW, průměr / nejhorší rok | Vývoz GWh | Dovoz GWh | Mil. USD/rok při 500 | 850 |
-|---|---|---|---|---|---|---|---|---|
-| 0 t | 510 | −1 513 | −2 777 | 925 / 981 | 5,9 | 5 274 | 0,0 | 0,0 |
-| 5 t | 509 | −1 516 | −2 782 | 935 / 982 | 5,1 | 5 278 | 0,2 | 0,4 |
-| 10 t | 509 | −1 515 | −2 781 | 935 / 982 | 3,5 | 5 276 | 0,5 | 0,8 |
-| 25 t | 508 | −1 512 | −2 776 | 932 / 983 | 0,7 | 5 268 | 1,2 | 2,0 |
-| 50 t | 507 | −1 505 | −2 768 | 911 / 977 | 0,4 | 5 263 | 2,4 | 4,1 |
-| 75 t | 506 | −1 504 | −2 764 | 897 / 968 | 0,0 | 5 263 | 3,6 | 6,1 |
-| 100 t | 504 | −1 504 | −2 766 | 893 / 959 | 0,0 | 5 262 | 4,8 | 8,2 |
-| 250 t | 496 | −1 498 | −2 764 | 865 / 921 | 0,0 | 5 261 | 12,0 | 20,5 |
-| 500 t | 483 | −1 489 | −2 767 | 839 / 890 | 0,0 | 5 260 | 24,1 | 40,9 |
-| 1 000 t | 456 | −1 463 | −2 766 | 809 / 859 | 0,0 | 5 259 | 48,1 | 81,9 |
-| 2 500 t | 376 | −1 390 | −2 729 | 766 / 792 | 0,2 | 5 260 | 120,4 | 204,6 |
-| 5 000 t | 243 | −1 266 | −2 622 | 765 / 789 | 0,2 | 5 261 | 240,8 | 409,3 |
-| plná sezónní, 10 035 t | 3 | −1 030 | −2 429 | 781 / 794 | 0,6 | 5 266 | 483,2 | 821,4 |
+| Nádrž | Výroba H2 v prosinci až únoru GWh | Bilance prosinec až únor GWh | Bilance říjen až březen GWh | Zimní špička dovozu MW, průměr / nejhorší rok | Vývoz GWh | Dovoz GWh |
+|---|---|---|---|---|---|---|
+| 0 t | 510 | −1 513 | −2 777 | 925 / 981 | 5,9 | 5 274 |
+| 5 t | 509 | −1 516 | −2 782 | 935 / 982 | 5,1 | 5 278 |
+| 10 t | 509 | −1 515 | −2 781 | 935 / 982 | 3,5 | 5 276 |
+| 25 t | 508 | −1 512 | −2 776 | 932 / 983 | 0,7 | 5 268 |
+| 50 t | 507 | −1 505 | −2 768 | 911 / 977 | 0,4 | 5 263 |
+| 75 t | 506 | −1 504 | −2 764 | 897 / 968 | 0,0 | 5 263 |
+| 100 t | 504 | −1 504 | −2 766 | 893 / 959 | 0,0 | 5 262 |
+| 250 t | 496 | −1 498 | −2 764 | 865 / 921 | 0,0 | 5 261 |
+| 500 t | 483 | −1 489 | −2 767 | 839 / 890 | 0,0 | 5 260 |
+| 1 000 t | 456 | −1 463 | −2 766 | 809 / 859 | 0,0 | 5 259 |
+| 2 500 t | 376 | −1 390 | −2 729 | 766 / 792 | 0,2 | 5 260 |
+| 5 000 t | 243 | −1 266 | −2 622 | 765 / 789 | 0,2 | 5 261 |
+| plná sezónní, 10 035 t | 3 | −1 030 | −2 429 | 781 / 794 | 0,6 | 5 266 |
 
 Výchozí zůstává malá nádrž asi 50 t podle stejného pravidla: nejmenší vývoz je prakticky hotový do 50 t. Zimní špička klesá i dál, pomalu. Plná sezónní nádrž je asi 200krát větší a kupuje hlavně přesun výroby ze zimy do zbytku roku. Výhrady k malé nádrži: 50 t je asi 11 h spotřeby flotily, rozvrh zná celý rok a denní tankovací profil část nádrže spotřebuje.
 
