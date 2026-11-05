@@ -73,16 +73,16 @@ Všechny řádky, kde se změnila hodnota 2050, mez nebo stupeň. Účinek je zm
 | domácnosti bez vytápění | konzervativni | 423,6 | 423,6 | 309,9 až 548,0 | 309,9 až 925,0 | D | 0,0 | P50 beze změny, P90 925 GWh: 370 000 domácností × 2,5 MWh. Rozdělení mezi tarifní řádky je nejisté. |
 | elektrokotle v teplárnách | progresivni | 150,0 | 10,1 | 50,0 až 400,0 | 0,0 až 70,0 | D | −139,9 | Mez 70 MW je náš součet: 18 MW (s.121), 12 MW a nejvýš dva další po 20 MW (s.166, extrémní scénář). Předpokládá, že 18 a 12 MW jsou dva různé kotle. Kotel bere jen přebytek, řádek je výsledek hodinového běhu. |
 | elektrokotle v teplárnách | konzervativni | 9,0 | 0,0 | 2,0 až 40,0 | 0,0 až 9,0 | D | −9,0 | Mez 70 MW je náš součet: 18 MW (s.121), 12 MW a nejvýš dva další po 20 MW (s.166, extrémní scénář). Předpokládá, že 18 a 12 MW jsou dva různé kotle. Kotel bere jen přebytek, řádek je výsledek hodinového běhu. |
-| nákladní doprava | progresivni | 558,6 | 782,1 | 234,4 až 657,2 | 328,1 až 920,1 | D | 223,5 | Flotila 70:30 místo 50:50. |
+| nákladní doprava | progresivni | 558,6 | 782,1 | 234,4 až 657,2 | 328,1 až 920,1 | D | 223,5 | Flotila 70:30. |
 | vlaky | progresivni | 37,6 | 37,6 | 37,6 až 111,1 | 30,0 až 111,1 | B na C | 0,0 | P10 pod P50, dřívější mez neměla žádný pokles. |
 | vlaky | konzervativni | 35,7 | 35,7 | 30,0 až 100,0 | 30,0 až 100,0 | B na D | 0,0 | 95 % je z definice cesty, ne z publikace. |
-| MHD | progresivni | 11,9 | 16,6 | 11,9 až 33,9 | 13,3 až 47,4 | D | 4,7 | Flotila 70:30 místo 50:50. Křivka bez P10 pod P50, P10 o 20 % níž. |
+| MHD | progresivni | 11,9 | 16,6 | 11,9 až 33,9 | 13,3 až 47,4 | D | 4,7 | Flotila 70:30. Křivka bez P10 pod P50, P10 o 20 % níž. |
 | MHD | konzervativni | 19,0 | 19,0 | 15,0 až 65,0 | 15,0 až 65,0 | B na D | 0,0 | 80 % je z definice cesty, hodnota pod základem. |
 | výroba vodíku | progresivni | 45,8 | 45,8 | 20,0 až 260,4 | 20,0 až 260,4 | B na C | 0,0 | P50 2050 je ze studie, 2030 a 2040 jsou volba modelu. |
 | výroba vodíku: osobní auta | progresivni | 0,0 | 0,0 | 0,0 až 0,0 | 0,0 až 0,0 | C na D | 0,0 | Stupeň podle jednotného pravidla: nejslabší vstup hodnoty P50. |
 | výroba vodíku: osobní auta | konzervativni | 0,0 | 0,0 | 0,0 až 0,0 | 0,0 až 0,0 | C na D | 0,0 | Stupeň podle jednotného pravidla: nejslabší vstup hodnoty P50. |
-| výroba vodíku: nákladní doprava | progresivni | 1 925,0 | 1 174,9 | 884,5 až 2 958,5 | 540,3 až 1 802,1 | D | −750,1 | Flotila 70:30 místo 50:50. Komprese 3,1 kWh/kg změřená místo modelových 2,23 kWh/kg, celkem 51,36 kWh/kg. |
-| výroba vodíku: MHD | progresivni | 34,6 | 21,1 | 16,1 až 103,1 | 9,8 až 62,8 | D | −13,5 | Flotila 70:30 místo 50:50. Komprese 3,1 kWh/kg změřená místo modelových 2,23 kWh/kg, celkem 51,36 kWh/kg. |
+| výroba vodíku: nákladní doprava | progresivni | 1 925,0 | 1 174,9 | 884,5 až 2 958,5 | 540,3 až 1 802,1 | D | −750,1 | Flotila 70:30. Komprese 3,1 kWh/kg změřená místo modelových 2,23 kWh/kg, celkem 51,36 kWh/kg. |
+| výroba vodíku: MHD | progresivni | 34,6 | 21,1 | 16,1 až 103,1 | 9,8 až 62,8 | D | −13,5 | Flotila 70:30. Komprese 3,1 kWh/kg změřená místo modelových 2,23 kWh/kg, celkem 51,36 kWh/kg. |
 | výroba syntetického plynu | progresivni | 0,0 | 0,0 | 0,0 až 0,0 | 0,0 až 0,0 | C na D | 0,0 | Volba modelu proti s.169 studie, nula je znak neznámé hodnoty. |
 | výroba syntetického plynu | konzervativni | 0,0 | 0,0 | 0,0 až 0,0 | 0,0 až 0,0 | C na D | 0,0 | Volba modelu proti s.169 studie, nula je znak neznámé hodnoty. |
 | vlastní spotřeba zdrojů | progresivni | 491,6 | 460,1 | 368,7 až 614,5 | 345,1 až 575,2 | C | −31,5 | Vzorec z výroby, počítá i SMR, 310 GWh na blok. Dřívější řádek byl jen křivka přes milníky. |

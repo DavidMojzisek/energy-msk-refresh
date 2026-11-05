@@ -115,6 +115,35 @@ details p{margin:4px 0;overflow-wrap:anywhere}
 #tip div{display:flex;justify-content:space-between;gap:14px}
 footer{color:var(--muted);font-size:12.5px;margin-top:24px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+#flowStage{position:relative;width:100%;height:540px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#060e1d;color:#e8edf3;touch-action:pan-y;margin-top:8px}
+#flowRibbons,#flowCanvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.fband{fill:none;stroke-linecap:butt}
+.fnode{position:absolute;display:flex;align-items:center;gap:8px;padding:0 8px;border-radius:8px;background:rgba(11,21,38,.94);border:1px solid #2a3442;cursor:default}
+.fnode:hover{border-color:var(--c)}
+.fnode:focus-visible{outline:2px solid var(--c);outline-offset:1px}
+.fnode.off{opacity:.5}
+.fnode svg{width:26px;height:26px;flex:none;color:var(--c);fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.ftext{min-width:0;flex:1}
+.fname,.fnote{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fname{font:600 12.5px/1.15 "Saira",sans-serif}
+.fval{display:block;font:500 13px/1.3 "JetBrains Mono",monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
+.fnote{font:500 10.5px/1.2 "DM Sans",sans-serif;color:#9aa7b8}
+#flowHub{position:absolute;border-radius:50%;background:radial-gradient(circle at 50% 38%,#12233e,#0a1424 72%);display:grid;place-items:center;text-align:center}
+#flowRing{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}
+#flowRing circle{fill:none;stroke-width:4}
+#flowHubIn{position:relative;padding:0 4px}
+#flowHubIn span{display:block}
+#flowHubKey{font:600 11px/1.2 "Saira",sans-serif;color:#9aa7b8}
+#flowHubVal{font:600 19px/1.15 "JetBrains Mono",monospace;font-variant-numeric:tabular-nums}
+#flowHubUnit,.fhs{font:500 11px/1.3 "JetBrains Mono",monospace;color:#9aa7b8;white-space:nowrap}
+#flowStage.narrow .fnode{padding:0 4px;gap:0}
+#flowStage.narrow .fnode svg{display:none}
+#flowStage.narrow .fname{font-size:11px}
+#flowStage.narrow .fval{font-size:12px;line-height:1.2}
+#flowStage.narrow .fnote{font-size:10px;line-height:1.15}
+#flowStage.narrow .fhs{display:none}
+#flowStage.narrow #flowHubVal{font-size:13px}
+#flowStage.narrow #flowHubKey,#flowStage.narrow #flowHubUnit{font-size:10px}
 </style>
 </head>
 <body>
@@ -195,6 +224,18 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
   </div>
   <div class="trendgrid" id="trends"></div>
 </details>
+<section class="card" id="flowCard">
+  <h2>Toky elektřiny v kraji</h2>
+  <p class="viewnote" id="flowCaption"></p>
+  <div id="flowStage" role="group" aria-label="Schéma toků elektřiny v kraji">
+    <svg id="flowRibbons" aria-hidden="true"></svg>
+    <canvas id="flowCanvas" aria-hidden="true"></canvas>
+    <div id="flowHub">
+      <svg id="flowRing" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46" stroke="#1d2c44"></circle><circle id="flowRingOwn" cx="50" cy="50" r="46"></circle><circle id="flowRingImp" cx="50" cy="50" r="46" stroke="#ff6b6b"></circle></svg>
+      <div id="flowHubIn"><span id="flowHubKey"></span><span id="flowHubVal"></span><span id="flowHubUnit"></span><span class="fhs" id="flowHubS1"></span><span class="fhs" id="flowHubS2"></span></div>
+    </div>
+  </div>
+</section>
 <section class="card" id="balcard">
   <h2 id="balTitle">Bilance vybrané cesty</h2>
   <div id="bal"></div>
@@ -279,7 +320,7 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
         <tr><td>Tvorba scénářů</td><td>cesty jsou dané, nevybírali jsme je ze souladných kombinací</td><td>neuděláno</td></tr>
         <tr><td>Přenos, volitelný</td><td>Co by muselo platit, Návrhové volby</td><td>částečně</td></tr>
       </table></div>
-      <p>Hybné síly a předem dané síly jsou pojmy Slacha a kol. (s. 183), kritické nejistoty pojem z citace u Kosowa a Gaßnera (s. 12). Zařazení a pořadí sil jsou náš úsudek a postup. Předurčené jsou například konec Dětmarovic a stárnutí obyvatel, nejisté SMR, vodík v dopravě, vítr a ocel. Osy matice 2 × 2 (Bishop a kol. 2007, s. 14) jsme netvořili, cesty se liší volbou politiky. Hospodářství kraje a klima ukazuje až stránka <a href="laborator/toky/">Toky elektřiny v kraji</a>.</p>
+      <p>Hybné síly a předem dané síly jsou pojmy Slacha a kol. (s. 183), kritické nejistoty pojem z citace u Kosowa a Gaßnera (s. 12). Zařazení a pořadí sil jsou náš úsudek a postup. Předurčené jsou například konec Dětmarovic a stárnutí obyvatel, nejisté SMR, vodík v dopravě, vítr a ocel. Osy matice 2 × 2 (Bishop a kol. 2007, s. 14) jsme netvořili, cesty se liší volbou politiky. Hospodářství kraje a klima stránka jako samostatné podscénáře neukazuje.</p>
       <p>Typy podle Börjesona a kol. 2006 jsou prediktivní, průzkumný a normativní (podle Bishopa a kol. 2007, s. 10). Progresivní cesta je zadaná jako žádoucí obraz (Slach a kol., s. 182), výpočet je průzkumný. Taková kombinace je běžná (Kosow a Gaßner 2008, s. 32).</p>
       <p>Kontrola souladu dvojic je náš úsudek až nad hotovými cestami. Našla rozpory, například {{vs_h2_sit_pct}} % vodíku je z elektřiny ze sítě, proto jsou výroky podmíněné. Zpětná kontrola je náš postup, jen drží hodnotu roku 2015 a netestuje model. Staré výhledy jsme se skutečností nesrovnali, jak to dělají Craig a kol. 2002. Počet obyvatel a další vnější vlivy jsou vyměnitelné vstupy s uvedeným zdrojem.</p>
       <p>Backcasting jde od žádoucího konce zpět k fyzické proveditelnosti a k tomu, „what policy measures would be required“ (Robinson 1990, podle Dreborga 1996, s. 814), a dává alternativní obrazy budoucnosti (s. 826). Blok Co by muselo platit jen spočítá, co vyrovná bilanci. Je to jeden krok backcastingu (s. 824). Opatření, aktéři a mezikroky na stránce nejsou.</p>
@@ -331,7 +372,7 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
       <p>Přebytek bere elektrolyzér podle rozvrhu malé nádrže, elektrokotle do {{kotle_mw}} MW a baterie, zbytek je vývoz. Těch {{kotle_mw}} MW je náš součet z údajů studie, ne její mez. Schodek kryje baterie, potom plyn do ročního rozpočtu a zbytek dovoz. Doprava na vodík odebírá rovnoměrně a malá nádrž výrobu posouvá o hodiny.</p>
       <p>Velikost baterie je naše pravidlo, ne převzatá metoda. Vychází z denního výkyvu, ne z ceny ani z cíle: v mediánovém dni je to energie nad denním průměrem, navýšená o účinnost jednoho směru. Každou půlnoc si baterie podle přesné křivky na další den určí nejnižší rovnou hladinu H, kterou udrží. Nad H vybíjí, pod H &minus; 100 MW nabíjí i ze sítě. Odstup 100 MW je úsudek.</p>
       <p>Velikost elektrolyzéru je také naše pravidlo. Je tak velký, aby na vývoz zbylo pod 1 % přebytku, protože hlavní cíl je přebytek využít. Plné hodiny jsou z hodinového výpočtu.</p>
-      <p>Rozvrh plynu, elektrolýzy ze sítě a nádrže zná celý rok dopředu, skutečný provoz by špičku dovozu zvýšil, velikost je v záložce Nedostatky. Dvě další stránky jsou <a href="laborator/toky/">Toky elektřiny v kraji</a>, která používá předpočítané hodinové běhy a ukazuje nejbližší spočítaný stav, a <a href="laborator/grafy/">Grafy z hodinového modelu</a>.</p>
+      <p>Rozvrh plynu, elektrolýzy ze sítě a nádrže zná celý rok dopředu, skutečný provoz by špičku dovozu zvýšil, velikost je v záložce Nedostatky. Graf toků v záložce Bilance počítá ve stránce stejně jako hlavní graf a hodinové výsledky nepoužívá, hodinové běhy mají vlastní stránku <a href="laborator/grafy/">Grafy z hodinového modelu</a>.</p>
     </details>
   </section>
 
@@ -420,7 +461,7 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
 <article class="method">
   <section class="card">
     <h2>Na co si dát pozor</h2>
-    <p>Stránka je cvičení metody scénářů, ne prováděcí plán. Tady je, co víme, že není v pořádku, co chybí a kde jsme zvolili hodnotu bez opory ve zdrojích. <span id="gradeCount"></span></p>
+    <p>Stránka je cvičení metody scénářů, ne prováděcí plán. Tady je, co víme, že není v pořádku, co chybí a kde jsme zvolili hodnotu bez opory ve zdrojích. Rozpory mezi výstupy jsou v listu <a href="ROZPORY.md">Křížová kontrola výstupů</a>. <span id="gradeCount"></span></p>
   </section>
   <section class="card">
     <h2>Otevřená rozhodnutí</h2>
@@ -1110,7 +1151,7 @@ function drawTrends(){
     host.appendChild(row);
   }
 }
-function refresh(){ drawMain(); drawBalance(); drawKpi(); formulaLabels.forEach(f => f()); }
+function refresh(){ drawMain(); drawBalance(); drawKpi(); FLOW.draw(); formulaLabels.forEach(f => f()); }
 
 function pressOnly(selector, attr, value){
   document.querySelectorAll(selector).forEach(x => x.setAttribute("aria-pressed", x.dataset[attr] === value));
@@ -1204,6 +1245,480 @@ if(typeof addEventListener !== "undefined"){
   let wasSmall = isSmall();
   addEventListener("resize", () => { if(isSmall() !== wasSmall){ wasSmall = isSmall(); refresh(); } });
 }
+
+/* Graf toků v záložce Bilance. Čísla bere jen z values() a moment(), stejně jako hlavní graf a řádek výsledků. Hodinové výsledky nepoužívá. */
+const FLOW_SOURCES = [
+  {id:"smr", label:"Malé reaktory SMR", short:"SMR", icon:"atom", color:"#2fe6d8", rows:["SMR"]},
+  {id:"slunce", label:"Fotovoltaika", short:"Slunce", icon:"sun", color:"#ffb81c", rows:["fotovoltaika střešní", "fotovoltaika pozemní"]},
+  {id:"vitr", label:"Vítr", short:"Vítr", icon:"wind", color:"#3ddc97", rows:["vítr"]},
+  {id:"voda", label:"Malé vodní zdroje", short:"Voda", icon:"drop", color:"#4aa3ff", rows:["malé vodní elektrárny", "geotermální energie"]},
+  {id:"biomasa", label:"Biomasa a bioplyn", short:"Biomasa", icon:"leaf", color:"#a3e635", rows:["biomasa", "bioplyn"]},
+  {id:"odpad", label:"Využití odpadu", short:"Odpad", icon:"bin", color:"#e0a36b", rows:["energetické využití odpadu"]},
+  {id:"plyn", label:"Plyny", short:"Plyny", icon:"flame", color:"#c084fc", rows:["zemní plyn: stávající kogenerace", "nové plynové bloky", "syntetický plyn z odpadu", "hutní plyny (vysokopecní a koksárenský)", "důlní plyn"]},
+  {id:"uhli", label:"Uhlí a ostatní paliva", short:"Uhlí a jiné", icon:"coal", color:"#8a97ab", rows:["černé uhlí: Dětmarovice", "černé uhlí: teplárny a průmysl", "hnědé uhlí", "ostatní paliva a odpadní teplo (přidaná položka)", "baterie", "jiné skladování", "vodík zpět na elektřinu"]},
+];
+const FLOW_USES = [
+  {id:"prumysl", label:"Průmysl", short:"Průmysl", icon:"factory", rows:["Třinecké železárny", "Nová huť", "ostatní průmysl a chemie", "doly", "výroba vodíku", "výroba vodíku: osobní auta", "výroba syntetického plynu"]},
+  {id:"domacnosti", label:"Domácnosti", short:"Domácnosti", icon:"house", rows:["domácnosti bez vytápění"]},
+  {id:"sluzby", label:"Služby a ostatní", short:"Služby", icon:"office", rows:["služby a veřejný sektor", "zemědělství a stavebnictví", "datacentra", "úspory a účinnost"]},
+  {id:"teplo", label:"Teplo a chlazení", short:"Teplo", icon:"heat", rows:["vytápění tepelnými čerpadly", "přímotopy", "elektrokotle v teplárnách", "chlazení"]},
+  {id:"doprava", label:"Doprava na elektřinu", short:"Doprava", icon:"train", rows:["osobní auta", "nákladní doprava", "vlaky", "MHD"]},
+  {id:"energetika", label:"Energetika a ztráty", short:"Energetika", icon:"bolt", rows:["vlastní spotřeba zdrojů", "ostatní energetika (přidaná položka)", "ztráty v sítích"]},
+].map(g => ({...g, color:"#ffcf5c"}));
+const FLOW_OTHER = [
+  {id:"sit", label:"Dovoz", short:"Dovoz", icon:"pylon", color:"#ff6b6b", kind:"grid"},
+  {id:"baterie", label:"Baterie", short:"Baterie", icon:"battery", color:"#a08cff", kind:"store"},
+  {id:"elektrolyzer", label:"Elektrolyzér", short:"Elektrolyzér", icon:"cell", color:"#f08cb4", kind:"store"},
+  {id:"nadrz", label:"Nádrž na vodík", short:"Nádrž", icon:"tank", color:"#2fe0b0", kind:"store"},
+  {id:"flotila", label:"MHD a kamiony na vodík", short:"Flotila", icon:"truck", color:"#2fe0b0", kind:"fleet"},
+];
+const FLOW_FLEET = ["výroba vodíku: nákladní doprava", "výroba vodíku: MHD"], FLOW_BATTERY_LOSS = "ztráty baterií";
+const FLOW_ROWNAME = {"výroba vodíku":"Vodík mimo flotilu", "výroba vodíku: osobní auta":"Vodík mimo flotilu", "výroba syntetického plynu":"Syntetický plyn", "úspory a účinnost":"Úspory a účinnost, snižují spotřebu", "výroba vodíku: nákladní doprava":"Vodík pro kamiony", "výroba vodíku: MHD":"Vodík pro MHD"};
+const FLOW_EDGES = [
+  ...FLOW_SOURCES.map(g => ({id:g.id, from:g.id, to:"kraj", kind:"in", color:g.color})),
+  ...FLOW_USES.map(g => ({id:g.id, from:"kraj", to:g.id, kind:"out", color:g.color})),
+  {id:"dovoz", from:"sit", to:"kraj", kind:"top", color:"#ff6b6b"},
+  {id:"prebytek", from:"kraj", to:"sit", kind:"top", color:"#7dd3fc"},
+  {id:"kBaterie", from:"kraj", to:"baterie", kind:"down", color:"#a08cff"},
+  {id:"kElektrolyzer", from:"kraj", to:"elektrolyzer", kind:"down", color:"#f08cb4"},
+  {id:"h2Nadrz", from:"elektrolyzer", to:"nadrz", kind:"chain", color:"#2fe0b0"},
+  {id:"h2Flotila", from:"nadrz", to:"flotila", kind:"chain", color:"#2fe0b0"},
+];
+const FLOW_GROUP = {};
+for(const g of FLOW_SOURCES.concat(FLOW_USES)) for(const r of g.rows) FLOW_GROUP[r] = g.id;
+for(const r of FLOW_FLEET) FLOW_GROUP[r] = "elektrolyzer";
+FLOW_GROUP[FLOW_BATTERY_LOSS] = "baterie";
+const flowUnassigned = DATA.items.filter(it => !FLOW_GROUP[it.name]).map(it => it.name);
+if(flowUnassigned.length) console.error("Položky mimo graf toků", flowUnassigned);
+function flowRowName(name){
+  if(FLOW_ROWNAME[name]) return FLOW_ROWNAME[name];
+  const s = label(name);
+  return s[0].toUpperCase() + s.slice(1);
+}
+/* Čistá funkce stavu: uzly a hrany pro vybranou cestu, rok a pohled. Řádky a koeficienty jsou tytéž jako v moment(). */
+function flowState(){
+  const path = state.path, i = state.year - 2025, view = state.view, energy = view === "energy", summer = view === "summer";
+  const unit = energy ? "GWh" : "MW", m = energy ? null : moment(path, i);
+  const amount = (it, gwh) => energy ? gwh : gwh * 1000 / 8760 * (view === "winter" ? it.kw : it.ks);
+  const n = {};
+  for(const g of FLOW_SOURCES) n[g.id] = {id:g.id, label:g.label, short:g.short, kind:"source", color:g.color, value:0, note:"", items:[]};
+  for(const g of FLOW_USES) n[g.id] = {id:g.id, label:g.label, short:g.short, kind:"consumer", color:g.color, value:0, note:"", items:[]};
+  for(const g of FLOW_OTHER) n[g.id] = {id:g.id, label:g.label, short:g.short, kind:g.kind, color:g.color, value:0, note:"", items:[]};
+  const add = (node, name, v) => {
+    if(Math.abs(v) < 1e-9) return;
+    node.value += v;
+    const row = node.items.find(r => r.name === name);
+    if(row) row.value += v; else node.items.push({name, value:v});
+  };
+  let genSum = 0;
+  for(const {it, gwh} of values(path, "vyroba", i)){
+    const v = amount(it, gwh);
+    genSum += v;
+    add(n[FLOW_GROUP[it.name]], flowRowName(it.name), v);
+  }
+  /* Zimní výkon plynových bloků nemá řádek, je to rozdíl proti moment(). */
+  if(view === "winter") add(n.plyn, "Plynové bloky, dostupný výkon", m.avail - genSum);
+  let useSum = 0, fleetGwh = 0;
+  for(const {it, gwh} of values(path, "spotreba", i)){
+    if(FLOW_FLEET.includes(it.name)) fleetGwh += gwh;
+    if(summer && it.flex) continue;
+    const v = amount(it, gwh);
+    useSum += v;
+    add(n[FLOW_GROUP[it.name]], flowRowName(it.name), v);
+  }
+  /* Úspory jsou záporný řádek. Pokud jeho skupina klesne pod nulu, zbytek se odečte od ostatních skupin, součet se nemění. */
+  const uses = FLOW_USES.map(g => n[g.id]);
+  const below = uses.reduce((sum, u) => sum + Math.max(-u.value, 0), 0);
+  if(below > 0){
+    const above = uses.reduce((sum, u) => sum + Math.max(u.value, 0), 0), k = above > below ? (above - below) / above : 0;
+    for(const u of uses) u.value = Math.max(u.value, 0) * k;
+  }
+  if(summer){
+    add(n.elektrolyzer, "Z přebytku", m.forH2);
+    add(n.baterie, "Nabíjení z přebytku", m.charge);
+    add(n.teplo, "Elektrokotle, jen z přebytku", m.heat);
+  }
+  const gen = energy ? Math.max(0, genSum) : m.avail, use = energy ? Math.max(0, useSum) : m.load;
+  const inflow = energy ? Math.max(use - gen, 0) : Math.max(-m.balance, 0);
+  const served = uses.reduce((sum, u) => sum + u.value, 0) + n.elektrolyzer.value + n.baterie.value;
+  const surplus = Math.max(gen + inflow - served, 0);
+  const tankIn = n.elektrolyzer.value, tankOut = energy ? tankIn : fleetGwh * 1000 / 8760, tankDelta = tankIn - tankOut;
+  const big = v => v > 0.5;
+  n.sit.value = Math.max(inflow, surplus);
+  if(surplus > inflow){
+    n.sit.label = n.sit.short = summer ? "Nevyužito" : "Přebytek";
+    n.sit.color = "#7dd3fc";
+    n.sit.note = summer ? "po všech odběrech" : energy ? "výroba nad spotřebou" : "výkon nad zatížením";
+  } else n.sit.note = big(inflow) ? "ze sítě mimo kraj" : "bez dovozu";
+  n.baterie.note = energy ? (big(n.baterie.value) ? "jen ztráty" : "") : big(n.baterie.value) ? "nabíjí se" : "stojí";
+  n.elektrolyzer.note = !big(tankIn) ? "stojí" : energy ? "elektřina na vodík" : "z přebytku";
+  n.nadrz.value = tankOut;
+  n.nadrz.note = energy ? "" : tankDelta > 0.5 ? "plní se" : tankDelta < -0.5 ? "ubývá" : "drží";
+  n.flotila.value = tankOut;
+  n.flotila.note = big(tankOut) ? "jen z nádrže" : "bez vodíku";
+  if(!energy){
+    n.nadrz.detail = n.flotila.detail = "Odběr flotily je průměr roku z řádků vodíku.";
+  } else {
+    n.nadrz.detail = "Zásoba se za rok nemění, odběr je jen pro flotilu.";
+    if(big(n.baterie.value)) n.baterie.detail = "V ročním součtu se ukazují jen ztráty baterie.";
+  }
+  const flows = {dovoz:inflow, prebytek:surplus, kBaterie:n.baterie.value, kElektrolyzer:tankIn, h2Nadrz:tankIn, h2Flotila:tankOut};
+  for(const g of FLOW_SOURCES.concat(FLOW_USES)) flows[g.id] = n[g.id].value;
+  return {
+    path, year:state.year, view, unit, compare:state.compare,
+    nodes:Object.values(n),
+    edges:FLOW_EDGES.map(e => ({...e, value:flows[e.id]})).filter(e => e.value > 1e-6),
+    totals:{gen, use, imports:inflow, surplus, electro:tankIn, charge:m ? m.charge : 0, heat:m ? m.heat : 0, spare:m ? m.spare : 0, tankIn, tankOut, tankDelta},
+  };
+}
+const FLOW = (() => {
+  const ICONS = {
+    atom:'<circle cx="12" cy="12" r="1.7"/><ellipse cx="12" cy="12" rx="10" ry="4"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(120 12 12)"/>',
+    sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
+    wind:'<path d="M12 10.5V22M9 22h6"/><path d="M12 10V2.5M12 10l6.5 3.75M12 10l-6.5 3.75"/><circle cx="12" cy="10" r="1.2"/>',
+    drop:'<path d="M12 3s6.5 7 6.5 11.5a6.5 6.5 0 0 1-13 0C5.5 10 12 3 12 3z"/><path d="M9 15a3 3 0 0 0 3 3"/>',
+    leaf:'<path d="M5 19C4 10 10 4 20 4c0 10-5 16-13 15"/><path d="M4 21c2-5 6-9 11-11"/>',
+    bin:'<path d="M4 7h16M10 7V4h4v3M6.5 7l1 14h9l1-14M10 11v6M14 11v6"/>',
+    flame:'<path d="M12 3c.6 4 6 6 6 11.5a6 6 0 0 1-12 0c0-2.8 1.6-4.2 2.8-6.3.7 1.3 1.3 1.9 2.2 2.3.4-2.4.2-5 1-7.5z"/>',
+    coal:'<path d="M4 17l2.5-7.5L12 6l6.5 2.5L21 16l-4.5 4h-9z"/><path d="M6.5 9.5L11 13l1-7M11 13l6 1"/>',
+    factory:'<path d="M3 21V10l6 4v-4l6 4V4h5.5v17z"/><path d="M7 17.5h2M12 17.5h2M17 17.5h1"/>',
+    house:'<path d="M3 11.5L12 3.5l9 8"/><path d="M6 9.5V21h12V9.5"/><path d="M10 21v-6h4v6"/>',
+    office:'<rect x="5" y="3" width="14" height="18" rx="1"/><path d="M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2"/>',
+    heat:'<path d="M10 13.5V5a2 2 0 0 1 4 0v8.5a4 4 0 1 1-4 0z"/><path d="M12 9v8"/>',
+    train:'<rect x="5" y="3.5" width="14" height="13.5" rx="2.5"/><path d="M5 10.5h14M9 17l-2 3.5M15 17l2 3.5M9 13.8h.01M15 13.8h.01"/>',
+    bolt:'<path d="M13 2L5 14h6l-1 8 8-12h-6z"/>',
+    pylon:'<path d="M12 2v4M5 10h14M7 10l-3 12M17 10l3 12M9 10l-1 12M15 10l1 12M6 6h12"/>',
+    battery:'<rect x="2.5" y="7" width="17" height="10" rx="2"/><path d="M22 10.5v3M6.5 10v4M10.5 10v4"/>',
+    cell:'<path d="M4 8h16v12a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z"/><path d="M9 3v12M15 3v12"/><path d="M6.5 17.5h.01M12 17h.01M17.5 18h.01M12 11h.01"/>',
+    tank:'<rect x="3" y="8" width="18" height="9" rx="4.5"/><path d="M8 17v3M16 17v3M12 8V5M10 5h4"/>',
+    truck:'<path d="M2.5 16V7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v9"/><path d="M14.5 10h4l3 3.5V16"/><path d="M2.5 16h2M9.5 16h5.5M20 16h1.5"/><circle cx="7" cy="17" r="2.2"/><circle cx="17.5" cy="17" r="2.2"/>',
+  };
+  const VIEW_TEXT = {energy:"roční energie v GWh", winter:"zimní špička v MW", summer:"letní poledne v MW"};
+  const LUT = 24, MAX_SPARKS = 110, FLAKES = 24, HIDE_BELOW = 0.5;
+  const E = FLOW_EDGES.length, cur = new Float64Array(E), geom = [], sparks = [], bands = [], els = {}, boxes = {}, refs = {};
+  const flakes = [];
+  let built = false, last = null, sw = 0, sh = 540, R = 60, HX = 0, HY = 0, narrow = false, dpr = 1, ctx = null;
+  let visible = typeof IntersectionObserver === "undefined", reduced = false, running = false, rafId = 0, lastT = 0, sunAngle = 0, tipFor = null;
+  const fv = v => (v > 0 && v < 10 ? NF1 : NF).format(v);
+
+  /* Měřítko pruhů je pro každý pohled pevné, aby šířka porovnávala roky a cesty. Odvozené z výchozího stavu, posuvníky ho mohou jen zmenšit. */
+  function computeRefs(){
+    const keep = state.view;
+    for(const view of ["energy", "winter", "summer"]){
+      state.view = view;
+      let top = 1;
+      for(const p of Object.keys(PATHNAME)){ const c = curves(p); top = Math.max(top, ...c.gen, ...c.use); }
+      refs[view] = top;
+    }
+    state.view = keep;
+  }
+  function build(){
+    const ribbons = $("flowRibbons"), stage = $("flowStage");
+    FLOW_EDGES.forEach((e, i) => {
+      bands.push(mk("path", {class:"fband", stroke:e.color}, ribbons));
+      geom.push({x:new Float64Array(LUT + 1), y:new Float64Array(LUT + 1), nx:new Float64Array(LUT + 1), ny:new Float64Array(LUT + 1), len:1, w:0});
+      const u = new Float32Array(MAX_SPARKS), lat = new Float32Array(MAX_SPARKS);
+      for(let k = 0; k < MAX_SPARKS; k++){ u[k] = Math.random(); lat[k] = Math.random() * 2 - 1; }
+      sparks.push({u, lat});
+    });
+    for(const g of FLOW_SOURCES.concat(FLOW_USES, FLOW_OTHER)){
+      const el = document.createElement("div");
+      el.className = "fnode";
+      el.tabIndex = 0;
+      el.setAttribute("role", "img");
+      el.style.setProperty("--c", g.color);
+      const pict = mk("svg", {viewBox:"0 0 24 24", "aria-hidden":"true"}, el);
+      pict.innerHTML = ICONS[g.icon];
+      const text = document.createElement("div");
+      text.className = "ftext";
+      for(const [prop, cls] of [["nameEl", "fname"], ["valEl", "fval"], ["noteEl", "fnote"]]){
+        el[prop] = document.createElement("span");
+        el[prop].className = cls;
+        text.appendChild(el[prop]);
+      }
+      el.appendChild(text);
+      for(const type of ["pointerenter", "pointerdown", "focus"]) el.addEventListener(type, () => showNodeTip(g.id, el));
+      for(const type of ["pointerleave", "blur"]) el.addEventListener(type, hideNodeTip);
+      stage.appendChild(el);
+      els[g.id] = el;
+    }
+    for(let k = 0; k < FLAKES; k++) flakes.push({x:Math.random(), y:Math.random(), v:.012 + Math.random() * .02, r:1.6 + Math.random() * 1.8, p:Math.random() * 6.28, a:.18 + Math.random() * .22});
+    const query = typeof matchMedia !== "undefined" ? matchMedia("(prefers-reduced-motion:reduce)") : null;
+    reduced = !!(query && query.matches);
+    if(query && query.addEventListener) query.addEventListener("change", e => { reduced = e.matches; paint(); });
+    if(typeof IntersectionObserver !== "undefined") new IntersectionObserver(entries => {
+      visible = entries[entries.length - 1].isIntersecting;
+      paint();
+    }).observe(stage);
+    if(typeof ResizeObserver !== "undefined") new ResizeObserver(() => paint()).observe(stage);
+    else if(typeof addEventListener !== "undefined") addEventListener("resize", () => paint());
+    built = true;
+  }
+  function placeNodes(){
+    narrow = sw < 760;
+    const w = narrow ? Math.max(84, Math.min(130, sw * .3)) : sw >= 1000 ? 172 : 118, h = narrow ? 46 : 54;
+    sh = narrow ? 556 : 560;
+    const stage = $("flowStage"), pad = narrow ? 3 : 12, leftX = w / 2 + pad, rightX = sw - leftX, cx = sw / 2;
+    const top = narrow ? 30 : 38, colEnd = narrow ? 30 + 7 * 52 : sh - 38, useEnd = narrow ? colEnd : sh * .72;
+    const place = (id, x, y) => { boxes[id] = {x, y, w, h}; };
+    FLOW_SOURCES.forEach((g, k) => place(g.id, leftX, top + (colEnd - top) * k / (FLOW_SOURCES.length - 1)));
+    FLOW_USES.forEach((g, k) => place(g.id, rightX, top + (useEnd - top) * k / (FLOW_USES.length - 1)));
+    place("sit", cx, narrow ? 28 : 36);
+    if(narrow){
+      const gap = w / 2 + 3, rowA = colEnd + 62, rowB = colEnd + 118;
+      place("baterie", cx - gap, rowA); place("elektrolyzer", cx + gap, rowA);
+      place("nadrz", cx, rowB); place("flotila", rightX, rowB);
+    } else {
+      const row = sh - 44;
+      place("baterie", sw * .36, row); place("elektrolyzer", sw * .52, row);
+      place("nadrz", sw * .68, row); place("flotila", rightX, row);
+    }
+    R = narrow ? Math.min(44, (rightX - leftX - w) / 2 - 3) : Math.min(sh * .17, 96);
+    HX = cx; HY = narrow ? 172 : sh * .43;
+    stage.style.height = sh + "px";
+    stage.className = narrow ? "narrow" : "";
+    for(const id of Object.keys(boxes)){
+      const b = boxes[id], el = els[id];
+      el.style.left = (b.x - b.w / 2) + "px"; el.style.top = (b.y - b.h / 2) + "px";
+      el.style.width = b.w + "px"; el.style.height = b.h + "px";
+    }
+    const hub = $("flowHub");
+    hub.style.left = (HX - R) + "px"; hub.style.top = (HY - R) + "px";
+    hub.style.width = hub.style.height = (R * 2) + "px";
+    $("flowRibbons").setAttribute("viewBox", `0 0 ${sw} ${sh}`);
+    const canvas = $("flowCanvas");
+    dpr = Math.min(typeof devicePixelRatio !== "undefined" ? devicePixelRatio : 1, 2);
+    canvas.width = Math.round(sw * dpr); canvas.height = Math.round(sh * dpr);
+    ctx = canvas.getContext ? canvas.getContext("2d") : null;
+  }
+  /* Přístavy na okraji kruhu se skládají do jednoho svazku. */
+  function geometry(){
+    const inTotal = last.totals.gen + last.totals.imports, k = R * 1.3 / Math.max(refs[last.view], inTotal, last.totals.use);
+    const w = FLOW_EDGES.map((_, i) => cur[i] < HIDE_BELOW ? 0 : Math.max(1.5, cur[i] * k));
+    const stack = (kind, center) => {
+      const list = [];
+      FLOW_EDGES.forEach((e, i) => { if(e.kind === kind) list.push(i); });
+      const map = {};
+      let at = center - list.reduce((a, i) => a + w[i], 0) / 2;
+      for(const i of list){ map[i] = at + w[i] / 2; at += w[i]; }
+      return map;
+    };
+    const left = stack("in", HY), right = stack("out", HY), upper = stack("top", HX), lower = stack("down", HX), into = R * .72;
+    FLOW_EDGES.forEach((e, i) => {
+      let x0, y0, x1, y1, vertical = false;
+      if(e.kind === "in"){ const b = boxes[e.from]; x0 = b.x + b.w / 2; y0 = b.y; x1 = HX - into; y1 = left[i]; }
+      else if(e.kind === "out"){ const b = boxes[e.to]; x0 = HX + into; y0 = right[i]; x1 = b.x - b.w / 2; y1 = b.y; }
+      else if(e.kind === "top"){
+        const b = boxes.sit, a = [upper[i], b.y + b.h / 2], c = [upper[i], HY - into];
+        vertical = true;
+        if(e.from === "sit"){ [x0, y0] = a; [x1, y1] = c; } else { [x0, y0] = c; [x1, y1] = a; }
+      }
+      else if(e.kind === "down"){ const b = boxes[e.to]; x0 = lower[i]; y0 = HY + into; x1 = b.x; y1 = b.y - b.h / 2; vertical = true; }
+      else if(narrow && e.id === "h2Nadrz"){ const a = boxes[e.from], b = boxes[e.to]; x0 = a.x; y0 = a.y + a.h / 2; x1 = b.x; y1 = b.y - b.h / 2; vertical = true; }
+      else { const a = boxes[e.from], b = boxes[e.to]; x0 = a.x + a.w / 2; y0 = a.y; x1 = b.x - b.w / 2; y1 = b.y; }
+      const cx = vertical ? 0 : (x1 - x0) * .52, cy = vertical ? (y1 - y0) * .52 : 0;
+      const c0x = x0 + cx, c0y = y0 + cy, c1x = x1 - cx, c1y = y1 - cy, g = geom[i];
+      bands[i].setAttribute("d", `M${x0.toFixed(1)} ${y0.toFixed(1)}C${c0x.toFixed(1)} ${c0y.toFixed(1)} ${c1x.toFixed(1)} ${c1y.toFixed(1)} ${x1.toFixed(1)} ${y1.toFixed(1)}`);
+      bands[i].setAttribute("stroke-width", w[i].toFixed(2));
+      bands[i].setAttribute("opacity", w[i] > 0 ? (e.kind === "in" || e.kind === "out" ? .36 : .5) : 0);
+      let len = 0, px = x0, py = y0;
+      for(let s = 0; s <= LUT; s++){
+        const t = s / LUT, u = 1 - t;
+        const x = u*u*u*x0 + 3*u*u*t*c0x + 3*u*t*t*c1x + t*t*t*x1, y = u*u*u*y0 + 3*u*u*t*c0y + 3*u*t*t*c1y + t*t*t*y1;
+        const dx = 3*u*u*(c0x-x0) + 6*u*t*(c1x-c0x) + 3*t*t*(x1-c1x), dy = 3*u*u*(c0y-y0) + 6*u*t*(c1y-c0y) + 3*t*t*(y1-c1y), d = Math.hypot(dx, dy) || 1;
+        g.x[s] = x; g.y[s] = y; g.nx[s] = -dy / d; g.ny[s] = dx / d;
+        len += Math.hypot(x - px, y - py); px = x; py = y;
+      }
+      g.len = Math.max(len, 1); g.w = w[i];
+    });
+  }
+  function labels(){
+    const s = last, unit = s.unit, t = s.totals;
+    for(const node of s.nodes){
+      const el = els[node.id], off = node.value < HIDE_BELOW;
+      el.nameEl.textContent = narrow ? node.short : node.label;
+      el.valEl.textContent = fv(node.value) + " " + unit;
+      el.noteEl.textContent = node.note;
+      el.setAttribute("aria-label", `${node.label}: ${fv(node.value)} ${unit}${node.note ? ", " + node.note : ""}`);
+      el.style.setProperty("--c", node.color);
+      const cls = off ? "fnode off" : "fnode";
+      if(el.className !== cls) el.className = cls;
+    }
+    $("flowHubKey").textContent = s.view === "energy" ? "Spotřeba" : "Zatížení";
+    $("flowHubVal").textContent = fv(t.use);
+    $("flowHubUnit").textContent = unit;
+    $("flowHubS1").textContent = "výroba " + fv(t.gen);
+    $("flowHubS2").textContent = t.surplus > t.imports ? "přebytek " + fv(t.surplus) : "dovoz " + fv(t.imports);
+    const C = 2 * Math.PI * 46, supply = t.gen + t.imports || 1, own = t.gen / supply, ring = (el, start, share) => {
+      el.setAttribute("stroke-dasharray", `${(share * C).toFixed(2)} ${((1 - share) * C).toFixed(2)}`);
+      el.setAttribute("stroke-dashoffset", (-start * C).toFixed(2));
+    };
+    $("flowRingOwn").setAttribute("stroke", s.path === "progresivni" ? "var(--prog)" : "var(--kons)");
+    ring($("flowRingOwn"), 0, own);
+    ring($("flowRingImp"), own, 1 - own);
+    if(tipFor) writeTip();
+  }
+  function writeTip(){
+    const node = last.nodes.find(x => x.id === tipFor.id), tip = $("tip"), unit = last.unit;
+    const rows = node.items.map(r => `<div><span>${esc(r.name)}</span><span class="mono">${fv(r.value)} ${unit}</span></div>`).join("");
+    tip.innerHTML = `<b>${esc(node.label)}</b>` + rows + (node.items.length > 1 ? `<div style="margin-top:3px;font-weight:600"><span>Celkem</span><span class="mono">${fv(node.value)} ${unit}</span></div>` : node.items.length ? "" : `<div><span>Tok</span><span class="mono">${fv(node.value)} ${unit}</span></div>`) + (node.detail ? `<div style="margin-top:4px">${esc(node.detail)}</div>` : "");
+  }
+  function showNodeTip(id, el){
+    if(!last) return;
+    tipFor = {id, el};
+    writeTip();
+    const tip = $("tip"), box = el.getBoundingClientRect();
+    tip.style.display = "block";
+    tip.style.left = Math.max(4, Math.min(box.left, innerWidth - 300)) + "px";
+    tip.style.top = (box.bottom + 190 > (typeof innerHeight !== "undefined" ? innerHeight : 800) ? Math.max(4, box.top - 190) : box.bottom + 6) + "px";
+  }
+  function hideNodeTip(){
+    tipFor = null;
+    $("tip").style.display = "none";
+  }
+  /* Vločky a slunce: decentní, nikdy přes uzly a kruh. Na telefonu se nekreslí, aby nerušily malé popisky. */
+  function covers(x, y, pad){
+    for(const id of Object.keys(boxes)){
+      const b = boxes[id];
+      if(Math.abs(x - b.x) < b.w / 2 + pad && Math.abs(y - b.y) < b.h / 2 + pad) return true;
+    }
+    return Math.hypot(x - HX, y - HY) < R + pad;
+  }
+  function drawBackground(dt){
+    if(sw < 520 || !last || last.view === "energy") return;
+    ctx.lineCap = "round";
+    if(last.view === "winter"){
+      ctx.strokeStyle = "#cfe4ff"; ctx.lineWidth = 1;
+      for(const f of flakes){
+        f.y += f.v * dt;
+        if(f.y > 1.02) f.y = -.02;
+        const x = f.x * sw + Math.sin(f.y * 6 + f.p) * 10, y = f.y * sh;
+        if(covers(x, y, 6)) continue;
+        ctx.globalAlpha = f.a;
+        ctx.beginPath();
+        for(let k = 0; k < 3; k++){
+          const a = k * Math.PI / 3 + f.p, c = Math.cos(a) * f.r, s = Math.sin(a) * f.r;
+          ctx.moveTo(x - c, y - s); ctx.lineTo(x + c, y + s);
+        }
+        ctx.stroke();
+      }
+    } else {
+      const r = 22, x = sw * .3, y = sh * .09;
+      sunAngle += dt * .06;
+      if(!covers(x, y, r * 1.1)){
+        ctx.globalAlpha = .42; ctx.strokeStyle = ctx.fillStyle = "#ffcf5c"; ctx.lineWidth = 1.6;
+        ctx.beginPath(); ctx.arc(x, y, r * .55, 0, Math.PI * 2); ctx.fill();
+        ctx.beginPath();
+        for(let k = 0; k < 10; k++){
+          const a = sunAngle + k * Math.PI / 5, c = Math.cos(a), s = Math.sin(a);
+          ctx.moveTo(x + c * r * .78, y + s * r * .78); ctx.lineTo(x + c * r * 1.1, y + s * r * 1.1);
+        }
+        ctx.stroke();
+      }
+    }
+    ctx.globalAlpha = 1;
+  }
+  const P0 = [0, 0], P1 = [0, 0];
+  function pointAt(g, u, lateral, out){
+    const f = Math.max(0, Math.min(.999999, u)) * LUT, k = f | 0, r = f - k;
+    out[0] = g.x[k] + (g.x[k + 1] - g.x[k]) * r + g.nx[k] * lateral;
+    out[1] = g.y[k] + (g.y[k + 1] - g.y[k]) * r + g.ny[k] * lateral;
+  }
+  function drawSparks(dt){
+    const speedK = Math.max(.6, Math.min(1.15, sw / 1300)), scaleK = last.view === "energy" ? .1 : 1;
+    ctx.globalCompositeOperation = "lighter";
+    ctx.lineCap = "round";
+    FLOW_EDGES.forEach((e, i) => {
+      const v = cur[i], g = geom[i], sp = sparks[i];
+      if(g.w <= 0) return;
+      const speed = Math.min(165, 16 + 0.13 * v * scaleK) * speedK, step = speed * dt / g.len, tail = Math.min(.16, speed * .085 / g.len);
+      const n = Math.min(MAX_SPARKS, Math.max(3, Math.floor(g.len * (.018 + g.w * .0026))));
+      ctx.beginPath();
+      for(let k = 0; k < n; k++){
+        let u = sp.u[k] + step;
+        if(u >= 1) u -= 1;
+        sp.u[k] = u;
+        const lat = sp.lat[k] * g.w * .44;
+        pointAt(g, Math.max(0, u - tail), lat, P0);
+        pointAt(g, u, lat, P1);
+        ctx.moveTo(P0[0], P0[1]);
+        ctx.lineTo(P1[0], P1[1]);
+      }
+      ctx.strokeStyle = e.color;
+      ctx.globalAlpha = .13; ctx.lineWidth = 3.6; ctx.stroke();
+      ctx.globalAlpha = .9; ctx.lineWidth = g.w < 3 ? 1 : 1.35; ctx.stroke();
+    });
+    ctx.globalAlpha = 1;
+    ctx.globalCompositeOperation = "source-over";
+  }
+  /* Bez pohybu: stálé šipky ukazují směr toku. */
+  function drawStill(){
+    if(!ctx) return;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, sw, sh);
+    drawBackground(0);
+    FLOW_EDGES.forEach((e, i) => {
+      const g = geom[i];
+      if(g.w <= 0) return;
+      const count = Math.max(1, Math.floor(g.len / 110)), size = Math.max(4, Math.min(9, g.w * .4 + 3));
+      ctx.fillStyle = e.color;
+      for(let k = 0; k < count; k++){
+        const u = (k + .5) / count;
+        pointAt(g, u, 0, P1);
+        pointAt(g, Math.max(0, u - .01), 0, P0);
+        const a = Math.atan2(P1[1] - P0[1], P1[0] - P0[0]), c = Math.cos(a), s = Math.sin(a);
+        ctx.beginPath();
+        ctx.moveTo(P1[0] + c * size, P1[1] + s * size);
+        ctx.lineTo(P1[0] - c * size * .7 - s * size * .7, P1[1] - s * size * .7 + c * size * .7);
+        ctx.lineTo(P1[0] - c * size * .7 + s * size * .7, P1[1] - s * size * .7 - c * size * .7);
+        ctx.closePath();
+        ctx.fill();
+      }
+    });
+  }
+  /* Jediná smyčka. Běží jen při viditelném grafu, skrytá záložka se projeví jako nulový průnik. */
+  function tick(now){
+    rafId = 0;
+    if(!running) return;
+    const dt = lastT ? Math.min(.1, (now - lastT) / 1000) : 0;
+    lastT = now;
+    if(ctx){
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, sw, sh);
+      drawBackground(dt);
+      drawSparks(dt);
+    }
+    rafId = requestAnimationFrame(tick);
+  }
+  /* Překreslí pruhy a popisky, pokud je graf vidět, a podle toho spustí nebo zastaví smyčku. */
+  function paint(){
+    if(!built || !last) return;
+    const width = $("flowStage").clientWidth || 0;
+    const canAnimate = typeof requestAnimationFrame !== "undefined" && visible && !reduced && width > 0;
+    if(width > 0 && width !== sw){ sw = width; placeNodes(); }
+    if(width > 0 && visible){
+      cur.fill(0);
+      for(const e of last.edges) cur[FLOW_EDGES.findIndex(x => x.id === e.id)] = e.value;
+      geometry();
+      labels();
+      if(!canAnimate) drawStill();
+    }
+    if(canAnimate){
+      running = true;
+      if(!rafId){ lastT = 0; rafId = requestAnimationFrame(tick); }
+    } else running = false;
+  }
+  function draw(){
+    if(!hasItems) return;
+    if(!built){ computeRefs(); build(); }
+    last = flowState();
+    const color = last.path === "progresivni" ? "var(--prog)" : "var(--kons)";
+    $("flowCaption").innerHTML = `Toky elektřiny v kraji, ${VIEW_TEXT[last.view]}, <b style="color:${color}">${PATHNAME[last.path].toLowerCase()} cesta</b>, rok ${last.year}. ` +
+      (last.compare ? "Graf sleduje nastavení výše a při porovnání cest ukazuje jen vybranou." : "Graf sleduje nastavení výše a šířka pruhu odpovídá velikosti toku.");
+    paint();
+  }
+  return {draw};
+})();
 
 /* Záložky. */
 function showTab(name){

@@ -57,7 +57,7 @@ th:first-child,td:first-child{text-align:left;white-space:normal}
 <header>
 <h1>Čtyři grafy z hodinového modelu</h1>
 <p class="lead">Moravskoslezský kraj v roce 2050, výchozí nastavení obou cest. Každý graf je přímo výsledek hodinového výpočtu na povětrnostních letech 2015 až 2019.</p>
-<p class="notice">Pracovní ukázka. <a href="../../index.html">Hlavní stránka</a>, <a href="../toky/index.html">toky elektřiny</a>.</p>
+<p class="notice">Pracovní ukázka. <a href="../../index.html">Hlavní stránka</a>.</p>
 </header>
 <div class="seg" role="group" aria-label="Cesta" id="segPath"></div>
 
@@ -235,11 +235,11 @@ function monthTable(){
 function renderHeat(){
   const h = D.heat[ui.path], scope = ui.heat === "median" ? "střední hodnota z 5 povětrnostních let pro stejný den a hodinu" : `počasí roku ${ui.heat}`;
   seg($("segHeat"), [["median", "Střední hodnota z 5 let"]].concat(YEARS.map(y => [y, y])), () => ui.heat, k => { ui.heat = k; });
-  $("heatTitle").textContent = h.prebytek > 0.5 ? `Kraj za rok vyrobí ${F0.format(h.vyrobaRadky)} GWh a spotřebuje ${F0.format(h.spotrebaRadky)} GWh, velká část chybí. Přesto ${F0.format(h.prebytek)} GWh přebytku přichází v hodinách, kdy ho kraj sám nespotřebuje.` : `Kraj za rok vyrobí ${F0.format(h.vyrobaRadky)} GWh a spotřebuje ${F0.format(h.spotrebaRadky)} GWh. Přebytek v této cestě nevzniká, dovoz běží ve všech hodinách.`;
+  $("heatTitle").textContent = h.prebytek > 0.5 ? `Kraj za rok vyrobí ${F0.format(h.vyrobaRadky)} GWh a spotřebuje ${F0.format(h.spotrebaRadky)} GWh, velká část chybí. Přesto ${F0.format(h.prebytek)} GWh přebytku po nabití baterie přichází v hodinách, kdy ho kraj sám nespotřebuje.` : `Kraj za rok vyrobí ${F0.format(h.vyrobaRadky)} GWh a spotřebuje ${F0.format(h.spotrebaRadky)} GWh. Přebytek v této cestě nevzniká, dovoz běží ve všech hodinách.`;
   drawHeat();
   monthTable();
   legend($("lHeat"), [["dovoz pro kraj nad 800 MW", "background:var(--n5)"], ["600 až 800", "background:var(--n4)"], ["400 až 600", "background:var(--n3)"], ["200 až 400", "background:var(--n2)"], ["do 200", "background:var(--n1)"], ["vyrovnáno", "background:var(--d0)"], ["přebytek do 100 MW", "background:var(--p1)"], ["100 až 300", "background:var(--p2)"], ["300 až 600", "background:var(--p3)"], ["600 až 900", "background:var(--p4)"], ["nad 900", "background:var(--p5)"]]);
-  $("hHeat").innerHTML = `<b>Co je nakresleno.</b> Každý sloupec je den, každý řádek hodina dne, ${scope}. Červeně dovoz pro kraj, modře přebytek po nabití baterie. Pás dole je dovoz pro vodík v GWh za den, čím tmavší, tím víc, hranice 3, 6 a 9 GWh. <b>Jak se počítá.</b> Hodinový výpočet s baterií, plynem a nádrží. Dovoz pro vodík je v hodině menší z dovozu a elektřiny ze sítě pro elektrolyzér, zbytek dovozu je dovoz pro kraj. Přebytek bere dál elektrokotle a elektrolyzér, proto na něm ještě není konečný vývoz, ten je ${F1.format(h.vyvoz)} GWh za rok. <b>Zjištění.</b> ${heatSummary()} ${ui.path === "progresivni" ? `Přebytek za rok je ${F0.format(h.prebytek)} GWh, z toho ${F0.format(surplusNoonShare())} % připadá na hodiny 9 až 16 od března do října. V roce je jen ${F1.format(h.hodinyBezDovozu)} % hodin úplně bez dovozu.` : "Tato cesta přebytek nemá a dovoz běží po všechny hodiny."}`;
+  $("hHeat").innerHTML = `<b>Co je nakresleno.</b> Každý sloupec je den, každý řádek hodina dne, ${scope}. Červeně dovoz pro kraj, modře přebytek po nabití baterie. Pás dole je dovoz pro vodík v GWh za den, čím tmavší, tím víc, hranice 3, 6 a 9 GWh. <b>Jak se počítá.</b> Hodinový výpočet s baterií, plynem a nádrží. Dovoz pro vodík je v hodině menší z dovozu a elektřiny ze sítě pro elektrolyzér, zbytek dovozu je dovoz pro kraj. Přebytek bere dál elektrokotle a elektrolyzér, proto na něm ještě není konečný vývoz, ten je ${F1.format(h.vyvoz)} GWh za rok. <b>Zjištění.</b> ${heatSummary()} ${ui.path === "progresivni" ? `Přebytek po nabití baterie je za rok ${F0.format(h.prebytek)} GWh, z toho ${F0.format(surplusNoonShare())} % připadá na hodiny 9 až 16 od března do října. V roce je jen ${F1.format(h.hodinyBezDovozu)} % hodin úplně bez dovozu.` : "Tato cesta přebytek nemá a dovoz běží po všechny hodiny."}`;
 }
 
 /* (b) Bezvětrný týden */
