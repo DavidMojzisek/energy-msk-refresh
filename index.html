@@ -318,9 +318,9 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
   <p class="plain" id="realLead"></p>
   <div class="toggles">
     <div class="pills small" role="group" aria-label="Přednastavení realistického scénáře">
-      <button id="realDefault" aria-pressed="true">Výchozí</button>
-      <button id="realAllK" aria-pressed="false">Vše konzervativně</button>
-      <button id="realAllP" aria-pressed="false">Vše progresivně</button>
+      <span class="tipwrap"><button id="realDefault" aria-pressed="true">Výchozí</button><span class="bubble" role="tooltip">Hodnoty ze zdrojů a odhadů pro období do roku 2050. Bez SMR, datových center a Nové huti, v Třinci první pec, oteplení +1,2 °C.</span></span>
+      <span class="tipwrap"><button id="realAllK" aria-pressed="false">Vše konzervativně</button><span class="bubble" role="tooltip">Všechny indikátory na 0 a žádné odchylky. Křivka je přesně konzervativní cesta: bez SMR, plyn 683 MW, v Třinci první pec.</span></span>
+      <span class="tipwrap"><button id="realAllP" aria-pressed="false">Vše progresivně</button><span class="bubble" role="tooltip">Všechny indikátory na 1 a žádné odchylky. Křivka je přesně progresivní cesta: SMR od roku 2045, velká datová centra, plná elektrifikace Třince.</span></span>
     </div>
     <div class="controls">
       <button class="chip" id="realBand" aria-pressed="false">Pásmo nejistoty</button>
