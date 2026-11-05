@@ -88,6 +88,10 @@ h2{font:700 19px/1.25 "Saira",sans-serif;margin:0 0 10px}
 .defs .k{color:var(--kons)}
 .pathbar{position:sticky;top:0;z-index:4;display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;background:var(--bg);border-bottom:1px solid var(--line);padding:8px 0;margin:0 0 14px}
 .pathbar .label{color:var(--muted);font-size:13px;font-weight:600}
+.pathbar .verze{margin-left:auto}
+#tab-bilance[data-verze=simple] .only-detail,#tab-bilance[data-verze=detail] .only-simple{display:none}
+.answer.top{margin:6px 0 10px}
+#infoCard{margin-top:22px}
 .kpi{display:grid;gap:16px}
 .kpirow .name{color:var(--muted);font-size:13px;margin-bottom:2px}
 .kpirow .cells{display:flex;flex-wrap:wrap;gap:12px 44px}
@@ -167,16 +171,10 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
   <button data-tab="metodika">Metodika</button>
   <button data-tab="nedostatky">Nedostatky</button>
 </nav>
-<div id="tab-bilance">
-<section class="answer">
+<div id="tab-bilance" data-verze="simple">
+<section class="answer top">
   <p class="question">Může být Moravskoslezský kraj v roce 2050 soběstačný v elektřině, nebo zůstane závislý na dovozu?</p>
   <p class="lead">S elektrárnami, které obě cesty předpokládají, zůstane kraj v roce 2050 závislý na dovozu elektřiny. Výroba pokryje 60 % roční spotřeby v progresivní cestě a 48 % v konzervativní cestě.</p>
-  <p class="plain">Závislost plyne z toho, kolik elektráren cesty předpokládají a kolik elektřiny spotřebují, není to fyzikální mez. Polovinu výroby progresivní cesty dává jeden SMR, bez něj by výroba pokryla 31 % spotřeby. Co by se muselo postavit navíc, ukazuje blok Co by muselo platit. Soběstačnost tu znamená jen elektřinu vyrobenou v kraji. Palivo pro SMR i zemní plyn je dovezené.</p>
-  <div class="defs">
-    <div><h3 class="p">Progresivní cesta</h3><p>Vítr a slunce podle dnešního podílu kraje na celostátním plánu, tedy 623 MW větru z možných 2 014 MW, jeden malý modulární reaktor (SMR) a rychlý přechod průmyslu, dopravy a vytápění na elektřinu. Polovina MHD a nákladní dopravy jezdí na vodík vyrobený v kraji, osobní auta jezdí na baterie.</p></div>
-    <div><h3 class="k">Konzervativní cesta</h3><p>Bez reaktoru, jen desetina růstu větru a slunce proti progresivní cestě a většina výroby z plynových bloků. Doprava a vytápění přecházejí na elektřinu pomaleji, vodík v dopravě není.</p></div>
-  </div>
-  <p class="viewnote">SMR je malý jaderný blok. Tady má 500 MW a běží od roku 2045, studie uvádí 350 MW. Cesty nejsou předpovědi. Ukazují, co by z daných předpokladů vyšlo.</p>
 </section>
 <div class="pathbar">
   <span class="label">Cesta</span>
@@ -185,10 +183,13 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
     <button data-path="konzervativni" aria-pressed="false">Konzervativní</button>
   </div>
   <button class="chip" id="compare" aria-pressed="false">Ukázat i druhou cestu</button>
+  <div class="pills small verze" role="group" aria-label="Verze stránky">
+    <button data-ui="simple" aria-pressed="true">Jednoduchá</button>
+    <button data-ui="detail" aria-pressed="false">Podrobná</button>
+  </div>
 </div>
 <section class="answer">
   <div class="kpi" id="kpi"></div>
-  <p class="notice">Čísla se mění s posuvníky, věty nahoře platí pro výchozí nastavení. Podíl běhů simulace nejistoty, ve kterých vyjde rok bez schodku, je pod 10 % v progresivní cestě a pod 5 % v konzervativní cestě. Schodek roku 2050 je v simulaci 880 až 8 201 GWh v progresivní a 2 071 až 6 550 GWh v konzervativní cestě, P10 až P90. Hodnoty po roce 2025 jsou odhady, přes polovinu položek je odhad bez publikovaného zdroje.</p>
 </section>
 <section class="card">
   <div class="toggles" id="toggles">
@@ -208,6 +209,29 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
   <p class="viewnote" id="viewNote" hidden></p>
   <div class="kpiview" id="kpiView" hidden></div>
 </section>
+<section class="card only-simple" id="sliderCard">
+  <div class="sechead" id="modebar">
+    <h2>Posuvníky položek</h2>
+  </div>
+  <p class="viewnote" id="sliderNote">Posuvníky mění vybranou cestu, věta nahoře platí pro výchozí nastavení. Roky změn mění průběh křivek, hodnota roku 2050 zůstává.</p>
+  <div class="cols" id="lists"></div>
+</section>
+<div class="only-detail" id="detailBox">
+  <div class="sechead"><h2>Posuvníky po položkách</h2></div>
+  <p class="viewnote">Posuvníky mění vybranou cestu, věta nahoře platí pro výchozí nastavení. Posuvník skupiny v jednoduché verzi přepíše ruční nastavení jejích položek.</p>
+  <div class="cols" id="detailLists"></div>
+</div>
+<details class="box only-detail" id="trendCard">
+  <summary>Velké trendy do roku 2050</summary>
+  <div class="trendhead">
+    <p class="viewnote">Trendy mění dopravu, domácnosti, vytápění a chlazení. Po vypnutí se počítá s dnešním počtem obyvatel, aut a dnešní účinností. Posuvníky položek ukazují cíl při výchozích trendech.</p>
+    <div class="pills small" role="group" aria-label="Velké trendy">
+      <button id="trendOn" aria-pressed="true">Započítat</button>
+      <button id="trendOff" aria-pressed="false">Vypnout</button>
+    </div>
+  </div>
+  <div class="trendgrid" id="trends"></div>
+</details>
 <section class="card" id="balcard">
   <h2 id="balTitle">Bilance vybrané cesty</h2>
   <div id="bal"></div>
@@ -215,15 +239,18 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
 </section>
 <section class="card" id="mustCard">
   <h2>Co by muselo platit</h2>
-  <p class="plain">Při nezměněné spotřebě by vyrovnanou bilanci roku nebo uvedeného období přinesla jedna z těchto změn navíc proti výchozímu nastavení vybrané cesty. Vyrovnaná bilance neznamená, že kraj nedováží. Sloupce se nesčítají, každý je samostatná možnost. Posuvníky tento blok nemění.</p>
-  <div class="tablewrap"><table class="grades"><tr><th>Období, které má vyjít bez schodku</th><th>Bilance 2050, GWh</th><th>Jen vítr navíc</th><th>Jen fotovoltaika navíc</th><th>Jen SMR navíc, moduly po 500 MW, bez podkladu</th><th>Vítr doplněný na mez 2 014 MW a k tomu</th></tr><tr data-must="progresivni"><td>Rok</td><td class="n">−5 266</td><td class="n">+2 169 MW, nad mezí</td><td class="n">+5,7 GWp</td><td class="n">+1,45</td><td>+2,0 GWp fotovoltaiky</td></tr><tr data-must="progresivni"><td>Říjen až březen</td><td class="n">−2 773</td><td class="n">+1 883 MW, nad mezí</td><td class="n">+9,7 GWp</td><td class="n">+2</td><td>+1 SMR</td></tr><tr data-must="progresivni"><td>Prosinec až únor</td><td class="n">−1 512</td><td class="n">+1 925 MW, nad mezí</td><td class="n">+13,9 GWp</td><td class="n">+2</td><td>+1 SMR</td></tr><tr data-must="konzervativni"><td>Rok</td><td class="n">−4 287</td><td class="n">+1 766 MW</td><td class="n">+4,6 GWp</td><td class="n">+1,18</td><td>nic dalšího</td></tr><tr data-must="konzervativni"><td>Říjen až březen</td><td class="n">−2 139</td><td class="n">+1 636 MW</td><td class="n">+7,1 GWp</td><td class="n">+2</td><td>nic dalšího</td></tr><tr data-must="konzervativni"><td>Prosinec až únor</td><td class="n">−1 058</td><td class="n">+1 601 MW</td><td class="n">+9,2 GWp</td><td class="n">+2</td><td>nic dalšího</td></tr></table></div>
-  <p class="viewnote">Vítr má v kraji mez 2 014 MW podle Dopadové studie (s. 135). GWp je výkon fotovoltaiky při plném slunci. Podíl modulu je jen výpočet, posuvník pracuje s celými moduly. Druhý a další SMR v kraji žádný podklad neuvádí, sloupec ukazuje jen velikost. SMR se počítá po odečtení vlastní spotřeby 310 GWh na blok, je to náš výpočet z celostátní míry a kalibrace kraje, bez kalibrace by to bylo 216 GWh. Řádky období počítají s rovnoměrnou elektrolýzou bez nádrže, ve výchozím nastavení je bilance prosince až února −1 505 GWh.</p>
-  <p class="plain" data-must="progresivni"><b>Progresivní cestě nestačí samotný vítr uvnitř meze. Potřebuje k němu další zdroj, nebo jinou možnost z tabulky.</b> V tabulce je rok v ročním součtu, hodinový výpočet s rovnoměrnou elektrolýzou ho uzavře při větru na mezi a 2,2 GWp fotovoltaiky navíc. V hodinách přesto zůstane dovoz 2 096 GWh a 2 096 GWh přebytku bez využití. Bez dovozu by bylo jen 40,1 % hodin a největší dovoz 819 MW. Prosinec až únor vyrovná vítr na mezi a 3,8 GWp fotovoltaiky navíc. I potom zůstane dovoz 1 935 GWh za rok a 3 383 GWh přebytku bez využití.</p>
-  <p class="plain" data-must="konzervativni"><b>Konzervativní cesta by mohla uzavřít rok větrem uvnitř meze.</b> Stačí 1 766 MW navíc, tedy 1 862 MW celkem. Tempo výstavby by bylo 72,8 MW za rok, 8,0krát víc než největší roční přírůstek kraje. V hodinách přesto zůstane dovoz 766 GWh a 704 GWh přebytku bez využití. Bez dovozu by bylo jen 23,3 % hodin a největší dovoz 439 MW. Plynové bloky této cesty přitom běží na dovezené palivo.</p>
-  <p class="plain">Tempo výstavby je průměr 2026 až 2050, skutečný vrchol křivky by byl vyšší. Srovnává se s největším ročním přírůstkem v kraji (ERÚ, Roční zpráva 2025): vítr 9,1 MW v roce 2024, fotovoltaika 83,3 MW v roce 2023.</p>
-  <div class="tablewrap"><table class="grades"><tr><th>Případ</th><th>Vítr 2050</th><th>Vítr za rok</th><th>Proti rekordu</th><th>Fotovoltaika 2050</th><th>Fotovoltaika za rok</th><th>Proti rekordu</th></tr><tr data-must="progresivni"><td>Výchozí progresivní cesta</td><td class="n">623 MW</td><td class="n">23,3 MW</td><td class="n">2,6 ×</td><td class="n">1 678 MWp</td><td class="n">54,8 MWp</td><td class="n">0,7 ×</td></tr><tr data-must="progresivni"><td>Vítr a fotovoltaika půl na půl, vyrovnaný rok</td><td class="n">1 708 MW</td><td class="n">66,6 MW</td><td class="n">7,3 ×</td><td class="n">4 506 MWp</td><td class="n">167,9 MWp</td><td class="n">2,0 ×</td></tr><tr data-must="progresivni"><td>Vítr na mezi, zbytek fotovoltaika, vyrovnaný rok</td><td class="n">2 014 MW</td><td class="n">78,9 MW</td><td class="n">8,7 ×</td><td class="n">3 708 MWp</td><td class="n">136,0 MWp</td><td class="n">1,6 ×</td></tr><tr data-must="progresivni"><td>Jen fotovoltaika, vyrovnaný rok</td><td class="n">623 MW</td><td class="n">23,3 MW</td><td class="n">2,6 ×</td><td class="n">7 334 MWp</td><td class="n">281,1 MWp</td><td class="n">3,4 ×</td></tr><tr data-must="konzervativni"><td>Jen vítr, vyrovnaný rok</td><td class="n">1 862 MW</td><td class="n">72,8 MW</td><td class="n">8,0 ×</td><td class="n">žádná navíc</td><td class="n">žádná navíc</td><td class="n"></td></tr></table></div>
+  <p class="plain only-simple" data-must="progresivni"><b>Progresivní cestě nestačí samotný vítr uvnitř meze.</b> Rok by uzavřel vítr na mezi a 2,2 GWp fotovoltaiky navíc. V hodinách přesto zůstane dovoz 2 096 GWh.</p>
+  <p class="plain only-simple" data-must="konzervativni"><b>Konzervativní cesta by mohla uzavřít rok větrem uvnitř meze.</b> Stačí 1 766 MW navíc, tempo výstavby by ale bylo 8,0krát víc než největší roční přírůstek kraje. V hodinách přesto zůstane dovoz 766 GWh.</p>
+  <p class="viewnote only-simple">Tabulky možností a tempo výstavby jsou v podrobné verzi.</p>
+  <p class="plain only-detail">Při nezměněné spotřebě by vyrovnanou bilanci roku nebo uvedeného období přinesla jedna z těchto změn navíc proti výchozímu nastavení vybrané cesty. Vyrovnaná bilance neznamená, že kraj nedováží. Sloupce se nesčítají, každý je samostatná možnost. Posuvníky tento blok nemění.</p>
+  <div class="tablewrap only-detail"><table class="grades"><tr><th>Období, které má vyjít bez schodku</th><th>Bilance 2050, GWh</th><th>Jen vítr navíc</th><th>Jen fotovoltaika navíc</th><th>Jen SMR navíc, moduly po 500 MW, bez podkladu</th><th>Vítr doplněný na mez 2 014 MW a k tomu</th></tr><tr data-must="progresivni"><td>Rok</td><td class="n">−5 266</td><td class="n">+2 169 MW, nad mezí</td><td class="n">+5,7 GWp</td><td class="n">+1,45</td><td>+2,0 GWp fotovoltaiky</td></tr><tr data-must="progresivni"><td>Říjen až březen</td><td class="n">−2 773</td><td class="n">+1 883 MW, nad mezí</td><td class="n">+9,7 GWp</td><td class="n">+2</td><td>+1 SMR</td></tr><tr data-must="progresivni"><td>Prosinec až únor</td><td class="n">−1 512</td><td class="n">+1 925 MW, nad mezí</td><td class="n">+13,9 GWp</td><td class="n">+2</td><td>+1 SMR</td></tr><tr data-must="konzervativni"><td>Rok</td><td class="n">−4 287</td><td class="n">+1 766 MW</td><td class="n">+4,6 GWp</td><td class="n">+1,18</td><td>nic dalšího</td></tr><tr data-must="konzervativni"><td>Říjen až březen</td><td class="n">−2 139</td><td class="n">+1 636 MW</td><td class="n">+7,1 GWp</td><td class="n">+2</td><td>nic dalšího</td></tr><tr data-must="konzervativni"><td>Prosinec až únor</td><td class="n">−1 058</td><td class="n">+1 601 MW</td><td class="n">+9,2 GWp</td><td class="n">+2</td><td>nic dalšího</td></tr></table></div>
+  <p class="viewnote only-detail">Vítr má v kraji mez 2 014 MW podle Dopadové studie (s. 135). GWp je výkon fotovoltaiky při plném slunci. Podíl modulu je jen výpočet, posuvník pracuje s celými moduly. Druhý a další SMR v kraji žádný podklad neuvádí, sloupec ukazuje jen velikost. SMR se počítá po odečtení vlastní spotřeby 310 GWh na blok, je to náš výpočet z celostátní míry a kalibrace kraje, bez kalibrace by to bylo 216 GWh. Řádky období počítají s rovnoměrnou elektrolýzou bez nádrže, ve výchozím nastavení je bilance prosince až února −1 505 GWh.</p>
+  <p class="plain only-detail" data-must="progresivni"><b>Progresivní cestě nestačí samotný vítr uvnitř meze. Potřebuje k němu další zdroj, nebo jinou možnost z tabulky.</b> V tabulce je rok v ročním součtu, hodinový výpočet s rovnoměrnou elektrolýzou ho uzavře při větru na mezi a 2,2 GWp fotovoltaiky navíc. V hodinách přesto zůstane dovoz 2 096 GWh a 2 096 GWh přebytku bez využití. Bez dovozu by bylo jen 40,1 % hodin a největší dovoz 819 MW. Prosinec až únor vyrovná vítr na mezi a 3,8 GWp fotovoltaiky navíc. I potom zůstane dovoz 1 935 GWh za rok a 3 383 GWh přebytku bez využití.</p>
+  <p class="plain only-detail" data-must="konzervativni"><b>Konzervativní cesta by mohla uzavřít rok větrem uvnitř meze.</b> Stačí 1 766 MW navíc, tedy 1 862 MW celkem. Tempo výstavby by bylo 72,8 MW za rok, 8,0krát víc než největší roční přírůstek kraje. V hodinách přesto zůstane dovoz 766 GWh a 704 GWh přebytku bez využití. Bez dovozu by bylo jen 23,3 % hodin a největší dovoz 439 MW. Plynové bloky této cesty přitom běží na dovezené palivo.</p>
+  <p class="plain only-detail">Tempo výstavby je průměr 2026 až 2050, skutečný vrchol křivky by byl vyšší. Srovnává se s největším ročním přírůstkem v kraji (ERÚ, Roční zpráva 2025): vítr 9,1 MW v roce 2024, fotovoltaika 83,3 MW v roce 2023.</p>
+  <div class="tablewrap only-detail"><table class="grades"><tr><th>Případ</th><th>Vítr 2050</th><th>Vítr za rok</th><th>Proti rekordu</th><th>Fotovoltaika 2050</th><th>Fotovoltaika za rok</th><th>Proti rekordu</th></tr><tr data-must="progresivni"><td>Výchozí progresivní cesta</td><td class="n">623 MW</td><td class="n">23,3 MW</td><td class="n">2,6 ×</td><td class="n">1 678 MWp</td><td class="n">54,8 MWp</td><td class="n">0,7 ×</td></tr><tr data-must="progresivni"><td>Vítr a fotovoltaika půl na půl, vyrovnaný rok</td><td class="n">1 708 MW</td><td class="n">66,6 MW</td><td class="n">7,3 ×</td><td class="n">4 506 MWp</td><td class="n">167,9 MWp</td><td class="n">2,0 ×</td></tr><tr data-must="progresivni"><td>Vítr na mezi, zbytek fotovoltaika, vyrovnaný rok</td><td class="n">2 014 MW</td><td class="n">78,9 MW</td><td class="n">8,7 ×</td><td class="n">3 708 MWp</td><td class="n">136,0 MWp</td><td class="n">1,6 ×</td></tr><tr data-must="progresivni"><td>Jen fotovoltaika, vyrovnaný rok</td><td class="n">623 MW</td><td class="n">23,3 MW</td><td class="n">2,6 ×</td><td class="n">7 334 MWp</td><td class="n">281,1 MWp</td><td class="n">3,4 ×</td></tr><tr data-must="konzervativni"><td>Jen vítr, vyrovnaný rok</td><td class="n">1 862 MW</td><td class="n">72,8 MW</td><td class="n">8,0 ×</td><td class="n">žádná navíc</td><td class="n">žádná navíc</td><td class="n"></td></tr></table></div>
 </section>
-<section class="card" id="planCard">
+<section class="card only-detail" id="planCard">
   <h2>Baterie a vodík v roce 2050</h2>
   <p class="plain" data-must="konzervativni">Konzervativní cesta nemá vodík v dopravě a nese jen dnešních 10 MW baterií. Návrh níže platí pro progresivní cestu.</p>
   <div data-must="progresivni">
@@ -246,28 +273,16 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
   <p class="viewnote">Progresivní cesta 2050, 1 SMR, průměr 5 povětrnostních let. Rozvrh plynu, elektrolýzy ze sítě a nádrže zná celý rok dopředu, skutečný provoz by špičku dovozu zvýšil, velikost je v záložce Nedostatky. Ceny nádrže jsou z údajů amerického ministerstva energetiky z roku 2015, přepočet na roční náklad je náš odhad. <a href="hodinovy/PREPOCET.md">Úplný přepočet</a>.</p>
   </div>
 </section>
-<section class="card" id="sliderCard">
-  <div class="sechead" id="modebar">
-    <h2>Posuvníky položek</h2>
+<section class="answer" id="infoCard">
+  <h2>Jak výsledek číst</h2>
+  <p class="plain">Závislost plyne z toho, kolik elektráren cesty předpokládají a kolik elektřiny spotřebují, není to fyzikální mez. Polovinu výroby progresivní cesty dává jeden SMR, bez něj by výroba pokryla 31 % spotřeby. Co by se muselo postavit navíc, ukazuje blok Co by muselo platit. Soběstačnost tu znamená jen elektřinu vyrobenou v kraji. Palivo pro SMR i zemní plyn je dovezené.</p>
+  <div class="defs">
+    <div><h3 class="p">Progresivní cesta</h3><p>Vítr a slunce podle dnešního podílu kraje na celostátním plánu, tedy 623 MW větru z možných 2 014 MW, jeden malý modulární reaktor (SMR) a rychlý přechod průmyslu, dopravy a vytápění na elektřinu. Polovina MHD a nákladní dopravy jezdí na vodík vyrobený v kraji, osobní auta jezdí na baterie.</p></div>
+    <div><h3 class="k">Konzervativní cesta</h3><p>Bez reaktoru, jen desetina růstu větru a slunce proti progresivní cestě a většina výroby z plynových bloků. Doprava a vytápění přecházejí na elektřinu pomaleji, vodík v dopravě není.</p></div>
   </div>
-  <p class="viewnote" id="sliderNote">Posuvníky mění cestu vybranou nahoře. Posuvník skupiny přepíše ruční nastavení jejích položek. Roky změn mění průběh křivek, hodnota roku 2050 zůstává.</p>
-  <div class="cols" id="lists"></div>
+  <p class="viewnote">SMR je malý jaderný blok. Tady má 500 MW a běží od roku 2045, studie uvádí 350 MW. Cesty nejsou předpovědi. Ukazují, co by z daných předpokladů vyšlo.</p>
+  <p class="notice">Čísla se mění s posuvníky, věty nahoře platí pro výchozí nastavení. Podíl běhů simulace nejistoty, ve kterých vyjde rok bez schodku, je pod 10 % v progresivní cestě a pod 5 % v konzervativní cestě. Schodek roku 2050 je v simulaci 880 až 8 201 GWh v progresivní a 2 071 až 6 550 GWh v konzervativní cestě, P10 až P90. Hodnoty po roce 2025 jsou odhady, přes polovinu položek je odhad bez publikovaného zdroje.</p>
 </section>
-<details class="box" id="detailBox">
-  <summary>Posuvníky po jednotlivých položkách</summary>
-  <div class="cols" id="detailLists"></div>
-</details>
-<details class="box" id="trendCard">
-  <summary>Velké trendy do roku 2050</summary>
-  <div class="trendhead">
-    <p class="viewnote">Trendy mění dopravu, domácnosti, vytápění a chlazení. Po vypnutí se počítá s dnešním počtem obyvatel, aut a dnešní účinností. Posuvníky položek ukazují cíl při výchozích trendech.</p>
-    <div class="pills small" role="group" aria-label="Velké trendy">
-      <button id="trendOn" aria-pressed="true">Započítat</button>
-      <button id="trendOff" aria-pressed="false">Vypnout</button>
-    </div>
-  </div>
-  <div class="trendgrid" id="trends"></div>
-</details>
 </div>
 <div id="tab-metodika" hidden>
 <article class="method">
@@ -1069,10 +1084,13 @@ document.querySelectorAll("[data-view]").forEach(b => b.addEventListener("click"
   state.view = b.dataset.view;
   applyView(); drawLegend(); refresh();
 }));
-$("detailBox").addEventListener("toggle", () => {
-  state.mode = $("detailBox").open ? "detail" : "simple";
+function setMode(mode){
+  state.mode = mode;
+  $("tab-bilance").dataset.verze = mode;
+  document.querySelectorAll("[data-ui]").forEach(b => b.setAttribute("aria-pressed", b.dataset.ui === mode));
   drawLists();
-});
+}
+document.querySelectorAll("[data-ui]").forEach(b => b.addEventListener("click", () => setMode(b.dataset.ui)));
 document.querySelectorAll("[data-show]").forEach(b => b.addEventListener("click", () => {
   const name = b.dataset.show, other = {vyroba:"spotreba", spotreba:"vyroba"}[name];
   if(state.show[name] && !state.show[other]) return;
@@ -1085,7 +1103,7 @@ $("year").addEventListener("input", e => { state.year = Number(e.target.value); 
 /* Obnovení vrací celou stránku do výchozího nastavení, pro které platí věty nahoře. */
 $("reset").addEventListener("click", () => {
   resetValues();
-  $("detailBox").open = false; state.mode = "simple";
+  setMode("simple");
   state.path = "progresivni"; state.compare = false; state.view = "energy"; state.year = 2050;
   state.show.vyroba = true; state.show.spotreba = true;
   $("year").value = 2050;
