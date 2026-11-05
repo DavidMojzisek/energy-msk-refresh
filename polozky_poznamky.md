@@ -70,7 +70,7 @@ Kapacita sítě a dostupnost tepelných čerpadel nejsou číselně ověřeny.
 
 ## 8. Křížová kontrola
 
-Progresivní P50 2050: výroba 7 862 GWh, spotřeba 12 526 GWh včetně ztrát. Konzervativní: 3 956 a 8 244 GWh.
+Progresivní P50 2050: výroba 7 862 GWh, spotřeba 12 526 GWh včetně ztrát. Konzervativní: 3 956 a 8 262 GWh.
 Dopadová studie netto 2050: očekávaný 7 229,9 GWh (Obr. 28), extrémní 9 917,3 GWh (Obr. 38, přiřazení barvy je výklad modelu), obojí bez 887 GWh lokální části a ztrát. Spotřeba progresivní cesty je výrazně vyšší než extrémní scénář. Hlavní důvody jsou vodík pro nákladní dopravu a MHD, datacentra a plná elektrifikace oceli, které studie nemá nebo má méně.
 
 ## 9. Řádky D podle velikosti P50 2050

@@ -4,16 +4,16 @@ Stav k 2026-11-05. Výpočet stojí na tabulce položek a hodinovém modelu pro 
 
 ## 1. Odpověď
 
-**S elektrárnami, které obě cesty předpokládají, kraj v roce 2050 zůstane závislý na dovozu.** Progresivní cesta vyrobí 7 862 GWh a spotřebuje 12 526 GWh, tedy 62,8 %. Chybí 4 664 GWh. Konzervativní cesta vyrobí 3 956 GWh ze 8 244 GWh, tedy 48,0 %, a chybí 4 287 GWh.
+**S elektrárnami, které obě cesty předpokládají, kraj v roce 2050 zůstane závislý na dovozu.** Progresivní cesta vyrobí 7 862 GWh a spotřebuje 12 526 GWh, tedy 62,8 %. Chybí 4 664 GWh. Konzervativní cesta vyrobí 3 956 GWh ze 8 262 GWh, tedy 47,9 %, a chybí 4 306 GWh.
 
-**Závislost plyne z toho, kolik elektráren cesty předpokládají a kolik elektřiny spotřebují, není to fyzikální mez.** Konzervativní cesta by rok uzavřela 1 766 MW větru navíc, tedy 1 862 MW uvnitř meze studie 2 014 MW. Překážkou je tempo: 73 MW za rok, 8,0krát víc než největší roční přírůstek kraje, a v hodinách i tak zůstane dovoz 766 GWh a 704 GWh přebytku. Progresivní cesta rok uzavře větrem na mezi a 1,7 GWp fotovoltaiky navíc, nebo více než jedním dalším SMR (1,28 čistého bloku), pro který podklad není.
+**Závislost plyne z toho, kolik elektráren cesty předpokládají a kolik elektřiny spotřebují, není to fyzikální mez.** Konzervativní cesta by rok uzavřela 1 774 MW větru navíc, tedy 1 870 MW uvnitř meze studie 2 014 MW. Překážkou je tempo: 73 MW za rok, 8,0krát víc než největší roční přírůstek kraje, a v hodinách i tak zůstane dovoz 532 GWh a 457 GWh přebytku. Progresivní cesta rok uzavře větrem na mezi a 1,7 GWp fotovoltaiky navíc, nebo více než jedním dalším SMR (1,28 čistého bloku), pro který podklad není.
 
 | Úroveň | Progresivní, 1 SMR, flotila 70:30, malá nádrž | Konzervativní, bez SMR |
 |---|---|---|
-| 1, rok | Nesplněno, −4 664 GWh. Podíl běhů pod 25 % | Nesplněno, −4 287 GWh. Podíl běhů pod 5 %. Rok uzavře vítr uvnitř meze, překáží tempo |
-| 2, říjen až březen | Nesplněno, −2 474 GWh. Podíl běhů pod 10 % | Nesplněno, −2 139 GWh. Podíl běhů pod 1 %. Vítr samotný +1 636 MW |
-| 2, prosinec až únor | Nesplněno, −1 362 GWh. Podíl běhů pod 10 % | Nesplněno, −1 058 GWh. Podíl běhů pod 1 %. Vítr samotný +1 601 MW |
-| 3, hodiny | Nesplněno. Bez dovozu 7,2 % hodin, zimní špička dovozu 907 MW v nejhorším roce při nádrži 20 t, roční špička 907 MW | Nesplněno. Bez dovozu 0,0 % hodin, špička 543 MW |
+| 1, rok | Nesplněno, −4 664 GWh. Podíl běhů pod 25 % | Nesplněno, −4 306 GWh. Podíl běhů pod 5 %. Rok uzavře vítr uvnitř meze, překáží tempo |
+| 2, říjen až březen | Nesplněno, −2 474 GWh. Podíl běhů pod 10 % | Nesplněno, −2 147 GWh. Podíl běhů pod 1 %. Vítr samotný +1 668 MW |
+| 2, prosinec až únor | Nesplněno, −1 362 GWh. Podíl běhů pod 10 % | Nesplněno, −1 062 GWh. Podíl běhů pod 1 %. Vítr samotný +1 625 MW |
+| 3, hodiny | Nesplněno. Bez dovozu 7,2 % hodin, zimní špička dovozu 907 MW v nejhorším roce při nádrži 20 t, roční špička 907 MW | Nesplněno. Bez dovozu 0,0 % hodin, špička 497 MW |
 
 Podíl běhů je pásmo, ne přesné číslo. Závisí na neověřené korelaci a mezích, viz oddíl 7. Úroveň 2 v simulaci počítá s rovnoměrnou elektrolýzou.
 
@@ -24,7 +24,7 @@ Podíl běhů je pásmo, ne přesné číslo. Závisí na neověřené korelaci 
 | Progresivní | Výroba | 2 498 | 2 973 | 4 276 | 7 862 |
 | Progresivní | Spotřeba | 7 006 | 7 285 | 9 748 | 12 526 |
 | Konzervativní | Výroba | 2 506 | 3 243 | 3 064 | 3 956 |
-| Konzervativní | Spotřeba | 7 003 | 7 050 | 8 060 | 8 244 |
+| Konzervativní | Spotřeba | 7 003 | 7 050 | 8 070 | 8 262 |
 
 Hodnoty 2050 po skupinách, GWh:
 
@@ -45,9 +45,9 @@ Hodnoty 2050 po skupinách, GWh:
 | Datacentra | 700,8 | 70,1 |
 | Vlastní spotřeba zdrojů | 460,1 | 218,2 |
 | Ostatní energetika | 1 000,8 | 1 000,8 |
-| Ztráty v sítích a baterií | 468,2 | 267,1 |
+| Ztráty v sítích a baterií | 468,2 | 285,5 |
 
-Bilance 2050: progresivní −4 663,7 GWh, konzervativní −4 287,4 GWh.
+Bilance 2050: progresivní −4 663,7 GWh, konzervativní −4 305,8 GWh.
 
 ## 3. Co se změnilo
 
@@ -90,8 +90,9 @@ Všechny řádky, kde se změnila hodnota 2050, mez nebo stupeň. Účinek je zm
 | ostatní energetika (přidaná položka) | progresivni | 1 000,8 | 1 000,8 | 600,0 až 1 050,0 | 600,0 až 1 200,0 | D | 0,0 | P90 1 200 GWh, měřené pololetí 2026 je už nad dřívějším P90. |
 | ostatní energetika (přidaná položka) | konzervativni | 1 000,8 | 1 000,8 | 600,0 až 1 050,0 | 600,0 až 1 200,0 | D | 0,0 | P90 1 200 GWh, měřené pololetí 2026 je už nad dřívějším P90. |
 | ztráty v sítích | progresivni | 426,4 | 410,4 | 383,2 až 546,4 | 369,4 až 525,3 | C | −16,0 | Stejný vzorec v obou cestách, r = 3,547 %. V konzervativní cestě odpadá násobek 1,7. |
-| ztráty v sítích | konzervativni | 446,2 | 267,1 | 336,2 až 530,9 | 240,4 až 341,9 | D na C | −179,1 | Stejný vzorec v obou cestách, r = 3,547 %. V konzervativní cestě odpadá násobek 1,7. |
+| ztráty v sítích | konzervativni | 446,2 | 267,8 | 336,2 až 530,9 | 241,0 až 342,7 | D na C | −178,4 | Stejný vzorec v obou cestách, r = 3,547 %. V konzervativní cestě odpadá násobek 1,7. |
 | ztráty baterií | progresivni | 40,7 | 57,8 | 22,0 až 88,2 | 31,2 až 125,4 | D | 17,1 | Baterie cykluje i ze sítě, nabito minus vybito z hodinového běhu. |
+| ztráty baterií | konzervativni | 0,0 | 17,8 | 0,0 až 0,0 | 9,6 až 38,6 | D | 17,8 | Baterie cykluje i ze sítě, nabito minus vybito z hodinového běhu. |
 | úspory a účinnost | progresivni | −290,0 | −299,1 | −500,0 až −100,0 | −500,0 až −100,0 | D | −9,1 | Oprava součtu, ostatní průmysl má základ 1 571,4 GWh. |
 | úspory a účinnost | konzervativni | −145,0 | −149,6 | −300,0 až −50,0 | −300,0 až −50,0 | D | −4,6 | Oprava součtu, ostatní průmysl má základ 1 571,4 GWh. |
 
@@ -109,7 +110,7 @@ Všechny řádky, kde se změnila hodnota 2050, mez nebo stupeň. Účinek je zm
 
 Přebytek má přednost. Každou půlnoc se z křivky zbytkového zatížení na další den a z náboje najde nejnižší rovná hladina, kterou baterie udrží v pořadí hodin. Nad hladinou vybíjí, pod hladinou minus 100 MW nabíjí ze sítě a nechá místo na přebytek, který ten den ještě přijde. Nabíjení končí pod hladinou, takže při přesné předpovědi denní špička nestoupne, kontrola to hlídá v každém běhu. Rozdíl 100 MW je úsudek: menší rozdíl přidává cykly a ztráty a špičku téměř nemění. Pravidlo jen z přebytku zůstává jako varianta.
 
-**Co je známo dopředu.** Baterie zná křivku dalšího dne přesně. Rozvrh plynu, elektrolýzy ze sítě a nádrže zná celý rok. Se včerejší křivkou místo předpovědi baterie ve výchozím nastavení zvedne denní špičku 7 až 13 dnů v roce, nejvýš o 278 MW. Když plyn dostane práh z předchozího povětrnostního roku místo znalosti celého roku, stoupne ve výchozím nastavení zimní špička dovozu v nejhorším roce z 837 na 1 004 MW a po vyčerpání paliva roční špička na 1 004 MW; v roce po chladnějším roce zůstane až 73 GWh plynu nevyužito.
+**Co je známo dopředu.** Baterie zná křivku dalšího dne přesně. Rozvrh plynu, elektrolýzy ze sítě a nádrže zná celý rok. Se včerejší křivkou místo předpovědi baterie ve výchozím nastavení zvedne denní špičku 7 až 13 dnů v roce, nejvýš o 278 MW. Když plyn dostane práh z předchozího povětrnostního roku místo znalosti celého roku, stoupne ve výchozím nastavení zimní špička dovozu v nejhorším roce z 837 na 1 004 MW a po vyčerpání paliva roční špička v nejhorším roce na 1 205 MW; v roce po chladnějším roce zůstane až 73 GWh plynu nevyužito.
 
 ### Velikost bez cíle
 
@@ -162,7 +163,7 @@ Přebytek před baterií, kotli a elektrolyzérem je 311 GWh. Z něj jde 172 GWh
 
 **Citlivost na předpověď.** Když hladinu místo předpovědi určí včerejší křivka, tedy jen známá informace, pokles špičky po plynu je ve výchozím nastavení 33 / 27 MW a při rovnoměrné elektrolýze bez nádrže 60 / 14 MW, ztráty 61,6 GWh. V roce se studeným náhlým dnem nepředvídaná špička zůstane. Chyba skutečné předpovědi leží mezi oběma případy.
 
-**Konzervativní cesta** baterii nemá. Stejné pravidlo by tam dalo 0,9 GWh, pokles zimní špičky 0 MW v mediánu a ztráty asi 17 GWh, v nejhorším roce pokles žádný.
+**Konzervativní cesta** má baterii podle své definice, zálohu 10 % ze 3 dnů průměrného zatížení roku 2050 943 MW: 6,8 GWh a 1 226 MW. Čtyřhodinové pravidlo dává 1 700 MW, největší hodinové zbytkové zatížení bez baterie je 1 226 MW. Se stejným pravidlem vyrovnání dne: dovoz z 4 288 na 4 306 GWh, ztráty 17,8 GWh, 19 plných cyklů za rok, pokles zimní špičky 0 MW v mediánu. Pravidlo denního výkyvu by tam dalo 0,9 GWh, pokles zimní špičky 0 MW v mediánu a ztráty asi 17 GWh, v nejhorším roce pokles žádný.
 
 ### Elektrolyzér
 
@@ -198,7 +199,7 @@ Výchozí je malá nádrž 20 t. Výhrady: 20 t je asi 8 h spotřeby flotily, ro
 
 **Hodinový model, špička prosince až února:** největší hodinové zatížení, případně dovoz, ve skutečném průběhu daného povětrnostního roku se skutečným větrem a sluncem a s plynem jen do ročního rozpočtu.
 
-**Výsledek.** Zatížení v roce 2050: stránka 1 632 MW, hodinově medián 1 975 MW (rozsah 1 814 až 1 997 MW) v progresivní cestě, 1 226 a 1 424 MW v konzervativní. Tepelné čerpadlo má nyní 3,5 až 5,5 kW na odběrné místo v hodině svého maxima místo dřívějších 8,2 kW: běžná spotřeba 2,5 MWh z 8,9 MWh jde tvarem spotřebičů a v tuhých mrazech čerpadlo běží rovnoměrně. Terénní údaj 1,7 kW je z mírnější Británie a na −18 °C se nepřenáší. Koeficient čerpadel a přímotopů je nyní z hodinového modelu, tyto řádky se tedy shodují.
+**Výsledek.** Zatížení v roce 2050: stránka 1 632 MW, hodinově medián 1 975 MW (rozsah 1 814 až 1 997 MW) v progresivní cestě, 1 226 a 1 425 MW v konzervativní. Tepelné čerpadlo má nyní 3,5 až 5,5 kW na odběrné místo v hodině svého maxima místo dřívějších 8,2 kW: běžná spotřeba 2,5 MWh z 8,9 MWh jde tvarem spotřebičů a v tuhých mrazech čerpadlo běží rovnoměrně. Terénní údaj 1,7 kW je z mírnější Británie a na −18 °C se nepřenáší. Koeficient čerpadel a přímotopů je nyní z hodinového modelu, tyto řádky se tedy shodují.
 
 | Řádek, MW ve špičce | Stránka, progresivní | Hodinově, medián | Stránka, konzervativní | Hodinově, medián |
 |---|---|---|---|---|
@@ -237,9 +238,9 @@ Výchozí je malá nádrž 20 t. Výhrady: 20 t je asi 8 h spotřeby flotily, ro
 | Progresivní | 1 | 70:30, rovnoměrná výroba | 7 862 | 12 526 | −4 664 | 62,8 % | −2 481 | −1 367 | 8,8 % | 917 | 917 | 4 682 | 12 |
 | Progresivní | 2 | flotila na bateriích | 11 804 | 11 951 | −147 | 98,8 % | −298 | −194 | 44,9 % | 424 | 424 | 923 | 643 |
 | Progresivní | 2 | 70:30, rovnoměrná výroba | 11 804 | 12 836 | −1 032 | 92,0 % | −713 | −402 | 32,5 % | 519 | 519 | 1 433 | 323 |
-| Konzervativní | 0 | bez flotily na vodík | 3 956 | 8 244 | −4 287 | 48,0 % | −2 139 | −1 058 | 0,0 % | 543 | 543 | 4 287 | 0 |
-| Konzervativní | 1 | bez flotily na vodík | 7 898 | 8 554 | −656 | 92,3 % | −323 | −160 | 0,4 % | 79 | 272 | 656 | 0 |
-| Konzervativní | 2 | bez flotily na vodík | 11 840 | 8 864 | 2 976 | 133,6 % | 383 | 153 | 100,0 % | 0 | 0 | 0 | 1 010 |
+| Konzervativní | 0 | bez flotily na vodík | 3 956 | 8 262 | −4 306 | 47,9 % | −2 147 | −1 062 | 0,0 % | 497 | 497 | 4 306 | 0 |
+| Konzervativní | 1 | bez flotily na vodík | 7 898 | 8 572 | −674 | 92,1 % | −334 | −166 | 0,4 % | 82 | 205 | 674 | 0 |
+| Konzervativní | 2 | bez flotily na vodík | 11 840 | 8 882 | 2 958 | 133,3 % | 350 | 131 | 100,0 % | 0 | 0 | 0 | 960 |
 
 Vodík vyrobený mimo kraj, 70 % flotily zůstává na bateriích: výroba 7 862 GWh, spotřeba 11 286 GWh, bilance −3 424 GWh.
 
@@ -263,11 +264,11 @@ Přidaný výkon nad řádky tabulky, řádky P50, čistý po vlastní spotřeb�
 | Progresivní | 2 | 70:30, rovnoměrná výroba | rok | −1 032 | 425 | 1 108 | 0,28 | 1 391 MW větru, potom 0 MW FVE nebo 0,00 SMR | 213 MW + 554 MWp |
 | Progresivní | 2 | 70:30, rovnoměrná výroba | říjen až březen | −713 | 507 | 2 555 | 1 celé | 1 391 MW větru, potom 0 SMR |  |
 | Progresivní | 2 | 70:30, rovnoměrná výroba | prosinec až únor | −402 | 535 | 3 777 | 1 celé | 1 391 MW větru, potom 0 SMR |  |
-| Konzervativní | 0 | bez flotily na vodík | rok | −4 287 | 1 766 | 4 605 | 1,18 | 1 918 MW větru, potom 0 MW FVE nebo 0,00 SMR | 883 MW + 2 303 MWp |
-| Konzervativní | 0 | bez flotily na vodík | říjen až březen | −2 139 | 1 636 | 7 072 | 2 celé | 1 918 MW větru, potom 0 SMR |  |
-| Konzervativní | 0 | bez flotily na vodík | prosinec až únor | −1 058 | 1 601 | 9 237 | 2 celé | 1 918 MW větru, potom 0 SMR |  |
+| Konzervativní | 0 | bez flotily na vodík | rok | −4 306 | 1 774 | 4 625 | 1,19 | 1 918 MW větru, potom 0 MW FVE nebo 0,00 SMR | 887 MW + 2 313 MWp |
+| Konzervativní | 0 | bez flotily na vodík | říjen až březen | −2 147 | 1 668 | 6 373 | 2 celé | 1 918 MW větru, potom 0 SMR |  |
+| Konzervativní | 0 | bez flotily na vodík | prosinec až únor | −1 062 | 1 625 | 7 648 | 2 celé | 1 918 MW větru, potom 0 SMR |  |
 
-**Konzervativní cesta a vítr.** Roční schodek 4 287 GWh zavře 1 766 MW větru, celkem 1 862 MW, uvnitř meze 2 014 MW. Tempo 72,8 MW za rok je 8,0krát největší přírůstek kraje. Hodinově: bilance říjen až březen 183 GWh, prosinec až únor 120 GWh, bez dovozu 23,3 % hodin, největší dovoz 439 MW, přebytek bez využití 704 GWh.
+**Konzervativní cesta a vítr.** Roční schodek 4 306 GWh zavře 1 774 MW větru, celkem 1 870 MW, uvnitř meze 2 014 MW. Tempo 73,1 MW za rok je 8,0krát největší přírůstek kraje. Hodinově: bilance říjen až březen 144 GWh, prosinec až únor 105 GWh, bez dovozu 23,4 % hodin, největší dovoz 301 MW, přebytek bez využití 457 GWh.
 
 Hodinově s přidanými zdroji, progresivní cesta, flotila 70:30, rovnoměrná výroba:
 
@@ -312,7 +313,7 @@ Potřebné průměrné roční tempo 2026 až 2050. Procento je přírůstek vý
 |---|---|---|---|---|---|---|---|---|
 | Tabulka, progresivní | 623 MW | 23,3 MW | 2,6 × | 0,46 % | 1 678 MWp | 54,8 MWp | 0,7 × | 0,42 % |
 | Půl na půl pro úroveň 1 | 1 584 MW | 61,7 MW | 6,8 × | 1,22 % | 4 183 MWp | 155,0 MWp | 1,9 × | 1,18 % |
-| Vítr na mezi a zbytek FVE | 2 014 MW | 78,9 MW | 8,7 × | 1,56 % | 3 062 MWp | 110,2 MWp | 1,3 × | 0,84 % |
+| Vítr na mezi a zbytek FVE | 2 014 MW | 78,9 MW | 8,7 × | 1,56 % | 3 329 MWp | 120,8 MWp | 1,5 × | 0,92 % |
 | Jen FVE | 623 MW | 23,3 MW | 2,6 × | 0,46 % | 6 688 MWp | 255,2 MWp | 3,1 × | 1,93 % |
 
 ## 7. Monte Carlo
@@ -329,21 +330,21 @@ Běhy losují řádky od P10 do P90 se společnými faktory, obrácenými znamé
 | Progresivní, bez SMR, flotila na bateriích | pod 1 % | pod 1 % | pod 1 % | pod 1 % | −9 431 / −6 666 / −3 436 | 5,4 % (0 % až 18 %) | 1 117 (717 až 1 531) |
 | Progresivní, 2 SMR, flotila 70:30, rovnoměrná výroba | 25 až 50 % | 25 až 50 % | 25 až 50 % | pod 10 % | −3 810 / −605 / 3 006 | 36,7 % (12 % až 98 %) | 489 (83 až 853) |
 | Progresivní, 2 SMR, flotila na bateriích | 50 až 75 % | 25 až 50 % | 25 až 50 % | pod 10 % | −2 489 / 320 / 3 595 | 46,7 % (20 % až 100 %) | 382 (38 až 724) |
-| Konzervativní, bez SMR | pod 1 % | pod 1 % | pod 1 % | pod 1 % | −6 554 / −4 308 / −2 062 | 0,0 % (0 % až 0 %) | 658 (345 až 1 006) |
-| Konzervativní, 1 SMR navíc proti cestě | 25 až 50 % | 25 až 50 % | 25 až 50 % | pod 5 % | −3 061 / −799 / 1 444 | 1,1 % (0 % až 99 %) | 355 (93 až 712) |
-| Konzervativní, 2 SMR navíc proti cestě | nad 90 % | 75 až 90 % | nad 90 % | 50 až 75 % | 387 / 2 688 / 4 989 | 100,0 % (51 % až 100 %) | 0 (0 až 320) |
+| Konzervativní, bez SMR | pod 1 % | pod 1 % | pod 1 % | pod 1 % | −6 576 / −4 331 / −2 084 | 0,0 % (0 % až 0 %) | 550 (291 až 823) |
+| Konzervativní, 1 SMR navíc proti cestě | 25 až 50 % | 25 až 50 % | 25 až 50 % | pod 25 % | −3 085 / −822 / 1 424 | 1,0 % (0 % až 100 %) | 220 (0 až 485) |
+| Konzervativní, 2 SMR navíc proti cestě | nad 90 % | 75 až 90 % | nad 90 % | 75 až 90 % | 365 / 2 664 / 4 967 | 100,0 % (56 % až 100 %) | 0 (0 až 102) |
 
 **Citlivost podílu na neověřených volbách**, úroveň 1, podíl běhů:
 
 | Varianta | Progresivní, 1 SMR, 70:30 | Progresivní, 1 SMR, na bateriích | Progresivní, bez SMR | Progresivní, 2 SMR | Konzervativní | Konzervativní, 1 SMR |
 |---|---|---|---|---|---|---|
-| korelace 0,6, základ | 7,3 % | 10,6 % | 0,3 % | 41,3 % | 0,6 % | 32,5 % |
-| korelace 0 | 1,4 % | 4,0 % | 0,0 % | 37,5 % | 0,0 % | 26,8 % |
-| korelace 0,3 | 4,1 % | 7,2 % | 0,1 % | 39,9 % | 0,2 % | 29,8 % |
-| korelace 0,9 | 10,1 % | 13,2 % | 0,8 % | 41,7 % | 1,2 % | 34,3 % |
-| bez losů mimo P10 až P90 | 3,5 % | 6,3 % | 0,0 % | 40,0 % | 0,0 % | 29,8 % |
+| korelace 0,6, základ | 7,3 % | 10,6 % | 0,3 % | 41,3 % | 0,6 % | 32,0 % |
+| korelace 0 | 1,4 % | 4,0 % | 0,0 % | 37,5 % | 0,0 % | 26,2 % |
+| korelace 0,3 | 4,1 % | 7,2 % | 0,1 % | 39,9 % | 0,2 % | 29,2 % |
+| korelace 0,9 | 10,1 % | 13,2 % | 0,8 % | 41,7 % | 1,1 % | 33,9 % |
+| bez losů mimo P10 až P90 | 3,5 % | 6,3 % | 0,0 % | 40,0 % | 0,0 % | 29,3 % |
 
-Rozsah je 1,4 % až 10,1 % u progresivní cesty s 1 SMR a flotilou 70:30 a 0,0 % až 1,2 % u konzervativní. Proto se uvádí pásmo: progresivní pod 25 %, konzervativní pod 5 %. Medián součtu se od součtu P50 liší, protože řádky jsou nesymetrické.
+Rozsah je 1,4 % až 10,1 % u progresivní cesty s 1 SMR a flotilou 70:30 a 0,0 % až 1,1 % u konzervativní. Proto se uvádí pásmo: progresivní pod 25 %, konzervativní pod 5 %. Medián součtu se od součtu P50 liší, protože řádky jsou nesymetrické.
 
 ## 8. Co v modelu chybělo
 
@@ -359,7 +360,7 @@ Doplněno jako případy na běhu s rovnoměrnou elektrolýzou bez nádrže, ne 
 | teplo čerpadel o 21 % méně, mírnější zimy | Progresivní | 4 510 (4 459 až 4 559) | 184 | 827 (800 až 880) | 1 101 / 0 / 0 |
 | skutečný rok FVE a tepla, ne průměr | Progresivní | 4 681 (4 501 až 4 808) | 174 | 863 (837 až 941) | 1 392 / 0 / 0 |
 | tvar větru ze stanice Brno místo celostátního | Progresivní | 4 742 (4 684 až 4 786) | 305 | 894 (877 až 918) | 1 642 / 0 / 0 |
-| výchozí nastavení | Konzervativní | 4 287 (4 238 až 4 331) | 0 | 508 (484 až 543) | 0 / 0 / 0 |
+| výchozí nastavení | Konzervativní | 4 306 (4 256 až 4 350) | 0 | 492 (486 až 497) | 0 / 0 / 0 |
 
 **Co model neumí**, každý řádek s velikostí:
 
@@ -397,7 +398,9 @@ Nezměněno. Změna ročního schodku 2050 v GWh, kladná schodek zvětšuje. Vl
 | Datacentra žádná | −726,6 | −72,7 |  |
 | Druhý SMR | −3 631,9 | 0,0 | bez podkladu; v konzervativní cestě by to byl první |
 | První SMR v konzervativní cestě | 0,0 | −3 631,9 | bez podkladu |
-| Míra ztrát roste se zátěží, 30 % stálé a 70 % proměnné | 265,5 | 42,5 | rozdělení bez zdroje, bez zesílení sítě |
+| Míra ztrát roste se zátěží, 30 % stálé a 70 % proměnné | 265,5 | 43,2 | rozdělení bez zdroje, bez zesílení sítě |
+| Násobek míry ztrát 1,7 za dvojnásobnou zátěž sítě, v modelu vypuštěný | 0,0 | 199,5 | čtení definice konzervativní cesty |
+| Baterie se nabíjí jen z přebytku, ne ze sítě | −24,4 | −18,4 | stejná velikost baterie |
 | Nová huť na 80 % výkonu | −139,9 | −139,9 |  |
 | Nová huť se nepostaví | −699,8 | −699,8 |  |
 | Třinec 450 kWh/t místo 300 | 404,4 | 202,2 |  |
@@ -410,7 +413,7 @@ Nezměněno. Změna ročního schodku 2050 v GWh, kladná schodek zvětšuje. Vl
 
 ## 10. Kontrola závěrů
 
-**Které změny bez důkazu schodek zvětšují a které zmenšují?** Změny, které schodek zvětšují: Třinec 300 kWh/t (úsudek mezi 180 a 450 kWh/t), syntetický plyn (studie, ale jiná technologie), komprese (měření). Změny, které ho zmenšují: vlastní spotřeba podle vzorce, konzervativní ztráty, úspory, kotle. Nejslabší je Třinec a ztráty. Míra ztrát rostoucí se zátěží by přidala 265 GWh progresivní a 42 GWh konzervativní cestě, ale 30/70 nemá zdroj a vyšší zátěž by šla se zesílením sítě, proto je jen mezi rozhodnutími. Konzervativní cesta z toho profituje o rozdíl mezi 6,03 % a 3,547 %, tedy asi 190 GWh, a je třeba to říct: její dřívější vyšší ztráty byly mechanickým čtením dvojnásobné zátěže. Nové pravidlo baterie výrok neovlivní, roční bilance se mění o ztráty.
+**Které změny bez důkazu schodek zvětšují a které zmenšují?** Změny, které schodek zvětšují: Třinec 300 kWh/t (úsudek mezi 180 a 450 kWh/t), syntetický plyn (studie, ale jiná technologie), komprese (měření). Změny, které ho zmenšují: vlastní spotřeba podle vzorce, konzervativní ztráty, úspory, kotle. Nejslabší je Třinec a ztráty. Míra ztrát rostoucí se zátěží by přidala 265 GWh progresivní a 43 GWh konzervativní cestě, ale 30/70 nemá zdroj a vyšší zátěž by šla se zesílením sítě, proto je jen mezi rozhodnutími. Konzervativní cesta z toho profituje o rozdíl mezi 6,03 % a 3,547 %, tedy asi 190 GWh, a je třeba to říct: její dřívější vyšší ztráty byly mechanickým čtením dvojnásobné zátěže. Nové pravidlo baterie výrok neovlivní, roční bilance se mění o ztráty.
 
 **Nezlepšují hodiny závěr?** Rozšíření mezí řádku o hodiny P10 a P90 měří tabulka:
 
@@ -420,8 +423,8 @@ Nezměněno. Změna ročního schodku 2050 v GWh, kladná schodek zvětšuje. Vl
 | Progresivní | základ | na bateriích | 11,1 % | −3 159 | 166 |
 | Progresivní | meze řádků jen při 942 h a 2 471 h, vítr P10 2 014,8 h | 70:30 | 6,0 % | −4 249 | −744 |
 | Progresivní | meze řádků jen při 942 h a 2 471 h, vítr P10 2 014,8 h | na bateriích | 8,8 % | −3 340 | −177 |
-| Konzervativní | základ | na bateriích | 0,6 % | −4 313 | −2 056 |
-| Konzervativní | meze řádků jen při 942 h a 2 471 h | na bateriích | 0,5 % | −4 325 | −2 095 |
+| Konzervativní | základ | na bateriích | 0,6 % | −4 335 | −2 078 |
+| Konzervativní | meze řádků jen při 942 h a 2 471 h | na bateriích | 0,5 % | −4 347 | −2 119 |
 
 Zvolené meze hodin zvyšují podíl splněných běhů nejvýš o několik procentních bodů, výrok nemění.
 
@@ -434,7 +437,7 @@ Je flotila započítaná dvakrát? Ne. Bateriová a vodíková část nákladní
 | Čistá spotřeba 2015 na 2025, držení hodnoty 2015 | předpoklad 5 910,4 GWh, skutečnost 5 963,8 GWh, chyba −0,9 % |
 | Výroba 2015 na 2025, držení hodnoty 2015 | předpoklad 6 794,1 GWh, skutečnost 2 805,2 GWh, chyba 142,2 %. V datech roku 2015 uzavírání parních zdrojů není, metoda by ho musela dostat jako datovanou událost |
 | Pozorované změny, čistá spotřeba, 2014 až 2025 | za 5 let −8,3 až 12,3 %, za 10 let 0,9 až 3,5 % |
-| Šířka P10 až P90 modelu, čistá spotřeba, po 10 letech (2035) | progresivní 26,6 %, konzervativní 25,6 % mediánu |
+| Šířka P10 až P90 modelu, čistá spotřeba, po 10 letech (2035) | progresivní 26,6 %, konzervativní 25,5 % mediánu |
 | Pozorované změny, výroba, 2014 až 2025 | za 5 let −47,2 až −21,7 %, za 10 let −58,7 až −52,4 % |
 | Šířka P10 až P90 modelu, výroba, po 10 letech (2035) | progresivní 73,8 %, konzervativní 53,5 % mediánu |
 | Pokryje pásmo výroby změnu, kterou kraj zažil? | Ne pro výrobu: pokles −58,7 % za 10 let je větší než polovina šířky pásma. Spotřebu pásmo pokrývá |
@@ -454,8 +457,8 @@ Je flotila započítaná dvakrát? Ne. Bateriová a vodíková část nákladní
 | progresivni spotreba: šířka P10 až P90 proti model stránky GWh | 0,010 |
 | konzervativni vyroba: medián společného losování proti model stránky GWh | 0,044 |
 | konzervativni vyroba: šířka P10 až P90 proti model stránky GWh | 0,066 |
-| konzervativni spotreba: medián společného losování proti model stránky GWh | 0,045 |
-| konzervativni spotreba: šířka P10 až P90 proti model stránky GWh | 0,001 |
+| konzervativni spotreba: medián společného losování proti model stránky GWh | 0,015 |
+| konzervativni spotreba: šířka P10 až P90 proti model stránky GWh | 0,032 |
 
 Další kontroly: křivky stránky proti modelu, součty po letech proti tabulce a test logiky stránky procházejí. Hodinové kontroly 29 z 29 v pořádku, včetně hodinové bilance pod 0,1 GWh a toho, že baterie nezvedla denní špičku. Roční bilance tabulky a hodinového výpočtu se liší o 0,01 GWh v progresivní a 0,00 GWh v konzervativní cestě.
 

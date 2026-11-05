@@ -27,7 +27,7 @@ Měření upřesňuje definici. Celostátní zimní maxima 2023 až 2026 padla v
 
 Přebytek se v této jedné hodině rozdělí v pořadí elektrolýza do svého výkonu, baterie, elektrokotle, zbytek je nevyužitý. Je to jen pohled na jednu hodinu, velikost ani řízení baterie a roční čísla neovlivňuje. Vypnutí elektrolýzy v zimě je předpoklad o malé nádrži, zatím nepodložený. Bez něj by zimní bilance byla horší o výkon elektrolyzéru.
 
-**Baterie.** Velikost je z hodinového výpočtu: medián denního výkyvu zbytkového zatížení a 4 h. Je to základ návrhu, ne nákladové optimum. V roce 2040 je 56,7 % této velikosti. Konzervativní cesta nese jen dnešních 10 MW. Zimní pokles špičky je změřený jen pro rok 2050, hodnoty jsou v přepočtu. Hlavní bilance baterie nezapočítává, protože nejsou zdroj.
+**Baterie.** Velikost je z hodinového výpočtu: medián denního výkyvu zbytkového zatížení a 4 h. Je to základ návrhu, ne nákladové optimum. V roce 2040 je 56,7 % této velikosti. Konzervativní cesta má podle své definice zálohu 10 % ze 3 dnů průměrného zatížení roku 2050. Zimní pokles špičky je změřený jen pro rok 2050, hodnoty jsou v přepočtu. Hlavní bilance baterie nezapočítává, protože nejsou zdroj.
 
 ## Rozsah: čistá spotřeba proti sektorům
 
@@ -82,7 +82,7 @@ Zatížení MSK nikdo neměří. Dopadová studie s.73 až 74: „Roční maximu
 | Dopadová studie očekávaný, Obr. 36 | 7 229,9 / (1 − 0,03547) / 5 869 = 1 277,2 MW | 1 325,4 MW | +48,2 MW |
 | Dopadová studie extrémní, Obr. 40, Tab.46 | 1 752,0 MW | 1 731,5 − 378,0 = 1 353,5 MW | −398,5 MW |
 | Progresivní cesta | 1551,9 MW | 879,8 MW | -672,1 MW; s baterií podle hodinového modelu -665,1 MW, nejhorší rok -672,0 MW; s měřeným větrem -552,3 MW |
-| Konzervativní cesta | 1145,7 MW | 733,9 MW | -411,7 MW; s měřeným větrem -393,3 MW |
+| Konzervativní cesta | 1145,8 MW | 733,9 MW | -411,8 MW; s měřeným větrem -393,4 MW |
 
 Dostupný výkon cest je po odečtení lokální části 80,1 MW, aby šel srovnat se studií. Hlavní příčiny rozdílu jsou v cestách: progresivní cesta má 433 MW plynu místo 683 MW, konzervativní nemá SMR. Přesný rozklad zbytku není k dispozici, Dopadová studie dosažitelný výkon po zdrojích pro 2050 netiskne. Obr. 36 a 40 Dětmarovice nepočítají, ty přidává až Tab.46. Metoda studie s τ na celé energii by dala progresivní cestě (12525,9 − 886,8) / 5,869 = 1983,1 MW, protože by započetla i elektrolýzu ve špičce.
 

@@ -39,7 +39,7 @@ def must_rest(text):
 
 def html_must(rows):
     head = ("<tr><th>Období, které má vyjít bez schodku</th><th>Bilance 2050, GWh</th><th>Jen vítr navíc</th><th>Jen fotovoltaika navíc</th>"
-            "<th>Jen SMR navíc, moduly po 500 MW, bez podkladu</th><th>Vítr doplněný na mez 2 014 MW a k tomu</th></tr>")
+            "<th>Jen SMR navíc, moduly po 500 MW, bez podkladu</th><th>Vítr doplněný na mez 2 014 MW a k tomu, v ročním součtu</th></tr>")
     body = ""
     for r in rows:
         wind = f"+{r['vitr']} MW" + (", nad mezí" if r["vitr_nad"] else "")
@@ -49,7 +49,7 @@ def html_must(rows):
 
 
 TEMPO_NAMES = {"Tabulka, progresivní": "Výchozí progresivní cesta", "Půl na půl pro úroveň 1": "Vítr a fotovoltaika půl na půl, vyrovnaný rok",
-               "Vítr na mezi a zbytek FVE": "Vítr na mezi, zbytek fotovoltaika, vyrovnaný rok", "Jen FVE": "Jen fotovoltaika, vyrovnaný rok"}
+               "Vítr na mezi a zbytek FVE": "Vítr na mezi, zbytek fotovoltaika, rok vyrovnaný v hodinovém výpočtu", "Jen FVE": "Jen fotovoltaika, vyrovnaný rok"}
 
 
 def html_tempo(rows, t):
@@ -82,10 +82,44 @@ NBSP_UNIT = re.compile(r"(?<=\d) (?=(?:%|GWh|TWh|MWh|MWp|MW|GWp|kWh|t\b|h\b|×))
 
 
 def keep_together(html):
-    """Číslo a jednotka se nesmí rozdělit na dva řádky. Jen v textu stránky, ne ve skriptu."""
+    """Číslo a jednotka se nesmí rozdělit na dva řádky. Jen v textu stránky, ne ve skriptu, stylech ani atributech značek."""
     head, sep, tail = html.partition("<script>")
-    head = NBSP_NUM.sub(" ", NBSP_UNIT.sub(" ", head))
-    return head + sep + tail
+    parts = re.split(r"(<style\b.*?</style>|<[^>]+>)", head, flags=re.S)
+    parts[::2] = [NBSP_NUM.sub(" ", NBSP_UNIT.sub(" ", p)) for p in parts[::2]]
+    return "".join(parts) + sep + tail
+
+
+def html_urovne(m):
+    body = "".join(f"<tr><td>{a}</td><td>{b}</td></tr>" for a, b in m["urovne"])
+    return f'<table class="grades"><tr><th>Úroveň</th><th>Co případ žádá</th></tr>{body}</table>'
+
+
+def html_blackout(m):
+    body = "".join(f"<tr><td>{a}</td><td>{b} <span class=\"zdroj\">Zdroj: {c}.</span></td><td>{d}</td></tr>" for a, b, c, d in m["blackout"])
+    return f'<table class="grades"><tr><th>Skupina</th><th>Co se stane</th><th>Rozdíl mezi cestami</th></tr>{body}</table>'
+
+
+ROZ_HEAD = ("Co nesedělo", "Velikost", "Jak se to vyřešilo", "Dopad na výsledek")
+
+
+def html_rozpory():
+    """Jediný zdroj je web/ROZPORY.md. Otevřené řádky jdou první a jsou označené, na telefonu se řádek skládá pod sebe."""
+    rows = []
+    for line in (HERE / "ROZPORY.md").read_text(encoding="utf-8").splitlines():
+        cells = [c.strip() for c in line.strip().strip("|").split("|")] if line.startswith("|") else []
+        if len(cells) == 4 and cells[0] != ROZ_HEAD[0] and not set(cells[0]) <= {"-"}:
+            rows.append(cells)
+    assert rows
+    opened = [r for r in rows if r[2].startswith("Nevyřešeno")]
+    closed = [r for r in rows if r[2].startswith("Vyřešeno")]
+    assert len(opened) + len(closed) == len(rows), "Řádek ROZPORY.md nezačíná slovem Nevyřešeno nebo Vyřešeno."
+
+    def row(r, cls):
+        return f'<tr class="{cls}">' + "".join(f'<td data-k="{h}">{c}</td>' for h, c in zip(ROZ_HEAD, r)) + "</tr>"
+    head = "<tr>" + "".join(f"<th>{h}</th>" for h in ROZ_HEAD) + "</tr>"
+    body = f'<tr class="skupina"><td colspan="4">Otevřené, {len(opened)}</td></tr>' + "".join(row(r, "otevreny") for r in opened)
+    body += f'<tr class="skupina"><td colspan="4">Vyřešené, {len(closed)}</td></tr>' + "".join(row(r, "vyreseny") for r in closed)
+    return f'<table class="grades rozpory"><thead>{head}</thead><tbody>{body}</tbody></table>'
 
 
 def html_rezerva(table):
@@ -101,7 +135,8 @@ def fill_numbers(template):
     texty = json.loads((NUMBERS / "stranka_texty.json").read_text(encoding="utf-8"))
     t = dict(data["T"], **texty["T"])
     values = dict(t, html_must=html_must(data["must"]), html_tempo=html_tempo(data["tempo"], t), html_rezerva=html_rezerva(data["rezerva"]),
-                  html_otevrene=html_otevrene(texty["otevrene"]), html_radky8=html_radky8(texty["radky8"]))
+                  html_otevrene=html_otevrene(texty["otevrene"]), html_radky8=html_radky8(texty["radky8"]), html_rozpory=html_rozpory(),
+                  html_urovne=html_urovne(texty["metoda"]), html_blackout=html_blackout(texty["metoda"]), blackout_meritko=texty["metoda"]["meritko"], blackout_chybi=texty["metoda"]["chybi"])
     out = keep_together(re.sub(r"\{\{([a-z0-9_]+)\}\}", lambda m: values[m.group(1)], template))
     assert "{{" not in out, out[out.index("{{"):][:60]
     flh = json.loads((NUMBERS / "elektrolyzer_plne_hodiny.json").read_text(encoding="utf-8"))
@@ -134,11 +169,12 @@ def build_data():
                               "cut": {"p50": num(last, "zima_snizeni_baterii_P50_MW"), "worst": num(last, "zima_snizeni_baterii_nejhorsi_MW")} if route == "progresivni" else None}
     rng = np.random.default_rng(20261104)
     items, bands, fit_report, fit_report_band = [], {}, [], []
-    curves_by_path = {}
+    curves_by_path, gap_runs = {}, {}
     for route in PATHS:
         chosen = [(r, m) for r, m in zip(rows, models) if text(r, "cesta") == route]
         curves_by_path[route] = path_curves([c[0] for c in chosen], [c[1] for c in chosen])
-        bands[route] = simulate_path([c[0] for c in chosen], [c[1] for c in chosen], rng, RUNS)
+        bands[route] = simulate_path([c[0] for c in chosen], [c[1] for c in chosen], rng, RUNS, sample=30)
+        gap_runs[route] = bands[route].pop("mezera")
         bands[route]["spotreba"], ratio = widen_band(bands[route]["spotreba"], HINDCAST_WIDTH_2030)
         fit_report_band.append(f"{route}: násobek pásma spotřeby 2030 {ratio:.3f}")
     for r, m in zip(rows, models):
@@ -179,7 +215,8 @@ def build_data():
                 trends[text(r, "vliv")] = {"values": [round(float(v), 5) for v in drivers[text(r, "vliv")]], "p10": num(r, "p10"), "p90": num(r, "p90"),
                                            "grade": text(r, "stupen"), "src": text(r, "zdroj")}
     derived = {"ownCal": OWN_CAL, "ownRates": OWN_RATES, "lossK": LOSS_K, "localOther": LOCAL_OTHER}
-    return {"years": YEARS.tolist(), "history": HISTORY, "items": items, "bands": bands, "battery": battery, "trends": trends, "derived": derived}
+    return {"years": YEARS.tolist(), "history": HISTORY, "items": items, "bands": bands, "battery": battery, "trends": trends, "derived": derived, "gapRuns": gap_runs,
+            "den": json.loads((HERE / "stranka_texty.json").read_text(encoding="utf-8"))["den"]}
 
 
 def fonts_css():

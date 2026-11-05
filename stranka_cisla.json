@@ -54,30 +54,30 @@
   {
    "cesta": "konzervativni",
    "uroven": "rok",
-   "bilance": "−4 287",
-   "vitr": "1 766",
+   "bilance": "−4 306",
+   "vitr": "1 774",
    "vitr_nad": false,
    "fve": "4,6",
-   "smr": "1,18",
+   "smr": "1,19",
    "mez": "+1 918 MW větru a 0,0 GWp FVE"
   },
   {
    "cesta": "konzervativni",
    "uroven": "říjen až březen",
-   "bilance": "−2 139",
-   "vitr": "1 636",
+   "bilance": "−2 147",
+   "vitr": "1 668",
    "vitr_nad": false,
-   "fve": "7,1",
+   "fve": "6,4",
    "smr": "2",
    "mez": "+1 918 MW větru a 0 SMR"
   },
   {
    "cesta": "konzervativni",
    "uroven": "prosinec až únor",
-   "bilance": "−1 058",
-   "vitr": "1 601",
+   "bilance": "−1 062",
+   "vitr": "1 625",
    "vitr_nad": false,
-   "fve": "9,2",
+   "fve": "7,6",
    "smr": "2",
    "mez": "+1 918 MW větru a 0 SMR"
   }
@@ -136,9 +136,9 @@
    "vitr": "2 014 MW",
    "vitr_rok": "78,9 MW",
    "vitr_krat": "8,7 ×",
-   "fve": "3 062 MWp",
-   "fve_rok": "110,2 MWp",
-   "fve_krat": "1,3 ×"
+   "fve": "3 329 MWp",
+   "fve_rok": "120,8 MWp",
+   "fve_krat": "1,5 ×"
   },
   {
    "jmeno": "Jen FVE",

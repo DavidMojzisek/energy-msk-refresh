@@ -61,6 +61,7 @@ Rejstřík voleb modelu. Vše lze změnit. Nové rozhodnutí přibývá na konec
 | 55 | Plánovaná odstávka SMR je od poloviny dubna, druhý blok od poloviny září. | Předpoklad, sken nejnižší zbytkové špičky přes 5 let. |
 | 56 | Stupeň se řídí nejslabším vstupem hodnoty P50 pro rok 2050. | Jedno pravidlo místo dvou. |
 | 57 | Výchozí baterie se určuje denním výkyvem, ne třemi dny akumulace z definice cesty. Případ se třemi dny se počítá vedle výchozího nastavení. | Tři dny průměrného zatížení jsou 103 GWh, výkon 1 362 MW. Se stejným pravidlem klesne dovoz jen z 4 667 na 4 658 GWh a zimní špička z 851 MW neklesne, je 857 MW. Pravidlo plánuje den dopředu, takže větší část takové baterie nevyužije. Hodnotu zálohy pro výpadek model neocení. |
+| 58 | Baterie konzervativní cesty je podle definice záloha 10 % ze 3 dnů průměrného zatížení roku 2050 a běží podle stejného pravidla vyrovnání dne. V roce 2030 zůstává dnešních 10 MWh, v roce 2040 je 56,7 % velikosti. | Průměrné zatížení 943 MW dává 6,8 GWh. Čtyřhodinové pravidlo by dalo 1 700 MW, víc než největší hodinové zbytkové zatížení 1 226 MW, proto je výkon 1 226 MW. Výklad 3 dnů jako průměrného zatížení je náš. |
 
 ## Vyřešený rozpor: spotřeba 2024
 

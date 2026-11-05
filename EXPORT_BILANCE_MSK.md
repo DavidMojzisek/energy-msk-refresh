@@ -65,9 +65,9 @@ Progresivní a konzervativní jsou názvy dvou cest pro kraj. Nejsou to předpov
 | progresivní | výroba | 2805.1634 | 6718.7 | 8319.4 | 10850.0 | 7862.212 |
 | progresivní | spotřeba | 7069.9644 | 9537.3 | 12665.7 | 15480.9 | 12525.8885 |
 | konzervativní | výroba | 2805.1634 | 2589.8 | 4081.8 | 5533.5 | 3956.412 |
-| konzervativní | spotřeba | 7069.9644 | 6781.9 | 8361.7 | 9973.3 | 8243.8146 |
+| konzervativní | spotřeba | 7069.9644 | 6802.3 | 8385.6 | 9994.3 | 8262.2381 |
 
-Pásmo P10, P50 a P90 je z výpočtu zveřejněného na stránce. Součet výchozích hodnot je odvozený součet sloupce P50 2050 z části 5. Odvozený rozdíl výroby a spotřeby z těchto součtů je -4663.6765 GWh v progresivní cestě a -4287.4026 GWh v konzervativní cestě.
+Pásmo P10, P50 a P90 je z výpočtu zveřejněného na stránce. Součet výchozích hodnot je odvozený součet sloupce P50 2050 z části 5. Odvozený rozdíl výroby a spotřeby z těchto součtů je -4663.6765 GWh v progresivní cestě a -4305.8261 GWh v konzervativní cestě.
 
 P50 simulace a součet výchozích hodnot nejsou totéž. Medián součtu nesymetricky rozdělených položek se nerovná součtu jejich mediánů. SMR je v progresivní cestě daný, los mění jen výkon a rok do 2050, případ bez SMR se počítá zvlášť. Výroba a spotřeba se losují společně, vlastní spotřeba a ztráty se počítají z losovaných řádků.
 
@@ -81,8 +81,8 @@ P50 simulace a součet výchozích hodnot nejsou totéž. Medián součtu nesyme
 | progresivní | 2050 | 1632.0 | 959.9 | -672.1 | 389.7 | 6.9 | 0.1 | -665.1 | -672.0 | 119.8 | -552.3 |
 | konzervativní | 2025 | 1169.3 | 1021.3 | -148.0 | 0.0 |  |  |  |  | 7.1 | -140.8 |
 | konzervativní | 2030 | 1176.7 | 673.4 | -503.3 | 254.7 |  |  |  |  | 8.3 | -495.0 |
-| konzervativní | 2040 | 1250.3 | 808.8 | -441.5 | 614.7 |  |  |  |  | 14.1 | -427.5 |
-| konzervativní | 2050 | 1225.8 | 814.1 | -411.7 | 614.7 |  |  |  |  | 18.4 | -393.3 |
+| konzervativní | 2040 | 1250.4 | 808.8 | -441.6 | 614.7 |  |  |  |  | 14.1 | -427.5 |
+| konzervativní | 2050 | 1225.9 | 814.1 | -411.8 | 614.7 |  |  |  |  | 18.4 | -393.4 |
 
 ### Letní poledne, MW, výchozí hodnoty
 
@@ -94,8 +94,8 @@ P50 simulace a součet výchozích hodnot nejsou totéž. Medián součtu nesyme
 | progresivní | 2050 | 1237.5 | 1677.5 | 440.0 | 389.7 | 675.0 | 243.0 | 70.0 | 0.0 | 197.0 | 197.0 |
 | konzervativní | 2025 | 783.4 | 382.6 | -400.8 | 0.0 | 10.0 | 0 | 0.0 | 0.0 | 0.0 | 0 |
 | konzervativní | 2030 | 785.9 | 415.3 | -370.6 | 254.7 | 10.0 | 0 | 30.0 | 0 | 0.0 | 0 |
-| konzervativní | 2040 | 914.3 | 375.8 | -538.4 | 614.7 | 10.0 | 0 | 30.0 | 0 | 0.0 | 0 |
-| konzervativní | 2050 | 947.6 | 407.0 | -540.6 | 614.7 | 10.0 | 0 | 30.0 | 0 | 0.0 | 0 |
+| konzervativní | 2040 | 914.3 | 375.8 | -538.5 | 614.7 | 694.8 | 0 | 30.0 | 0 | 0.0 | 0 |
+| konzervativní | 2050 | 947.6 | 407.0 | -540.6 | 614.7 | 1226.0 | 0 | 30.0 | 0 | 0.0 | 0 |
 
 ### Energie a rozsah Dopadové studie
 
@@ -106,24 +106,24 @@ P50 simulace a součet výchozích hodnot nejsou totéž. Medián součtu nesyme
 | progresivní | 2040 | 1410.4 | 9748.4 | 4275.8 |
 | progresivní | 2050 | 1551.9 | 12525.9 | 7862.2 |
 | konzervativní | 2025 | 1089.1 | 7070.0 | 2805.2 |
-| konzervativní | 2030 | 1096.5 | 7050.1 | 3242.9 |
-| konzervativní | 2040 | 1170.2 | 8059.5 | 3063.9 |
-| konzervativní | 2050 | 1145.7 | 8243.9 | 3956.4 |
+| konzervativní | 2030 | 1096.5 | 7050.2 | 3242.9 |
+| konzervativní | 2040 | 1170.2 | 8070.0 | 3063.9 |
+| konzervativní | 2050 | 1145.8 | 8262.3 | 3956.4 |
 
 Hodnoty jsou odhady pro výchozí nastavení a tabulka nemá pásmo. Bilance je dostupný výkon minus zatížení. Záporná hodnota říká, kolik MW je třeba dovézt, ne zda je to možné. Baterie nejsou v hlavní bilanci, protože nejsou zdroj. Potřeba elektrolýzy jsou řádky vodíku flotily se ztrátami sítě děleno plnými hodinami z hodinového výpočtu. Řádek výroba vodíku ze studie je rovnoměrná zátěž mimo tento výkon. Energie v této tabulce vychází z křivek modelu, ne přímo ze sloupců P50 2030 a P50 2040 v části 5, důvod je v úvodu části 5.
 
 ### Přepočet: Odpověď
 
-**S elektrárnami, které obě cesty předpokládají, kraj v roce 2050 zůstane závislý na dovozu.** Progresivní cesta vyrobí 7 862 GWh a spotřebuje 12 526 GWh, tedy 62,8 %. Chybí 4 664 GWh. Konzervativní cesta vyrobí 3 956 GWh ze 8 244 GWh, tedy 48,0 %, a chybí 4 287 GWh.
+**S elektrárnami, které obě cesty předpokládají, kraj v roce 2050 zůstane závislý na dovozu.** Progresivní cesta vyrobí 7 862 GWh a spotřebuje 12 526 GWh, tedy 62,8 %. Chybí 4 664 GWh. Konzervativní cesta vyrobí 3 956 GWh ze 8 262 GWh, tedy 47,9 %, a chybí 4 306 GWh.
 
-**Závislost plyne z toho, kolik elektráren cesty předpokládají a kolik elektřiny spotřebují, není to fyzikální mez.** Konzervativní cesta by rok uzavřela 1 766 MW větru navíc, tedy 1 862 MW uvnitř meze studie 2 014 MW. Překážkou je tempo: 73 MW za rok, 8,0krát víc než největší roční přírůstek kraje, a v hodinách i tak zůstane dovoz 766 GWh a 704 GWh přebytku. Progresivní cesta rok uzavře větrem na mezi a 1,7 GWp fotovoltaiky navíc, nebo více než jedním dalším SMR (1,28 čistého bloku), pro který podklad není.
+**Závislost plyne z toho, kolik elektráren cesty předpokládají a kolik elektřiny spotřebují, není to fyzikální mez.** Konzervativní cesta by rok uzavřela 1 774 MW větru navíc, tedy 1 870 MW uvnitř meze studie 2 014 MW. Překážkou je tempo: 73 MW za rok, 8,0krát víc než největší roční přírůstek kraje, a v hodinách i tak zůstane dovoz 532 GWh a 457 GWh přebytku. Progresivní cesta rok uzavře větrem na mezi a 1,7 GWp fotovoltaiky navíc, nebo více než jedním dalším SMR (1,28 čistého bloku), pro který podklad není.
 
 | Úroveň | Progresivní, 1 SMR, flotila 70:30, malá nádrž | Konzervativní, bez SMR |
 |---|---|---|
-| 1, rok | Nesplněno, −4 664 GWh. Podíl běhů pod 25 % | Nesplněno, −4 287 GWh. Podíl běhů pod 5 %. Rok uzavře vítr uvnitř meze, překáží tempo |
-| 2, říjen až březen | Nesplněno, −2 474 GWh. Podíl běhů pod 10 % | Nesplněno, −2 139 GWh. Podíl běhů pod 1 %. Vítr samotný +1 636 MW |
-| 2, prosinec až únor | Nesplněno, −1 362 GWh. Podíl běhů pod 10 % | Nesplněno, −1 058 GWh. Podíl běhů pod 1 %. Vítr samotný +1 601 MW |
-| 3, hodiny | Nesplněno. Bez dovozu 7,2 % hodin, zimní špička dovozu 907 MW v nejhorším roce při nádrži 20 t, roční špička 907 MW | Nesplněno. Bez dovozu 0,0 % hodin, špička 543 MW |
+| 1, rok | Nesplněno, −4 664 GWh. Podíl běhů pod 25 % | Nesplněno, −4 306 GWh. Podíl běhů pod 5 %. Rok uzavře vítr uvnitř meze, překáží tempo |
+| 2, říjen až březen | Nesplněno, −2 474 GWh. Podíl běhů pod 10 % | Nesplněno, −2 147 GWh. Podíl běhů pod 1 %. Vítr samotný +1 668 MW |
+| 2, prosinec až únor | Nesplněno, −1 362 GWh. Podíl běhů pod 10 % | Nesplněno, −1 062 GWh. Podíl běhů pod 1 %. Vítr samotný +1 625 MW |
+| 3, hodiny | Nesplněno. Bez dovozu 7,2 % hodin, zimní špička dovozu 907 MW v nejhorším roce při nádrži 20 t, roční špička 907 MW | Nesplněno. Bez dovozu 0,0 % hodin, špička 497 MW |
 
 Podíl běhů je pásmo, ne přesné číslo. Závisí na neověřené korelaci a mezích, viz oddíl 7. Úroveň 2 v simulaci počítá s rovnoměrnou elektrolýzou.
 
@@ -133,7 +133,7 @@ Podíl běhů je pásmo, ne přesné číslo. Závisí na neověřené korelaci 
 
 Přebytek má přednost. Každou půlnoc se z křivky zbytkového zatížení na další den a z náboje najde nejnižší rovná hladina, kterou baterie udrží v pořadí hodin. Nad hladinou vybíjí, pod hladinou minus 100 MW nabíjí ze sítě a nechá místo na přebytek, který ten den ještě přijde. Nabíjení končí pod hladinou, takže při přesné předpovědi denní špička nestoupne, kontrola to hlídá v každém běhu. Rozdíl 100 MW je úsudek: menší rozdíl přidává cykly a ztráty a špičku téměř nemění. Pravidlo jen z přebytku zůstává jako varianta.
 
-**Co je známo dopředu.** Baterie zná křivku dalšího dne přesně. Rozvrh plynu, elektrolýzy ze sítě a nádrže zná celý rok. Se včerejší křivkou místo předpovědi baterie ve výchozím nastavení zvedne denní špičku 7 až 13 dnů v roce, nejvýš o 278 MW. Když plyn dostane práh z předchozího povětrnostního roku místo znalosti celého roku, stoupne ve výchozím nastavení zimní špička dovozu v nejhorším roce z 837 na 1 004 MW a po vyčerpání paliva roční špička na 1 004 MW; v roce po chladnějším roce zůstane až 73 GWh plynu nevyužito.
+**Co je známo dopředu.** Baterie zná křivku dalšího dne přesně. Rozvrh plynu, elektrolýzy ze sítě a nádrže zná celý rok. Se včerejší křivkou místo předpovědi baterie ve výchozím nastavení zvedne denní špičku 7 až 13 dnů v roce, nejvýš o 278 MW. Když plyn dostane práh z předchozího povětrnostního roku místo znalosti celého roku, stoupne ve výchozím nastavení zimní špička dovozu v nejhorším roce z 837 na 1 004 MW a po vyčerpání paliva roční špička v nejhorším roce na 1 205 MW; v roce po chladnějším roce zůstane až 73 GWh plynu nevyužito.
 
 #### Velikost bez cíle
 
@@ -186,7 +186,7 @@ Přebytek před baterií, kotli a elektrolyzérem je 311 GWh. Z něj jde 172 GWh
 
 **Citlivost na předpověď.** Když hladinu místo předpovědi určí včerejší křivka, tedy jen známá informace, pokles špičky po plynu je ve výchozím nastavení 33 / 27 MW a při rovnoměrné elektrolýze bez nádrže 60 / 14 MW, ztráty 61,6 GWh. V roce se studeným náhlým dnem nepředvídaná špička zůstane. Chyba skutečné předpovědi leží mezi oběma případy.
 
-**Konzervativní cesta** baterii nemá. Stejné pravidlo by tam dalo 0,9 GWh, pokles zimní špičky 0 MW v mediánu a ztráty asi 17 GWh, v nejhorším roce pokles žádný.
+**Konzervativní cesta** má baterii podle své definice, zálohu 10 % ze 3 dnů průměrného zatížení roku 2050 943 MW: 6,8 GWh a 1 226 MW. Čtyřhodinové pravidlo dává 1 700 MW, největší hodinové zbytkové zatížení bez baterie je 1 226 MW. Se stejným pravidlem vyrovnání dne: dovoz z 4 288 na 4 306 GWh, ztráty 17,8 GWh, 19 plných cyklů za rok, pokles zimní špičky 0 MW v mediánu. Pravidlo denního výkyvu by tam dalo 0,9 GWh, pokles zimní špičky 0 MW v mediánu a ztráty asi 17 GWh, v nejhorším roce pokles žádný.
 
 #### Elektrolyzér
 
@@ -222,7 +222,7 @@ Výchozí je malá nádrž 20 t. Výhrady: 20 t je asi 8 h spotřeby flotily, ro
 
 **Hodinový model, špička prosince až února:** největší hodinové zatížení, případně dovoz, ve skutečném průběhu daného povětrnostního roku se skutečným větrem a sluncem a s plynem jen do ročního rozpočtu.
 
-**Výsledek.** Zatížení v roce 2050: stránka 1 632 MW, hodinově medián 1 975 MW (rozsah 1 814 až 1 997 MW) v progresivní cestě, 1 226 a 1 424 MW v konzervativní. Tepelné čerpadlo má nyní 3,5 až 5,5 kW na odběrné místo v hodině svého maxima místo dřívějších 8,2 kW: běžná spotřeba 2,5 MWh z 8,9 MWh jde tvarem spotřebičů a v tuhých mrazech čerpadlo běží rovnoměrně. Terénní údaj 1,7 kW je z mírnější Británie a na −18 °C se nepřenáší. Koeficient čerpadel a přímotopů je nyní z hodinového modelu, tyto řádky se tedy shodují.
+**Výsledek.** Zatížení v roce 2050: stránka 1 632 MW, hodinově medián 1 975 MW (rozsah 1 814 až 1 997 MW) v progresivní cestě, 1 226 a 1 425 MW v konzervativní. Tepelné čerpadlo má nyní 3,5 až 5,5 kW na odběrné místo v hodině svého maxima místo dřívějších 8,2 kW: běžná spotřeba 2,5 MWh z 8,9 MWh jde tvarem spotřebičů a v tuhých mrazech čerpadlo běží rovnoměrně. Terénní údaj 1,7 kW je z mírnější Británie a na −18 °C se nepřenáší. Koeficient čerpadel a přímotopů je nyní z hodinového modelu, tyto řádky se tedy shodují.
 
 | Řádek, MW ve špičce | Stránka, progresivní | Hodinově, medián | Stránka, konzervativní | Hodinově, medián |
 |---|---|---|---|---|
@@ -311,7 +311,7 @@ Měření upřesňuje definici. Celostátní zimní maxima 2023 až 2026 padla v
 
 Přebytek se v této jedné hodině rozdělí v pořadí elektrolýza do svého výkonu, baterie, elektrokotle, zbytek je nevyužitý. Je to jen pohled na jednu hodinu, velikost ani řízení baterie a roční čísla neovlivňuje. Vypnutí elektrolýzy v zimě je předpoklad o malé nádrži, zatím nepodložený. Bez něj by zimní bilance byla horší o výkon elektrolyzéru.
 
-**Baterie.** Velikost je z hodinového výpočtu: medián denního výkyvu zbytkového zatížení a 4 h. Je to základ návrhu, ne nákladové optimum. V roce 2040 je 56,7 % této velikosti. Konzervativní cesta nese jen dnešních 10 MW. Zimní pokles špičky je změřený jen pro rok 2050, hodnoty jsou v přepočtu. Hlavní bilance baterie nezapočítává, protože nejsou zdroj.
+**Baterie.** Velikost je z hodinového výpočtu: medián denního výkyvu zbytkového zatížení a 4 h. Je to základ návrhu, ne nákladové optimum. V roce 2040 je 56,7 % této velikosti. Konzervativní cesta má podle své definice zálohu 10 % ze 3 dnů průměrného zatížení roku 2050. Zimní pokles špičky je změřený jen pro rok 2050, hodnoty jsou v přepočtu. Hlavní bilance baterie nezapočítává, protože nejsou zdroj.
 
 ### Výchozí stav a ztráty v sítích
 
@@ -383,7 +383,7 @@ Jde jen o kontrolu proti jiným scénářům. Cílem není se s nimi shodovat.
 | Dopadová studie očekávaný, Obr. 36 | 7 229,9 / (1 − 0,03547) / 5 869 = 1 277,2 MW | 1 325,4 MW | +48,2 MW |
 | Dopadová studie extrémní, Obr. 40, Tab.46 | 1 752,0 MW | 1 731,5 − 378,0 = 1 353,5 MW | −398,5 MW |
 | Progresivní cesta | 1551,9 MW | 879,8 MW | -672,1 MW; s baterií podle hodinového modelu -665,1 MW, nejhorší rok -672,0 MW; s měřeným větrem -552,3 MW |
-| Konzervativní cesta | 1145,7 MW | 733,9 MW | -411,7 MW; s měřeným větrem -393,3 MW |
+| Konzervativní cesta | 1145,8 MW | 733,9 MW | -411,8 MW; s měřeným větrem -393,4 MW |
 
 Dostupný výkon cest je po odečtení lokální části 80,1 MW, aby šel srovnat se studií. Hlavní příčiny rozdílu jsou v cestách: progresivní cesta má 433 MW plynu místo 683 MW, konzervativní nemá SMR. Přesný rozklad zbytku není k dispozici, Dopadová studie dosažitelný výkon po zdrojích pro 2050 netiskne. Obr. 36 a 40 Dětmarovice nepočítají, ty přidává až Tab.46. Metoda studie s τ na celé energii by dala progresivní cestě (12525,9 − 886,8) / 5,869 = 1983,1 MW, protože by započetla i elektrolýzu ve špičce.
 
@@ -1776,14 +1776,14 @@ Každá položka má tabulku pro obě cesty v GWh za rok a pod ní odrážky. Po
 | Cesta | Základ 2025 | P10 2050 | P50 2050 | P90 2050 | P50 2030 | P50 2040 | Stupeň |
 |---|---|---|---|---|---|---|---|
 | progresivní | 219.3158 | 369.4 | 410.4167 | 525.3 | 231.3332 | 320.7276 | C |
-| konzervativní | 219.3158 | 240.4 | 267.1128 | 341.9 | 220.8802 | 261.3144 | C |
+| konzervativní | 219.3158 | 241.0 | 267.7663 | 342.7 | 220.8813 | 261.6847 | C |
 
 - **Meze 2030 a 2040, progresivní:** 2030 P10 208.2, P90 296.1; 2040 P10 288.7, P90 410.5
-- **Meze 2030 a 2040, konzervativní:** 2030 P10 198.8, P90 282.7; 2040 P10 235.2, P90 334.5
+- **Meze 2030 a 2040, konzervativní:** 2030 P10 198.8, P90 282.7; 2040 P10 235.5, P90 335.0
 - **Průběh:** plynule
 - **Společný faktor:** zadny
 - **Jak se došlo, progresivní:** 11 160,4 GWh spotřeby v síti × 3,547 % / (100 % − 3,547 %) = 410,4 GWh, stejná míra v obou cestách.
-- **Jak se došlo, konzervativní:** 7 263,6 GWh spotřeby v síti × 3,547 % / (100 % − 3,547 %) = 267,1 GWh, stejná míra v obou cestách.
+- **Jak se došlo, konzervativní:** 7 281,3 GWh spotřeby v síti × 3,547 % / (100 % − 3,547 %) = 267,8 GWh, stejná míra v obou cestách.
 - **Ze zdrojů:** Dopadová studie, Tab. 1 s. 27 a rov. 7 s. 74 (3,547 %)
 - **Odhad:** Míra je za bývalý Severomoravský kraj. Spotřeba v síti nese odhady ostatních položek.
 - **Podrobné odvození:** Stejný vzorec v obou cestách, v každém roce a v každém běhu: (součet spotřeby bez ztrát − vlastní spotřeba zdrojů − 494,9682 GWh ostatní lokální části) × r / (1 − r), r = 3,547 %. Základ: tab. 6.2 5 963,8184 GWh × 3,547 % / (1 − 3,547 %) = 219,3158 GWh.
@@ -1804,23 +1804,24 @@ Každá položka má tabulku pro obě cesty v GWh za rok a pod ní odrážky. Po
 | Cesta | Základ 2025 | P10 2050 | P50 2050 | P90 2050 | P50 2030 | P50 2040 | Stupeň |
 |---|---|---|---|---|---|---|---|
 | progresivní | 0 | 31.2 | 57.79 | 125.4 | 1.07 | 32.75 | D |
-| konzervativní | 0 | 0 | 0 | 0 | 0 | 0 | D |
+| konzervativní | 0 | 9.6 | 17.77 | 38.6 | 0.03 | 10.07 | D |
 
 - **Meze 2030 a 2040, progresivní:** 2030 P10 0.6, P90 2.3; 2040 P10 17.7, P90 71.1
-- **Meze 2030 a 2040, konzervativní:** 2030 P10 0, P90 0; 2040 P10 0, P90 0
+- **Meze 2030 a 2040, konzervativní:** 2030 P10 0.0, P90 0.1; 2040 P10 5.4, P90 21.9
 - **Průběh:** plynule
 - **Společný faktor:** zadny
 - **Jak se došlo, progresivní:** Baterie 2,7 GWh a 675 MW v hodinovém výpočtu: nabito minus vybito, 156,9 plného cyklu, účinnost 88 % = 57,8 GWh.
-- **Jak se došlo, konzervativní:** Konzervativní cesta nemá přebytek k přesunu, ztráty baterií jsou nula.
+- **Jak se došlo, konzervativní:** 10 % ze 3 dnů průměrného zatížení 943 MW = 6,8 GWh a 1 226 MW. Nabito minus vybito v hodinovém výpočtu, 19,2 plného cyklu, účinnost 88 % = 17,77 GWh.
 - **Ze zdrojů, progresivní:** Hodinový výpočet modelu z profilů PVGIS, OPSD a OTE.
-- **Ze zdrojů, konzervativní:** Výklad modelu.
+- **Ze zdrojů, konzervativní:** Definice konzervativní cesty, záloha 10 % ze 3 dnů.
 - **Odhad, progresivní:** Velikost z mediánu denního výkyvu je základ návrhu, ne nákladové optimum. Účinnost 88 % je náš odhad.
-- **Odhad, konzervativní:** Nula je výklad modelu.
+- **Odhad, konzervativní:** Výklad 3 dnů jako průměrného zatížení 2050 je náš, stejně jako rozložení mezi roky.
 - **Podrobné odvození, progresivní:** Baterie 2,7 GWh a 675 MW v hodinovém výpočtu, průměr 5 povětrnostních let: nabito minus vybito, 156,9 plného cyklu, účinnost 0,88 = 57,8 GWh. Baterie vyrovnává den: přebytek má přednost a v hodinách s nízkým zbytkovým zatížením se nabíjí i ze sítě. Roky 2030 a 2040 jsou podle velikosti baterie, meze jsou úsudek.
-- **Podrobné odvození, konzervativní:** Konzervativní cesta nemá přebytek k přesunu, ztráty baterií jsou nula.
-- **Zdroj:** Hodinový výpočet tohoto modelu; NREL 2025 pro cenu baterie
+- **Podrobné odvození, konzervativní:** Definice cesty: záloha 10 % ze 3 dnů. Průměrné zatížení 2050 943 MW × 72 h × 10 % = 6,8 GWh, výkon 1 226 MW (největší hodinové zbytkové zatížení, 4 h by dalo 1 700 MW). V hodinovém výpočtu, průměr 5 povětrnostních let: nabito minus vybito, 19,2 plného cyklu, účinnost 0,88 = 17,77 GWh. Rok 2030 je dnešních 10 MWh, rok 2040 stejný podíl velikosti jako v progresivní cestě, meze jsou úsudek.
+- **Zdroj, progresivní:** Hodinový výpočet tohoto modelu; NREL 2025 pro cenu baterie
+- **Zdroj, konzervativní:** Definice cest (část 2); hodinový výpočet tohoto modelu
 - **Poznámka, progresivní:** Velikost je medián denního výkyvu zbytkového zatížení 2,71 GWh a trvání 4 h. Je to základ návrhu, ne nákladové optimum. Účinnost 0,88 a meze jsou náš odhad.
-- **Poznámka, konzervativní:** Konzervativní cesta nese jen dnešních 10 MW bez přesunu přebytku. Nula je výklad modelu.
+- **Poznámka, konzervativní:** Výklad 3 dnů jako průměrného zatížení roku 2050 je náš. Baterie běží podle stejného pravidla jako v progresivní cestě, tedy vyrovnává den. Záloha pro výpadek se nevyhrazuje a model její hodnotu neocení.
 - **Koeficient, progresivní:** zima P10 0.0000, P50 0.0000, P90 1.0000; léto P10 0.5000, P50 1.0000, P90 3.0000; flexibilní ano; stupeň D
 - **Koeficient, konzervativní:** zima P10 0.0000, P50 0.0000, P90 1.0000; léto P10 0.5000, P50 1.0000, P90 3.0000; flexibilní ano; stupeň D
 - **Koeficient, odvození:** V bilanci bez baterií 0. Léto nabíjení kolem průměru, úsudek.
@@ -2242,6 +2243,7 @@ Odvozený součet P50 tří řádků vodíku flotily je 1196.0 GWh. Výpočet: v
 | 55 | Plánovaná odstávka SMR je od poloviny dubna, druhý blok od poloviny září. | Předpoklad, sken nejnižší zbytkové špičky přes 5 let. |
 | 56 | Stupeň se řídí nejslabším vstupem hodnoty P50 pro rok 2050. | Jedno pravidlo místo dvou. |
 | 57 | Výchozí baterie se určuje denním výkyvem, ne třemi dny akumulace z definice cesty. Případ se třemi dny se počítá vedle výchozího nastavení. | Tři dny průměrného zatížení jsou 103 GWh, výkon 1 362 MW. Se stejným pravidlem klesne dovoz jen z 4 667 na 4 658 GWh a zimní špička z 851 MW neklesne, je 857 MW. Pravidlo plánuje den dopředu, takže větší část takové baterie nevyužije. Hodnotu zálohy pro výpadek model neocení. |
+| 58 | Baterie konzervativní cesty je podle definice záloha 10 % ze 3 dnů průměrného zatížení roku 2050 a běží podle stejného pravidla vyrovnání dne. V roce 2030 zůstává dnešních 10 MWh, v roce 2040 je 56,7 % velikosti. | Průměrné zatížení 943 MW dává 6,8 GWh. Čtyřhodinové pravidlo by dalo 1 700 MW, víc než největší hodinové zbytkové zatížení 1 226 MW, proto je výkon 1 226 MW. Výklad 3 dnů jako průměrného zatížení je náš. |
 
 ### Vyřešený rozpor: spotřeba 2024
 
@@ -2312,7 +2314,7 @@ Pokles je jeden krok v březnu 2026, ne mezi prosincem a červnem. ERÚ neudáv�
 3. **Možný překryv 45,8 GWh s vodíkem flotily.** Dopadová studie neříká, pro koho je 45 760 MWh. Není to tedy prokazatelně vodík flotily a řádek výroba vodíku zůstává. Překryv nelze vyloučit a nejvýš je to 45,8 GWh. Odkaz [45] ve studii vede na nesouvisející dokument.
 4. **Výroba zařízení ZEVO je brutto.** Výroba 44.212 GWh je brutto. Řádek vlastní spotřeba zdrojů k ní nic zvlášť nepřičítá.
 5. **Velikost baterie není nákladové optimum.** Velikost 2,7 GWh a 675 MW plyne z mediánu denního výkyvu zbytkového zatížení. Hodnota přesunuté MWh v kraji není známa. V progresivní cestě 2050 je zimní bilance -672.1 MW a se změřeným poklesem špičky baterií -665.1 MW, v nejhorším povětrnostním roce -672.0 MW.
-6. **Zimní vítr je počítán jako nula.** P10 a P50 jsou nula podle pravidla Dopadové studie s.73, není to medián. Změřený medián při 14 zimních maximech ČR je 0,192 instalovaného výkonu. S touto hodnotou je zimní bilance 2050 -552.3 MW v progresivní cestě a -393.3 MW v konzervativní cestě.
+6. **Zimní vítr je počítán jako nula.** P10 a P50 jsou nula podle pravidla Dopadové studie s.73, není to medián. Změřený medián při 14 zimních maximech ČR je 0,192 instalovaného výkonu. S touto hodnotou je zimní bilance 2050 -552.3 MW v progresivní cestě a -393.4 MW v konzervativní cestě.
 7. **Výkon a palivo plynu.** Výkon bloků v zimní špičce je z Tab.30 × 0,9 a na energii řádku nezávisí, palivo omezuje jen počet hodin.
 
 ## 12. Seznam zdrojů

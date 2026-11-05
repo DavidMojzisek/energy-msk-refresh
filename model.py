@@ -228,14 +228,18 @@ def path_curves(rows, models):
 def curve(model, target=None, tm_shift=0.0):
     """Výchozí křivka, případně s jiným cílem nebo posunutým načasováním. Vrací pole po letech."""
     t = YEARS.astype(float)
+    # U položek se skokem mění jiný cíl velikost skoku. Rampa od roku 2030 by nakreslila skok, který se zase ztratí.
+    amp_all = sum(part["amp"] for part in model["parts"])
+    scale_step = target is not None and model["jump"] and abs(amp_all) > 1e-9 and not model.get("nodes")
+    ratio = 1.0 + (target - model["target"]) / (model["driver"][-1] * amp_all) if scale_step else 1.0
     if model.get("nodes"):
         level = pchip_eval(warp(t, tm_shift), model["nodes"])
     else:
         level = np.full(len(t), model["base"], dtype=float)
         for part in model["parts"]:
-            level = level + part["amp"] * part_s(t, part, tm_shift)
+            level = level + ratio * part["amp"] * part_s(t, part, tm_shift)
     value = model["driver"] * level
-    if target is not None:
+    if target is not None and not scale_step:
         value = value + (target - model["target"]) * deviation(t)
     return value if model["saving"] else np.maximum(value, 0)
 
@@ -339,8 +343,9 @@ def bound_ratio(row, z):
     return quantile(z, p10, p50, p90) / max(p50, 1e-9)
 
 
-def simulate_path(rows, models, rng, runs):
-    """P10, P50 a P90 součtů po letech pro jednu cestu, výroba i spotřeba z jednoho losování. Vlastní spotřeba a ztráty se počítají z losovaných řádků."""
+def simulate_path(rows, models, rng, runs, sample=0):
+    """P10, P50 a P90 součtů po letech pro jednu cestu, výroba i spotřeba z jednoho losování. Vlastní spotřeba a ztráty se počítají z losovaných řádků.
+    Se sample > 0 přidá prvních sample běhů ročního schodku (spotřeba minus výroba) a jeho pásmo ze všech běhů."""
     n = len(YEARS)
     gen, use, own_sum = np.zeros((n, runs)), np.zeros((n, runs)), np.zeros((n, runs))
     derived = {}
@@ -362,7 +367,11 @@ def simulate_path(rows, models, rng, runs):
     if LOSS_ITEM in derived:
         use = use + grid_loss(use, own) * bound_ratio(*derived[LOSS_ITEM])
     band = lambda a: [x for x in np.percentile(a, [10, 50, 90], axis=1).round(1).tolist()]
-    return {"vyroba": band(gen), "spotreba": band(use)}
+    out = {"vyroba": band(gen), "spotreba": band(use)}
+    if sample:
+        gap = use - gen
+        out["mezera"] = {"behy": gap[:, :sample].T.round(0).tolist(), "pasmo": band(gap), "behu": runs}
+    return out
 
 
 def widen_band(band, width_share):
