@@ -27,8 +27,9 @@ h2{font:700 19px/1.25 "Saira",sans-serif;margin:0 0 10px}
 .chip{border:1px solid var(--line);background:none;color:var(--muted);font:600 12.5px "DM Sans",sans-serif;padding:5px 11px;border-radius:999px;cursor:pointer}
 .chip[aria-pressed=true]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
 .tipwrap{position:relative;display:inline-block}
-.bubble{display:none;position:absolute;left:0;top:calc(100% + 6px);z-index:20;width:300px;max-width:78vw;padding:8px 10px;border-radius:8px;background:var(--ink);color:var(--surface);font:500 12.5px/1.4 "DM Sans",sans-serif;white-space:normal}
-.tipwrap:hover .bubble,.tipwrap:focus-within .bubble{display:block}
+.bubble{display:none;position:absolute;left:0;top:calc(100% + 6px);z-index:20;width:max-content;max-width:min(240px,70vw);pointer-events:none;padding:8px 10px;border-radius:8px;background:var(--ink);color:var(--surface);font:500 12.5px/1.4 "DM Sans",sans-serif;white-space:normal}
+.bubble.r{left:auto;right:0}
+.tipwrap:hover .bubble,.tipwrap:has(:focus-visible) .bubble{display:block}
 .card{margin-bottom:40px}
 .answer{margin:12px 0 18px}
 .question{color:var(--muted);margin:0 0 4px;font-size:14px}
@@ -179,14 +180,14 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
 <div class="pathbar">
   <span class="label">Cesta</span>
   <div class="pills" role="group" aria-label="Cesta pro celou stránku">
-    <button data-path="progresivni" aria-pressed="true">Progresivní</button>
-    <button data-path="konzervativni" aria-pressed="false">Konzervativní</button>
+    <span class="tipwrap"><button data-path="progresivni" aria-pressed="true">Progresivní</button><span class="bubble" role="tooltip">Jeden SMR, vítr a slunce podle podílu kraje, rychlá elektrifikace, část dopravy na vodík.</span></span>
+    <span class="tipwrap"><button data-path="konzervativni" aria-pressed="false">Konzervativní</button><span class="bubble" role="tooltip">Bez SMR, hlavně plynové bloky, pomalejší elektrifikace, doprava bez vodíku.</span></span>
   </div>
-  <button class="chip" id="compare" aria-pressed="false">Oba scénáře</button>
-  <span class="tipwrap" data-must="progresivni"><button class="chip" id="presetVitr" aria-pressed="false" aria-describedby="presetTip">Vítr na mezi</button><span class="bubble" id="presetTip" role="tooltip">Čte „maximum větru a slunce“ doslova: nastaví vítr na mez 2 014 MW a {{fve_rok}} GWp fotovoltaiky navíc. Rok se tím uzavře, v hodinách se ale dál doveze {{pv_dovoz}} GWh. Přepíše ruční nastavení posuvníků. Dalším klepnutím se vrátí výchozí hodnoty.</span></span>
+  <span class="tipwrap"><button class="chip" id="compare" aria-pressed="false">Oba scénáře</button><span class="bubble" role="tooltip">Přidá do grafu tenké křivky druhé cesty.</span></span>
+  <span class="tipwrap" data-must="progresivni"><button class="chip" id="presetVitr" aria-pressed="false" aria-describedby="presetTip">Vítr na mezi</button><span class="bubble" id="presetTip" role="tooltip">Vítr 2 014 MW a {{fve_rok}} GWp fotovoltaiky navíc. Uzavře rok, v hodinách se dál dováží. Další klepnutí vrátí výchozí hodnoty.</span></span>
   <div class="pills small verze" role="group" aria-label="Verze stránky">
-    <button data-ui="simple" aria-pressed="true">Jednoduchá</button>
-    <button data-ui="detail" aria-pressed="false">Podrobná</button>
+    <span class="tipwrap"><button data-ui="simple" aria-pressed="true">Jednoduchá</button><span class="bubble r" role="tooltip">Posuvníky po skupinách a krátké texty.</span></span>
+    <span class="tipwrap"><button data-ui="detail" aria-pressed="false">Podrobná</button><span class="bubble r" role="tooltip">Posuvníky po položkách, velké trendy a plné tabulky.</span></span>
   </div>
 </div>
 <section class="answer">
@@ -196,8 +197,8 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
   <div class="toggles" id="toggles">
     <div class="pills" role="group" aria-label="Co graf ukazuje">
       <button data-view="energy" aria-pressed="true">Roční energie</button>
-      <button data-view="winter" aria-pressed="false">Zimní špička</button>
-      <button data-view="summer" aria-pressed="false">Letní poledne</button>
+      <span class="tipwrap"><button data-view="winter" aria-pressed="false">Zimní špička</button><span class="bubble" role="tooltip">Nejtěžší zimní hodina podle metody studie, vítr a slunce nula.</span></span>
+      <span class="tipwrap"><button data-view="summer" aria-pressed="false">Letní poledne</button><span class="bubble r" role="tooltip">Slunečné víkendové poledne: kolik přebytku vznikne a kam jde.</span></span>
     </div>
     <div class="pills small" role="group" aria-label="Zobrazené veličiny">
       <button data-show="vyroba" id="showGen" aria-pressed="true">Výroba</button>
@@ -1129,7 +1130,7 @@ function drawLegend(){
     (hasItems ? [["progresivni", "--prog"], ["konzervativni", "--kons"]].filter(x => state.show[x[0]]).map(x => `<span><i style="border-color:var(${x[1]})"></i>${PATHNAME[x[0]]}</span>`).join("") : "") +
     (state.show.spotreba ? `<span><i style="border-color:var(--muted)"></i>${energy ? "Spotřeba" : "Zatížení"}</span>` : "") +
     (state.show.vyroba ? `<span><i style="border-color:var(--muted);border-top-style:dashed"></i>${energy ? "Výroba" : "Dostupný výkon"}</span>` : "") +
-    (hasItems && energy ? `<span><i style="border-color:${color};border-top-width:8px;opacity:.25"></i>Pásmo nejistoty výchozího nastavení</span>` : "") +
+    (hasItems && energy ? `<span class="tipwrap"><i style="border-color:${color};border-top-width:8px;opacity:.25"></i>Pásmo nejistoty výchozího nastavení<span class="bubble" role="tooltip">Prostředních 80 % běhů simulace. Posuvníky ho nemění.</span></span>` : "") +
     (hasItems && state.show.vyroba && state.show.spotreba && state.view !== "summer" ? `<span><i style="border-color:var(--muted);border-top-width:8px;opacity:.2"></i>Schodek mezi křivkami</span>` : "") +
     (hasItems && state.show.vyroba && state.show.spotreba && state.view === "summer" ? `<span id="legSurplus"><i style="border-color:var(--ok);border-top-width:8px;opacity:.7"></i>Letní přebytek, šrafovaně</span>` : "");
 }
