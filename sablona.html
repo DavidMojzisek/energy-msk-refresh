@@ -264,7 +264,7 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
 </section>
 <section class="card" id="realCard">
   <div class="sechead"><h2>Realistický scénář při těchto předpokladech</h2></div>
-  <p class="viewnote"><b>Pracovní verze k diskusi.</b> Pásmo nejistoty a hodinový výpočet zatím nejsou doplněné.</p>
+  <p class="viewnote"><b>Pracovní verze k diskusi.</b></p>
   <p class="plain" id="realLead"></p>
   <div class="toggles">
     <div class="pills small" role="group" aria-label="Přednastavení realistického scénáře">
@@ -273,6 +273,7 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
       <button id="realAllP">Vše progresivně</button>
     </div>
     <div class="controls">
+      <button class="chip" id="realBand" aria-pressed="false">Pásmo nejistoty</button>
       <button class="chip" id="realBranch" aria-pressed="false">Druhá větev SMR</button>
       <button class="chip" id="realPaths" aria-pressed="false">Oba původní scénáře</button>
     </div>
@@ -288,6 +289,8 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
       <div class="only-detail"><h3 class="realh">34 indikátorů: 1 je příznivý vývoj, 0 nepříznivý</h3><p class="viewnote">Význam každé škály vysvětluje značka i. Příznivý vývoj nemusí znamenat menší schodek, protože elektrifikace zvyšuje spotřebu.</p><div id="realInds"></div></div>
     </div>
   </div>
+  <details class="box" id="realBandBox"><summary>Pásmo nejistoty a co ho tvoří</summary><div id="realBandText"></div></details>
+  <details class="box" id="realHours"><summary>Hodinový výpočet výchozího stavu</summary><div id="realHourText"></div></details>
   <details class="box" id="realSources"><summary>Zdroje výchozích hodnot</summary><div class="tablewrap" id="realSrcTable"></div></details>
 </section>
 <section class="card" id="balcard">
@@ -384,6 +387,8 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
       <p><b>Velké události.</b> SMR má skóre z indikátorů a to se převádí na odhad pravděpodobnosti tak, že výchozí skóre odpovídá odhadu 25 % z řetězu kroků a konce 0 a 1 zůstávají. Datová centra a plná elektrifikace Třince berou skóre přímo jako viditelný odhad, protože lepší podklad neexistuje. Při volbě Podle indikátorů rozhoduje práh 50 %, křivka nikdy nebere zlomek. Odhady jsou subjektivní a podmíněné, expertní přímé hodnocení by je mělo nahradit (Morgan a Keith 2008). Odložený SMR posouvá útlum plynu o stejný odklad. Spuštění po roce 2050 znamená do roku 2050 větev bez SMR.</p>
       <p><b>Větev bez SMR.</b> Plyn jde po řádku konzervativní cesty, 683 MW. Doložený je dnes jen menší výkon, proto je to horní čtení, viz Nedostatky. Vlastní spotřeba a ztráty v sítích jsou vzorce z vypočtených řádků.</p>
       <p><b>Demografie a oteplení.</b> Obě cesty mají stejnou projekci ČSÚ, proto se počítá jen odchylka, stejným vzorcem jako velké trendy. Klima položek odpovídá povětrnostním rokům 2015 až 2019. Další oteplení násobí teplo a chlazení poměrem z hodinového modelu, s plnou hodnotou v roce 2050. Část chlazení může být už v růstu vybavenosti, to je možné překrytí.</p>
+      <p><b>Pásmo.</b> Simulace pro výchozí nastavení losuje míry naplnění s jedním společným faktorem a faktorem kategorie, váhy, tvar vazby jako a na g, události, oteplení s demografií a rozsah řádků tabulky obou cest. Síly faktorů a rozptyly jsou úsudek. Tabulka zdrojů není rozklad rozptylu, ukazuje každý zdroj samotný a co ubude bez něj, protože zdroje na sebe působí (OECD a JRC 2008, kap. 7).</p>
+      <p><b>Hodiny.</b> Výchozí řádky obou větví projdou stejným hodinovým výpočtem jako cesty, s pěti povětrnostními roky. Čísla z ročního a hodinového výpočtu jsou označená zvlášť. Ve výchozím stavu sedí roční schodek a hodinový dovoz.</p>
       <p><b>Výchozí hodnoty.</b> Každý indikátor má ukazatel, dvě kotvy a zdroj, nebo označení odhad. Kotvy jsou úsudek. Kde dnešní hodnota neříká nic o období do roku 2050, je výchozí hodnota z prognózy nebo z pravidla, které je u indikátoru uvedené. Bez dat platí 0,5 a označení odhad.</p>
       <p class="small">Zdroje: Grubler, Wilson, Nemet 2016, ERSS 22; Odenweller a kol. 2022, Nature Energy 7; Granovetter 1978, AJS 83(6); OECD a JRC 2008, Handbook on Constructing Composite Indicators; Paruolo, Saisana, Saltelli 2013, JRSS A 176(3); Morgan, Keith 2008, Climatic Change 90.</p>
       <div class="figsvg" id="realFig"></div>
@@ -547,11 +552,11 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
   <section class="card">
     <h2>Realistický scénář: co je slabé</h2>
     <ul class="flaws">
-      <li>Lineární převod indikátorů na položky je dohoda, ne doložený vztah. Zatím není spočítaná citlivost na jiný tvar.</li>
+      <li>Lineární převod indikátorů na položky je dohoda, ne doložený vztah. Citlivost na jiný tvar je u pásma.</li>
       <li>Váhy a kotvy jsou úsudek. Řada ukazatelů je jen blízká indikátoru a část dat je za celou ČR.</li>
-      <li>Střední poloha neznamená nejpravděpodobnější vývoj. Pásmo nejistoty a rozklad jeho zdrojů v této verzi chybí.</li>
+      <li>Střední poloha neznamená nejpravděpodobnější vývoj. Pásmo je z velké části rozsah řádků tabulky, který je náš odhad a může se překrývat s indikátory.</li>
       <li>Vítr a pozemní fotovoltaika mají stejnou polohu, i když je přijetí může rozdělovat. Výchozí hodnoty ukazují, že místní hlasování o větru dopadají špatně.</li>
-      <li>Roční součet nezachytí hodiny. Hodinový výpočet realistického stavu zatím chybí. Zimní špička a letní poledne se pro tuto křivku nepočítají.</li>
+      <li>Hodinový výpočet je jen pro výchozí nastavení a zařízení v něm není znovu hledané. Zimní špička podle metody studie a letní poledne se pro tuto křivku nepočítají.</li>
       <li>Větev bez SMR bere plynové bloky 683 MW z konzervativní cesty. Oznámené projekty dávají méně a bloky bez doloženého řízení mají odhad 30 %.</li>
       <li>Model nezachytí, že dostatek elektřiny přiláká investora.</li>
     </ul>
@@ -1254,7 +1259,7 @@ function refresh(){ syncPreset(); drawMain(); drawBalance(); drawKpi(); FLOW.dra
 const REAL = DATA.real;
 const REAL_LINKS = REAL.links, REAL_GROUP_KEYS = Object.keys(REAL.groupNames);
 const realInit = () => ({x:Object.fromEntries(REAL.ind.map(r => [r.id, Number(r.x)])), smr:"ind", dc:"ind", pec:"ind", huta:"ind", smrYear:REAL.smrYear, dpop:0, dT:REAL.dT.default});
-let realCfg = realInit(), realShowPaths = false, realShowBranch = false;
+let realCfg = realInit(), realShowPaths = false, realShowBranch = false, realShowBand = false;
 const realWeighted = (x, w) => { let a = 0, b = 0; for(const k in w){ a += w[k] * x[k]; b += w[k]; } return a / b; };
 function realLevels(x){ const out = {}; for(const g in REAL.weights) out[g] = realWeighted(x, REAL.weights[g]); return out; }
 function realProb(levels){
@@ -1335,7 +1340,8 @@ function realChart(r, other){
   host.innerHTML = "";
   const svg = mk("svg", {viewBox:`0 0 ${W} ${H}`, role:"img", "aria-label":"Realistický scénář: výroba a spotřeba po letech"}, host);
   const paths = realShowPaths ? Object.keys(PATHNAME).map(p => ({p, gen:totals(p, "vyroba"), use:totals(p, "spotreba")})) : [];
-  const top = Math.max(...r.gen, ...r.use, ...(realShowBranch ? other.gen.concat(other.use) : []), ...paths.flatMap(x => x.gen.concat(x.use)));
+  const band = realShowBand ? REAL.pasmo.vetve[r.smrOn ? "s" : "bez"] : null;
+  const top = Math.max(...r.gen, ...r.use, ...(realShowBranch ? other.gen.concat(other.use) : []), ...paths.flatMap(x => x.gen.concat(x.use)), ...(band ? band.vyroba[2].concat(band.spotreba[2]) : []));
   const step = 2000, ymax = Math.ceil(top / step) * step, yS = v => YB - v / ymax * (YB - Y0);
   for(let v = 0; v <= ymax; v += step){
     mk("line", {x1:X0, x2:X1, y1:yS(v), y2:yS(v), stroke:"var(--line)"}, svg);
@@ -1344,6 +1350,10 @@ function realChart(r, other){
   mk("text", {x:12, y:16}, svg, "TWh za rok");
   for(const y of [2025, 2030, 2035, 2040, 2045, 2050]) mk("text", {x:xScale(y), y:H - 12, "text-anchor":"middle"}, svg, y);
   const line = arr => pathD(DATA.years.map((y, i) => [xScale(y), yS(arr[i])]));
+  if(band) for(const key2 of ["vyroba", "spotreba"]){
+    const up = DATA.years.map((y, i) => [xScale(y), yS(band[key2][2][i])]), lo = DATA.years.map((y, i) => [xScale(y), yS(band[key2][0][i])]).reverse();
+    mk("path", {d:pathD(up.concat(lo)) + "Z", fill:"var(--real)", opacity:.13}, svg);
+  }
   for(const x of paths){
     const c = x.p === "progresivni" ? "var(--prog)" : "var(--kons)";
     mk("path", {d:line(x.use), fill:"none", stroke:c, "stroke-width":1.5}, svg);
@@ -1355,7 +1365,7 @@ function realChart(r, other){
   }
   /* Plocha mezi výrobou a spotřebou je schodek, na ni se má čtenář dívat první. */
   const upper = DATA.years.map((y, i) => [xScale(y), yS(Math.max(r.gen[i], r.use[i]))]), lower = DATA.years.map((y, i) => [xScale(y), yS(Math.min(r.gen[i], r.use[i]))]).reverse();
-  mk("path", {d:pathD(upper.concat(lower)) + "Z", fill:"var(--real)", opacity:.12}, svg);
+  if(!band) mk("path", {d:pathD(upper.concat(lower)) + "Z", fill:"var(--real)", opacity:.12}, svg);
   mk("path", {d:line(r.use), fill:"none", stroke:"var(--real)", "stroke-width":3}, svg);
   mk("path", {d:line(r.gen), fill:"none", stroke:"var(--real)", "stroke-width":3, "stroke-dasharray":"8 5"}, svg);
   const labels = [{y:yS(r.use[last]), t:"Spotřeba"}, {y:yS(r.gen[last]), t:"Výroba"}].sort((a, c) => a.y - c.y);
@@ -1377,7 +1387,7 @@ function realChart(r, other){
   hit.addEventListener("pointermove", tip);
   hit.addEventListener("pointerdown", tip);
   hit.addEventListener("pointerleave", () => { $("tip").style.display = "none"; });
-  $("realLegend").innerHTML = `<span><i style="border-color:var(--real)"></i>Spotřeba</span><span><i style="border-color:var(--real);border-top-style:dashed"></i>Výroba</span>` + (realShowBranch ? `<span><i style="border-color:var(--real);opacity:.6;border-top-width:1.2px"></i>Druhá větev SMR</span>` : "") + (realShowPaths ? `<span><i style="border-color:var(--prog);border-top-width:1.5px"></i>Progresivní</span><span><i style="border-color:var(--kons);border-top-width:1.5px"></i>Konzervativní</span>` : "");
+  $("realLegend").innerHTML = `<span><i style="border-color:var(--real)"></i>Spotřeba</span><span><i style="border-color:var(--real);border-top-style:dashed"></i>Výroba</span>` + (realShowBranch ? `<span><i style="border-color:var(--real);opacity:.6;border-top-width:1.2px"></i>Druhá větev SMR</span>` : "") + (band ? `<span>Plocha: pásmo pro výchozí nastavení této větve, P10 až P90, posuvníky ho nemění</span>` : "") + (realShowPaths ? `<span><i style="border-color:var(--prog);border-top-width:1.5px"></i>Progresivní</span><span><i style="border-color:var(--kons);border-top-width:1.5px"></i>Konzervativní</span>` : "");
 }
 /* Kategorie: posuvník přepočte své indikátory poměrem vůči výchozím hodnotám, konce 0 a 1 dávají všem indikátorům 0 a 1. */
 const REAL_DEFAULT_X = realInit().x;
@@ -1505,12 +1515,13 @@ function realSync(r){
   e.pop.input.value = people; e.pop.val.textContent = NF.format(people) + " tis.";
   $("realPaths").setAttribute("aria-pressed", realShowPaths);
   $("realBranch").setAttribute("aria-pressed", realShowBranch);
+  $("realBand").setAttribute("aria-pressed", realShowBand);
 }
 function realSetAll(value){
   realCfg = {x:Object.fromEntries(REAL.ind.map(r => [r.id, value])), smr:"ind", dc:"ind", pec:"ind", huta:"ano", smrYear:smrProgressive.jump, dpop:0, dT:0};
   realDraw();
 }
-function realReset(){ realCfg = realInit(); realShowPaths = false; realShowBranch = false; realDraw(); }
+function realReset(){ realCfg = realInit(); realShowPaths = false; realShowBranch = false; realShowBand = false; realDraw(); }
 /* Obrázek v Metodice: poloha každé skupiny mezi cestami ve výchozím stavu. */
 function realDrawFig(){
   const lv = realLevels(REAL_DEFAULT_X), keys = REAL_GROUP_KEYS, H = 40 + keys.length * 30, L = 230, R = 960, host = $("realFig");
@@ -1532,8 +1543,37 @@ $("realAllK").addEventListener("click", () => realSetAll(0));
 $("realAllP").addEventListener("click", () => realSetAll(1));
 $("realPaths").addEventListener("click", () => { realShowPaths = !realShowPaths; realDraw(); });
 $("realBranch").addEventListener("click", () => { realShowBranch = !realShowBranch; realDraw(); });
+$("realBand").addEventListener("click", () => { realShowBand = !realShowBand; realDraw(); });
 realBuild();
 realDrawFig();
+/* Výsledky výchozího nastavení, posuvníky je nemění a text to říká. */
+function realStatic(){
+  const b = REAL.pasmo, q = (v, i) => NF.format(v[i][v[i].length - 1]), tri = v => `${q(v, 0)} až ${q(v, 2)} GWh, medián ${q(v, 1)} GWh`;
+  const bars = b.hist.hrany.slice(0, -1), hmax = Math.max(...bars.map((_, i) => b.hist.bez[i] + b.hist.s[i])), W2 = 1000, H2 = 150, bw = (W2 - 40) / bars.length;
+  let hist = `<svg viewBox="0 0 ${W2} ${H2 + 24}" role="img" aria-label="Rozdělení schodku 2050 ve větvích s SMR a bez SMR">`;
+  bars.forEach((e, i) => {
+    const h1 = b.hist.bez[i] / hmax * H2, h2 = b.hist.s[i] / hmax * H2, x = 20 + i * bw;
+    hist += `<rect x="${x.toFixed(1)}" y="${(H2 - h1).toFixed(1)}" width="${(bw - 1).toFixed(1)}" height="${h1.toFixed(1)}" fill="var(--real)" opacity=".85"></rect><rect x="${x.toFixed(1)}" y="${(H2 - h1 - h2).toFixed(1)}" width="${(bw - 1).toFixed(1)}" height="${h2.toFixed(1)}" fill="var(--ok)" opacity=".85"></rect>`;
+    if(e % 2000 === 0) hist += `<text x="${x.toFixed(1)}" y="${H2 + 18}" text-anchor="middle">${NF.format(e / 1000)}</text>`;
+  });
+  hist += "</svg>";
+  $("realBandText").innerHTML = `<p class="plain">Pásmo platí pro výchozí nastavení a posuvníky ho nemění. Roční schodek 2050 ve všech bězích: ${tri(b.vse.schodek)}. Větev bez SMR: ${tri(b.vetve.bez.schodek)}. Větev s SMR: ${tri(b.vetve.s.schodek)}. SMR se objevil v ${NF.format(b.podil_smr * 100)} % běhů.</p>` +
+    `<div class="tablewrap"><table class="grades"><tr><th>Zdroj nejistoty</th><th>Šířka schodku, jen tento zdroj</th><th>Šířka výroby</th><th>Šířka spotřeby</th><th>O kolik se zúží celek bez něj</th></tr>` +
+    b.rozklad.map(t => `<tr><td>${esc(t.zdroj)}</td><td class="n">${NF.format(t.sam)}</td><td class="n">${NF.format(t.sam_vyroba)}</td><td class="n">${NF.format(t.sam_spotreba)}</td><td class="n">${NF.format(t.ubude)}</td></tr>`).join("") +
+    `<tr><td><b>Všechny zdroje</b></td><td class="n">${NF.format(b.sirka_vse)}</td><td></td><td></td><td></td></tr></table></div>` +
+    `<p class="viewnote">Šířka je rozdíl P90 a P10 v roce 2050, GWh. Sloupce se nesčítají, zdroje na sebe působí a záporné číslo v posledním sloupci je i šum simulace. Největší část je rozsah řádků tabulky, který je z velké části náš odhad a může se překrývat s indikátory. Indikátory samy hýbou výrobou i spotřebou stejným směrem, proto na schodku působí málo.</p>` +
+    `<p class="viewnote">Provázání indikátorů společnými faktory, jen tento zdroj, šířka výroby a spotřeby: nezávisle ${NF.format(b.provazani.nezavisle.vyroba)} a ${NF.format(b.provazani.nezavisle.spotreba)} GWh, s faktory ${NF.format(b.provazani.vychozi.vyroba)} a ${NF.format(b.provazani.vychozi.spotreba)} GWh. Schodek se tím naopak mírně zúží, ${NF.format(b.provazani.nezavisle.schodek)} a ${NF.format(b.provazani.vychozi.schodek)} GWh, protože výroba a spotřeba rostou společně. Síla faktorů je úsudek.</p>` +
+    `<div class="figsvg">${hist}</div><p class="viewnote">Co je nakresleno: počet běhů podle schodku 2050 v TWh, fialově větev bez SMR, zeleně s SMR. Výpočet: ${NF.format(b.behu)} běhů. Celek má ${b.vrcholy.schodek === 1 ? "jeden vrchol, protože rozsah řádků dva vrcholy větví překryje. Větve se ale liší mediánem, proto jsou uvedené zvlášť" : b.vrcholy.schodek + " vrcholy"}.</p>` +
+    `<h3 class="realh">Citlivost na způsob výpočtu, výchozí stav, větev bez SMR</h3><div class="tablewrap"><table class="grades"><tr><th>Výpočet polohy</th><th>Výroba</th><th>Spotřeba</th><th>Schodek, GWh</th></tr>` + REAL.citlivost.map(c => `<tr><td>${esc(c.nazev)}</td><td class="n">${NF.format(c.vyroba)}</td><td class="n">${NF.format(c.spotreba)}</td><td class="n">${NF.format(c.schodek)}</td></tr>`).join("") + `</table></div>` +
+    `<h3 class="realh">Kontrola tempa výstavby</h3><p class="viewnote">Vítr ${NF.format(REAL.tempo.vitr_mw)} MW v roce 2050 je ${NF1.format(REAL.tempo.vitr_rok)} MW za rok proti největšímu ročnímu přírůstku kraje ${NF1.format(REAL.tempo.vitr_rekord)} MW. Fotovoltaika ${NF.format(REAL.tempo.fve_mw)} MWp je ${NF1.format(REAL.tempo.fve_rok)} MWp za rok proti rekordu ${NF1.format(REAL.tempo.fve_rekord)} MWp. Zdroj rekordů: ERÚ, Roční zpráva 2025, kap. 4.6.8.</p>`;
+  const h = REAL.hodiny, cell = (a, f) => `<tr><td>${a}</td><td class="n">${f(h.bez)}</td><td class="n">${f(h.s)}</td></tr>`, n = v => NF.format(v);
+  $("realHourText").innerHTML = `<p class="viewnote">Hodinový výpočet platí jen pro výchozí nastavení, průměr 5 povětrnostních let. Po změně posuvníků se nepřepočítává. Kraj v tomto výpočtu nic nevyváží.</p><div class="tablewrap"><table class="grades"><tr><th>Rok 2050</th><th>Bez SMR</th><th>S SMR</th></tr>` +
+    cell("Roční výpočet: výroba, GWh", x => n(x.prumer.rocni_vyroba)) + cell("Roční výpočet: spotřeba, GWh", x => n(x.prumer.rocni_spotreba)) +
+    cell("Hodinově: dovoz, GWh", x => n(x.prumer.dovoz)) + cell("Hodinově: přebytek bez využití, GWh", x => n(x.prumer.vyvoz)) + cell("Hodinově: plyn, GWh", x => n(x.prumer.plyn)) +
+    cell("Elektřina ze sítě pro vodík, GWh", x => n(x.prumer.elektrolyza_sit)) + cell("Největší hodinový dovoz, nejhorší rok, MW", x => n(x.prumer.spicka_dovozu_max)) + cell("Největší zatížení, průměr let, MW", x => n(x.prumer.spicka_zatizeni)) +
+    cell("Baterie, GWh a MW", x => `${NF1.format(x.zarizeni.baterie_GWh)} a ${n(x.zarizeni.baterie_MW)}`) + cell("Elektrolyzér, MW, a nádrž, t", x => `${n(x.zarizeni.elektrolyzer_MW)} a ${NF1.format(x.zarizeni.nadrz_t)}`) + cell("Plynové bloky, MW", x => n(x.zarizeni.plyn_MW)) + `</table></div><p class="viewnote">Zařízení je úsudek: elektrolyzér a nádrž úměrně vodíku flotily, baterie lineárně mezi cestami podle polohy větru. Není hledané znovu.</p>`;
+}
+realStatic();
 
 function pressOnly(selector, attr, value){
   document.querySelectorAll(selector).forEach(x => x.setAttribute("aria-pressed", x.dataset[attr] === value));
@@ -1594,7 +1634,7 @@ $("year").addEventListener("input", e => { state.year = Number(e.target.value); 
 /* Obnovení vrací celou stránku do výchozího nastavení, pro které platí věty nahoře. */
 function resetAll(){
   resetValues();
-  realCfg = realInit(); realShowPaths = false; realShowBranch = false;
+  realCfg = realInit(); realShowPaths = false; realShowBranch = false; realShowBand = false;
   setMode("simple");
   state.preset = null;
   $("presetVitr").setAttribute("aria-pressed", false);
