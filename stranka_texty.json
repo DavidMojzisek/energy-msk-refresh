@@ -1,0 +1,193 @@
+{
+ "T": {
+  "pokryti_prog": "60",
+  "pokryti_kons": "48",
+  "mc_pas_prog": "pod 10 %",
+  "mc_pas_kons": "pod 5 %",
+  "bv_dovoz": "5 269",
+  "bv_ztraty": "67,4",
+  "bv_sit": "285",
+  "bv_pre": "277",
+  "bv_noc": "159",
+  "bv_vecer": "129",
+  "bv_kotle": "13",
+  "bv_vyvoz": "3,3",
+  "bv_h2": "41",
+  "bv_pre_p50": "142",
+  "bv_pre_min": "55",
+  "bv_po_p50": "94",
+  "bv_po_min": "73",
+  "bs_dovoz": "5 232",
+  "bs_ztraty": "36,0",
+  "bs_pre_p50": "0",
+  "bs_pre_min": "0",
+  "b0_dovoz": "5 276",
+  "bp_po_p50": "56",
+  "bp_po_min": "0",
+  "bp_ztraty": "59,2",
+  "kv_pridat": "1 766",
+  "kv_vitr": "1 862",
+  "kv_tempo": "72,8",
+  "kv_krat": "8,0",
+  "kv_dovoz": "766",
+  "kv_vyvoz": "704",
+  "kv_hod": "23,3",
+  "kv_max": "439",
+  "pv_dovoz": "2 096",
+  "pv_vyvoz": "2 096",
+  "pv_hod": "40,1",
+  "pv_max": "819",
+  "sp_s_prog": "1 616",
+  "sp_s_kons": "1 226",
+  "sp_h_prog": "1 936",
+  "sp_h_kons": "1 424",
+  "sp_h_min": "1 786",
+  "sp_h_max": "1 985",
+  "sp_s_2025": "1 169",
+  "sp_h_2025": "1 309",
+  "kotle_mw": "70",
+  "d_nad800": "1 928",
+  "d_nad1000": "0",
+  "d_nad1200": "0",
+  "d_pre": "125",
+  "d_spicka": "925",
+  "d_smr": "1 425",
+  "d_den_pre": "26",
+  "d_den_spicka": "912",
+  "d_rok_min": "5 085",
+  "d_rok_max": "5 392",
+  "d_brno_pre": "238",
+  "d_tepl_10": "5 183",
+  "d_tepl_21": "5 093",
+  "bat_kons": "10",
+  "kons_ztraty_ucinek": "−179",
+  "h_spotreba": "−0,9 %",
+  "h_vyroba": "142,2 %"
+ },
+ "otevrene": [
+  {
+   "jmeno": "Využití SMR 79,0 % (změřeno v ČR 2024) místo 90 %",
+   "prog": "443,2",
+   "kons": "0,0",
+   "pozn": ""
+  },
+  {
+   "jmeno": "Podíl větru kraje 13,07 % místo 11,33 %",
+   "prog": "−232,2",
+   "kons": "−35,7",
+   "pozn": "vítr při 2 471 h, stejné národní MW"
+  },
+  {
+   "jmeno": "Ostatní průmysl bez 420 GWh ze seznamu projektů",
+   "prog": "−435,7",
+   "kons": "0,0",
+   "pozn": ""
+  },
+  {
+   "jmeno": "Auta 14,5 kWh/100 km místo 12,0 kWh/100 km",
+   "prog": "200,1",
+   "kons": "40,0",
+   "pozn": "index 0,85 proti 0,705"
+  },
+  {
+   "jmeno": "Vodík 55,1 kWh/kg místo 51,36 kWh/kg",
+   "prog": "150,6",
+   "kons": "0,0",
+   "pozn": "38812 t ročně"
+  },
+  {
+   "jmeno": "Datacentra žádná",
+   "prog": "−726,6",
+   "kons": "−72,7",
+   "pozn": ""
+  },
+  {
+   "jmeno": "Nová huť se nepostaví",
+   "prog": "−699,8",
+   "kons": "−699,8",
+   "pozn": ""
+  },
+  {
+   "jmeno": "Třinec 450 kWh/t místo 300",
+   "prog": "404,4",
+   "kons": "202,2",
+   "pozn": ""
+  },
+  {
+   "jmeno": "Třinec 180 kWh/t, tiskový údaj",
+   "prog": "−323,4",
+   "kons": "−161,7",
+   "pozn": ""
+  },
+  {
+   "jmeno": "Míra ztrát roste se zátěží, 30 % stálé a 70 % proměnné",
+   "prog": "311,3",
+   "kons": "42,5",
+   "pozn": "rozdělení bez zdroje, bez zesílení sítě"
+  },
+  {
+   "jmeno": "Biometan 635 GWh na blocích, dřívější odvození",
+   "prog": "−635,0",
+   "kons": "0,0",
+   "pozn": "studie pro kraj číslo nedává"
+  }
+ ],
+ "radky8": [
+  [
+   "Přiměřenost, LOLE.",
+   "Bez sazby výpadků ze zdroje se nepočítá. Místo toho hodiny dovozu nad 800, 1 000 a 1 200 MW: 1 928, 0 a 0."
+  ],
+  [
+   "Mez sítě a dovozu.",
+   "Transformační kapacita kraje nebyla zjištěna. Není mez, není počet nedodaných hodin. Velikost určují hodiny výše."
+  ],
+  [
+   "Dostupnost dovozu ze sousedů.",
+   "Regionální dovoz předpokládá přiměřenost státu. Standard je 15 h nedodávky za rok, Vnitrostátní plán s.75. Velikost pro kraj neznámá."
+  ],
+  [
+   "Řízené nabíjení aut.",
+   "Nabíjení přes den: přebytek 26 proti 125 GWh, zimní špička 912 proti 925 MW. Skutečné pravidlo podle ceny není modelované."
+  ],
+  [
+   "Auta jako zásobník.",
+   "Výkon = auta × připojený podíl × kW, velikost zcela závisí na předpokladech, nepočítá se."
+  ],
+  [
+   "Teplárny a teplo.",
+   "Nové plynové bloky běží na špičku, studie je vede teplem. Účinek: hodiny plynu; v energii omezený rozpočtem 115,2 GWh."
+  ],
+  [
+   "Ocel na vodíku.",
+   "3,48 MWh/t (Vogl a kol. 2018) proti 0,45 MWh/t: 1,5 mil. t by přidalo asi 4,5 TWh, řádově celý schodek."
+  ],
+  [
+   "Biometan.",
+   "Bez řádku. Měřítko 340 až 930 GWh, pokud by ho kraj neměl použít jinde. Studie počítá s vtláčením do sítě, ne s výrobou elektřiny."
+  ],
+  [
+   "Výroba v průmyslu.",
+   "Biocel, Třinec zčásti v řádcích. Velikost bez dat provozovatelů neznámá."
+  ],
+  [
+   "Regulace FVE.",
+   "Omezení výroby je jen vývoz, 6,9 GWh při výchozím nastavení, zanedbatelné."
+  ],
+  [
+   "Ceny.",
+   "Hodiny plynu jsou předpoklad, ne výsledek ceny. Bez pružnosti poptávky. Rozhoduje o tom, zda je plynová cesta vůbec věrohodná."
+  ],
+  [
+   "Rezervy.",
+   "Největší blok 500 MW jde do státní rezervy. Účinek na energii žádný."
+  ],
+  [
+   "Klima a voda.",
+   "Řádek 55 GWh, účinek klimatu asi ±10 GWh, zanedbatelné."
+  ],
+  [
+   "Meziroční vítr.",
+   "Skutečné roky FVE a tepla mění dovoz 5 085 až 5 392 GWh. Vítr je v tom normovaný, celostátní index míchá výkon a větrnost. Tvar z Brna dá přebytek 238 GWh."
+  ]
+ ]
+}

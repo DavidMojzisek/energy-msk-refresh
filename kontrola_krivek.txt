@@ -1,4 +1,4 @@
-Položky, kde S-křivka v milníku nesedí na tabulku o více než 10 % a 25 GWh:
+Položky, kde křivka v milníku nesedí na tabulku o více než 10 % a 25 GWh:
 
-progresivni: násobek pásma spotřeby 2030 1.109
-konzervativni: násobek pásma spotřeby 2030 1.250
+progresivni: násobek pásma spotřeby 2030 1.562
+konzervativni: násobek pásma spotřeby 2030 1.544

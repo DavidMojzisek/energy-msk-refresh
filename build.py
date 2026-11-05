@@ -5,7 +5,7 @@ from pathlib import Path
 
 import numpy as np
 
-from model import YEARS, curve, item_model, num, read_drivers, read_rows, simulate, widen_band
+from model import LOCAL_OTHER, LOSS_K, OWN_CAL, OWN_RATES, YEARS, curve, item_model, num, path_curves, read_drivers, read_rows, simulate_path, widen_band
 
 HERE = Path(__file__).resolve().parent
 PATHS = ["progresivni", "konzervativni"]
@@ -26,26 +26,66 @@ HISTORY = [
 
 TRENDS = ("pop_msk", "velikost_dom", "auta_na_os", "eff_auta", "eff_nakladni", "teplo_budovy")
 
-# Denní nabíjení baterií v MW v letech 2025, 2030, 2040 a 2050, viz sezonni_metodika.md.
-BATTERY_DAILY = {"progresivni": [2.0, 10.0, 425.0, 750.0], "konzervativni": [2.0, 2.0, 2.0, 2.0]}
 NUMBERS = HERE  # kopie z hodinového výpočtu, přidává je nastroje/rebuild.sh
 
 
+def must_rest(text):
+    """Co musí přibýt k větru na mezi. Hodnota se nemění, jen se neopakuje vítr ze záhlaví sloupce."""
+    rest = text.split(" a ", 1)[1]
+    if rest in ("0,0 GWp FVE", "0 SMR"):
+        return "nic dalšího"
+    return "+" + rest.replace("GWp FVE", "GWp fotovoltaiky")
+
+
 def html_must(rows):
-    head = "<tr><th>Cesta a období</th><th>Bilance dnes, GWh</th><th>Jen vítr navíc</th><th>Jen fotovoltaika navíc</th><th>Jen SMR navíc</th><th>Vítr na mezi 2 014 MW a</th></tr>"
-    name = {"progresivni": "Progresivní", "konzervativni": "Konzervativní"}
+    head = ("<tr><th>Období, které má vyjít bez schodku</th><th>Bilance 2050 ve výchozím nastavení, GWh</th><th>Jen vítr navíc</th><th>Jen fotovoltaika navíc</th>"
+            "<th>Jen SMR navíc, moduly po 500 MW, bez podkladu</th><th>Vítr doplněný na mez 2 014 MW a k tomu</th></tr>")
     body = ""
     for r in rows:
         wind = f"+{r['vitr']} MW" + (", nad mezí" if r["vitr_nad"] else "")
-        body += (f'<tr data-must="{r["cesta"]}"><td>{name[r["cesta"]]}, {r["uroven"]}</td><td class="n">{r["bilance"]}</td><td class="n">{wind}</td>'
-                 f'<td class="n">+{r["fve"]} GWp</td><td class="n">+{r["smr"]}</td><td>{r["mez"]}</td></tr>')
+        body += (f'<tr data-must="{r["cesta"]}"><td>{r["uroven"].capitalize()}</td><td class="n">{r["bilance"]}</td><td class="n">{wind}</td>'
+                 f'<td class="n">+{r["fve"]} GWp</td><td class="n">+{r["smr"]}</td><td>{must_rest(r["mez"])}</td></tr>')
     return f'<table class="grades">{head}{body}</table>'
 
 
-def html_tempo(rows):
-    head = "<tr><th>Případ</th><th>Vítr 2050</th><th>Vítr za rok</th><th>Proti maximu</th><th>Fotovoltaika 2050</th><th>Fotovoltaika za rok</th><th>Proti maximu</th></tr>"
-    body = "".join(f'<tr><td>{r["jmeno"]}</td><td class="n">{r["vitr"]}</td><td class="n">{r["vitr_rok"]}</td><td class="n">{r["vitr_krat"]}</td><td class="n">{r["fve"]}</td><td class="n">{r["fve_rok"]}</td><td class="n">{r["fve_krat"]}</td></tr>' for r in rows)
+TEMPO_NAMES = {"Tabulka, progresivní": "Výchozí progresivní cesta", "Půl na půl pro úroveň 1, flotila 50/50": "Vítr a fotovoltaika půl na půl, vyrovnaný rok",
+               "Vítr na mezi a zbytek FVE, flotila 50/50": "Vítr na mezi, zbytek fotovoltaika, vyrovnaný rok", "Jen FVE, flotila 50/50": "Jen fotovoltaika, vyrovnaný rok"}
+
+
+def html_tempo(rows, t):
+    head = "<tr><th>Případ</th><th>Vítr 2050</th><th>Vítr za rok</th><th>Proti rekordu</th><th>Fotovoltaika 2050</th><th>Fotovoltaika za rok</th><th>Proti rekordu</th></tr>"
+    body = "".join(f'<tr data-must="progresivni"><td>{TEMPO_NAMES[r["jmeno"]]}</td><td class="n">{r["vitr"]}</td><td class="n">{r["vitr_rok"]}</td><td class="n">{r["vitr_krat"]}</td><td class="n">{r["fve"]}</td><td class="n">{r["fve_rok"]}</td><td class="n">{r["fve_krat"]}</td></tr>' for r in rows)
+    body += (f'<tr data-must="konzervativni"><td>Jen vítr, vyrovnaný rok</td><td class="n">{t["kv_vitr"]} MW</td><td class="n">{t["kv_tempo"]} MW</td><td class="n">{t["kv_krat"]} ×</td>'
+             '<td class="n">žádná navíc</td><td class="n">žádná navíc</td><td class="n"></td></tr>')
     return f'<table class="grades">{head}{body}</table>'
+
+
+def html_otevrene(rows):
+    head = "<tr><th>Změna</th><th>Progresivní, GWh</th><th>Konzervativní, GWh</th></tr>"
+    body = "".join(f'<tr><td>{r["jmeno"]}</td><td class="n">{r["prog"]}</td><td class="n">{r["kons"]}</td></tr>' for r in rows)
+    return f'<table class="grades">{head}{body}</table>'
+
+
+# Názvy řádků z přepočtu srozumitelně pro čtenáře stránky. Text a čísla za nimi zůstávají.
+RADKY8_TEXT = {"Přiměřenost, LOLE.": "Přiměřenost soustavy.", "Regulace FVE.": "Regulace fotovoltaiky."}
+
+
+def html_radky8(rows):
+    def body(name, text):
+        text = text.replace("Bez sazby výpadků ze zdroje se nepočítá.", "Očekávaná doba nedodávky (LOLE) se bez sazby výpadků ze zdroje nepočítá.").replace("roky FVE a tepla", "roky fotovoltaiky a tepla")
+        return f"<li><b>{RADKY8_TEXT.get(name, name)}</b> {text}</li>"
+    return "".join(body(*r) for r in rows)
+
+
+NBSP_NUM = re.compile(r"(?<=\d) (?=\d{3}(?!\d))")
+NBSP_UNIT = re.compile(r"(?<=\d) (?=(?:%|GWh|TWh|MWh|MWp|MW|GWp|kWh|t\b|h\b|×))")
+
+
+def keep_together(html):
+    """Číslo a jednotka se nesmí rozdělit na dva řádky. Jen v textu stránky, ne ve skriptu."""
+    head, sep, tail = html.partition("<script>")
+    head = NBSP_NUM.sub(" ", NBSP_UNIT.sub(" ", head))
+    return head + sep + tail
 
 
 def html_rezerva(table):
@@ -58,13 +98,15 @@ def html_rezerva(table):
 def fill_numbers(template):
     """Čísla z hodinového výpočtu jdou do textu stránky z jednoho souboru, který píše 60_prepocet_zprava.py."""
     data = json.loads((NUMBERS / "stranka_cisla.json").read_text(encoding="utf-8"))
-    values = dict(data["T"], html_must=html_must(data["must"]), html_tempo=html_tempo(data["tempo"]), html_rezerva=html_rezerva(data["rezerva"]))
-    out = re.sub(r"\{\{([a-z0-9_]+)\}\}", lambda m: values[m.group(1)], template)
+    texty = json.loads((NUMBERS / "stranka_texty.json").read_text(encoding="utf-8"))
+    t = dict(data["T"], **texty["T"])
+    values = dict(t, html_must=html_must(data["must"]), html_tempo=html_tempo(data["tempo"], t), html_rezerva=html_rezerva(data["rezerva"]),
+                  html_otevrene=html_otevrene(texty["otevrene"]), html_radky8=html_radky8(texty["radky8"]))
+    out = keep_together(re.sub(r"\{\{([a-z0-9_]+)\}\}", lambda m: values[m.group(1)], template))
     assert "{{" not in out, out[out.index("{{"):][:60]
     flh = json.loads((NUMBERS / "elektrolyzer_plne_hodiny.json").read_text(encoding="utf-8"))
-    found = re.search(r"ELECTROLYSER_HOURS\s*=\s*([\d.]+), ELECTROLYSER_LOSS\s*=\s*([\d.]+)", template)
-    assert abs(float(found.group(1)) - flh["plne_hodiny"]) < 0.5, ("ELECTROLYSER_HOURS", flh["plne_hodiny"])
-    assert abs(float(found.group(2)) - flh["mira_ztrat"]) < 1e-5, ("ELECTROLYSER_LOSS", flh["mira_ztrat"])
+    out, n = re.subn(r"ELECTROLYSER_HOURS\s*=\s*[\d.]+, ELECTROLYSER_LOSS\s*=\s*[\d.]+", f"ELECTROLYSER_HOURS = {flh['plne_hodiny']:.2f}, ELECTROLYSER_LOSS = {flh['mira_ztrat']:.6f}", out)
+    assert n == 1
     return out
 
 
@@ -86,19 +128,19 @@ def build_data():
     if check_path.exists():
         for route in PATHS:
             chosen = [r for r in read_rows(check_path) if text(r, "cesta") == route]
-            battery[route] = {"years": [int(r["rok"]) for r in chosen], "mw": [num(r, "zima_baterie_MW") for r in chosen],
-                              "daily": BATTERY_DAILY[route]}
+            last = chosen[-1]
+            battery[route] = {"years": [int(r["rok"]) for r in chosen], "daily": [num(r, "leto_baterie_vykon_MW") for r in chosen], "boiler": [num(r, "leto_kotle_vykon_MW") for r in chosen],
+                              "gasYears": [2025, 2027, 2030, 2031, 2035, 2050], "gasMw": [0, 0, 283, 433, 433, 433] if route == "progresivni" else [0, 0, 283, 433, 683, 683],
+                              "cut": {"p50": num(last, "zima_snizeni_baterii_P50_MW"), "worst": num(last, "zima_snizeni_baterii_nejhorsi_MW")} if route == "progresivni" else None}
     rng = np.random.default_rng(20261104)
     items, bands, fit_report, fit_report_band = [], {}, [], []
+    curves_by_path = {}
     for route in PATHS:
-        bands[route] = {}
-        for side in ("vyroba", "spotreba"):
-            chosen = [(r, m) for r, m in zip(rows, models) if text(r, "cesta") == route and text(r, "strana") == side]
-            if chosen:
-                bands[route][side] = simulate([c[0] for c in chosen], [c[1] for c in chosen], rng, RUNS)
-                if side == "spotreba":
-                    bands[route][side], ratio = widen_band(bands[route][side], HINDCAST_WIDTH_2030)
-                    fit_report_band.append(f"{route}: násobek pásma spotřeby 2030 {ratio:.3f}")
+        chosen = [(r, m) for r, m in zip(rows, models) if text(r, "cesta") == route]
+        curves_by_path[route] = path_curves([c[0] for c in chosen], [c[1] for c in chosen])
+        bands[route] = simulate_path([c[0] for c in chosen], [c[1] for c in chosen], rng, RUNS)
+        bands[route]["spotreba"], ratio = widen_band(bands[route]["spotreba"], HINDCAST_WIDTH_2030)
+        fit_report_band.append(f"{route}: násobek pásma spotřeby 2030 {ratio:.3f}")
     for r, m in zip(rows, models):
         jump = m["jump"]
         plain = popis.get((text(r, "polozka"), text(r, "cesta")), {})
@@ -119,14 +161,14 @@ def build_data():
             "plain": text(plain, "jak_se_doslo"), "plainSrc": text(plain, "ze_zdroju"), "plainEst": text(plain, "odhad"),
             "kw": num(season, "zima_koef_p50") or 0, "ks": num(season, "leto_koef_p50") or 0, "flex": text(season, "flexibilni") == "ano",
         })
-        value = curve(m)
+        value = curves_by_path[text(r, "cesta")][text(r, "polozka")]
         for year, key in ((2030, "p50_2030"), (2040, "p50_2040")):
             wanted = num(r, key)
             got = float(value[year - 2025])
-            if not jump and abs(got - wanted) > max(25.0, 0.1 * abs(wanted)):
+            if abs(got - wanted) > max(25.0, 0.1 * abs(wanted)):
                 fit_report.append((text(r, "polozka"), text(r, "cesta")[:4], year, round(wanted, 1), round(got, 1)))
     (HERE / "kontrola_krivek.txt").write_text(
-        "Položky, kde S-křivka v milníku nesedí na tabulku o více než 10 % a 25 GWh:\n"
+        "Položky, kde křivka v milníku nesedí na tabulku o více než 10 % a 25 GWh:\n"
         + "\n".join(f"{a} | {b} | {c} | tabulka {d} | křivka {e}" for a, b, c, d, e in fit_report) + "\n" + "\n".join(fit_report_band) + "\n",
         encoding="utf-8")
     trends = {}
@@ -136,7 +178,8 @@ def build_data():
             if text(r, "vliv") in TRENDS and text(r, "rok") == "2050":
                 trends[text(r, "vliv")] = {"values": [round(float(v), 5) for v in drivers[text(r, "vliv")]], "p10": num(r, "p10"), "p90": num(r, "p90"),
                                            "grade": text(r, "stupen"), "src": text(r, "zdroj")}
-    return {"years": YEARS.tolist(), "history": HISTORY, "items": items, "bands": bands, "battery": battery, "trends": trends}
+    derived = {"ownCal": OWN_CAL, "ownRates": OWN_RATES, "lossK": LOSS_K, "localOther": LOCAL_OTHER}
+    return {"years": YEARS.tolist(), "history": HISTORY, "items": items, "bands": bands, "battery": battery, "trends": trends, "derived": derived}
 
 
 def fonts_css():

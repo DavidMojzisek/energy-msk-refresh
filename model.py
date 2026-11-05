@@ -16,6 +16,21 @@ SHIFT_MAX = 6.0
 RHO = 0.6
 FACTORS = ("elektrifikace", "povolovani", "cena")
 LOSS_ITEM = "ztráty v sítích"
+OWN_ITEM = "vlastní spotřeba zdrojů"
+SMR_ITEM = "SMR"
+# Ztráty v sítích, stejný vzorec v obou cestách: r / (1 - r) × (spotřeba bez ztrát - část, která neteče sítí). r = 3,547 %, Dopadová studie Tab.1 s.27.
+LOSS_R = 0.03547
+LOSS_K = LOSS_R / (1.0 - LOSS_R)
+# Lokální část mimo vlastní spotřebu zdrojů: rozdíl tab. 6.3 a 6.2 ERÚ za rok 2025 (886,8302 GWh) minus vlastní spotřeba 391,862 GWh.
+LOCAL_OTHER = 886.8302 - 391.862
+# Vlastní spotřeba zdrojů: celostátní míry ERÚ 2025 Q4 kap. 3.1 krát kalibrace na kraj 1,4367, stejný výpočet v tabulce popisů.
+OWN_CAL = 1.4367
+_PE, _PSE, _PPE, _JE, _VE, _VTE, _FVE = 0.123451, 0.066352, 0.019803, 0.054755, 0.009025, 0.012331, 0.008158
+OWN_RATES = {"černé uhlí: Dětmarovice": _PE, "černé uhlí: teplárny a průmysl": _PE, "hnědé uhlí": _PE, "hutní plyny (vysokopecní a koksárenský)": _PE,
+             "ostatní paliva a odpadní teplo (přidaná položka)": _PE, "biomasa": _PE, "energetické využití odpadu": _PE,
+             "zemní plyn: stávající kogenerace": _PSE, "důlní plyn": _PSE, "bioplyn": _PSE,
+             "nové plynové bloky": _PPE, "syntetický plyn z odpadu": _PPE, SMR_ITEM: _JE,
+             "malé vodní elektrárny": _VE, "vítr": _VTE, "fotovoltaika střešní": _FVE, "fotovoltaika pozemní": _FVE}
 # Tyto položky jdou proti společnému faktoru: rychlejší elektrifikace je snižuje.
 REVERSED = {"hutní plyny (vysokopecní a koksárenský)", "zemní plyn: stávající kogenerace", "přímotopy", "úspory a účinnost"}
 
@@ -115,7 +130,8 @@ def fit_parts(base, target, mid30, mid40):
     t = np.array([2030.0, 2040.0])
     points = np.array([mid30, mid40])
     span = max(abs(target - base), abs(mid30 - base), abs(mid40 - base))
-    if span < 1e-9:
+    # Plochý řádek: zaokrouhlení P50 proti základu nesmí dělat S-křivku.
+    if span < 0.06:
         return []
     monotone = (min(base, target) - 1e-9 <= min(points)) and (max(points) <= max(base, target) + 1e-9) \
         and (target - base) * (mid40 - mid30) >= -1e-9 and abs(target - base) > 1e-9
@@ -146,9 +162,12 @@ def item_model(row, drivers):
     kind = (row.get("krivka") or "").strip()
     param = (row.get("krivka_parametry") or "").strip()
     nodes = None
+    if kind == "odvozena":
+        # Řádek počítá derived() z ostatních řádků, tady drží jen základ.
+        return {"base": base, "target": target, "driver": np.ones(len(YEARS)), "parts": [], "nodes": None, "jump": False, "saving": False, "derived": True}
     if row["prubeh"].strip() == "skok":
         amp = target / at[2050] - base
-        parts = [{"amp": amp, "tm": num(row, "skok_rok_p50"), "k": JUMP_K}] if abs(amp) > 1e-9 else []
+        parts = [{"amp": amp, "tm": num(row, "skok_rok_p50"), "k": float(param) if kind == "skok_k" else JUMP_K}] if abs(amp) > 1e-9 else []
         if kind == "tvrdy_skok":
             # Uzavření s daným datem: výchozí hodnota do posledního roku provozu, cíl od dalšího roku.
             for part in parts:
@@ -169,10 +188,41 @@ def item_model(row, drivers):
         nodes = {"x": xs, "y": ys, "m": pchip_slopes(xs, ys)}
         # Část s nulovou amplitudou drží jen výchozí rok posuvníku času, hodnotu dávají uzly.
         parts = [{"amp": 0.0, "tm": half_year(nodes, base), "k": 1.0}]
+    elif kind == "logistika":
+        tm, k = param.split(";")
+        parts = [{"amp": target / at[2050] - base, "tm": float(tm), "k": float(k)}]
     else:
         parts = fit_parts(base, target / at[2050], num(row, "p50_2030") / at[2030], num(row, "p50_2040") / at[2040])
     return {"base": base, "target": target, "driver": driver, "parts": parts, "nodes": nodes,
             "jump": row["prubeh"].strip() == "skok", "saving": num(row, "p10_2050") < 0}
+
+
+def own_use(gen):
+    """Vlastní spotřeba z hodnot řádků výroby, gen je slovník název -> hodnota nebo pole."""
+    return OWN_CAL * sum(rate * gen[name] for name, rate in OWN_RATES.items() if name in gen)
+
+
+def grid_loss(others, own):
+    """others je součet spotřeby bez ztrát v sítích, včetně vlastní spotřeby own, ta sítí neteče."""
+    return LOSS_K * np.maximum(others - own - LOCAL_OTHER, 0.0)
+
+
+def path_curves(rows, models):
+    """Výchozí křivky všech řádků jedné cesty včetně odvozených. Vrací slovník název -> pole po letech."""
+    out = {}
+    side = {}
+    for row, model in zip(rows, models):
+        name = row["polozka"].strip()
+        side[name] = row["strana"].strip()
+        if not model.get("derived"):
+            out[name] = curve(model)
+    own = own_use({n: v for n, v in out.items() if side[n] == "vyroba"})
+    if OWN_ITEM in side:
+        out[OWN_ITEM] = own
+    others = sum(v for n, v in out.items() if side[n] == "spotreba")
+    if LOSS_ITEM in side:
+        out[LOSS_ITEM] = grid_loss(others, own)
+    return out
 
 
 def curve(model, target=None, tm_shift=0.0):
@@ -196,7 +246,12 @@ def deviation(t):
     return 3 * x ** 2 - 2 * x ** 3
 
 
+CLIP_Z = False
+
+
 def quantile(z, p10, p50, p90, saving=False):
+    if CLIP_Z:
+        z = np.clip(z, -Z90, Z90)
     upper = p50 + z / Z90 * (p90 - p50)
     lower = p50 + z / Z90 * (p50 - p10)
     value = np.where(z >= 0, upper, lower)
@@ -211,7 +266,11 @@ def simulate_item(row, model, z, z_time, runs):
     if model["jump"]:
         tm = quantile(z_time, num(row, "skok_rok_p10"), num(row, "skok_rok_p50"), num(row, "skok_rok_p90"))
         parts = model["parts"]
-        grid = (t[:, None] >= tm[None, :]) * 1.0 if parts and parts[0].get("hard") else s_curve(t[:, None], tm[None, :], JUMP_K)
+        step_k = parts[0]["k"] if parts else JUMP_K
+        # SMR je binární volba cesty: v progresivní cestě do roku 2050 stojí, los mění jen rok. Případ bez SMR se počítá zvlášť.
+        if row["polozka"].strip() == SMR_ITEM:
+            tm = np.minimum(tm, 2050.0)
+        grid = (t[:, None] >= tm[None, :]) * 1.0 if parts and parts[0].get("hard") else s_curve(t[:, None], tm[None, :], step_k)
         # Událost po roce 2050 se do roku 2050 neprojeví.
         grid = np.where(tm[None, :] > 2050.0, 0.0, grid)
         if len(parts) == 2:
@@ -251,27 +310,59 @@ def simulate_item(row, model, z, z_time, runs):
     return value if model["saving"] else np.maximum(value, 0)
 
 
-def simulate(rows, models, rng, runs):
-    """P10, P50 a P90 součtů po letech pro jednu stranu a cestu. Ztráty v sítích jdou s ostatní spotřebou."""
+def draw_rows(rows, models, rng, runs):
+    """Losování jedné cesty: jedna sada společných faktorů, jeden rok pro položky stejné události, rok událostí závislých na povolování jde s faktorem povolování.
+    Vrací dvojice (řádek, model, z, z_time). Odvozené řádky nese z pro svou nejistotu míry."""
     factors = {name: rng.standard_normal(runs) for name in FACTORS}
-    total = np.zeros((len(YEARS), runs))
-    default_total = np.zeros(len(YEARS))
-    loss = None
+    events = {}
     for row, model in zip(rows, models):
         own = rng.standard_normal(runs)
         shared = factors.get(row["faktor"].strip())
         sign = -1.0 if row["polozka"].strip() in REVERSED else 1.0
         z = own if shared is None else sign * np.sqrt(RHO) * shared + np.sqrt(1 - RHO) * own
-        z_time = rng.standard_normal(runs)
-        runs_value = simulate_item(row, model, z, z_time, runs)
-        if row["polozka"].strip() == LOSS_ITEM:
-            loss = (model, runs_value)
+        event = (row.get("udalost") or "").split(",")[0].strip()
+        if event and event in events:
+            z_time = events[event]
+        else:
+            z_time = rng.standard_normal(runs)
+            if row["faktor"].strip() == "povolovani":
+                # Přísnější povolování znamená pozdější rok.
+                z_time = -np.sqrt(RHO) * factors["povolovani"] + np.sqrt(1 - RHO) * z_time
+            if event:
+                events[event] = z_time
+        yield row, model, z, z_time
+
+
+def bound_ratio(row, z):
+    """Nejistota odvozeného řádku: poměr kvantilu k P50 z mezí tabulky."""
+    p10, p50, p90 = num(row, "p10_2050"), num(row, "p50_2050"), num(row, "p90_2050")
+    return quantile(z, p10, p50, p90) / max(p50, 1e-9)
+
+
+def simulate_path(rows, models, rng, runs):
+    """P10, P50 a P90 součtů po letech pro jednu cestu, výroba i spotřeba z jednoho losování. Vlastní spotřeba a ztráty se počítají z losovaných řádků."""
+    n = len(YEARS)
+    gen, use, own_sum = np.zeros((n, runs)), np.zeros((n, runs)), np.zeros((n, runs))
+    derived = {}
+    for row, model, z, z_time in draw_rows(rows, models, rng, runs):
+        name = row["polozka"].strip()
+        if model.get("derived"):
+            derived[name] = (row, z)
             continue
-        total += runs_value
-        default_total += curve(model)
-    if loss is not None:
-        total += loss[1] * total / default_total[:, None]
-    return [np.percentile(total, q, axis=1).round(1).tolist() for q in (10, 50, 90)]
+        value = simulate_item(row, model, z, z_time, runs)
+        if row["strana"].strip() == "vyroba":
+            gen += value
+            own_sum += OWN_RATES.get(name, 0.0) * value
+        else:
+            use += value
+    own = OWN_CAL * own_sum
+    if OWN_ITEM in derived:
+        own = own * bound_ratio(*derived[OWN_ITEM])
+        use = use + own
+    if LOSS_ITEM in derived:
+        use = use + grid_loss(use, own) * bound_ratio(*derived[LOSS_ITEM])
+    band = lambda a: [x for x in np.percentile(a, [10, 50, 90], axis=1).round(1).tolist()]
+    return {"vyroba": band(gen), "spotreba": band(use)}
 
 
 def widen_band(band, width_share):
