@@ -227,7 +227,7 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
 <section class="answer top">
   <p class="question">Může být Moravskoslezský kraj v roce 2050 soběstačný v elektřině, nebo zůstane závislý na dovozu?</p>
   <p class="lead">S elektrárnami, které obě cesty předpokládají, zůstane kraj v roce 2050 závislý na dovozu elektřiny. Výroba pokryje {{pokryti_prog}} % roční spotřeby v progresivní cestě a {{pokryti_kons}} % v konzervativní cestě.</p>
-  <p class="plain">Progresivní cesta se dá číst dvojím způsobem. První je výstavba podle dnešního podílu kraje na celostátním plánu, tedy {{vitr_prog}} MW větru. Výroba v ní pokryje {{pokryti_prog}} % roční spotřeby. Druhý vychází z definice cesty, „maximum větru a slunce“, čtené jako vítr na mezi 2 014 MW a k tomu {{fve_rok}} GWp fotovoltaiky navíc, které uzavřou rok. Bilance prosince až února je pak {{pv_djf}} GWh, října až března {{pv_pulrok}} GWh. V hodinách se i tak doveze {{pv_dovoz}} GWh a {{pv_vyvoz}} GWh přebytku zůstane bez využití. Druhý případ nastaví volba Vítr na mezi.</p>
+  <p class="plain">Progresivní cesta se dá číst dvojím způsobem. První je výstavba podle dnešního podílu kraje na celostátním plánu, tedy {{vitr_prog}} MW větru. Výroba v ní pokryje {{pokryti_prog}} % roční spotřeby. Druhý vychází z definice cesty, „maximum větru a slunce“, čtené jako vítr na mezi 2 014 MW a k tomu {{fve_rok}} GWp fotovoltaiky navíc, které uzavřou rok. Bilance prosince až února je pak {{pv_djf}} GWh, října až března {{pv_pulrok}} GWh. V hodinách se i tak doveze {{pv_dovoz}} GWh. Přebytek {{pv_vyvoz}} GWh zůstane bez využití. Druhý případ nastaví volba Vítr na mezi.</p>
 </section>
 <div class="pathbar">
   <span class="label">Cesta</span>
@@ -236,12 +236,12 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
     <span class="tipwrap"><button data-path="konzervativni" aria-pressed="false">Konzervativní</button><span class="bubble" role="tooltip">Bez SMR, hlavně plynové bloky, pomalejší elektrifikace, doprava bez vodíku.</span></span>
   </div>
   <span class="tipwrap"><button class="chip" id="compare" aria-pressed="false">Oba scénáře</button><span class="bubble" role="tooltip">Přidá do horního grafu a do čísel druhou cestu.</span></span>
-  <span class="tipwrap" data-must="progresivni"><button class="chip" id="presetVitr" aria-pressed="false" aria-describedby="presetTip">Vítr na mezi</button><span class="bubble wide" id="presetTip" role="tooltip"><b>Co to ukáže:</b> kolik by se muselo postavit, aby progresivní cesta za rok vyrobila tolik, kolik spotřebuje.<br><b>Co je mez:</b> 2 014 MW je potenciál větrných elektráren v kraji podle Dopadové studie. Mění se výkon, ne počasí: místo {{vitr_prog}} MW stojí víc větrných elektráren a fouká jako v běžném roce. Zbytek dorovná {{fve_rok}} GWp fotovoltaiky navíc.<br><b>Jak je to reálné:</b> je to horní hranice, ne plán. Vítr by se musel stavět {{mez_rok}} MW ročně, {{mez_krat}} rychleji než dosavadní rekord. V hodinách se dál dováží.<br>Pohne to i realistickým scénářem. Další klepnutí vrátí výchozí hodnoty.</span></span>
+  <span class="tipwrap" data-must="progresivni"><button class="chip" id="presetVitr" aria-pressed="false" aria-describedby="presetTip">Vítr na mezi</button><span class="bubble wide" id="presetTip" role="tooltip"><b>Co to ukáže:</b> kolik by se muselo postavit, aby progresivní cesta za rok vyrobila tolik, kolik spotřebuje.<br><b>Co je mez:</b> 2 014 MW je potenciál větrných elektráren v kraji podle Dopadové studie. Mění se výkon, ne počasí: místo {{vitr_prog}} MW stojí víc větrných elektráren a fouká jako v běžném roce. Zbytek dorovná {{fve_rok}} GWp fotovoltaiky navíc.<br><b>Jak je to reálné:</b> je to horní hranice, ne plán. Vítr by se musel stavět {{mez_rok}} MW ročně, {{mez_krat}} rychleji než dosavadní rekord. V hodinách se dál dováží.<br>Pohne to i realistickým scénářem. Klepnutí nejdřív vrátí posuvníky, trendy a technologie do výchozí polohy. Další klepnutí vrátí výchozí hodnoty.</span></span>
   <div class="pills small verze" role="group" aria-label="Verze stránky">
     <span class="tipwrap"><button data-ui="simple" aria-pressed="true">Jednoduchá</button><span class="bubble r" role="tooltip">Platí pro celou stránku. Posuvníky po skupinách, u realistického scénáře 10 kategorií, a krátké texty.</span></span>
     <span class="tipwrap"><button data-ui="detail" aria-pressed="false">Podrobná</button><span class="bubble r" role="tooltip">Platí pro celou stránku. Posuvníky po položkách, u realistického scénáře 34 indikátorů, velké trendy a plné tabulky.</span></span>
   </div>
-  <span class="tipwrap"><button class="chip" id="reset">Obnovit výchozí</button><span class="bubble r" role="tooltip">Vrátí celou stránku do výchozího nastavení: cestu, rok, všechny posuvníky, realistický scénář i technologie.</span></span>
+  <span class="tipwrap"><button class="chip" id="reset">Obnovit výchozí</button><span class="bubble r" role="tooltip">Vrátí celou stránku do výchozího nastavení. Platí to pro cestu, rok, pohled, verzi stránky, všechny posuvníky, realistický scénář i technologie.</span></span>
 </div>
 <div class="pinwrap">
 <section class="card pin" id="mainPin">
@@ -278,7 +278,7 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
 </div>
 <section class="card" id="techCard">
   <div class="sechead"><h2>Technologie</h2></div>
-  <p class="viewnote">Platí pro obě cesty i realistický scénář. Výchozí poloha je technika, se kterou cesty počítají, u větru, tepelných čerpadel a sítí je to dnešní stav. Změna se zavádí od roku 2030 do roku 2050. Souhrnný posuvník doprava znamená lepší techniku. U jednotlivých posuvníků je lepší technika u spotřeby, elektřiny na vodík a ztrát vlevo, u topného faktoru a hodin větru vpravo. Rozsahy jsou ze zdrojů v rozkliknutí pod posuvníky.</p>
+  <p class="viewnote">Platí pro obě cesty i realistický scénář. Výchozí poloha je technika, se kterou cesty počítají, u větru, tepelných čerpadel a sítí je to dnešní stav. Změna se zavádí od roku 2030 do roku 2050, u spotřeby aut na km rovnoměrně od roku 2025. Souhrnný posuvník doprava znamená lepší techniku. U jednotlivých posuvníků je lepší technika u spotřeby, elektřiny na vodík a ztrát vlevo, u topného faktoru a hodin větru vpravo. Rozsahy jsou ze zdrojů v rozkliknutí pod posuvníky.</p>
   <div id="techAgg"></div>
   <div class="trendgrid only-detail" id="techList"></div>
   <details class="box"><summary>Zdroje rozsahů a co posuvníky nemění</summary><div id="techSrc"></div></details>
@@ -318,8 +318,8 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
   <div class="sechead"><h2>Realistický scénář při těchto předpokladech</h2></div>
   <p class="plain">Výchozí stav ukazuje vývoj, pokud to půjde podobně jako dnes. Posuvníky ukazují, co by znamenaly jiné podmínky, ne účinek konkrétního opatření. Blíž k progresivní cestě znamená víc elektřiny, ne automaticky menší schodek.</p>
   <p class="plain" id="realLead"></p>
-  <p class="viewnote">Volba Cesta, Oba scénáře, pohled Zimní špička a posuvník Rok ovládají horní graf a toky, tuto křivku ne. Křivku posouvají přednastavení a ovládání v této části. Schodek obou cest je podobný, proto sledujte i výrobu a spotřebu.</p>
-  <p class="viewnote">Obě cesty jsou krajní body a předpoklad, že jsou krajní, je náš. Křivka nemění horní graf. Posuvníky položek nahoře krajní body mění, a tím i tuto křivku. Demografie, oteplení a Nová huť se přičítají přímo, křivka proto smí vyjít mimo rozsah cest. Menší schodek není vždy dobrá zpráva: vzniká i tehdy, když z kraje odchází průmysl nebo lidé. Opačnou vazbu, že dostatek elektřiny přiláká investora, model nezachytí.</p>
+  <p class="viewnote">Volba Cesta, Oba scénáře, pohledy a posuvník Rok ovládají horní graf, dlaždice a toky, tuto křivku ne. Křivku posouvají ovládání v této části a také posuvníky položek, velké trendy a technologie nahoře, protože mění obě cesty. Schodek obou cest je podobný, proto sledujte i výrobu a spotřebu.</p>
+  <p class="viewnote">Obě cesty jsou krajní body a předpoklad, že jsou krajní, je náš. Křivka nemění horní graf. Demografie, oteplení, Nová huť a plynové bloky 283 MW leží mimo osu cest, křivka proto smí vyjít mimo rozsah cest. Menší schodek není vždy dobrá zpráva: vzniká i tehdy, když z kraje odchází průmysl nebo lidé. Opačnou vazbu, že dostatek elektřiny přiláká investora, model nezachytí.</p>
   <div class="pinwrap">
   <div class="pin" id="realPin">
   <div class="toggles">
@@ -329,7 +329,7 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
       <span class="tipwrap"><button id="realAllP" aria-pressed="false">Vše progresivně</button><span class="bubble" role="tooltip">Všechny indikátory na 1 a žádné odchylky. Křivka je přesně progresivní cesta: SMR od roku 2045, velká datová centra, plná elektrifikace Třince.</span></span>
     </div>
     <div class="controls">
-      <span class="tipwrap"><button class="chip" id="realBand" aria-pressed="false">Pásmo nejistoty</button><span class="bubble" role="tooltip">Plocha, ve které leží 80 % simulací výroby a spotřeby. Platí pro výchozí nastavení a posuvníky ji nemění.</span></span>
+      <span class="tipwrap"><button class="chip" id="realBand" aria-pressed="false">Pásmo nejistoty</button><span class="bubble" role="tooltip">Plocha, ve které leží 80 % simulací výroby a spotřeby. Je spočítaná pro výchozí nastavení zvlášť s reaktorem a bez něj a ukáže se ta, se kterou křivka počítá. Jinak ji posuvníky nemění.</span></span>
       <span class="tipwrap"><button class="chip" id="realBranch" aria-pressed="false">Ukázat i s reaktorem</button><span class="bubble" role="tooltip">Reaktor SMR se počítá buď celý, nebo vůbec. Křivka sleduje jednu z těchto možností, tlačítko přidá tenkými čarami tu druhou. S reaktorem plynové bloky po jeho spuštění ubývají.</span></span>
       <span class="tipwrap"><button class="chip" id="realCmpP" aria-pressed="false">Přidat progresivní</button><span class="bubble r" role="tooltip">Přidá tenké křivky progresivní cesty pro srovnání. Realistickou křivku neposouvá, k tomu slouží Vše progresivně.</span></span>
       <span class="tipwrap"><button class="chip" id="realCmpK" aria-pressed="false">Přidat konzervativní</button><span class="bubble r" role="tooltip">Přidá tenké křivky konzervativní cesty pro srovnání. Realistickou křivku neposouvá, k tomu slouží Vše konzervativně.</span></span>
@@ -440,8 +440,8 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
     <p class="f">R(t) = (1 &minus; a) &middot; K(t) + a &middot; P(t) &nbsp; &nbsp; a = &Sigma; w &middot; x / &Sigma; w &nbsp; &nbsp; x = 0 popis K, x = 1 popis P</p>
     <p class="f">Společný plyn: (1 &minus; s) &middot; K + s &middot; P, s je hodnota SMR z indikátorů &nbsp; &nbsp; s SMR od spuštění hodnota P, bez SMR od rozhodnutí hodnota K</p>
     <details class="more"><summary>Podrobnosti</summary>
-      <p><b>Co je převzaté a co je náš úsudek.</b> Seznam 34 indikátorů, popisy stavů a hodnocení dopadu jsou z pracovní tabulky indikátorů. Vazby a váhy vycházejí z pracovního podkladu k indikátorům po opravě. Krajní hodnoty škál a výchozí hodnoty jsou naše. Všechno to je odhad a stránka to tak ukazuje. Rovnice je dohoda o interpolaci. Zdroj dokládající lineární převod ze společenského indexu na výstavbu jsme nenašli, stejně jako použitelnou elasticitu nebo práh pro vítr a slunce v regionu. Literatura dokládá S-křivky v čase (Grubler a kol. 2016, Odenweller a kol. 2022) a varuje, že skupiny s podobným průměrem preferencí mohou dopadnout velmi odlišně (Granovetter 1978).</p>
-      <p><b>Váhy.</b> Výchozí váhy jsou neověřený odhad z pracovního podkladu k indikátorům, po opravě. Průměr je normuje, proto součet nad 1 nevadí a položka nepřekročí hodnotu druhé cesty. Váhu 0 má deset indikátorů, důvod je u každého z nich. Rozhodnutí o reaktoru SMR nebere v úvahu podporu obnovitelných zdrojů. Nákladní doprava, úspory a rok spuštění využití odpadu v podkladu vazbu nemají, jejich vazba je náš úsudek. Váha vyjadřuje, kolik jednoho indikátoru vyváží druhý, ne jejich důležitost (OECD a JRC 2008, s. 33; Paruolo a kol. 2013). Jiné váhy jsou porovnané v citlivosti u pásma. Hodnocení dopadu z tabulky indikátorů je vidět u každého indikátoru, jako váha se nepoužívá, protože význam škály není doložený.</p>
+      <p><b>Co je převzaté a co je náš úsudek.</b> Seznam 34 indikátorů, popisy stavů a hodnocení dopadu jsou z pracovní tabulky indikátorů. Vazby a váhy vycházejí z podkladu k indikátorům. Krajní hodnoty škál a výchozí hodnoty jsou naše. Všechno to je odhad a stránka to tak ukazuje. Rovnice je dohoda o interpolaci. Zdroj dokládající lineární převod ze společenského indexu na výstavbu jsme nenašli, stejně jako použitelnou elasticitu nebo práh pro vítr a slunce v regionu. Literatura dokládá S-křivky v čase (Grubler a kol. 2016, Odenweller a kol. 2022) a varuje, že skupiny s podobným průměrem preferencí mohou dopadnout velmi odlišně (Granovetter 1978).</p>
+      <p><b>Váhy.</b> Výchozí váhy jsou neověřený odhad z podkladu k indikátorům. Průměr je normuje, proto součet nad 1 nevadí a položka nepřekročí hodnotu druhé cesty. Váhu 0 má deset indikátorů, důvod je u každého z nich. Rozhodnutí o reaktoru SMR nebere v úvahu podporu obnovitelných zdrojů. Nákladní doprava, úspory a rok spuštění využití odpadu v podkladu vazbu nemají, jejich vazba je náš úsudek. Váha vyjadřuje, kolik jednoho indikátoru vyváží druhý, ne jejich důležitost (OECD a JRC 2008, s. 33; Paruolo a kol. 2013). Jiné váhy jsou porovnané v citlivosti u pásma. Hodnocení dopadu z tabulky indikátorů je vidět u každého indikátoru, jako váha se nepoužívá, protože význam škály není doložený.</p>
       <p><b>Kategorie.</b> Posuvník kategorie přepočítá její indikátory poměrem vůči výchozím hodnotám. Hodnoty 0 a 1 nastaví všechny na 0 a 1, pořadí indikátorů se nemění. Ruční nastavení indikátorů v kategorii tím přepíše.</p>
       <p><b>Velké události.</b> SMR má hodnotu z indikátorů. Ta se převádí na odhad pravděpodobnosti tak, že výchozí hodnota odpovídá odhadu 25 % z řetězu kroků a konce 0 a 1 zůstávají. Práh pro ano je 50 %. U datových center a plné elektrifikace Třince obhajitelné číslo neexistuje. Hodnota z indikátorů u nich není pravděpodobnost, ano dá až od 0,75 a do pásma nevstupují. Křivka nikdy nepočítá se zlomkem události. Odhady jsou subjektivní a podmíněné. Spuštění po roce 2050 znamená do roku 2050 variantu bez SMR.</p>
       <p><b>Plyn a varianty.</b> Reaktor spuštěný v roce 2048 nemůže měnit plyn v roce 2030. Proto mají obě varianty, s reaktorem a bez něj, společný plyn. S reaktorem klesá až s jeho spuštěním. Bez reaktoru se 10 let před plánovaným spuštěním začne přecházet na konečný výkon. Těch 10 let je náš úsudek. Výchozí konečný výkon je oznámených 283 MW, plyn navíc se uměle nepřidává. Volba umí nastavit 683 MW z konzervativní cesty. Vlastní spotřeba a ztráty v sítích se počítají vzorcem z vypočtených položek.</p>
@@ -457,12 +457,12 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
 
   <section class="card">
     <h2>Dlaždice a zamčený graf</h2>
-    <p>Dlaždice přepisují položky zvolené cesty na věci, které si lze představit: počty turbín, aut nebo domů. Počítají se ze stejných čísel jako graf, s posuvníky se mění. Je to přepočet, ne soupis. Plynové bloky a baterie mají velikost danou cestou a rokem, posuvníky je nemění. Počet nákladních aut stojí na úsudku 60 000 km za rok. U zařízení, kde na to je zdroj, bublina ukáže řádovou cenu výstavby, bez součtu. Při posouvání stránky přes posuvníky se graf zmenší a zůstane nahoře, aby bylo vidět, co posuvník dělá.</p>
+    <p>Dlaždice přepisují položky zvolené cesty na věci, které si lze představit: počty turbín, aut nebo domů. Počítají se ze stejných čísel jako graf, s posuvníky se mění. Je to přepočet, ne soupis. Plynové bloky a baterie mají velikost danou cestou a rokem, posuvníky je nemění. Počet nákladních aut stojí na úsudku 60 000 km za rok. U zařízení, kde na to je zdroj, bublina ukáže řádovou cenu výstavby, bez součtu. Při posouvání stránky přes posuvníky se horní graf zmenší a zůstane nahoře, aby bylo vidět, co posuvník dělá. Stejně se chová graf realistického scénáře.</p>
   </section>
 
   <section class="card">
     <h2>Technologie</h2>
-    <p>Panel Technologie mění šest technických hodnot společně pro obě cesty i pro realistický scénář. Výchozí poloha je hodnota, se kterou počítají řádky tabulky, takže výchozí výsledky se nemění. Změna se zavádí plynule od roku 2030 do roku 2050. Spotřeba aut na km násobí řádek osobních a nákladních aut stejně jako velké trendy. Topný faktor mění jen topnou část odběru tepelného čerpadla, 6,4 z 8,9 MWh na odběrné místo, výchozí je dnešní měřený průměr 3,4. Elektřina na vodík násobí řádky výroby vodíku poměrem nové a výchozí spotřeby na kilogram včetně 3,1 kWh na stlačení. Plné hodiny větru násobí výrobu z větru, instalovaný výkon a počet turbín zůstávají. Ztráty v sítích mění podíl ve vzorci ztrát. Souhrnný posuvník posune všech šest hodnot od výchozí polohy k nejlepšímu doloženému odhadu pro rok 2050. Zdroje rozsahů jsou v panelu.</p>
+    <p>Panel Technologie mění šest technických hodnot společně pro obě cesty i pro realistický scénář. Ve výchozí poloze dává panel přesně čísla tabulky, výchozí výsledky se tedy nemění. Změna se zavádí plynule od roku 2030 do roku 2050. Spotřeba aut na km násobí řádek osobních a nákladních aut stejně jako velké trendy, proto se mění rovnoměrně od roku 2025. Topný faktor mění jen topnou část odběru tepelného čerpadla, 6,4 z 8,9 MWh na odběrné místo, výchozí je dnešní měřený průměr 3,4. Elektřina na vodík násobí řádky výroby vodíku poměrem nové a výchozí spotřeby na kilogram včetně 3,1 kWh na stlačení. Plné hodiny větru násobí výrobu z větru, instalovaný výkon a počet turbín zůstávají. Ztráty v sítích mění podíl ve vzorci ztrát. Zdroje rozsahů jsou v panelu.</p>
   </section>
 
   <section class="card">
@@ -496,7 +496,7 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
     <details class="more"><summary>Podrobnosti</summary>
       <p>Co se šíří postupně, má logistickou křivku: nejdřív pomalu, pak rychle, nakonec nasycení. Fisher a Pry 1971 ji použili pro nahrazení jedné technologie druhou, Cherp a kol. 2021 popisují S-křivky u větru a slunce po státech. Použití na položky kraje a normování je náš postup, parametry k a t<sub>m</sub> se dopočítají z hodnot pro roky 2030 a 2040. Kde tabulka dává milníky, křivka jimi prochází monotónní kubickou interpolací (Fritsch a Carlson 1980), protože u monotónních dat mezi body nepřekmitne.</p>
       <p>Události s daným rokem, například konec dolů, jsou kalendářní skoky, protože jejich průběh neurčuje šíření, ale datum. Položka, která vzroste a zase klesne, je součet dvou křivek. Plochý řádek zůstává plochý.</p>
-      <p>Změna cíle posuvníkem se přičítá plynule až od roku 2030, protože výstavbu do té doby určují hlavně dnešní projekty, to je náš úsudek. U položek se skokem posuvník mění velikost skoku. Demografie a účinnost násobí položku od roku 2025 a lze je změnit nebo vypnout ve Velkých trendech. Posuvník skupiny mění její položky ve stejném poměru. U fotovoltaiky, větru, tepelných čerpadel a osobních aut stránka v posuvnících po položkách upozorní, když položka roste rychleji než v minulosti. Další vzorce jsou v <a href="METODIKA.md">technickém popisu</a>.</p>
+      <p>Změna cíle posuvníkem se přičítá plynule až od roku 2030, protože výstavbu do té doby určují hlavně dnešní projekty, to je náš úsudek. U položek se skokem posuvník mění velikost skoku. Demografie a účinnost násobí položku od roku 2025. Demografii lze změnit ve Velkých trendech, spotřebu aut na km v panelu Technologie. Obojí vypíná přepínač Velkých trendů. Posuvník skupiny mění její položky ve stejném poměru. U fotovoltaiky, větru, tepelných čerpadel a osobních aut stránka v posuvnících po položkách upozorní, když položka roste rychleji než v minulosti. Další vzorce jsou v <a href="METODIKA.md">technickém popisu</a>.</p>
     </details>
   </section>
 
@@ -516,7 +516,7 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
     <p>Každá hodina roku 2050, 5 povětrnostních let 2015 až 2019, jeden uzel bez omezení sítě. Výsledky jsou předpočítané pro výchozí nastavení.</p>
     <p class="f">výroba + plyn + vybíjení + dovoz = spotřeba + elektrolyzér + kotle + nabíjení + vývoz</p>
     <p class="f">baterie: E = medián dne &Sigma; max(R<sub>t</sub> &minus; R&#772;, 0) / &radic;0,88 = {{bat_e}} GWh &nbsp; &nbsp; P = E / 4 h</p>
-    <p class="f">elektrolyzér: P = řádky vodíku &times; (1 + r) &times; 1 000 / plné hodiny = {{el_mw}} MW</p>
+    <p class="f">elektrolyzér: P = řádky vodíku &times; (1 + r / (1 &minus; r)) &times; 1 000 / plné hodiny = {{el_mw}} MW</p>
     <div class="figsvg" id="figDen"></div>
     <p class="small" id="figDenCap"></p>
     <details class="more"><summary>Podrobnosti</summary>
@@ -530,7 +530,7 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
 
   <section class="card">
     <h2>Pásmo a podíl běhů</h2>
-    <p>Simulace Monte Carlo, 10 000 běhů. Pásmo je prostředních 80 % výsledků. Je to náš odhad nejistoty, ne statistický interval.</p>
+    <p>Simulace Monte Carlo, 10 000 běhů pro pásmo v grafu. Střed, podíl běhů s vyrovnaným rokem a rozsah schodku ve větě v záložce Bilance jsou ze samostatného výpočtu s 60 000 běhy. Pásmo je prostředních 80 % výsledků. Je to náš odhad nejistoty, ne statistický interval.</p>
     <p class="f">z<sub>i</sub> = &plusmn;&radic;0,6 &middot; F + &radic;0,4 &middot; &epsilon;<sub>i</sub> &nbsp; &nbsp; F, &epsilon; ~ N(0, 1)</p>
     <p class="f">y<sub>i</sub> = P50 + (z<sub>i</sub> / 1,2816) &middot; (P90 &minus; P50) pro z &ge; 0, jinak P50 + (z<sub>i</sub> / 1,2816) &middot; (P50 &minus; P10)</p>
     <div class="figsvg" id="figMc"></div>
@@ -592,14 +592,14 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
 
   <section class="card">
     <h2>Literatura k metodě</h2>
-    <p>Přečtené texty:</p>
+    <p>Texty čtené celé:</p>
     <ul class="flaws">
       <li>Bishop P., Hines A., Collins T. (2007). The current state of scenario development: an overview of techniques. Foresight 9(1), s. 5 až 25. <a href="https://doi.org/10.1108/14636680710727516">DOI</a></li>
       <li>Dreborg K. H. (1996). Essence of backcasting. Futures 28(9), s. 813 až 828.</li>
       <li>Kosow H., Gaßner R. (2008). Methods of future and scenario analysis. DIE Studies 39, Bonn. Přečteny s. 12, 25 až 32 a 38. <a href="https://www.idos-research.de/uploads/media/Studies_39.2008.pdf">PDF</a></li>
       <li>Slach O., Bosák V., Rumpel P. Metoda scénářů a její využití v kontextu plánování. Kapitola, s. 179 až 194, údaje o knize v PDF nejsou.</li>
     </ul>
-    <p>Viděli jsme jen výtah nebo záznam, případně citaci jinde:</p>
+    <p>Texty známé jen z výtahu, záznamu nebo citace:</p>
     <ul class="flaws">
       <li>Börjeson L., Höjer M., Dreborg K. H., Ekvall T., Finnveden G. (2006). Scenario types and techniques: towards a user's guide. Futures 38(7), s. 723 až 739. <a href="https://doi.org/10.1016/j.futures.2005.12.002">DOI</a></li>
       <li>Cherp A., Vinichenko V., Tosun J., Gordon J. A., Jewell J. (2021). National growth dynamics of wind and solar power compared to the growth required for global climate targets. Nature Energy 6, s. 742 až 754. <a href="https://doi.org/10.1038/s41560-021-00863-0">DOI</a></li>
@@ -623,7 +623,7 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
     <ul class="flaws">
       <li>Lineární převod indikátorů na položky je dohoda, ne doložený vztah. Citlivost na jiný tvar je u pásma.</li>
       <li>Váhy a krajní hodnoty škál jsou úsudek. Řada ukazatelů je jen blízká indikátoru a část dat je za celou ČR.</li>
-      <li>Střed mezi cestami neznamená nejpravděpodobnější vývoj. Pásmo je z velké části rozsah položek tabulky, který je náš odhad a může se překrývat s indikátory.</li>
+      <li>Střed mezi cestami neznamená nejpravděpodobnější vývoj. Pásmo tvoří hlavně velké události a rozsah položek tabulky. Rozsah položek je náš odhad a může se překrývat s indikátory.</li>
       <li>Vítr a pozemní fotovoltaika mají stejný posun mezi cestami, i když je lidé mohou přijímat různě. Ve sledovaných obcích, kde se hlasovalo, dopadla hlasování většinou proti záměru, hlasuje se ale tam, kde je spor.</li>
       <li>Hodinový výpočet je jen pro výchozí nastavení a velikost zařízení se v něm znovu nehledá. Zimní špička podle metody studie a letní poledne se pro tuto křivku nepočítají.</li>
       <li>Výchozí varianta bez SMR počítá jen s oznámenými plynovými bloky 283 MW. Kdyby se bez reaktoru stavělo jako v konzervativní cestě, 683 MW, schodek by byl o více než tisíc GWh menší, volba to umí ukázat.</li>
@@ -655,12 +655,12 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
     <h2>Co v modelu chybí nebo je jen samostatný případ</h2>
     <ul class="flaws">
       {{html_radky8}}
-      <li><b>Výpadek největšího bloku.</b> Výpadek SMR v nejhorší zimní hodině zvedá špičku dovozu z {{vs_spicka}} na {{vs_smr}} MW.</li>
+      <li><b>Výpadek největšího bloku.</b> Kdyby SMR vypadl ve chvíli zimní špičky dovozu, stoupla by špička z {{vs_spicka}} MW, průměru 5 let, o celých 500 MW na {{vs_smr}} MW. Je to prostý součet, ne výsledek hodinového výpočtu.</li>
       <li><b>Blackout.</b> Dopady výpadku podle skupin obyvatel jsou popsané jen slovně, počty lidí ani MW kritických odběrů kraje zdroje neuvádějí.</li>
       <li><b>Syntetický plyn.</b> Elektřina na jeho výrobu není vyčíslená, řádek je nula a skutečnost je větší. Výroba na tunu je převzatá ze spalování a řádek bere všech 240 000 t odpadu, studie s. 137 počítá s 1/3 až 1/2.</li>
-      <li><b>Náklady.</b> Stránka řeší energetickou bilanci. Ceny údržby a provozu neobsahuje. Řádovou cenu výstavby ukazují jen dlaždice, kde na ni je zdroj, a odhad u nádrže v závorce.</li>
+      <li><b>Náklady.</b> Stránka počítá energetickou bilanci v GWh a MW a peníze do ní nevstupují. Řádovou cenu výstavby ukazuje bublina u dlaždic, kde na ni je zdroj, v eurech a dnešních cenách, a zvlášť odhad u nádrže. Ceny se záměrně nesčítají, protože zařízení platí různí investoři a část se překrývá, takže stránka neuvádí celkovou investici ani cenu žádné z cest. Chybí provozní a palivové náklady, cena dovážené elektřiny a emisních povolenek a náklady na posílení sítě. Nepočítají se ani dotace, financování, dopad na účty domácností a to, kdo jednotlivé investice zaplatí.</li>
       <li><b>Posuvníky.</b> Hodinový výpočet ani pásmo se při změně posuvníků nepřepočítávají.</li>
-      <li><b>Technologie.</b> Panel mění roční řádky poměrem, hodinový výpočet, pásmo a zimní špičku nepřepočítá. Lepší vítr se počítá pro celý instalovaný výkon, i když starší turbíny se do roku 2050 nemusí všechny vyměnit. Topný faktor 3,4 je naměřený v Německu, z kraje údaj není. Účinnost baterií 88 % je vyšší než 82,6 % včetně měniče podle PNNL 2022, ztráty baterií jsou tedy spíš podhodnocené o desítky GWh.</li>
+      <li><b>Technologie.</b> Panel mění roční řádky poměrem. Pásmo, hodinový výpočet a špičku dovozu z hodinového modelu nepřepočítá, pohled Zimní špička se mění. Lepší vítr se počítá pro celý instalovaný výkon, i když starší turbíny se do roku 2050 nemusí všechny vyměnit. Topný faktor 3,4 je naměřený v Německu, z kraje údaj není. Účinnost baterií 88 % je vyšší než 82,6 % včetně měniče podle PNNL 2022, ztráty baterií jsou tedy spíš podhodnocené o desítky GWh.</li>
     </ul>
   </section>
   <section class="card">
@@ -668,7 +668,7 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
     <ul class="flaws">
       <li>Meze P10 a P90 jsou většinou úsudek.</li>
       <li>Srovnání tempa s referenční třídou (Cherp a kol. 2021) je přečtené jen ve výtahu a je to národní měřítko.</li>
-      <li>Tři dny akumulace z definice cesty ve výchozím nastavení nejsou, případ je v záložce Návrhové volby. Hodnotu zálohy pro výpadek model neocení.</li>
+      <li>Progresivní cesta nemá ve výchozím nastavení tři dny akumulace z definice cesty, případ je v záložce Návrhové volby. Konzervativní cesta je má jako zálohu 10 % ze 3 dnů. Hodnotu zálohy pro výpadek model neocení.</li>
       <li>Letní poledne je pohled na jednu hodinu. Pořadí elektrolyzér, baterie, kotle v něm není řízení hodinového modelu, kde baterie a rozvrh nádrže běží podle celého dne a roku.</li>
     </ul>
   </section>
@@ -693,7 +693,8 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
       <tr><td>Odstup nabíjení baterie ze sítě pod denní hladinou</td><td>100 MW</td></tr>
       <tr><td>Tepelná čerpadla v tuhých mrazech</td><td>denní průběh slábne od +5 °C do −10 °C, potom běží rovnoměrně</td></tr>
       <tr><td>Účinnost baterií</td><td>88 %</td></tr>
-      <tr><td>Auta na obyvatele, velikost domácností, teplo budov, účinnost nákladních aut</td><td>viz Velké trendy</td></tr>
+      <tr><td>Auta na obyvatele, velikost domácností, teplo budov</td><td>viz Velké trendy</td></tr>
+      <tr><td>Spotřeba elektroaut a nákladních elektroaut na km</td><td>viz Technologie</td></tr>
       <tr><td>Elektrolýza a elektrokotle v zimní špičce</td><td>vypnuté</td></tr>
       <tr><td>Nejistota roku poloviny změny</td><td>o 3 roky</td></tr>
       <tr><td>Korelace položek se stejnou příčinou</td><td>0,6</td></tr>
@@ -1331,14 +1332,14 @@ const TECH_UI = [
   {name:"auta", trend:"eff_auta", label:"Spotřeba elektroauta na km v roce 2050, proti dnešku", min:0.45, max:1.05, step:0.005, today:1, best:DATA.trends.eff_auta.p10, show:v => NF.format(v * 100) + " %",
     src:"Dnes 17 kWh na 100 km. Nejlepší odhad je spodní mez z velkých trendů: " + DATA.trends.eff_auta.src + "."},
   {name:"nakl", trend:"eff_nakladni", label:"Spotřeba nákladního elektroauta na km v roce 2050, proti dnešku", min:0.65, max:1.1, step:0.005, today:1, best:DATA.trends.eff_nakladni.p10, show:v => NF.format(v * 100) + " %",
-    src:"Dnes 0,96 kWh/km u 19 nákladních aut v Německu. Nejlepší odhad je spodní mez z velkých trendů: " + DATA.trends.eff_nakladni.src + "."},
+    src:"Dnes 0,96 kWh/km u 19 nákladních aut v Německu: " + DATA.trends.eff_nakladni.src + ". Zdroj pro vývoj do roku 2050 se nenašel, výchozích 85 % i mez 75 % jsou náš úsudek."},
   {name:"scop", def:3.4, label:"Topný faktor tepelného čerpadla v roce 2050, průměr všech v provozu", min:2.6, max:4.9, step:0.05, today:3.4, best:3.8, show:v => NF1.format(v),
     src:"Dnes 3,4, rozpětí 2,6 až 4,9, měřeno ve stávajících domech: Fraunhofer ISE, tisková zpráva 2025, https://www.ise.fraunhofer.de/content/dam/ise/de/documents/presseinformationen/2025/3025_ISE_PI_Waermepumpen-heizen-auch-im-Altbau-klimafreundlich.pdf . Rok 2050 s radiátory 3,8, s podlahovým topením 4,5: dánský Energistyrelsen, katalog technologií 2016/17, https://ens.dk/media/3342/download . Řádek tabulky topný faktor neuvádí, výchozí bere dnešní měřený průměr."},
-  {name:"h2", def:48.26, label:"Elektřina na 1 kg vodíku v roce 2050, bez stlačení", min:43, max:56, step:0.1, today:53, best:43.8, show:v => NF1.format(v) + " kWh",
+  {name:"h2", def:48.26, label:"Elektřina na 1 kg vodíku v roce 2050, bez stlačení", min:43, max:56, step:0.01, today:53, best:43.8, show:v => NF2.format(v) + " kWh",
     src:"Dnes účinnost 63 %, asi 53 kWh/kg: IEA, Global Hydrogen Review 2025, příloha s předpoklady, https://iea.blob.core.windows.net/assets/15673ab3-a86a-4434-bff4-490bb42d3563/GlobalHydrogenReview2025AssumptionsAnnex.pdf . Rok 2050 43,8 kWh/kg: IRENA, Green hydrogen cost reduction 2020, tabulka 6, https://www.irena.org/-/media/Files/IRENA/Agency/Publication/2020/Dec/IRENA_Green_hydrogen_cost_2020.pdf . Progresivní cesta počítá s 48,26 kWh/kg v roce 2050."},
-  {name:"vitr", def:2471, label:"Plné hodiny větrných elektráren v roce 2050", min:2471, max:2900, step:10, today:2471, best:2800, show:v => NF.format(v) + " h",
+  {name:"vitr", def:2471, label:"Plné hodiny větrných elektráren v roce 2050", min:2471, max:2900, step:1, today:2471, best:2800, show:v => NF.format(v) + " h",
     src:"Dnes 2 471 hodin, měřeno v kraji. Rok 2050: růst o 0,5 % ročně, který předpokládá Fraunhofer ISE 2024 pro nové turbíny, dá asi 2 800 hodin, https://www.ise.fraunhofer.de/content/dam/ise/de/documents/publications/studies/DE2024_ISE_Studie_Stromgestehungskosten_Erneuerbare_Energien.pdf . Stejný instalovaný výkon pak vyrobí víc, počet turbín se nemění."},
-  {name:"ztraty", def:3.547, label:"Ztráty v sítích v roce 2050, podíl z dodávky", min:2.5, max:4, step:0.01, today:3.547, best:2.61, show:v => NF1.format(v) + " %",
+  {name:"ztraty", def:3.547, label:"Ztráty v sítích v roce 2050, podíl z dodávky", min:2.5, max:4, step:0.001, today:3.547, best:2.61, show:v => new Intl.NumberFormat("cs-CZ", {maximumFractionDigits:3}).format(v) + " %",
     src:"Dnes 3,547 % podle Dopadové studie. Česko 3,94 % a nejnižší v Evropě Lucembursko 2,61 %, vše v roce 2022: CEER, 3. zpráva o ztrátách, tabulka 20, https://www.ceer.eu/wp-content/uploads/2025/02/3rd-CEER-Report-on-Power-Losses.pdf . CEER počítá podíl z energie dodané do sítě, ne ze stejného základu. Ztráty závisí i na provozovateli sítě, nejen na technice."},
 ];
 function techDefaults(){
@@ -1406,8 +1407,8 @@ function drawTech(){
     }, off));
   }
   $("techSrc").innerHTML = `<ul class="flaws">` + TECH_UI.map(ui => `<li><b>${esc(ui.label)}.</b> ${link(ui.src)}</li>`).join("") + `</ul>` +
-    `<p class="plain">Souhrnný posuvník posune všech šest hodnot od výchozí polohy k nejlepšímu doloženému odhadu pro rok 2050. Jednotlivé posuvníky jsou v podrobné verzi. Spotřebu aut na km sdílí panel s velkými trendy.</p>` +
-    `<p class="viewnote">Posuvníky nemění pásmo nejistoty, hodinový výpočet, události a dovoz ve špičce, ty platí pro výchozí techniku. Účinnost baterií panel nemá: řádek počítá s 88 %, PNNL 2022 uvádí 82,6 % včetně měniče a do roku 2030 84,5 %, rozdíl dělá desítky GWh ztrát.</p>`;
+    `<p class="plain">Souhrnný posuvník posune všech šest hodnot od výchozí polohy k nejlepší hodnotě, kterou zdroje uvádějí. U ztrát v sítích je to dnešní nejnižší hodnota v Evropě. Jednotlivé posuvníky jsou v podrobné verzi. Spotřebu aut na km sdílí panel s velkými trendy.</p>` +
+    `<p class="viewnote">Posuvníky nemění pásmo nejistoty, hodinový výpočet a špičku dovozu z hodinového modelu, ty platí pro výchozí techniku. Účinnost baterií panel nemá, viz záložka Nedostatky.</p>`;
 }
 /* Dlaždice: stejná čísla jako horní graf a toky, tedy zvolená cesta, posuvníky a rok. Vzorce a texty jsou v datech stránky. */
 const TILE_PATH = {progresivni:"Progresivní cesta: jeden malý reaktor, vítr a slunce podle podílu kraje na celostátním plánu, rychlá elektrifikace dopravy a tepla, část kamionů a autobusů na vodík.", konzervativni:"Konzervativní cesta: bez reaktoru, hlavně plynové bloky, málo větru a slunce, pomalejší elektrifikace, doprava bez vodíku."};
@@ -1465,7 +1466,8 @@ function tileShow(t){
   const tip = $("tip"), box = t.el.getBoundingClientRect();
   tip.style.display = "block";
   tip.style.left = Math.max(4, Math.min(box.left, innerWidth - 340)) + "px";
-  tip.style.top = (box.bottom + 190 > innerHeight ? Math.max(4, box.top - (tip.offsetHeight || 170) - 6) : box.bottom + 6) + "px";
+  const h = tip.offsetHeight || 190;
+  tip.style.top = (box.bottom + h + 10 > innerHeight ? Math.max(4, box.top - h - 6) : box.bottom + 6) + "px";
 }
 function tileHide(){ tileHover = null; $("tip").style.display = "none"; }
 function tileBuild(){
@@ -1847,7 +1849,7 @@ function realStatic(){
     `<div class="tablewrap"><table class="grades"><tr><th>Zdroj nejistoty</th><th>Šířka schodku, jen tento zdroj</th><th>Šířka výroby</th><th>Šířka spotřeby</th><th>O kolik se zúží celek bez něj</th></tr>` +
     b.rozklad.map(t => `<tr><td>${esc(t.zdroj)}</td><td class="n">${NF.format(t.sam)}</td><td class="n">${NF.format(t.sam_vyroba)}</td><td class="n">${NF.format(t.sam_spotreba)}</td><td class="n">${NF.format(t.ubude)}</td></tr>`).join("") +
     `<tr><td><b>Všechny zdroje</b></td><td class="n">${NF.format(b.sirka_vse)}</td><td></td><td></td><td></td></tr></table></div>` +
-    `<p class="viewnote">Šířka je rozsah, ve kterém leží prostředních 80 % simulací v roce 2050, GWh. Sloupce se nesčítají, zdroje na sebe působí a malé hodnoty v posledním sloupci jsou v mezích náhodného kolísání simulace. Největší část je rozsah položek tabulky, který je z velké části náš odhad a může se překrývat s indikátory. Indikátory samy hýbou výrobou i spotřebou stejným směrem, proto na schodku působí málo. Datová centra a plná elektrifikace Třince v pásmu nejsou, obhajitelné číslo pro ně neexistuje.</p>` +
+    `<p class="viewnote">Šířka je rozsah, ve kterém leží prostředních 80 % simulací v roce 2050, GWh. Sloupce se nesčítají, zdroje na sebe působí a malé hodnoty v posledním sloupci jsou v mezích náhodného kolísání simulace. Největší část tvoří velké události a rozsah položek tabulky. Rozsah položek je z velké části náš odhad a může se překrývat s indikátory. Indikátory samy hýbou výrobou i spotřebou stejným směrem, proto na schodku působí málo. Datová centra a plná elektrifikace Třince v pásmu nejsou, obhajitelné číslo pro ně neexistuje.</p>` +
     `<p class="viewnote">Indikátory se v simulaci pohybují částečně společně. Při započtení jen tohoto zdroje je šířka výroby a spotřeby u nezávislých indikátorů ${NF.format(b.provazani.nezavisle.vyroba)} a ${NF.format(b.provazani.nezavisle.spotreba)} GWh, se společnými faktory ${NF.format(b.provazani.vychozi.vyroba)} a ${NF.format(b.provazani.vychozi.spotreba)} GWh. Šířka schodku se tím naopak mírně zúží, z ${NF.format(b.provazani.nezavisle.schodek)} na ${NF.format(b.provazani.vychozi.schodek)} GWh, protože výroba a spotřeba rostou společně. Síla společných faktorů je úsudek.</p>` +
     `<div class="figsvg">${hist}</div><p class="viewnote">Co je nakresleno: počet simulací podle schodku 2050 v TWh, fialově varianta bez SMR, zeleně s SMR. Výpočet: ${NF.format(b.behu)} simulací. Schodek má v součtu ${b.vrcholy.schodek === 1 ? "jeden vrchol, protože rozsah položek dva vrcholy variant překryje" : b.vrcholy.schodek + " vrcholy"}, výroba ${b.vrcholy.vyroba === 1 ? "jeden" : b.vrcholy.vyroba === 2 ? "dva, s reaktorem a bez něj" : b.vrcholy.vyroba}. Varianty se liší, proto jsou uvedené zvlášť.</p>` +
     `<h3 class="realh">Co udělá jedna událost, výchozí stav, ostatní beze změny</h3><div class="tablewrap"><table class="grades"><tr><th>Událost</th><th>Výroba</th><th>Spotřeba</th><th>Schodek, GWh</th></tr>` + REAL.udalosti.map(c => `<tr><td>${esc(c.nazev)}</td><td class="n">${NF.format(c.vyroba)}</td><td class="n">${NF.format(c.spotreba)}</td><td class="n">${NF.format(c.schodek)}</td></tr>`).join("") + `</table></div>` +
@@ -1904,9 +1906,13 @@ document.querySelectorAll("[data-view]").forEach(b => b.addEventListener("click"
 }));
 function setMode(mode){
   state.mode = mode;
+  /* Bez ukotvení prohlížeče: při přepnutí verze zůstane stránka na stejném místě, ne u karty, která se posunula. */
+  const root = document.documentElement;
+  if(root.style) root.style.overflowAnchor = "none";
   $("tab-bilance").dataset.verze = mode;
   document.querySelectorAll("[data-ui]").forEach(b => b.setAttribute("aria-pressed", b.dataset.ui === mode));
   drawLists();
+  if(typeof requestAnimationFrame !== "undefined") requestAnimationFrame(() => { root.style.overflowAnchor = ""; });
 }
 document.querySelectorAll("[data-ui]").forEach(b => b.addEventListener("click", () => setMode(b.dataset.ui)));
 document.querySelectorAll("[data-show]").forEach(b => b.addEventListener("click", () => {
@@ -1949,7 +1955,7 @@ $("presetVitr").addEventListener("click", () => {
     state.preset = Object.fromEntries(["vítr", "fotovoltaika střešní", "elektrokotle v teplárnách", "ztráty baterií"].map(n => [item(n), state.values[item(n)]]));
   }
   $("presetVitr").setAttribute("aria-pressed", !wasOn);
-  applyPath(); drawTrends(); drawLists(); drawLegend(); refresh();
+  applyPath(); drawTrends(); drawTech(); drawLists(); drawLegend(); refresh();
 });
 /* Po ruční změně některého z těchto řádků už volba neplatí a tlačítko to ukáže. */
 function syncPreset(){
@@ -2686,7 +2692,9 @@ function bubblePlace(w){
   b.style.transform = "";
   const r = b.getBoundingClientRect();
   const stuck = Object.keys(PIN_STATE).filter(i => PIN_STATE[i]).map(i => $(i).getBoundingClientRect().bottom);
-  if(r.bottom > innerHeight - 8 && w.getBoundingClientRect().top - r.height > Math.max(barHeight, ...stuck)) w.classList.add("up");
+  /* Nahoru přednostně pod zamčený graf. Když se nevejde ani tam, smí bublina překrýt zamčený graf, jen ne horní lištu. */
+  const top = w.getBoundingClientRect().top;
+  if(r.bottom > innerHeight - 8 && (top - r.height > Math.max(barHeight, ...stuck) || top - r.height > barHeight)) w.classList.add("up");
   const over = r.right - (document.documentElement.clientWidth - 8);
   if(over > 0) b.style.transform = `translateX(${-over}px)`;
 }

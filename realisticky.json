@@ -2851,7 +2851,7 @@
 "hover": [
 "`Je to ${P(Math.min(1, (g(\"osobní auta\") * 1000 / (K.MWH_AUTO.v * t.eff_auta)) / (K.AUTA_DNES.v * t.pop_msk * t.auta_na_os)))} ze všech ${N(K.AUTA_DNES.v * t.pop_msk * t.auta_na_os)} aut v kraji, včetně dodávek.`",
 "`Spotřeba ${N(g(\"osobní auta\"))} GWh za rok. S vodíkem u osobních aut cesty nepočítají.`",
-"`Jedno auto spotřebuje ${N1(K.MWH_AUTO.v * t.eff_auta)} MWh za rok: 13 500 km a klesající spotřeba na kilometr.`"
+"`Jedno auto spotřebuje ${N1(K.MWH_AUTO.v * t.eff_auta)} MWh za rok: 13 500 km a ${t.eff_auta < 1 ? \"klesající\" : t.eff_auta > 1 ? \"rostoucí\" : \"dnešní\"} spotřeba na kilometr.`"
 ],
 "hover_pri_nule": null,
 "dnes": "2024: 2 648"
@@ -3113,7 +3113,7 @@
 "zaokrouhleni": "sig2",
 "hover": [
 "`Výroba v kraji odpovídá ${P(gen / Math.max(use, 1))} roční spotřeby.`",
-"`${use >= gen ? \"Dovoz\" : \"Přebytek\"} odpovídá výrobě ${N1(Math.abs(use - gen) / SMR_UNIT)} reaktoru po 500 MW nebo ${N(Math.abs(use - gen) * 1000 / (K.MW_TURBINA.v * K.H_VITR.v))} turbín po 6,2 MW.`",
+"`${use >= gen ? \"Dovoz\" : \"Přebytek\"} odpovídá výrobě ${N1(Math.abs(use - gen) / SMR_UNIT)} reaktoru po 500 MW, počítáno s hrubou výrobou reaktoru, nebo ${N(Math.abs(use - gen) * 1000 / (K.MW_TURBINA.v * K.H_VITR.v))} turbín po 6,2 MW.`",
 "`Je to roční součet. Ani vyrovnaný rok neznamená, že se kraj v každé hodině obejde bez dovozu.`"
 ],
 "hover_pri_nule": null,

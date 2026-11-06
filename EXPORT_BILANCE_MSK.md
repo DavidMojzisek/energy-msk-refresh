@@ -2330,7 +2330,7 @@ Pokles je jeden krok v březnu 2026, ne mezi prosincem a červnem. ERÚ neudáv�
 
 ## 11a. Realistický scénář
 
-Třetí křivka mezi pevnými cestami, není to předpověď. Plynulá položka: R = (1 − a) K + a P, a je vážený průměr indikátorů skupiny, x = 0 je popis konzervativní cesty, x = 1 progresivní. Události jsou celý řádek. Plyn ve větvi s SMR jde po progresivní cestě, bez SMR po konzervativní. Vzorce vlastní spotřeby a ztrát zůstávají. Demografie, oteplení a Nová huť jsou odchylky mimo osu cest. Váhy a kotvy jsou úsudek. Obě cesty ani jejich čísla se nemění.
+Třetí křivka mezi pevnými cestami, není to předpověď. Plynulá položka: R = (1 − a) K + a P, a je vážený průměr indikátorů skupiny, x = 0 je popis konzervativní cesty, x = 1 progresivní. Události jsou celý řádek. Plyn je společný oběma větvím. S SMR ubývá až s jeho spuštěním, bez SMR se počítá s oznámenými bloky 283 MW, bloky 683 MW jsou samostatná volba. Vzorce vlastní spotřeby a ztrát zůstávají. Demografie, oteplení a Nová huť jsou odchylky mimo osu cest. Váhy a kotvy jsou úsudek. Obě cesty ani jejich čísla se nemění.
 
 | Indikátor | Kategorie | Výchozí x | Jistota | Vliv |
 |---|---|---|---|---|
@@ -2371,12 +2371,12 @@ Třetí křivka mezi pevnými cestami, není to předpověď. Plynulá položka:
 
 ## 11b. Technologie na stránce
 
-Panel Technologie mění šest technických hodnot pro obě cesty i realistický scénář. Výchozí poloha je hodnota z řádků tabulky, výchozí výsledky se proto nemění. Změna se zavádí od roku 2030 do roku 2050.
+Panel Technologie mění šest technických hodnot pro obě cesty i realistický scénář. Ve výchozí poloze dává panel přesně čísla tabulky. U topného faktoru, který tabulka neuvádí, je výchozí dnešní měřený průměr 3,4. Změna se zavádí od roku 2030 do roku 2050.
 
 | Hodnota | Výchozí | Nejlepší odhad 2050 | Zdroj rozsahu |
 |---|---|---|---|
 | Spotřeba elektroauta na km, proti dnešku | 70,5 % | 49,5 % | Krause et al. 2020 (velké trendy) |
-| Spotřeba nákladního elektroauta na km, proti dnešku | 85 % | 75 % | Öko-Institut 2025 (velké trendy) |
+| Spotřeba nákladního elektroauta na km, proti dnešku | 85 % | 75 % | dnes 0,96 kWh/km Öko-Institut 2025, mez 75 % je úsudek |
 | Topný faktor tepelného čerpadla | 3,4 | 3,8 | Fraunhofer ISE 2025; dánský Energistyrelsen 2016/17 |
 | Elektřina na 1 kg vodíku bez stlačení | 48,26 kWh | 43,8 kWh | IEA GHR 2025; IRENA 2020, tab. 6 |
 | Plné hodiny větru | 2 471 h | 2 800 h | Fraunhofer ISE 2024, +0,5 % ročně |
