@@ -264,7 +264,6 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
 <header>
   <h1>Bilance elektřiny Moravskoslezského kraje</h1>
   <div class="controls">
-    <span class="tipwrap"><button class="btn" id="reset">Obnovit výchozí</button><span class="bubble r" role="tooltip">Vrátí celou stránku do výchozího nastavení, včetně realistického scénáře.</span></span>
     <button class="btn" id="theme" aria-label="Přepnout světlý a tmavý režim">Světlý a tmavý režim</button>
   </div>
 </header>
@@ -292,6 +291,7 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
     <span class="tipwrap"><button data-ui="simple" aria-pressed="true">Jednoduchá</button><span class="bubble r" role="tooltip">Platí pro celou stránku. Posuvníky po skupinách, u realistického scénáře 10 kategorií, a krátké texty.</span></span>
     <span class="tipwrap"><button data-ui="detail" aria-pressed="false">Podrobná</button><span class="bubble r" role="tooltip">Platí pro celou stránku. Posuvníky po položkách, u realistického scénáře 34 indikátorů, velké trendy a plné tabulky.</span></span>
   </div>
+  <span class="tipwrap"><button class="chip" id="reset">Obnovit výchozí</button><span class="bubble r" role="tooltip">Vrátí celou stránku do výchozího nastavení: cestu, rok, všechny posuvníky i realistický scénář.</span></span>
 </div>
 <div class="pinwrap">
 <section class="card pin" id="mainPin">
@@ -2436,7 +2436,6 @@ function showTab(name){
     document.documentElement.style.scrollPaddingTop = "";
   }
   for(const tab of TABS) $("tab-" + tab).hidden = name !== tab;
-  $("reset").style.visibility = name === "bilance" ? "visible" : "hidden";
   document.querySelectorAll("[data-tab]").forEach(b => {
     if(b.dataset.tab === name) b.setAttribute("aria-current", "page"); else b.removeAttribute("aria-current");
   });
