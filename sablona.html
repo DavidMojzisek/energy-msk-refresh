@@ -241,7 +241,7 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
     <span class="tipwrap"><button data-ui="simple" aria-pressed="true">Jednoduchá</button><span class="bubble r" role="tooltip">Platí pro celou stránku. Posuvníky po skupinách, u realistického scénáře 10 kategorií, a krátké texty.</span></span>
     <span class="tipwrap"><button data-ui="detail" aria-pressed="false">Podrobná</button><span class="bubble r" role="tooltip">Platí pro celou stránku. Posuvníky po položkách, u realistického scénáře 34 indikátorů, velké trendy a plné tabulky.</span></span>
   </div>
-  <span class="tipwrap"><button class="chip" id="reset">Obnovit výchozí</button><span class="bubble r" role="tooltip">Vrátí celou stránku do výchozího nastavení: cestu, rok, všechny posuvníky i realistický scénář.</span></span>
+  <span class="tipwrap"><button class="chip" id="reset">Obnovit výchozí</button><span class="bubble r" role="tooltip">Vrátí celou stránku do výchozího nastavení: cestu, rok, všechny posuvníky, realistický scénář i technologie.</span></span>
 </div>
 <div class="pinwrap">
 <section class="card pin" id="mainPin">
@@ -276,6 +276,13 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
   <p class="viewnote">Posuvníky mění vybranou cestu, věta nahoře platí pro výchozí nastavení. Posuvník skupiny v jednoduché verzi přepíše ruční nastavení jejích položek.</p>
   <div class="cols" id="detailLists"></div>
 </div>
+<section class="card" id="techCard">
+  <div class="sechead"><h2>Technologie</h2></div>
+  <p class="viewnote">Platí pro obě cesty i realistický scénář. Výchozí poloha je technika, se kterou cesty počítají, u větru, tepelných čerpadel a sítí je to dnešní stav. Změna se zavádí od roku 2030 do roku 2050. Souhrnný posuvník doprava znamená lepší techniku. U jednotlivých posuvníků je lepší technika u spotřeby, elektřiny na vodík a ztrát vlevo, u topného faktoru a hodin větru vpravo. Rozsahy jsou ze zdrojů v rozkliknutí pod posuvníky.</p>
+  <div id="techAgg"></div>
+  <div class="trendgrid only-detail" id="techList"></div>
+  <details class="box"><summary>Zdroje rozsahů a co posuvníky nemění</summary><div id="techSrc"></div></details>
+</section>
 </div>
 <details class="box only-detail" id="trendCard">
   <summary>Velké trendy do roku 2050</summary>
@@ -451,6 +458,11 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
   <section class="card">
     <h2>Dlaždice a zamčený graf</h2>
     <p>Dlaždice přepisují položky zvolené cesty na věci, které si lze představit: počty turbín, aut nebo domů. Počítají se ze stejných čísel jako graf, s posuvníky se mění. Je to přepočet, ne soupis. Plynové bloky a baterie mají velikost danou cestou a rokem, posuvníky je nemění. Počet nákladních aut stojí na úsudku 60 000 km za rok. U zařízení, kde na to je zdroj, bublina ukáže řádovou cenu výstavby, bez součtu. Při posouvání stránky přes posuvníky se graf zmenší a zůstane nahoře, aby bylo vidět, co posuvník dělá.</p>
+  </section>
+
+  <section class="card">
+    <h2>Technologie</h2>
+    <p>Panel Technologie mění šest technických hodnot společně pro obě cesty i pro realistický scénář. Výchozí poloha je hodnota, se kterou počítají řádky tabulky, takže výchozí výsledky se nemění. Změna se zavádí plynule od roku 2030 do roku 2050. Spotřeba aut na km násobí řádek osobních a nákladních aut stejně jako velké trendy. Topný faktor mění jen topnou část odběru tepelného čerpadla, 6,4 z 8,9 MWh na odběrné místo, výchozí je dnešní měřený průměr 3,4. Elektřina na vodík násobí řádky výroby vodíku poměrem nové a výchozí spotřeby na kilogram včetně 3,1 kWh na stlačení. Plné hodiny větru násobí výrobu z větru, instalovaný výkon a počet turbín zůstávají. Ztráty v sítích mění podíl ve vzorci ztrát. Souhrnný posuvník posune všech šest hodnot od výchozí polohy k nejlepšímu doloženému odhadu pro rok 2050. Zdroje rozsahů jsou v panelu.</p>
   </section>
 
   <section class="card">
@@ -648,6 +660,7 @@ footer{color:var(--muted);font-size:12.5px;margin-top:24px}
       <li><b>Syntetický plyn.</b> Elektřina na jeho výrobu není vyčíslená, řádek je nula a skutečnost je větší. Výroba na tunu je převzatá ze spalování a řádek bere všech 240 000 t odpadu, studie s. 137 počítá s 1/3 až 1/2.</li>
       <li><b>Náklady.</b> Stránka řeší energetickou bilanci. Ceny údržby a provozu neobsahuje. Řádovou cenu výstavby ukazují jen dlaždice, kde na ni je zdroj, a odhad u nádrže v závorce.</li>
       <li><b>Posuvníky.</b> Hodinový výpočet ani pásmo se při změně posuvníků nepřepočítávají.</li>
+      <li><b>Technologie.</b> Panel mění roční řádky poměrem, hodinový výpočet, pásmo a zimní špičku nepřepočítá. Lepší vítr se počítá pro celý instalovaný výkon, i když starší turbíny se do roku 2050 nemusí všechny vyměnit. Topný faktor 3,4 je naměřený v Německu, z kraje údaj není. Účinnost baterií 88 % je vyšší než 82,6 % včetně měniče podle PNNL 2022, ztráty baterií jsou tedy spíš podhodnocené o desítky GWh.</li>
     </ul>
   </section>
   <section class="card">
@@ -734,6 +747,7 @@ function resetValues(){
   state.tms = {...DEFAULTS.tms};
   state.trends = {...DEFAULTS.trends};
   state.trendOn = true;
+  state.tech = techDefaults();
 }
 function currentEvents(){
   const seen = new Map();
@@ -817,7 +831,7 @@ function itemAt(it, i){
   const scaleStep = it.jump !== null && !it.nodes && Math.abs(ampAll) > 1e-9;
   const ratio = scaleStep ? 1 + delta / ((it.driver ? it.driver[it.driver.length - 1] : 1) * ampAll) : 1;
   if(!it.nodes) for(const part of it.parts) level += ratio * part.amp * partS(t, part, partTm(it, part));
-  const value = D * level + (scaleStep ? 0 : delta * sigma(t));
+  const value = D * level * techFactor(it.name, t) + (scaleStep ? 0 : delta * sigma(t));
   return it.p10 < 0 ? value : Math.max(0, value);
 }
 /* Hodnota položky v GWh. Vlastní spotřeba zdrojů a ztráty v sítích jsou vzorce z ostatních řádků, stejně jako ve web/model.py. Změna řádku posuvníkem se přičte. */
@@ -833,7 +847,7 @@ function values(path, side, i){
   const own = out.find(x => x.it.name === OWN_ITEM).gwh;
   const others = out.reduce((sum, x) => sum + x.gwh, 0);
   const lossIt = items.find(it => it.name === LOSS_ITEM);
-  out.push({it:lossIt, gwh:Math.max(0, f.lossK * Math.max(others - own - f.localOther, 0) + shift(lossIt))});
+  out.push({it:lossIt, gwh:Math.max(0, techLossK(t, f.lossK) * Math.max(others - own - f.localOther, 0) + shift(lossIt))});
   return out;
 }
 function totals(path, side){
@@ -1277,8 +1291,6 @@ function drawLegend(){
 const TREND_UI = [
   {name:"pop_msk", label:"Počet obyvatel kraje", min:0.7, max:1.05, show:v => NF.format(Math.round(v * 1182589.793 / 1000) * 1000)},
   {name:"auta_na_os", label:"Auta na obyvatele, proti dnešku", min:0.8, max:1.45, show:v => NF.format(v * 100) + " %"},
-  {name:"eff_auta", label:"Spotřeba elektroauta na km, proti dnešku", min:0.45, max:1.05, show:v => NF.format(v * 100) + " %"},
-  {name:"eff_nakladni", label:"Spotřeba nákladního auta na km, proti dnešku", min:0.65, max:1.1, show:v => NF.format(v * 100) + " %"},
   {name:"teplo_budovy", label:"Potřeba tepla budov, proti dnešku", min:0.5, max:1.05, show:v => NF.format(v * 100) + " %"},
   {name:"velikost_dom", label:"Počet domácností na obyvatele, proti dnešku", min:0.95, max:1.35, show:v => NF.format(v * 100) + " %"},
 ];
@@ -1311,6 +1323,92 @@ function drawTrends(){
     host.appendChild(row);
   }
 }
+/* Technologie: společné pro obě cesty i realistický scénář. Výchozí hodnota je ta, se kterou počítají řádky, takže výchozí výsledky se nemění.
+   Změna se zavádí podle sigma(t), od roku 2030 do roku 2050. Spotřebu aut na km drží velké trendy, panel s nimi sdílí stav.
+   Tepelná čerpadla: 8,9 MWh na odběrné místo obsahuje 2,5 MWh běžné spotřeby domu, topení je zbylých 6,4 MWh. Vodík: k elektrolýze se přičítá 3,1 kWh/kg na stlačení. */
+const TC_HEAT = 6.4 / 8.9, H2_COMPRESS = 3.1;
+const TECH_UI = [
+  {name:"auta", trend:"eff_auta", label:"Spotřeba elektroauta na km v roce 2050, proti dnešku", min:0.45, max:1.05, step:0.005, today:1, best:DATA.trends.eff_auta.p10, show:v => NF.format(v * 100) + " %",
+    src:"Dnes 17 kWh na 100 km. Nejlepší odhad je spodní mez z velkých trendů: " + DATA.trends.eff_auta.src + "."},
+  {name:"nakl", trend:"eff_nakladni", label:"Spotřeba nákladního elektroauta na km v roce 2050, proti dnešku", min:0.65, max:1.1, step:0.005, today:1, best:DATA.trends.eff_nakladni.p10, show:v => NF.format(v * 100) + " %",
+    src:"Dnes 0,96 kWh/km u 19 nákladních aut v Německu. Nejlepší odhad je spodní mez z velkých trendů: " + DATA.trends.eff_nakladni.src + "."},
+  {name:"scop", def:3.4, label:"Topný faktor tepelného čerpadla v roce 2050, průměr všech v provozu", min:2.6, max:4.9, step:0.05, today:3.4, best:3.8, show:v => NF1.format(v),
+    src:"Dnes 3,4, rozpětí 2,6 až 4,9, měřeno ve stávajících domech: Fraunhofer ISE, tisková zpráva 2025, https://www.ise.fraunhofer.de/content/dam/ise/de/documents/presseinformationen/2025/3025_ISE_PI_Waermepumpen-heizen-auch-im-Altbau-klimafreundlich.pdf . Rok 2050 s radiátory 3,8, s podlahovým topením 4,5: dánský Energistyrelsen, katalog technologií 2016/17, https://ens.dk/media/3342/download . Řádek tabulky topný faktor neuvádí, výchozí bere dnešní měřený průměr."},
+  {name:"h2", def:48.26, label:"Elektřina na 1 kg vodíku v roce 2050, bez stlačení", min:43, max:56, step:0.1, today:53, best:43.8, show:v => NF1.format(v) + " kWh",
+    src:"Dnes účinnost 63 %, asi 53 kWh/kg: IEA, Global Hydrogen Review 2025, příloha s předpoklady, https://iea.blob.core.windows.net/assets/15673ab3-a86a-4434-bff4-490bb42d3563/GlobalHydrogenReview2025AssumptionsAnnex.pdf . Rok 2050 43,8 kWh/kg: IRENA, Green hydrogen cost reduction 2020, tabulka 6, https://www.irena.org/-/media/Files/IRENA/Agency/Publication/2020/Dec/IRENA_Green_hydrogen_cost_2020.pdf . Progresivní cesta počítá s 48,26 kWh/kg v roce 2050."},
+  {name:"vitr", def:2471, label:"Plné hodiny větrných elektráren v roce 2050", min:2471, max:2900, step:10, today:2471, best:2800, show:v => NF.format(v) + " h",
+    src:"Dnes 2 471 hodin, měřeno v kraji. Rok 2050: růst o 0,5 % ročně, který předpokládá Fraunhofer ISE 2024 pro nové turbíny, dá asi 2 800 hodin, https://www.ise.fraunhofer.de/content/dam/ise/de/documents/publications/studies/DE2024_ISE_Studie_Stromgestehungskosten_Erneuerbare_Energien.pdf . Stejný instalovaný výkon pak vyrobí víc, počet turbín se nemění."},
+  {name:"ztraty", def:3.547, label:"Ztráty v sítích v roce 2050, podíl z dodávky", min:2.5, max:4, step:0.01, today:3.547, best:2.61, show:v => NF1.format(v) + " %",
+    src:"Dnes 3,547 % podle Dopadové studie. Česko 3,94 % a nejnižší v Evropě Lucembursko 2,61 %, vše v roce 2022: CEER, 3. zpráva o ztrátách, tabulka 20, https://www.ceer.eu/wp-content/uploads/2025/02/3rd-CEER-Report-on-Power-Losses.pdf . CEER počítá podíl z energie dodané do sítě, ne ze stejného základu. Ztráty závisí i na provozovateli sítě, nejen na technice."},
+];
+function techDefaults(){
+  const v = {};
+  for(const ui of TECH_UI) if(!ui.trend) v[ui.name] = ui.def;
+  return {agg:0, custom:false, v};
+}
+const techDef = ui => ui.trend ? DEFAULTS.trends[ui.trend] : ui.def;
+const techGet = ui => ui.trend ? state.trends[ui.trend] : state.tech.v[ui.name];
+function techSet(ui, x){ if(ui.trend) state.trends[ui.trend] = x; else state.tech.v[ui.name] = x; }
+/* Násobek řádku. Ve výchozím nastavení je přesně 1. */
+function techFactor(name, t){
+  const v = state.tech && state.tech.v;
+  if(!v) return 1;
+  const s = sigma(t);
+  if(name === "vytápění tepelnými čerpadly") return 1 - TC_HEAT * (1 - 3.4 / v.scop) * s;
+  if(name.startsWith("výroba vodíku")) return 1 + ((v.h2 + H2_COMPRESS) / (48.26 + H2_COMPRESS) - 1) * s;
+  if(name === "vítr") return 1 + (v.vitr / 2471 - 1) * s;
+  return 1;
+}
+function techLossK(t, k0){
+  const v = state.tech && state.tech.v;
+  if(!v || v.ztraty === 3.547) return k0;
+  const r = (3.547 + (v.ztraty - 3.547) * sigma(t)) / 100;
+  return r / (1 - r);
+}
+/* Konstanty dlaždic se mění se stejným násobkem, počet turbín, domů a vozidel tedy zůstane. */
+function techK(year){
+  const K = {...TILE.K}, fT = techFactor("vytápění tepelnými čerpadly", year), fH = techFactor("výroba vodíku", year);
+  K.H_VITR = {...K.H_VITR, v:K.H_VITR.v * techFactor("vítr", year)};
+  K.MWH_TC = {...K.MWH_TC, v:K.MWH_TC.v * fT};
+  const pod = K.TC_PODNIK.v;
+  K.TC_PODNIK = {...K.TC_PODNIK, v:{...pod, progresivni:pod.progresivni.map(x => x * fT), konzervativni:pod.konzervativni.map(x => x * fT)}};
+  K.H2_TAB = {...K.H2_TAB, v:{...K.H2_TAB.v, kwh:K.H2_TAB.v.kwh.map(x => x * fH)}};
+  return K;
+}
+function techSlider(label, min, max, step, value, def, show, onInput, disabled){
+  const span = max - min, pct = v => ((v - min) / span * 100).toFixed(2) + "%";
+  const row = document.createElement("div");
+  row.className = "item";
+  row.innerHTML = `<div class="top"><span>${esc(label)}</span><span class="val mono"></span></div>` +
+    `<div class="track"><span class="def" style="left:${pct(def)}"></span><input type="range" min="${min}" max="${max}" step="${step}" aria-label="${esc(label)}"></div>`;
+  const input = row.querySelector("input"), val = row.querySelector(".val");
+  input.value = value; input.disabled = !!disabled; val.textContent = show(value);
+  input.addEventListener("input", () => { val.textContent = show(Number(input.value)); onInput(Number(input.value)); });
+  return row;
+}
+function drawTech(){
+  const agg = $("techAgg"), list = $("techList");
+  agg.innerHTML = ""; list.innerHTML = "";
+  agg.appendChild(techSlider("Technický pokrok celkem", 0, 1, 0.01, state.tech.agg, 0,
+    v => state.tech.custom ? "vlastní nastavení" : v === 0 ? "jak počítají cesty" : v === 1 ? "nejlepší odhad 2050" : NF.format(v * 100) + " % cesty k nejlepšímu odhadu",
+    a => {
+      state.tech.agg = a; state.tech.custom = false;
+      for(const ui of TECH_UI){ const d = techDef(ui); techSet(ui, a === 0 ? d : Math.round((d + a * (ui.best - d)) / ui.step) * ui.step); }
+      drawTech(); drawTrends(); refresh();
+    }));
+  for(const ui of TECH_UI){
+    const off = ui.trend && !state.trendOn;
+    list.appendChild(techSlider(ui.label + (off ? ", velké trendy jsou vypnuté" : ""), ui.min, ui.max, ui.step, techGet(ui), techDef(ui), ui.show, x => {
+      techSet(ui, x); state.tech.custom = true;
+      const aggVal = agg.querySelector(".val"); if(aggVal) aggVal.textContent = "vlastní nastavení";
+      if(ui.trend) drawTrends();
+      refresh();
+    }, off));
+  }
+  $("techSrc").innerHTML = `<ul class="flaws">` + TECH_UI.map(ui => `<li><b>${esc(ui.label)}.</b> ${link(ui.src)}</li>`).join("") + `</ul>` +
+    `<p class="plain">Souhrnný posuvník posune všech šest hodnot od výchozí polohy k nejlepšímu doloženému odhadu pro rok 2050. Jednotlivé posuvníky jsou v podrobné verzi. Spotřebu aut na km sdílí panel s velkými trendy.</p>` +
+    `<p class="viewnote">Posuvníky nemění pásmo nejistoty, hodinový výpočet, události a dovoz ve špičce, ty platí pro výchozí techniku. Účinnost baterií panel nemá: řádek počítá s 88 %, PNNL 2022 uvádí 82,6 % včetně měniče a do roku 2030 84,5 %, rozdíl dělá desítky GWh ztrát.</p>`;
+}
 /* Dlaždice: stejná čísla jako horní graf a toky, tedy zvolená cesta, posuvníky a rok. Vzorce a texty jsou v datech stránky. */
 const TILE_PATH = {progresivni:"Progresivní cesta: jeden malý reaktor, vítr a slunce podle podílu kraje na celostátním plánu, rychlá elektrifikace dopravy a tepla, část kamionů a autobusů na vodík.", konzervativni:"Konzervativní cesta: bez reaktoru, hlavně plynové bloky, málo větru a slunce, pomalejší elektrifikace, doprava bez vodíku."};
 const TILE = DATA.real.dlazdice, TILE_NAMES = ["path", "i", "year", "g", "D", "t", "m", "gen", "use", "bat", "interp", "jump", "SMR_UNIT", "SMR_MW", "K", "tab", "N", "N1", "P", "ELECTROLYSER_HOURS"];
@@ -1335,7 +1433,7 @@ function tileInputs(){
 
   const m = moment(path, i);
   return [path, i, year, n => row(n).gwh, n => driverAt(row(n).it, i), state.trendOn ? trendValues(i, true) : base, m,
-    vy.reduce((s, x) => s + x.gwh, 0), sp.reduce((s, x) => s + x.gwh, 0), DATA.battery[path], interp, n => state.jumps[jumpKey(row(n).it)], SMR_UNIT, SMR_MW, TILE.K,
+    vy.reduce((s, x) => s + x.gwh, 0), sp.reduce((s, x) => s + x.gwh, 0), DATA.battery[path], interp, n => state.jumps[jumpKey(row(n).it)], SMR_UNIT, SMR_MW, techK(year),
     (r, v, y) => { if(y <= r[0]) return v[0]; for(let j = 1; j < r.length; j++) if(y <= r[j]) return v[j - 1] + (v[j] - v[j - 1]) * (y - r[j - 1]) / (r[j] - r[j - 1]); return v[v.length - 1]; },
     x => NF.format(x), x => NF1.format(x), x => x > 0 && x < .01 ? "pod 1 %" : NF.format(x * 100) + " %", ELECTROLYSER_HOURS];
 }
@@ -1480,7 +1578,7 @@ function realCompute(cfg){
     };
     own = Math.max(0, f.ownCal * own + shift(OWN_ITEM));
     others += own;
-    const loss = Math.max(0, f.lossK * Math.max(others - own - f.localOther, 0) + shift(LOSS_ITEM));
+    const loss = Math.max(0, techLossK(t, f.lossK) * Math.max(others - own - f.localOther, 0) + shift(LOSS_ITEM));
     gen.push(g); use.push(others + loss);
   }
   return {rows, gen, use, dec, prob, smrOn, levels};
@@ -1831,7 +1929,7 @@ function resetAll(){
   state.show.vyroba = true; state.show.spotreba = true;
   $("year").value = 2050;
   document.querySelectorAll("[data-show]").forEach(x => x.setAttribute("aria-pressed", true));
-  applyPath(); applyView(); drawTrends(); drawLists(); drawLegend(); refresh(); pinResync();
+  applyPath(); applyView(); drawTrends(); drawTech(); drawLists(); drawLegend(); refresh(); pinResync();
 }
 $("reset").addEventListener("click", resetAll);
 /* Volba Vítr na mezi: „maximum větru a slunce“. Přidané GWh jsou z hodinového výpočtu s malou nádrží. */
@@ -1860,8 +1958,8 @@ function syncPreset(){
     $("presetVitr").setAttribute("aria-pressed", false);
   }
 }
-$("trendOn").addEventListener("click", () => { state.trendOn = true; drawTrends(); refresh(); });
-$("trendOff").addEventListener("click", () => { state.trendOn = false; drawTrends(); refresh(); });
+$("trendOn").addEventListener("click", () => { state.trendOn = true; drawTrends(); drawTech(); refresh(); });
+$("trendOff").addEventListener("click", () => { state.trendOn = false; drawTrends(); drawTech(); refresh(); });
 $("theme").addEventListener("click", () => {
   const root = document.documentElement;
   const dark = root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme:dark)").matches;
@@ -2612,7 +2710,7 @@ if(typeof addEventListener !== "undefined"){
 }
 $("foot").innerHTML = "Výroba je brutto. Spotřeba je součet sektorů plus ztráty v sítích. Zdroje skutečnosti: Dopadová studie energetické bezpečnosti a soběstačnosti MSK (2024), Tab. 1 a Tab. 6; zprávy ERÚ o provozu elektrizační soustavy, tabulky 6.1 a 6.3, předběžné údaje. Stupně důkazu: A měření, B publikovaná studie, C technický výpočet, D odhad bez publikovaného zdroje. Meze P10 a P90 jsou téměř všude odhad. <a href=\"polozky.csv\">Tabulka položek</a>, <a href=\"polozky_poznamky.md\">poznámky ke zdrojům</a>, <a href=\"grafy_polozek.pdf\">grafy položek</a>, <a href=\"hodinovy/PREPOCET.md\">přepočet s hodinami</a>, <a href=\"EXPORT_BILANCE_MSK.md\">souhrnný export všech čísel</a>. Část zdrojů je neveřejná. Zdroj je neveřejná studie, uvedena jsou jen čísla potřebná k výpočtu.";
 resetValues();
-applyPath(); drawLegend(); drawTrends(); drawLists(); refresh();
+applyPath(); drawLegend(); drawTrends(); drawTech(); drawLists(); refresh();
 if(tabFromHash() !== "bilance") showTab(tabFromHash());
 </script>
 </body>

@@ -2369,6 +2369,21 @@ Třetí křivka mezi pevnými cestami, není to předpověď. Plynulá položka:
 | Vnímání odpadu | Environmentální a zdravotní dopady | 0,625 | nízká | ano |
 | Mobilita a životní styl | Mobilita a životní styl | 0,48 | střední | ano |
 
+## 11b. Technologie na stránce
+
+Panel Technologie mění šest technických hodnot pro obě cesty i realistický scénář. Výchozí poloha je hodnota z řádků tabulky, výchozí výsledky se proto nemění. Změna se zavádí od roku 2030 do roku 2050.
+
+| Hodnota | Výchozí | Nejlepší odhad 2050 | Zdroj rozsahu |
+|---|---|---|---|
+| Spotřeba elektroauta na km, proti dnešku | 70,5 % | 49,5 % | Krause et al. 2020 (velké trendy) |
+| Spotřeba nákladního elektroauta na km, proti dnešku | 85 % | 75 % | Öko-Institut 2025 (velké trendy) |
+| Topný faktor tepelného čerpadla | 3,4 | 3,8 | Fraunhofer ISE 2025; dánský Energistyrelsen 2016/17 |
+| Elektřina na 1 kg vodíku bez stlačení | 48,26 kWh | 43,8 kWh | IEA GHR 2025; IRENA 2020, tab. 6 |
+| Plné hodiny větru | 2 471 h | 2 800 h | Fraunhofer ISE 2024, +0,5 % ročně |
+| Ztráty v sítích | 3,547 % | 2,61 % | CEER 2025, tab. 20, Lucembursko |
+
+Hodinový výpočet, pásmo a zimní špička se s panelem nepřepočítávají.
+
 ## 12. Seznam zdrojů
 
 Strany u položek jsou strany PDF. Část zdrojů je neveřejná, a to studie ZEVO. U některých webových zdrojů je v poli Poznámka u položky uvedeno, že byl dostupný jen souhrn vyhledávače. U webových článků je uveden popis obsahu, ne vždy přesný titulek.
