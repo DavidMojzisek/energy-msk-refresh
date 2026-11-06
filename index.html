@@ -1389,7 +1389,7 @@ const TECH_UI = [
     src:"Dnes účinnost 63 %, asi 53 kWh/kg: IEA, Global Hydrogen Review 2025, příloha s předpoklady, https://iea.blob.core.windows.net/assets/15673ab3-a86a-4434-bff4-490bb42d3563/GlobalHydrogenReview2025AssumptionsAnnex.pdf . Rok 2050 43,8 kWh/kg: IRENA, Green hydrogen cost reduction 2020, tabulka 6, https://www.irena.org/-/media/Files/IRENA/Agency/Publication/2020/Dec/IRENA_Green_hydrogen_cost_2020.pdf . Progresivní cesta počítá s 48,26 kWh/kg v roce 2050."},
   {name:"vitr", def:2471, label:"Plné hodiny větrných elektráren v roce 2050", min:2471, max:2900, step:1, today:2471, best:2800, show:v => NF.format(v) + " h",
     src:"Dnes 2 471 hodin, měřeno v kraji. Rok 2050: růst o 0,5 % ročně, který předpokládá Fraunhofer ISE 2024 pro nové turbíny, dá asi 2 800 hodin, https://www.ise.fraunhofer.de/content/dam/ise/de/documents/publications/studies/DE2024_ISE_Studie_Stromgestehungskosten_Erneuerbare_Energien.pdf . Stejný instalovaný výkon pak vyrobí víc, počet turbín se nemění."},
-  {name:"ztraty", def:3.547, label:"Ztráty v sítích v roce 2050, podíl z dodávky", min:2.5, max:4, step:0.001, today:3.547, best:2.61, show:v => new Intl.NumberFormat("cs-CZ", {maximumFractionDigits:3}).format(v) + " %",
+  {name:"ztraty", def:3.547, label:"Ztráty v sítích v roce 2050, podíl z dodávky", min:2.5, max:4, step:0.001, today:3.547, best:2.61, note:'Nejnižší ztráty v Evropě má dnes Lucembursko, 2,61 %. Česko má 3,94 %, obojí za rok 2022 a z energie dodané do sítě: <a href="https://www.ceer.eu/wp-content/uploads/2025/02/3rd-CEER-Report-on-Power-Losses.pdf" target="_blank" rel="noopener">CEER, 3. zpráva o ztrátách, tabulka 20</a>.', show:v => new Intl.NumberFormat("cs-CZ", {maximumFractionDigits:3}).format(v) + " %",
     src:"Dnes 3,547 % podle Dopadové studie. Česko 3,94 % a nejnižší v Evropě Lucembursko 2,61 %, vše v roce 2022: CEER, 3. zpráva o ztrátách, tabulka 20, https://www.ceer.eu/wp-content/uploads/2025/02/3rd-CEER-Report-on-Power-Losses.pdf . CEER počítá podíl z energie dodané do sítě, ne ze stejného základu. Ztráty závisí i na provozovateli sítě, nejen na technice."},
 ];
 function techDefaults(){
@@ -1426,12 +1426,12 @@ function techK(year){
   K.H2_TAB = {...K.H2_TAB, v:{...K.H2_TAB.v, kwh:K.H2_TAB.v.kwh.map(x => x * fH)}};
   return K;
 }
-function techSlider(label, min, max, step, value, def, show, onInput, disabled){
+function techSlider(label, min, max, step, value, def, show, onInput, disabled, note){
   const span = max - min, pct = v => ((v - min) / span * 100).toFixed(2) + "%";
   const row = document.createElement("div");
   row.className = "item";
   row.innerHTML = `<div class="top"><span>${esc(label)}</span><span class="val mono"></span></div>` +
-    `<div class="track"><span class="def" style="left:${pct(def)}"></span><input type="range" min="${min}" max="${max}" step="${step}" aria-label="${esc(label)}"></div>`;
+    `<div class="track"><span class="def" style="left:${pct(def)}"></span><input type="range" min="${min}" max="${max}" step="${step}" aria-label="${esc(label)}"></div>` + (note ? `<p class="viewnote">${note}</p>` : "");
   const input = row.querySelector("input"), val = row.querySelector(".val");
   input.value = value; input.disabled = !!disabled; val.textContent = show(value);
   input.addEventListener("input", () => { val.textContent = show(Number(input.value)); onInput(Number(input.value)); });
@@ -1454,7 +1454,7 @@ function drawTech(){
       const aggVal = agg.querySelector(".val"); if(aggVal) aggVal.textContent = "vlastní nastavení";
       if(ui.trend) drawTrends();
       refresh();
-    }, off));
+    }, off, ui.note));
   }
   $("techSrc").innerHTML = `<ul class="flaws">` + TECH_UI.map(ui => `<li><b>${esc(ui.label)}.</b> ${link(ui.src)}</li>`).join("") + `</ul>` +
     `<p class="plain">Souhrnný posuvník posune všech šest hodnot od výchozí polohy k nejlepší hodnotě, kterou zdroje uvádějí. U ztrát v sítích je to dnešní nejnižší hodnota v Evropě. Jednotlivé posuvníky jsou v podrobné verzi. Spotřebu aut na km sdílí panel s velkými trendy.</p>` +
