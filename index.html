@@ -2417,19 +2417,43 @@ const FLOW = (() => {
   return {draw, icons:ICONS};
 })();
 
-/* Záložky. */
+/* Záložky. Každá si pamatuje, kam byla odscrolovaná. Zamknutý graf se před odchodem z Bilance uvolní a po návratu se podle polohy zamkne znovu. */
+const TABS = ["bilance", "volby", "metodika", "nedostatky"], TAB_SCROLL = {};
+let tabNow = "bilance";
+function tabFromHash(){
+  const h = typeof location !== "undefined" ? location.hash.slice(1) : "";
+  return TABS.includes(h) ? h : "bilance";
+}
 function showTab(name){
-  for(const tab of ["bilance", "volby", "metodika", "nedostatky"]) $("tab-" + tab).hidden = name !== tab;
+  if(!TABS.includes(name)) name = "bilance";
+  if(name !== tabNow){
+    TAB_SCROLL[tabNow] = typeof scrollY === "number" ? scrollY : 0;
+    if(tabNow === "bilance") for(const id of Object.keys(PIN_STATE)) if(PIN_STATE[id]){
+      $(PIN_SPACER[id]).style.height = "0";
+      $(id).dataset.delta = "";
+      pinSet(id, false);
+    }
+    document.documentElement.style.scrollPaddingTop = "";
+  }
+  for(const tab of TABS) $("tab-" + tab).hidden = name !== tab;
   $("reset").style.visibility = name === "bilance" ? "visible" : "hidden";
   document.querySelectorAll("[data-tab]").forEach(b => {
     if(b.dataset.tab === name) b.setAttribute("aria-current", "page"); else b.removeAttribute("aria-current");
   });
-  setBarHeight(); pinLayout();
+  const moved = name !== tabNow;
+  tabNow = name;
+  setBarHeight();
+  if(moved && typeof scrollTo === "function") scrollTo({top:TAB_SCROLL[name] || 0, behavior:"instant"});
+  pinLayout();
 }
 document.querySelectorAll("[data-tab]").forEach(b => b.addEventListener("click", () => {
+  if(b.dataset.tab === tabNow) return;
   showTab(b.dataset.tab);
-  if(typeof history !== "undefined") history.replaceState(null, "", "#" + b.dataset.tab);
+  /* Bilance má adresu bez kotvy. Tlačítko zpět v prohlížeči vrací předchozí záložku. */
+  if(typeof history !== "undefined" && history.pushState) history.pushState(null, "", b.dataset.tab === "bilance" ? location.pathname + location.search : "#" + b.dataset.tab);
 }));
+if(typeof history !== "undefined" && "scrollRestoration" in history) history.scrollRestoration = "manual";
+if(typeof addEventListener !== "undefined") for(const ev of ["popstate", "hashchange"]) addEventListener(ev, () => showTab(tabFromHash()));
 /* Ukázka S-křivky v metodice. */
 const demo = {tm:2038, k:0.3, d:0};
 function drawDemo(){
@@ -2534,7 +2558,6 @@ function drawFigMc(){
   $("figMcCap").textContent = `Co je nakresleno: tenké čáry jsou ${n("progresivni")} skutečných běhů simulace pro každou cestu, roční schodek jako spotřeba minus výroba, záporná hodnota je přebytek. Plocha je pásmo P10 až P90 ze všech ${fmt.format(G.progresivni.behu)} běhů. Jak se počítá: každý běh losuje meze položek a načasování podle vzorců nahoře a sečte řádky po letech. Rozšíření pásma spotřeby do roku 2030, které má hlavní graf, tu není. Co z toho plyne: v roce 2050 je pásmo schodku ${fmt.format(pa)} až ${fmt.format(pb)} GWh v progresivní a ${fmt.format(ka)} až ${fmt.format(kb)} GWh v konzervativní cestě. Věta nahoře v záložce Bilance uvádí samostatný výpočet s 60 000 běhy, 525 až 7 263 a 2 084 až 6 576 GWh.`;
 }
 drawFigMc();
-if(typeof location !== "undefined" && ["#volby", "#metodika", "#nedostatky"].includes(location.hash)) showTab(location.hash.slice(1));
 {
   const uniqueRows = DATA.items.length, weak = DATA.items.filter(it => it.grade === "D").length;
   $("gradeCount").textContent = `Stupeň D, tedy odhad bez publikovaného zdroje, má ${weak} z ${uniqueRows} řádků tabulky.`;
@@ -2641,6 +2664,7 @@ if(typeof addEventListener !== "undefined"){
 $("foot").innerHTML = "Výroba je brutto. Spotřeba je součet sektorů plus ztráty v sítích. Zdroje skutečnosti: Dopadová studie energetické bezpečnosti a soběstačnosti MSK (2024), Tab. 1 a Tab. 6; zprávy ERÚ o provozu elektrizační soustavy, tabulky 6.1 a 6.3, předběžné údaje. Stupně důkazu: A měření, B publikovaná studie, C technický výpočet, D odhad bez publikovaného zdroje. Meze P10 a P90 jsou téměř všude odhad. <a href=\"polozky.csv\">Tabulka položek</a>, <a href=\"polozky_poznamky.md\">poznámky ke zdrojům</a>, <a href=\"grafy_polozek.pdf\">grafy položek</a>, <a href=\"hodinovy/PREPOCET.md\">přepočet s hodinami</a>, <a href=\"EXPORT_BILANCE_MSK.md\">souhrnný export všech čísel</a>. Část zdrojů je neveřejná. Zdroj je neveřejná studie, uvedena jsou jen čísla potřebná k výpočtu.";
 resetValues();
 applyPath(); drawLegend(); drawTrends(); drawLists(); refresh();
+if(tabFromHash() !== "bilance") showTab(tabFromHash());
 </script>
 </body>
 </html>
