@@ -2425,9 +2425,9 @@ Progresivní cesta dodá v současné hodnotě o 18,4 % víc elektřiny než kon
 | příplatek za vodíková nákladní auta | B | +18 |
 | ušetřený benzín a nafta | B | −2 499 |
 | ušetřený plyn v domech | B | −228 |
-| ušetřené povolenky ETS2 | B | −1 401 |
+| ušetřené povolenky ETS2 (ocenění emisí) | B | −1 401 |
 | provoz tepelných čerpadel proti kotlům | B | +133 |
-| uhlí v teplárnách: úspora z úrovně A se v B nepřipisuje (chybí náhradní teplo) | B | +178 |
+| vrácení úspory uhlí v teplárnách (chybí náhradní teplo) | B | +178 |
 
 ### Kde se dá ušetřit
 
