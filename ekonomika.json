@@ -1,0 +1,1488 @@
+{
+ "roky": [
+  2025,
+  2026,
+  2027,
+  2028,
+  2029,
+  2030,
+  2031,
+  2032,
+  2033,
+  2034,
+  2035,
+  2036,
+  2037,
+  2038,
+  2039,
+  2040,
+  2041,
+  2042,
+  2043,
+  2044,
+  2045,
+  2046,
+  2047,
+  2048,
+  2049,
+  2050
+ ],
+ "sazba_pct": 3,
+ "metoda": {
+  "sazby_pct": [
+   3,
+   5,
+   7
+  ],
+  "losovani": 4000,
+  "korelace": 0.7,
+  "korelace_varianty": [
+   0.0,
+   0.9
+  ],
+  "sazba_zdroj": "Economic Appraisal Vademecum 2021-2027",
+  "ets2_od_roku": 2030
+ },
+ "cesty": {
+  "progresivni": {
+   "elektro": [
+    0.0,
+    72.7,
+    122.1,
+    322.6,
+    326.5,
+    317.9,
+    424.0,
+    145.8,
+    154.2,
+    159.9,
+    163.2,
+    164.1,
+    163.0,
+    160.0,
+    155.2,
+    149.0,
+    145.1,
+    144.3,
+    144.1,
+    143.6,
+    4778.6,
+    142.2,
+    142.6,
+    141.8,
+    140.6,
+    139.6
+   ],
+   "priplatky": [
+    0.0,
+    68.0,
+    69.0,
+    70.4,
+    72.7,
+    76.1,
+    84.9,
+    96.6,
+    110.6,
+    127.0,
+    146.1,
+    167.2,
+    189.2,
+    209.9,
+    226.4,
+    235.7,
+    243.8,
+    238.8,
+    226.6,
+    209.6,
+    191.0,
+    220.2,
+    207.5,
+    200.3,
+    199.5,
+    205.4
+   ],
+   "pece": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    750.0,
+    750.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    750.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "elektro_kum": [
+    0.0,
+    72.7,
+    194.8,
+    517.4,
+    843.9,
+    1161.8,
+    1585.8,
+    1731.6,
+    1885.8,
+    2045.7,
+    2208.9,
+    2373.0,
+    2536.0,
+    2696.0,
+    2851.2,
+    3000.2,
+    3145.3,
+    3289.6,
+    3433.7,
+    3577.3,
+    8355.9,
+    8498.1,
+    8640.7,
+    8782.5,
+    8923.1,
+    9062.7
+   ],
+   "priplatky_kum": [
+    0.0,
+    68.0,
+    137.0,
+    207.4,
+    280.1,
+    356.2,
+    441.1,
+    537.7,
+    648.3,
+    775.3,
+    921.4,
+    1088.6,
+    1277.8,
+    1487.7,
+    1714.1,
+    1949.8,
+    2193.6,
+    2432.4,
+    2659.0,
+    2868.6,
+    3059.6,
+    3279.8,
+    3487.3,
+    3687.6,
+    3887.1,
+    4092.5
+   ],
+   "pece_kum": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    750.0,
+    1500.0,
+    1500.0,
+    1500.0,
+    1500.0,
+    1500.0,
+    1500.0,
+    1500.0,
+    1500.0,
+    1500.0,
+    1500.0,
+    1500.0,
+    2250.0,
+    2250.0,
+    2250.0,
+    2250.0,
+    2250.0
+   ],
+   "elektro_p10": [
+    0.0,
+    61.0,
+    105.4,
+    284.9,
+    288.5,
+    280.4,
+    366.7,
+    131.0,
+    137.6,
+    141.6,
+    143.6,
+    144.1,
+    143.1,
+    140.9,
+    137.8,
+    133.3,
+    130.8,
+    130.6,
+    130.6,
+    130.2,
+    3481.5,
+    127.3,
+    125.7,
+    123.3,
+    120.7,
+    118.6
+   ],
+   "elektro_p50": [
+    0.0,
+    73.4,
+    122.7,
+    323.1,
+    327.0,
+    318.2,
+    424.2,
+    145.6,
+    153.9,
+    159.5,
+    162.5,
+    163.4,
+    162.3,
+    159.3,
+    154.5,
+    148.4,
+    144.6,
+    143.7,
+    143.4,
+    142.7,
+    4221.1,
+    140.1,
+    139.1,
+    137.3,
+    135.2,
+    133.8
+   ],
+   "elektro_p90": [
+    0.0,
+    85.4,
+    139.7,
+    361.2,
+    364.7,
+    355.2,
+    479.5,
+    160.0,
+    170.1,
+    177.6,
+    182.0,
+    183.5,
+    182.1,
+    178.4,
+    172.2,
+    164.0,
+    158.7,
+    157.1,
+    156.4,
+    155.6,
+    4680.6,
+    153.1,
+    152.9,
+    151.6,
+    150.4,
+    149.3
+   ],
+   "smr": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    4636.3,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "platci": {
+    "domácnosti a firmy (auta)": 2791.3,
+    "domácnosti a firmy (střechy)": 993.7,
+    "domácnosti, dotace NZÚ": 1294.0,
+    "dopravci": 7.4,
+    "energetické firmy (ČEZ aj.)": 5473.3,
+    "firmy": 628.0,
+    "firmy (ocelárny), dotace OP ST": 2250.0,
+    "firmy, investoři OZE": 960.6,
+    "firmy, vlastníci baterií": 819.2,
+    "provozovatelé sítí, splácí všichni odběratelé": 188.0
+   },
+   "A_3": 11734.2,
+   "A_3_mc": [
+    10320.9,
+    11635.7,
+    13630.8
+   ],
+   "A_eur_mwh": 79.3,
+   "splatky_po_2050": {
+    "celkem": 4698.3,
+    "elektro": 3148.6,
+    "celkem_nediskont": 14441.5
+   }
+  },
+  "konzervativni": {
+   "elektro": [
+    0.0,
+    71.7,
+    17.0,
+    192.7,
+    188.2,
+    186.7,
+    320.6,
+    196.9,
+    231.9,
+    257.2,
+    273.3,
+    160.6,
+    160.0,
+    151.6,
+    136.0,
+    113.5,
+    97.4,
+    92.1,
+    87.6,
+    83.9,
+    81.0,
+    87.3,
+    99.9,
+    110.1,
+    118.2,
+    124.3
+   ],
+   "priplatky": [
+    0.0,
+    69.5,
+    39.8,
+    27.8,
+    22.9,
+    24.1,
+    26.0,
+    28.4,
+    30.3,
+    31.8,
+    32.8,
+    33.1,
+    32.9,
+    31.9,
+    30.1,
+    27.3,
+    31.2,
+    32.5,
+    33.6,
+    34.4,
+    35.0,
+    84.6,
+    62.3,
+    52.7,
+    48.2,
+    48.7
+   ],
+   "pece": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    750.0,
+    750.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "elektro_kum": [
+    0.0,
+    71.7,
+    88.7,
+    281.4,
+    469.6,
+    656.3,
+    976.9,
+    1173.8,
+    1405.7,
+    1662.9,
+    1936.2,
+    2096.8,
+    2256.8,
+    2408.4,
+    2544.4,
+    2657.9,
+    2755.3,
+    2847.4,
+    2935.0,
+    3018.9,
+    3099.9,
+    3187.2,
+    3287.1,
+    3397.2,
+    3515.4,
+    3639.7
+   ],
+   "priplatky_kum": [
+    0.0,
+    69.5,
+    109.3,
+    137.1,
+    160.0,
+    184.1,
+    210.1,
+    238.5,
+    268.8,
+    300.6,
+    333.4,
+    366.5,
+    399.4,
+    431.3,
+    461.4,
+    488.7,
+    519.9,
+    552.4,
+    586.0,
+    620.4,
+    655.4,
+    740.0,
+    802.3,
+    855.0,
+    903.2,
+    951.9
+   ],
+   "pece_kum": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    750.0,
+    1500.0,
+    1500.0,
+    1500.0,
+    1500.0,
+    1500.0,
+    1500.0,
+    1500.0,
+    1500.0,
+    1500.0,
+    1500.0,
+    1500.0,
+    1500.0,
+    1500.0,
+    1500.0,
+    1500.0,
+    1500.0
+   ],
+   "elektro_p10": [
+    0.0,
+    60.0,
+    14.9,
+    158.1,
+    153.5,
+    151.8,
+    264.4,
+    166.2,
+    192.6,
+    211.2,
+    223.4,
+    112.6,
+    112.0,
+    106.2,
+    95.3,
+    79.6,
+    68.6,
+    65.2,
+    62.4,
+    60.0,
+    58.1,
+    60.5,
+    65.5,
+    69.8,
+    72.9,
+    75.4
+   ],
+   "elektro_p50": [
+    0.0,
+    72.3,
+    17.0,
+    192.5,
+    188.1,
+    186.6,
+    321.0,
+    196.7,
+    231.9,
+    257.1,
+    273.4,
+    160.5,
+    159.9,
+    151.6,
+    135.9,
+    113.4,
+    97.3,
+    92.0,
+    87.6,
+    83.9,
+    81.0,
+    84.8,
+    92.7,
+    99.6,
+    104.8,
+    109.2
+   ],
+   "elektro_p90": [
+    0.0,
+    84.5,
+    19.1,
+    227.1,
+    222.7,
+    221.3,
+    376.6,
+    226.5,
+    269.6,
+    301.5,
+    322.3,
+    207.9,
+    207.2,
+    196.4,
+    176.1,
+    146.9,
+    125.8,
+    118.6,
+    112.6,
+    107.6,
+    103.6,
+    108.9,
+    120.6,
+    130.4,
+    139.0,
+    145.2
+   ],
+   "smr": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "platci": {
+    "domácnosti a firmy (auta)": 582.6,
+    "domácnosti a firmy (střechy)": 85.3,
+    "domácnosti, dotace NZÚ": 381.9,
+    "dopravci": -12.6,
+    "energetické firmy (ČEZ aj.)": 1318.8,
+    "firmy": 79.3,
+    "firmy (ocelárny), dotace OP ST": 1500.0,
+    "firmy, investoři OZE": 88.9,
+    "firmy, vlastníci baterií": 2046.9,
+    "provozovatelé sítí, splácí všichni odběratelé": 20.2
+   },
+   "A_3": 11370.5,
+   "A_3_mc": [
+    9718.0,
+    11309.1,
+    13385.1
+   ],
+   "A_eur_mwh": 91.0,
+   "splatky_po_2050": {
+    "celkem": 1169.6,
+    "elektro": 586.0,
+    "celkem_nediskont": 2924.3
+   }
+  },
+  "realisticky": {
+   "elektro": [
+    0.0,
+    72.1,
+    50.8,
+    234.8,
+    233.8,
+    231.3,
+    66.5,
+    98.7,
+    123.6,
+    141.5,
+    152.9,
+    158.1,
+    157.4,
+    151.3,
+    140.1,
+    124.1,
+    113.0,
+    109.6,
+    107.0,
+    104.7,
+    102.5,
+    106.3,
+    113.9,
+    119.6,
+    123.9,
+    127.0
+   ],
+   "priplatky": [
+    0.0,
+    69.2,
+    50.1,
+    42.9,
+    40.8,
+    43.3,
+    48.2,
+    54.7,
+    61.9,
+    69.9,
+    78.8,
+    88.4,
+    97.9,
+    106.5,
+    112.8,
+    115.4,
+    121.4,
+    120.2,
+    115.7,
+    108.9,
+    101.1,
+    142.1,
+    121.8,
+    112.3,
+    108.9,
+    111.8
+   ],
+   "pece": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    750.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "elektro_kum": [
+    0.0,
+    72.1,
+    122.9,
+    357.7,
+    591.5,
+    822.8,
+    889.3,
+    988.0,
+    1111.6,
+    1253.1,
+    1406.0,
+    1564.1,
+    1721.5,
+    1872.8,
+    2012.9,
+    2137.0,
+    2250.0,
+    2359.6,
+    2466.6,
+    2571.3,
+    2673.8,
+    2780.1,
+    2894.0,
+    3013.6,
+    3137.5,
+    3264.5
+   ],
+   "priplatky_kum": [
+    0.0,
+    69.2,
+    119.3,
+    162.2,
+    203.0,
+    246.3,
+    294.5,
+    349.2,
+    411.1,
+    481.0,
+    559.8,
+    648.2,
+    746.1,
+    852.6,
+    965.4,
+    1080.8,
+    1202.2,
+    1322.4,
+    1438.1,
+    1547.0,
+    1648.1,
+    1790.2,
+    1912.0,
+    2024.3,
+    2133.2,
+    2245.0
+   ],
+   "pece_kum": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    750.0,
+    750.0,
+    750.0,
+    750.0,
+    750.0,
+    750.0,
+    750.0,
+    750.0,
+    750.0,
+    750.0,
+    750.0,
+    750.0,
+    750.0,
+    750.0,
+    750.0,
+    750.0,
+    750.0
+   ],
+   "elektro_p10": [
+    0.0,
+    60.4,
+    44.4,
+    200.1,
+    198.9,
+    195.9,
+    58.7,
+    81.4,
+    98.7,
+    111.1,
+    119.0,
+    122.5,
+    122.0,
+    117.7,
+    109.7,
+    98.6,
+    91.1,
+    89.2,
+    87.6,
+    86.1,
+    84.5,
+    85.2,
+    87.5,
+    88.8,
+    89.8,
+    90.5
+   ],
+   "elektro_p50": [
+    0.0,
+    72.7,
+    51.0,
+    234.8,
+    233.8,
+    231.2,
+    66.3,
+    98.3,
+    123.1,
+    141.1,
+    152.5,
+    157.7,
+    157.0,
+    150.9,
+    139.6,
+    123.6,
+    112.5,
+    109.2,
+    106.5,
+    104.1,
+    101.9,
+    103.8,
+    108.2,
+    111.4,
+    113.8,
+    115.7
+   ],
+   "elektro_p90": [
+    0.0,
+    84.9,
+    57.5,
+    269.5,
+    268.6,
+    266.0,
+    73.9,
+    115.4,
+    147.8,
+    171.2,
+    186.2,
+    193.1,
+    192.4,
+    184.5,
+    169.8,
+    149.0,
+    134.3,
+    129.6,
+    125.9,
+    122.6,
+    119.6,
+    122.6,
+    129.6,
+    135.1,
+    139.4,
+    142.9
+   ],
+   "smr": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "platci": {
+    "domácnosti a firmy (auta)": 1558.0,
+    "domácnosti a firmy (střechy)": 346.7,
+    "domácnosti, dotace NZÚ": 691.7,
+    "dopravci": -4.4,
+    "energetické firmy (ČEZ aj.)": 547.6,
+    "firmy": 304.3,
+    "firmy (ocelárny), dotace OP ST": 750.0,
+    "firmy, investoři OZE": 446.8,
+    "firmy, vlastníci baterií": 1542.9,
+    "provozovatelé sítí, splácí všichni odběratelé": 76.4
+   },
+   "A_3": 10054.6,
+   "A_3_mc": [
+    8682.1,
+    10017.8,
+    11920.7
+   ],
+   "A_eur_mwh": 80.7,
+   "splatky_po_2050": {
+    "celkem": 1305.9,
+    "elektro": 663.3,
+    "celkem_nediskont": 3350.2
+   }
+  }
+ },
+ "rozdil": {
+  "A": 363.7,
+  "B": -2039.7,
+  "A_median": 382.3,
+  "B_median": -1977.1,
+  "A_mc": [
+   56.2,
+   382.3,
+   720.6
+  ],
+  "B_mc": [
+   -3422.6,
+   -1977.1,
+   -815.7
+  ],
+  "podil_P_drazsi_A": 0.936,
+  "dodana_elektrina_P_proti_K_pct": 18.4,
+  "datacentra": 281.3,
+  "bez_datacenter_A": 82.4,
+  "pece": 97.0,
+  "sazby": {
+   "3": {
+    "A": 363.7,
+    "B": -2039.7
+   },
+   "5": {
+    "A": 449.3,
+    "B": -983.0
+   },
+   "7": {
+    "A": 474.0,
+    "B": -345.3
+   }
+  },
+  "bez_ets2": {
+   "B": -639.2,
+   "B_mc": [
+    -2010.3,
+    -704.0,
+    121.7
+   ]
+  },
+  "ets2_spoustec": {
+   "B": -1215.6,
+   "B_mc": [
+    -2558.7,
+    -1254.4,
+    -417.4
+   ]
+  },
+  "slozky": [
+   {
+    "nazev": "větrné elektrárny",
+    "uroven": "A",
+    "hodnota": 331.7
+   },
+   {
+    "nazev": "fotovoltaika na střechách",
+    "uroven": "A",
+    "hodnota": 443.8
+   },
+   {
+    "nazev": "pozemní fotovoltaika",
+    "uroven": "A",
+    "hodnota": 116.5
+   },
+   {
+    "nazev": "nové plynové bloky",
+    "uroven": "A",
+    "hodnota": -298.8
+   },
+   {
+    "nazev": "malý reaktor SMR",
+    "uroven": "A",
+    "hodnota": 531.8
+   },
+   {
+    "nazev": "baterie včetně náhrady článků",
+    "uroven": "A",
+    "hodnota": -600.2
+   },
+   {
+    "nazev": "elektrolyzéry",
+    "uroven": "A",
+    "hodnota": 51.5
+   },
+   {
+    "nazev": "posílení sítě pro fotovoltaiku a vítr",
+    "uroven": "A",
+    "hodnota": 61.2
+   },
+   {
+    "nazev": "provoz a údržba nových zařízení",
+    "uroven": "A",
+    "hodnota": 384.9
+   },
+   {
+    "nazev": "palivo elektráren",
+    "uroven": "A",
+    "hodnota": -361.7
+   },
+   {
+    "nazev": "povolenky elektráren (ETS1)",
+    "uroven": "A",
+    "hodnota": -689.0
+   },
+   {
+    "nazev": "dovoz elektřiny bez datových center",
+    "uroven": "A",
+    "hodnota": 110.9
+   },
+   {
+    "nazev": "elektřina pro datová centra včetně ztrát v síti",
+    "uroven": "A",
+    "hodnota": 281.3
+   },
+   {
+    "nazev": "příplatek za tepelná čerpadla proti plynovému kotli",
+    "uroven": "B",
+    "hodnota": 429.9
+   },
+   {
+    "nazev": "příplatek za elektromobily",
+    "uroven": "B",
+    "hodnota": 973.4
+   },
+   {
+    "nazev": "příplatek za bateriová nákladní auta",
+    "uroven": "B",
+    "hodnota": -8.6
+   },
+   {
+    "nazev": "příplatek za vodíková nákladní auta",
+    "uroven": "B",
+    "hodnota": 18.1
+   },
+   {
+    "nazev": "ušetřený benzín a nafta",
+    "uroven": "B",
+    "hodnota": -2499.3
+   },
+   {
+    "nazev": "ušetřený plyn v domech",
+    "uroven": "B",
+    "hodnota": -227.5
+   },
+   {
+    "nazev": "ušetřené povolenky ETS2",
+    "uroven": "B",
+    "hodnota": -1400.6
+   },
+   {
+    "nazev": "provoz tepelných čerpadel proti kotlům",
+    "uroven": "B",
+    "hodnota": 132.8
+   },
+   {
+    "nazev": "uhlí v teplárnách: úspora z úrovně A se v B nepřipisuje (chybí náhradní teplo)",
+    "uroven": "B",
+    "hodnota": 178.3
+   }
+  ]
+ },
+ "paky": [
+  {
+   "nazev": "Bez vodíku v nákladní dopravě a MHD, kamiony zůstanou naftové",
+   "cesta": "progresivní",
+   "A": -407.8,
+   "B": -28.5,
+   "dovoz_2050_GWh": -1240.0
+  },
+  {
+   "nazev": "Datová centra jako v konzervativní cestě",
+   "cesta": "progresivní",
+   "A": -281.3,
+   "B": -281.3,
+   "dovoz_2050_GWh": -653.9
+  },
+  {
+   "nazev": "Bez reaktoru SMR, chybějící elektřina se doveze",
+   "cesta": "progresivní",
+   "A": -242.0,
+   "B": -242.0,
+   "dovoz_2050_GWh": 3631.9
+  }
+ ],
+ "neumi_ocenit": [
+  {
+   "polozka": "menší baterie v konzervativní cestě (2,7 místo 6,8 GWh)",
+   "proc": "roční bilance nedává kapacitě ani zásobě žádnou hodnotu; baterii dimenzoval hodinový model jako zálohu, bez nového hodinového běhu nejde o úsporu"
+  },
+  {
+   "polozka": "méně plynových bloků v konzervativní cestě (433 místo 683 MW)",
+   "proc": "stejná výroba z menšího výkonu znamená víc hodin provozu; přiměřenost výkonu v zimních hodinách roční model neověří"
+  },
+  {
+   "polozka": "cena elektřiny v hodinách nedostatku",
+   "proc": "dovoz se oceňuje průměrnou cenou pásmové dodávky, hodinová přirážka chybí"
+  }
+ ],
+ "vstupy": [
+  {
+   "nazev": "příplatek za elektromobil",
+   "A": [
+    363.7,
+    363.7
+   ],
+   "B": [
+    -3013.2,
+    -1066.3
+   ]
+  },
+  {
+   "nazev": "cena povolenek ETS2",
+   "A": [
+    363.7,
+    363.7
+   ],
+   "B": [
+    -1215.6,
+    -2544.8
+   ]
+  },
+  {
+   "nazev": "cena benzínu",
+   "A": [
+    363.7,
+    363.7
+   ],
+   "B": [
+    -1953.2,
+    -2774.1
+   ]
+  },
+  {
+   "nazev": "cena baterií",
+   "A": [
+    708.6,
+    18.8
+   ],
+   "B": [
+    -1694.9,
+    -2384.6
+   ]
+  },
+  {
+   "nazev": "cena nafty",
+   "A": [
+    363.7,
+    363.7
+   ],
+   "B": [
+    -1992.2,
+    -2609.9
+   ]
+  },
+  {
+   "nazev": "cena plynu",
+   "A": [
+    523.5,
+    138.6
+   ],
+   "B": [
+    -1810.3,
+    -2366.2
+   ]
+  },
+  {
+   "nazev": "spotřeba benzínu na km",
+   "A": [
+    363.7,
+    363.7
+   ],
+   "B": [
+    -1612.7,
+    -2110.9
+   ]
+  },
+  {
+   "nazev": "cena povolenek ETS1",
+   "A": [
+    734.7,
+    274.4
+   ],
+   "B": [
+    -1728.6,
+    -2110.2
+   ]
+  }
+ ],
+ "chybi": [
+  "síť na straně zátěže (tepelná čerpadla, nabíjení, velká zátěž) v základu; jen citlivost s vlastními předpoklady",
+  "ušetřený koks, provoz vysoké pece a ETS1 ocelárny (náročnost bez zdroje); investice do pecí jsou samostatná skupina",
+  "náhradní teplo za uhelné teplárny (proto v B bez kreditu za konec uhlí)",
+  "kredit za uhlí a dřevo v domech (cena a náročnost bez zdroje); přímotopy kredit nedostanou, jejich elektřina je v bilanci",
+  "vodíkové autobusy (spotřeba nafty na km bez zdroje, vynechán příplatek i úspora; jejich elektřina je v A)",
+  "teplo z kogenerace a jeho náhrada",
+  "palivo biomasy, bioplynu, hutních a důlních plynů a odpadu (vedlejší produkty nebo stejné v obou cestách)",
+  "přirážka ceny dovozu v hodinách nedostatku",
+  "obnova zařízení postavených před 2025",
+  "nádrž vodíku 20 t",
+  "výměna článků elektrolyzéru",
+  "investice do úspor a účinnosti",
+  "náklady energetického využití odpadu",
+  "doba výstavby (celá investice se připíše roku uvedení do provozu)"
+ ],
+ "financovani": {
+  "kurz_czk_eur": 24.693,
+  "modf_msk_mld_eur_rocne": 0.246,
+  "polozky": [
+   {
+    "id": "H1",
+    "hodnota": 688.2,
+    "jednotka": "mld. Kč",
+    "rok": 2024,
+    "eur_mld": 27.87,
+    "zdroj": "ČSÚ, Základní tendence … Moravskoslezského kraje, 2025",
+    "url": "https://csu.gov.cz/docs/107508/93dd3a68-fa39-52c6-a980-faf7fea9b5be/33013426a03.pdf",
+    "misto": "kap. 3, tištěná s. 62"
+   },
+   {
+    "id": "H2",
+    "hodnota": 161.8,
+    "jednotka": "mld. Kč",
+    "rok": 2024,
+    "eur_mld": 6.552,
+    "zdroj": "ČSÚ, Základní tendence … Moravskoslezského kraje, 2025",
+    "url": "https://csu.gov.cz/docs/107508/93dd3a68-fa39-52c6-a980-faf7fea9b5be/33013426a03.pdf",
+    "misto": "kap. 3, tištěná s. 64"
+   },
+   {
+    "id": "R1",
+    "hodnota": 42722075,
+    "jednotka": "tis. Kč",
+    "rok": 2025,
+    "eur_mld": 1.73,
+    "zdroj": "Rozpočet MSK na rok 2025, Výdaje, MSK",
+    "url": "https://www.msk.cz/assets/kraj/finance/3-rozpocet-msk-na-rok-2025---vydaje.pdf",
+    "misto": "PDF s. 6, souhrn"
+   },
+   {
+    "id": "R2",
+    "hodnota": 6444769,
+    "jednotka": "tis. Kč",
+    "rok": 2025,
+    "eur_mld": 0.261,
+    "zdroj": "Rozpočet MSK na rok 2025, Výdaje, MSK",
+    "url": "https://www.msk.cz/assets/kraj/finance/3-rozpocet-msk-na-rok-2025---vydaje.pdf",
+    "misto": "PDF s. 6, souhrn"
+   },
+   {
+    "id": "R4b",
+    "hodnota": 160212,
+    "jednotka": "tis. Kč",
+    "rok": 2025,
+    "eur_mld": null,
+    "zdroj": "Rozpočet MSK na rok 2025, Výdaje, MSK",
+    "url": "https://www.msk.cz/assets/kraj/finance/3-rozpocet-msk-na-rok-2025---vydaje.pdf",
+    "misto": "PDF s. 4"
+   },
+   {
+    "id": "R5b",
+    "hodnota": 1701450,
+    "jednotka": "tis. Kč",
+    "rok": 2025,
+    "eur_mld": null,
+    "zdroj": "Rozpočet MSK na rok 2025, Výdaje, MSK",
+    "url": "https://www.msk.cz/assets/kraj/finance/3-rozpocet-msk-na-rok-2025---vydaje.pdf",
+    "misto": "PDF s. 1"
+   },
+   {
+    "id": "F5",
+    "hodnota": 36408,
+    "jednotka": "mil. Kč",
+    "rok": null,
+    "eur_mld": 1.474,
+    "zdroj": "Seznamy schválených projektů z Modernizačního fondu 2021-2026, SFŽP ČR (2026 do RM 14. 10. 2026)",
+    "url": "https://sfzp.gov.cz/dotace-a-pujcky/modernizacni-fond/schvalene-projekty/",
+    "misto": "všechny řádky MSK"
+   },
+   {
+    "id": "F6",
+    "hodnota": 4347.3,
+    "jednotka": "mil. Kč",
+    "rok": null,
+    "eur_mld": 0.176,
+    "zdroj": "Zpráva o hospodaření SFŽP ČR za rok 2025, SFŽP ČR, 16. 4. 2026",
+    "url": "https://sfzp.gov.cz/wp-content/uploads/2026/05/Zprava-o-hospodareni-za-rok-2025_SFZP-CR-1.pdf",
+    "misto": "s. 16, Přehled realizované podpory dle krajů a programů"
+   },
+   {
+    "id": "F1",
+    "hodnota": 17.6,
+    "jednotka": "mld. Kč (kurz zdroje 24,2)",
+    "rok": "2022-2027+",
+    "eur_mld": 0.713,
+    "zdroj": "MSK, Stav čerpání OP ST, zastupitelstvo 15. 12. 2025",
+    "url": "https://www.msk.cz/assets/kraj/zastupitelstvo/stav-cerpani-op-st.pdf",
+    "misto": "s. 3-4"
+   },
+   {
+    "id": "F8",
+    "hodnota": [
+     1562617717,
+     1312598882
+    ],
+    "jednotka": "EUR",
+    "rok": null,
+    "eur_mld": null,
+    "zdroj": "Nařízení (EU) 2023/955, Úř. věst. L 130, 16. 5. 2023",
+    "url": "http://publications.europa.eu/resource/celex/32023R0955",
+    "misto": "příloha II; čl. 15 (spolufinancování min. 25 %)"
+   },
+   {
+    "id": "F10c",
+    "hodnota": 13722440,
+    "jednotka": "tis. Kč",
+    "rok": null,
+    "eur_mld": 0.556,
+    "zdroj": "Státní závěrečný účet kap. 315 MŽP za rok 2025, MŽP, 14. 9. 2026",
+    "url": "https://www.mzp.gov.cz/system/files/2026-09/ORFB-SZU-2025-20260914.pdf",
+    "misto": "kap. 3.3.1"
+   },
+   {
+    "id": "I1",
+    "hodnota": [
+     56.8,
+     56.1
+    ],
+    "jednotka": "mld. Kč",
+    "rok": null,
+    "eur_mld": null,
+    "zdroj": "Zpráva k výsledkům hospodaření Skupiny ČEZ za rok 2025, ČEZ, 12. 3. 2026",
+    "url": "https://www.cez.cz/webpublic/file/edee/ospol/fileexport-s/pro-investory/informacni-povinnost-emitenta/2026-q1/cz-zprava-k-vysledkum-hospodareni-4q2025.pdf",
+    "misto": "sl. 10 a 40"
+   },
+   {
+    "id": "I3",
+    "hodnota": [
+     20217,
+     19087,
+     18469
+    ],
+    "jednotka": "mil. Kč",
+    "rok": null,
+    "eur_mld": null,
+    "zdroj": "Výroční zpráva 2025, ČEZ Distribuce, a. s.",
+    "url": "https://www.cezdistribuce.cz/file/edee/distribuce/vyrocni-zpravy/cez-distribuce-cz-vyrocni-zprava-2025.pdf",
+    "misto": "s. 7, 25, 26"
+   },
+   {
+    "id": "I4",
+    "hodnota": 84.12,
+    "jednotka": "mld. Kč",
+    "rok": null,
+    "eur_mld": 3.407,
+    "zdroj": "Desetiletý plán rozvoje přenosové soustavy ČR 2025-2034, ČEPS, 02/2025",
+    "url": "https://www.ceps.cz/cs/ke-stazeni/rozvoj-ps/ke-stazeni/desetilety-plan-rozvoje-prenosove-soustavy-ceske-republiky-2025-2034.pdf",
+    "misto": "s. 166, tab. 6.10"
+   }
+  ]
+ },
+ "srovnani": {
+  "jmenovatele": [
+   {
+    "id": "H1",
+    "nazev": "HDP kraje 2024",
+    "eur_mld": 27.87,
+    "podil_prumeru_pct": {
+     "progresivni": 1.3007104413347688,
+     "konzervativni": 0.5223824901327592,
+     "realisticky": 0.46853247219232147
+    }
+   },
+   {
+    "id": "H2",
+    "nazev": "investice v kraji 2024 (tvorba hrubého fixního kapitálu)",
+    "eur_mld": 6.552,
+    "podil_prumeru_pct": {
+     "progresivni": 5.5327838827838836,
+     "konzervativni": 2.222039072039072,
+     "realisticky": 1.992979242979243
+    }
+   },
+   {
+    "id": "R1",
+    "nazev": "výdaje rozpočtu kraje 2025, schválený rozpočet",
+    "eur_mld": 1.73,
+    "podil_prumeru_pct": {
+     "progresivni": 20.954219653179194,
+     "konzervativni": 8.415491329479769,
+     "realisticky": 7.547976878612717
+    }
+   },
+   {
+    "id": "R2",
+    "nazev": "kapitálové výdaje rozpočtu kraje 2025, schválený rozpočet",
+    "eur_mld": 0.261,
+    "podil_prumeru_pct": {
+     "progresivni": 138.89195402298853,
+     "konzervativni": 55.78084291187739,
+     "realisticky": 50.030651340996165
+    }
+   }
+  ],
+  "prumer_mld": {
+   "progresivni": 0.36250800000000005,
+   "konzervativni": 0.145588,
+   "realisticky": 0.13058
+  },
+  "max_mld": {
+   "progresivni": 4.7786,
+   "konzervativni": 0.3206,
+   "realisticky": 0.2348
+  },
+  "max_rok": {
+   "progresivni": 2045,
+   "konzervativni": 2031,
+   "realisticky": 2028
+  },
+  "let": 25
+ }
+}

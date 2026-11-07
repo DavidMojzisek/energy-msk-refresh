@@ -2259,6 +2259,8 @@ Odvozený součet P50 tří řádků vodíku flotily je 1196.0 GWh. Výpočet: v
 | 71 | Řádová cena výstavby je jen u zařízení se zdrojem, v eurech a dnešních cenách, jen pro nová zařízení, bez připojení k síti, financování a výměn. Ceny se nesčítají. U aut a datových center cena není. | Kategorie mají různé investory a překrývají se. Vozidla se kupují tak jako tak, datová centra jsou soukromá investice. |
 | 72 | Panel Technologie mění šest technických hodnot společně pro obě cesty i realistický scénář. Výchozí poloha je technika, se kterou počítají cesty, změna se zavádí podle σ(t) od roku 2030 do roku 2050. Hodinový výpočet, pásmo a zimní špička se nepřepočítávají. | Výchozí výsledky zůstávají. Lepší hodiny větru platí pro celý instalovaný výkon, i když se starší turbíny nemusí vyměnit. |
 | 73 | Každá záložka má vlastní adresu a tlačítko zpět v prohlížeči vrací předchozí záložku. Obnovit výchozí je v horní liště a vrací celou stránku. | Odkaz na Metodiku nebo Nedostatky jde poslat přímo. |
+| 74 | Panel Technologie nemá posuvník pro baterie, výnos fotovoltaiky ani využití SMR. Schváleno 2026-11-06. | Účinnost baterie 95 % místo 88 % by ubrala asi 34 GWh ztrát z progresivního schodku kolem 4 660 GWh. Jde o hrubý přepočet ze vzorce, hodinový model se nepouštěl. Kapacita baterie roční bilanci téměř nemění (rozhodnutí 57). Pro výnos fotovoltaiky se sledovači je zdroj jen z USA. Využití SMR a obloukové pece jsou provoz, ne technika. |
+| 75 | Stránka má ekonomiku cest: investice po letech ve třech skupinách, náklad elektroenergetiky kraje na megawatthodinu a současnou hodnotu nákladů 2026 až 2050 při reálné sazbě 3 % v úrovni A, elektroenergetika kraje, a rozdíl cest v úrovni B, která přidá příplatky za vozidla a tepelná čerpadla a odečte ušetřená paliva a povolenky. Pece jsou samostatná skupina. K tomu srovnání investic do zařízení elektroenergetiky s HDP, investicemi a rozpočtem kraje. Ekonomická analýza doplněna 2026-11-06. Nahrazuje pravidlo z volby č. 71, že se ceny nesčítají, bubliny dlaždic dál ukazují cenu jednoho zařízení. | Překryvy se řeší tak, že každé zařízení se počítá jednou a má jednoho plátce. Elektřina pro auta, tepelná čerpadla a vodík je jen v úrovni A a vozidla a tepelná čerpadla mají jen příplatek proti spalovací technice. Splátky po roce 2050 v porovnání nejsou a jsou uvedené zvlášť. |
 
 ### Vyřešený rozpor: spotřeba 2024
 
@@ -2387,6 +2389,89 @@ Panel Technologie mění šest technických hodnot pro obě cesty i realistický
 | Ztráty v sítích | 3,547 % | 2,61 % | CEER 2025, tab. 20, Lucembursko |
 
 Hodinový výpočet, pásmo a zimní špička se s panelem nepřepočítávají.
+
+## 11c. Ekonomika
+
+Řádový výpočet pro výchozí nastavení, posuvníky ho nemění. Mil. EUR v cenách roku 2025, bez daní. Současná hodnota je součet nákladů let 2026 až 2050 diskontovaných k roku 2025 reálnou sazbou 3 %, referenční hodnotou EU pro projekty, pokud chybí národní hodnota (Economic Appraisal Vademecum 2021-2027). Investice jsou rozpočítané na roční splátky po dobu životnosti, splátky po roce 2050 v porovnání nejsou a jsou uvedené zvlášť. Úroveň A je elektroenergetika kraje: splátky elektráren, baterií, elektrolyzérů a posílení sítě, provoz, palivo, povolenky ETS1 a dovoz elektřiny. Úroveň B se uvádí jen jako rozdíl cest: přidá příplatky za tepelná čerpadla a vozidla a odečte ušetřený benzín, naftu, plyn a povolenky ETS2. Pece v ocelárnách jsou samostatná skupina. Vstupy mají nízký, střední a vysoký scénář zdroje. P10, medián a P90 jsou výsledky výběru latinskou hyperkrychlí, 4 000 losování, stejná losování pro všechny cesty. Ceny povolenek ETS2 od roku 2030 jsou vlastní předpoklad bez zdroje.
+
+| Cesta | Investice do zařízení elektroenergetiky 2026 až 2050 | Příplatky | Pece | Současná hodnota A | P10 až P90 | EUR za MWh dodané elektřiny | Splátky po 2050, současná hodnota |
+|---|---|---|---|---|---|---|---|
+| progresivní | 9 063 | 4 093 | 2 250 | 11 734 | 10 321 až 13 631 | 79,3 | 4 698 |
+| konzervativní | 3 640 | 952 | 1 500 | 11 371 | 9 718 až 13 385 | 91,0 | 1 170 |
+| realistický bez reaktoru | 3 265 | 2 245 | 750 | 10 055 | 8 682 až 11 921 | 80,7 | 1 306 |
+
+Progresivní cesta dodá v současné hodnotě o 18,4 % víc elektřiny než konzervativní. Rozdíl progresivní minus konzervativní, úroveň A: +364 při středních vstupech, medián losování +382, P10 až P90 +56 až +721. Úroveň B: −2 040 při středních vstupech, medián −1 977, P10 až P90 −3 423 až −816. Bez ETS2 je B −639 (P10 až P90 −2 010 až +122), s ETS2 na úrovni spouštěče −1 216 (P10 až P90 −2 559 až −417). Pece: rozdíl splátek +97. Datová centra tvoří z rozdílu A +281.
+
+### Složky rozdílu
+
+| Složka | Úroveň | Progresivní minus konzervativní |
+|---|---|---|
+| větrné elektrárny | A | +332 |
+| fotovoltaika na střechách | A | +444 |
+| pozemní fotovoltaika | A | +117 |
+| nové plynové bloky | A | −299 |
+| malý reaktor SMR | A | +532 |
+| baterie včetně náhrady článků | A | −600 |
+| elektrolyzéry | A | +52 |
+| posílení sítě pro fotovoltaiku a vítr | A | +61 |
+| provoz a údržba nových zařízení | A | +385 |
+| palivo elektráren | A | −362 |
+| povolenky elektráren (ETS1) | A | −689 |
+| dovoz elektřiny bez datových center | A | +111 |
+| elektřina pro datová centra včetně ztrát v síti | A | +281 |
+| příplatek za tepelná čerpadla proti plynovému kotli | B | +430 |
+| příplatek za elektromobily | B | +973 |
+| příplatek za bateriová nákladní auta | B | −9 |
+| příplatek za vodíková nákladní auta | B | +18 |
+| ušetřený benzín a nafta | B | −2 499 |
+| ušetřený plyn v domech | B | −228 |
+| ušetřené povolenky ETS2 | B | −1 401 |
+| provoz tepelných čerpadel proti kotlům | B | +133 |
+| uhlí v teplárnách: úspora z úrovně A se v B nepřipisuje (chybí náhradní teplo) | B | +178 |
+
+### Kde se dá ušetřit
+
+Jedna změna proti výchozí cestě, střední vstupy, záporné číslo je úspora. Řádky se nesčítají.
+
+| Změna | Cesta | Úroveň A | Úroveň B | Dovoz 2050, GWh |
+|---|---|---|---|---|
+| Bez vodíku v nákladní dopravě a MHD, kamiony zůstanou naftové | progresivní | −408 | −29 | −1 240 |
+| Datová centra jako v konzervativní cestě | progresivní | −281 | −281 | −654 |
+| Bez reaktoru SMR, chybějící elektřina se doveze | progresivní | −242 | −242 | +3 632 |
+
+### Co model neumí ocenit
+
+- menší baterie v konzervativní cestě (2,7 místo 6,8 GWh): roční bilance nedává kapacitě ani zásobě žádnou hodnotu; baterii dimenzoval hodinový model jako zálohu, bez nového hodinového běhu nejde o úsporu.
+- méně plynových bloků v konzervativní cestě (433 místo 683 MW): stejná výroba z menšího výkonu znamená víc hodin provozu; přiměřenost výkonu v zimních hodinách roční model neověří.
+- cena elektřiny v hodinách nedostatku: dovoz se oceňuje průměrnou cenou pásmové dodávky, hodinová přirážka chybí.
+
+### Srovnání s krajem
+
+Průměrná roční investice do zařízení elektroenergetiky za 25 let 2026 až 2050 jako podíl hodnoty ze zdroje, vlastní dělení. Rozpočet kraje je schválený plán 2025.
+
+| Jmenovatel | mld. EUR | Progresivní | Konzervativní | Realistický |
+|---|---|---|---|---|
+| HDP kraje 2024 | 27,87 | 1,3 % | 0,5 % | 0,5 % |
+| investice v kraji 2024 (tvorba hrubého fixního kapitálu) | 6,55 | 5,5 % | 2,2 % | 2,0 % |
+| výdaje rozpočtu kraje 2025, schválený rozpočet | 1,73 | 21,0 % | 8,4 % | 7,5 % |
+| kapitálové výdaje rozpočtu kraje 2025, schválený rozpočet | 0,26 | 138,9 % | 55,8 % | 50,0 % |
+
+### Co není započteno
+
+- síť na straně zátěže (tepelná čerpadla, nabíjení, velká zátěž) v základu; jen citlivost s vlastními předpoklady
+- ušetřený koks, provoz vysoké pece a ETS1 ocelárny (náročnost bez zdroje); investice do pecí jsou samostatná skupina
+- náhradní teplo za uhelné teplárny (proto v B bez kreditu za konec uhlí)
+- kredit za uhlí a dřevo v domech (cena a náročnost bez zdroje); přímotopy kredit nedostanou, jejich elektřina je v bilanci
+- vodíkové autobusy (spotřeba nafty na km bez zdroje, vynechán příplatek i úspora; jejich elektřina je v A)
+- teplo z kogenerace a jeho náhrada
+- palivo biomasy, bioplynu, hutních a důlních plynů a odpadu (vedlejší produkty nebo stejné v obou cestách)
+- přirážka ceny dovozu v hodinách nedostatku
+- obnova zařízení postavených před 2025
+- nádrž vodíku 20 t
+- výměna článků elektrolyzéru
+- investice do úspor a účinnosti
+- náklady energetického využití odpadu
+- doba výstavby (celá investice se připíše roku uvedení do provozu)
 
 ## 12. Seznam zdrojů
 
