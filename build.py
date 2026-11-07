@@ -220,7 +220,9 @@ def build_data():
     derived = {"ownCal": OWN_CAL, "ownRates": OWN_RATES, "lossK": LOSS_K, "localOther": LOCAL_OTHER}
     return {"years": YEARS.tolist(), "history": HISTORY, "items": items, "bands": bands, "battery": battery, "trends": trends, "derived": derived, "gapRuns": gap_runs,
             "den": json.loads((HERE / "stranka_texty.json").read_text(encoding="utf-8"))["den"], "real": json.loads((HERE / "realisticky.json").read_text(encoding="utf-8")),
-            "ekon": json.loads((HERE / "ekonomika.json").read_text(encoding="utf-8"))}
+            "ekon": json.loads((HERE / "ekonomika.json").read_text(encoding="utf-8")),
+            # Střední vstupy ekonomického modelu pro cenu cesty počítanou na stránce z řádků (kopii píše kontrolní řetěz ekonomiky).
+            "cena": json.loads((HERE / "cena_parametry.json").read_text(encoding="utf-8"))}
 
 
 def fonts_css():

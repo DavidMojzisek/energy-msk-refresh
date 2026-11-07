@@ -2261,6 +2261,7 @@ Odvozený součet P50 tří řádků vodíku flotily je 1196.0 GWh. Výpočet: v
 | 73 | Každá záložka má vlastní adresu a tlačítko zpět v prohlížeči vrací předchozí záložku. Obnovit výchozí je v horní liště a vrací celou stránku. | Odkaz na Metodiku nebo Nedostatky jde poslat přímo. |
 | 74 | Panel Technologie nemá posuvník pro baterie, výnos fotovoltaiky ani využití SMR. Schváleno 2026-11-06. | Účinnost baterie 95 % místo 88 % by ubrala asi 34 GWh ztrát z progresivního schodku kolem 4 660 GWh. Jde o hrubý přepočet ze vzorce, hodinový model se nepouštěl. Kapacita baterie roční bilanci téměř nemění (rozhodnutí 57). Pro výnos fotovoltaiky se sledovači je zdroj jen z USA. Využití SMR a obloukové pece jsou provoz, ne technika. |
 | 75 | Stránka má ekonomiku cest: investice po letech ve třech skupinách, náklad elektroenergetiky kraje na megawatthodinu a současnou hodnotu nákladů 2026 až 2050 při reálné sazbě 3 % v úrovni A, elektroenergetika kraje, a rozdíl cest v úrovni B, která přidá příplatky za vozidla a tepelná čerpadla a odečte ušetřená paliva a povolenky. Pece jsou samostatná skupina. K tomu srovnání investic do zařízení elektroenergetiky s HDP, investicemi a rozpočtem kraje. Ekonomická analýza doplněna 2026-11-06. Nahrazuje pravidlo z volby č. 71, že se ceny nesčítají, bubliny dlaždic dál ukazují cenu jednoho zařízení. | Překryvy se řeší tak, že každé zařízení se počítá jednou a má jednoho plátce. Elektřina pro auta, tepelná čerpadla a vodík je jen v úrovni A a vozidla a tepelná čerpadla mají jen příplatek proti spalovací technice. Splátky po roce 2050 v porovnání nejsou a jsou uvedené zvlášť. |
+| 76 | Cena cesty se počítá na stránce a mění se s posuvníky: nad hlavním grafem je současná hodnota nákladů elektroenergetiky kraje 2026 až 2050 při sazbě 3 % a středních vstupech, pod ní investice bez diskontu, jejich podíl z HDP kraje za rok a splátky po roce 2050. Karta Kolik cesty stojí se po změně přepočítá stejným výpočtem. Ve výchozím nastavení karta dál ukazuje mediány losování s P10 až P90 a cena nahoře uvádí medián a pásmo vedle hodnoty při středních vstupech. Topný faktor mění elektřinu tepelného čerpadla, teplo dodané domu zůstává. Doplněno 2026-11-07. Nahrazuje část volby č. 75, že ekonomika platí jen pro výchozí nastavení. | Losování pro jiné nastavení se na stránce nepočítá, proto se po změně ukazuje hodnota při středních vstupech a pásma platí jen pro výchozí nastavení. Výkon plynových bloků a velikost baterií jsou v ceně pevné podle hodinového výpočtu, úspory nemají investici, síť na straně nové spotřeby v ceně není, přebytek nemá hodnotu a dovoz se oceňuje průměrnou cenou. Stránka to říká u ceny. |
 
 ### Vyřešený rozpor: spotřeba 2024
 
@@ -2392,17 +2393,19 @@ Hodinový výpočet, pásmo a zimní špička se s panelem nepřepočítávají.
 
 ## 11c. Ekonomika
 
-Řádový výpočet pro výchozí nastavení, posuvníky ho nemění. Mil. EUR v cenách roku 2025, bez daní. Současná hodnota je součet nákladů let 2026 až 2050 diskontovaných k roku 2025 reálnou sazbou 3 %, referenční hodnotou EU pro projekty, pokud chybí národní hodnota (Economic Appraisal Vademecum 2021-2027). Investice jsou rozpočítané na roční splátky po dobu životnosti, splátky po roce 2050 v porovnání nejsou a jsou uvedené zvlášť. Úroveň A je elektroenergetika kraje: splátky elektráren, baterií, elektrolyzérů a posílení sítě, provoz, palivo, povolenky ETS1 a dovoz elektřiny. Úroveň B se uvádí jen jako rozdíl cest: přidá příplatky za tepelná čerpadla a vozidla a odečte ušetřený benzín, naftu, plyn a povolenky ETS2. Pece v ocelárnách jsou samostatná skupina. Vstupy mají nízký, střední a vysoký scénář zdroje. P10, medián a P90 jsou výsledky výběru latinskou hyperkrychlí, 4 000 losování, stejná losování pro všechny cesty. Ceny povolenek ETS2 od roku 2030 jsou vlastní předpoklad bez zdroje.
+Řádový výpočet pro výchozí nastavení. Čísla jsou mediány losování, v závorce P10 až P90, stejně jako v části Kolik cesty stojí na stránce. Tam se po změně posuvníků cena cesty přepočítá při středních vstupech, pásma platí jen pro výchozí nastavení. Mil. EUR v cenách roku 2025, bez daní. Současná hodnota je součet nákladů let 2026 až 2050 diskontovaných k roku 2025 reálnou sazbou 3 %, referenční hodnotou EU pro projekty, pokud chybí národní hodnota (Economic Appraisal Vademecum 2021-2027). Investice jsou rozpočítané na roční splátky po dobu životnosti, splátky po roce 2050 v porovnání nejsou a jsou uvedené zvlášť. Úroveň A je elektroenergetika kraje: splátky elektráren, baterií, elektrolyzérů a posílení sítě, provoz, palivo, povolenky ETS1 a dovoz elektřiny. Úroveň B se uvádí jen jako rozdíl cest: přidá příplatky za tepelná čerpadla a vozidla a odečte ušetřený benzín, naftu, plyn a povolenky ETS2. Pece v ocelárnách jsou samostatná skupina. Vstupy mají nízký, střední a vysoký scénář zdroje. P10, medián a P90 jsou výsledky výběru latinskou hyperkrychlí, 4 000 losování, stejná losování pro všechny cesty. Ceny povolenek ETS2 od roku 2030 jsou vlastní předpoklad bez zdroje.
 
-| Cesta | Investice do zařízení elektroenergetiky 2026 až 2050 | Příplatky | Pece | Současná hodnota A | P10 až P90 | EUR za MWh dodané elektřiny | Splátky po 2050, současná hodnota |
-|---|---|---|---|---|---|---|---|
-| progresivní | 9 063 | 4 093 | 2 250 | 11 734 | 10 321 až 13 631 | 79,3 | 4 698 |
-| konzervativní | 3 640 | 952 | 1 500 | 11 371 | 9 718 až 13 385 | 91,0 | 1 170 |
-| realistický bez reaktoru | 3 265 | 2 245 | 750 | 10 055 | 8 682 až 11 921 | 80,7 | 1 306 |
+| Cesta | Investice do zařízení elektroenergetiky 2026 až 2050 | Příplatky | Pece | Současná hodnota A | EUR za MWh dodané elektřiny | Splátky po 2050, současná hodnota při středních vstupech |
+|---|---|---|---|---|---|---|
+| progresivní | 8 445 (7 665 až 9 059) | 4 104 (2 521 až 5 669) | 2 250 (2 151 až 2 350) | 11 636 (10 321 až 13 631) | 78,7 (69,8 až 92,1) | 4 698 |
+| konzervativní | 3 589 (2 920 až 4 259) | 955 (619 až 1 283) | 1 500 (1 434 až 1 566) | 11 309 (9 718 až 13 385) | 90,5 (77,8 až 107,2) | 1 170 |
+| realistický bez reaktoru | 3 225 (2 728 až 3 714) | 2 252 (1 369 až 3 125) | 750 (717 až 783) | 10 018 (8 682 až 11 921) | 80,4 (69,7 až 95,7) | 1 306 |
 
-Progresivní cesta dodá v současné hodnotě o 18,4 % víc elektřiny než konzervativní. Rozdíl progresivní minus konzervativní, úroveň A: +364 při středních vstupech, medián losování +382, P10 až P90 +56 až +721. Úroveň B: −2 040 při středních vstupech, medián −1 977, P10 až P90 −3 423 až −816. Bez ETS2 je B −639 (P10 až P90 −2 010 až +122), s ETS2 na úrovni spouštěče −1 216 (P10 až P90 −2 559 až −417). Pece: rozdíl splátek +97. Datová centra tvoří z rozdílu A +281.
+Progresivní cesta dodá v současné hodnotě o 18,4 % víc elektřiny než konzervativní. Rozdíl progresivní minus konzervativní, úroveň A: medián losování +382 (P10 až P90 +56 až +721), při středních vstupech +364. Úroveň B: medián −1 977 (P10 až P90 −3 423 až −816), při středních vstupech −2 040. Bez ETS2 má B medián −704 (P10 až P90 −2 010 až +122), s ETS2 na úrovni spouštěče −1 254 (P10 až P90 −2 559 až −417). Při sazbě 5 % má rozdíl A medián +448 a B −964, při 7 % +464 a −353. Progresivní cesta vychází v elektroenergetice dražší v 94 % losování. Pece: rozdíl splátek při středních vstupech +97. Datová centra tvoří z rozdílu A medián +281, bez nich má rozdíl A medián +78 (P10 až P90 −271 až +452).
 
 ### Složky rozdílu
+
+Při středních vstupech, protože mediány složek se nesčítají.
 
 | Složka | Úroveň | Progresivní minus konzervativní |
 |---|---|---|
@@ -2429,15 +2432,15 @@ Progresivní cesta dodá v současné hodnotě o 18,4 % víc elektřiny než kon
 | provoz tepelných čerpadel proti kotlům | B | +133 |
 | vrácení úspory uhlí v teplárnách (chybí náhradní teplo) | B | +178 |
 
-### Kde se dá ušetřit
+### Co jedna změna udělá s náklady
 
-Jedna změna proti výchozí cestě, střední vstupy, záporné číslo je úspora. Řádky se nesčítají.
+Jedna změna proti výchozí cestě, medián losování, v závorce P10 až P90, záporné číslo znamená nižší náklady. Řádky se nesčítají.
 
 | Změna | Cesta | Úroveň A | Úroveň B | Dovoz 2050, GWh |
 |---|---|---|---|---|
-| Bez vodíku v nákladní dopravě a MHD, kamiony zůstanou naftové | progresivní | −408 | −29 | −1 240 |
-| Datová centra jako v konzervativní cestě | progresivní | −281 | −281 | −654 |
-| Bez reaktoru SMR, chybějící elektřina se doveze | progresivní | −242 | −242 | +3 632 |
+| Bez vodíku v nákladní dopravě a MHD, kamiony zůstanou naftové | progresivní | −410 (−527 až −364) | −63 (−168 až +86) | −1 240 |
+| Datová centra jako v konzervativní cestě | progresivní | −281 (−386 až −240) | −281 (−386 až −240) | −654 |
+| Bez reaktoru SMR, chybějící elektřina se doveze | progresivní | −148 (−287 až +94) | −148 (−287 až +94) | +3 632 |
 
 ### Co model neumí ocenit
 
@@ -2447,14 +2450,15 @@ Jedna změna proti výchozí cestě, střední vstupy, záporné číslo je úsp
 
 ### Srovnání s krajem
 
-Průměrná roční investice do zařízení elektroenergetiky za 25 let 2026 až 2050 jako podíl hodnoty ze zdroje, vlastní dělení. Rozpočet kraje je schválený plán 2025.
+Medián průměrné roční investice do zařízení elektroenergetiky za 25 let 2026 až 2050 jako podíl hodnoty ze zdroje, vlastní dělení, v závorce P10 až P90. Rozpočet kraje je schválený plán 2025.
 
 | Jmenovatel | mld. EUR | Progresivní | Konzervativní | Realistický |
 |---|---|---|---|---|
-| HDP kraje 2024 | 27,87 | 1,3 % | 0,5 % | 0,5 % |
-| investice v kraji 2024 (tvorba hrubého fixního kapitálu) | 6,55 | 5,5 % | 2,2 % | 2,0 % |
-| výdaje rozpočtu kraje 2025, schválený rozpočet | 1,73 | 21,0 % | 8,4 % | 7,5 % |
-| kapitálové výdaje rozpočtu kraje 2025, schválený rozpočet | 0,26 | 138,9 % | 55,8 % | 50,0 % |
+| HDP kraje 2024 | 27,87 | 1,2 % (1,1 až 1,3 %) | 0,5 % (0,4 až 0,6 %) | 0,5 % (0,4 až 0,5 %) |
+| investice v kraji 2024 (tvorba hrubého fixního kapitálu) | 6,55 | 5,2 % (4,7 až 5,5 %) | 2,2 % (1,8 až 2,6 %) | 2,0 % (1,7 až 2,3 %) |
+| výdaje rozpočtu kraje 2025, schválený rozpočet | 1,73 | 19,5 % (17,7 až 20,9 %) | 8,3 % (6,8 až 9,8 %) | 7,5 % (6,3 až 8,6 %) |
+| kapitálové výdaje rozpočtu kraje 2025, schválený rozpočet | 0,26 | 129,4 % (117,5 až 138,8 %) | 55,0 % (44,7 až 65,3 %) | 49,4 % (41,8 až 56,9 %) |
+| Modernizační fond, projekty schválené v kraji, průměr za rok | 0,25 | 137,3 % (124,6 až 147,3 %) | 58,4 % (47,5 až 69,2 %) | 52,4 % (44,4 až 60,4 %) |
 
 ### Co není započteno
 

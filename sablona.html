@@ -58,6 +58,13 @@ h2{font:700 19px/1.25 "Saira",sans-serif;margin:0 0 10px}
 .kpirow small,.kpiview small{display:block;color:var(--muted);font-size:12.5px;font-weight:600}
 .kpirow b{font:500 30px/1.15 "JetBrains Mono",monospace;font-variant-numeric:tabular-nums}
 .kpirow .unit{color:var(--muted);font-size:13px;margin-left:4px}
+.kpirow .cena{border-left:1px solid var(--line);padding-left:20px}
+.cenanote{max-width:820px;margin-top:6px}
+.cenanote p{color:var(--muted);font-size:12.5px;margin:3px 0 0}
+.cenanote summary{color:var(--muted);font-size:12.5px;cursor:pointer;margin-top:3px}
+.cenagrey,.econgrey{opacity:.6;font-style:italic}
+.pin.stuck .cenanote{display:none}
+.pin.stuck .kpirow .cena{border-left:0;padding-left:0}
 .kpiview{display:flex;flex-wrap:wrap;gap:10px 32px;margin:12px 0 0}
 .kpiview b{font:500 19px "JetBrains Mono",monospace;font-variant-numeric:tabular-nums}
 .yearrow{display:flex;gap:12px;align-items:center;margin:10px 0 2px}
@@ -398,7 +405,7 @@ svg .val{font:600 11.5px "DM Sans",sans-serif;fill:var(--ink)}
 <section class="card" id="econCard">
   <div class="sechead"><h2>Kolik cesty stojí <span id="econInfo"></span></h2></div>
   <p class="plain" id="econLead"></p>
-  <p class="viewnote">Částky jsou v milionech eur, jen měřítka kraje v miliardách, v cenách roku 2025, bez daní, řádově, ne rozpočet. Čísla jsou mediány losování Monte Carlo, v závorce P10 až P90. Jsou spočítané pro výchozí nastavení všech tří cest, realistický scénář bez reaktoru. Posuvníky, technologie ani volby realistického scénáře je nemění.</p>
+  <p class="viewnote">Částky jsou v milionech eur, jen měřítka kraje v miliardách, v cenách roku 2025, bez daní, řádově, ne rozpočet. Ve výchozím nastavení jsou čísla mediány losování Monte Carlo, v závorce P10 až P90, pro všechny tři cesty, realistický scénář bez reaktoru. Po změně posuvníků, technologií nebo voleb realistického scénáře se karta přepočítá při středních vstupech pro nastavené cesty, tedy se středním scénářem cen ze zdrojů, u reaktoru SMR je to horní mez rozpětí. Pásma a podíl losování platí jen pro výchozí nastavení, proto karta pak ukáže jen střední hodnoty.</p>
   <h3 class="realh">Kolik se do roku 2050 proinvestuje</h3>
   <div class="toggles">
     <div class="pills small" role="group" aria-label="Skupina investic">
@@ -647,7 +654,7 @@ svg .val{font:600 11.5px "DM Sans",sans-serif;fill:var(--ink)}
 
   <section class="card">
     <h2>Ekonomika</h2>
-    <p>Část Kolik cesty stojí v záložce Bilance převádí stejné položky jako bilance na zařízení a zařízení na eura. Cesty ani jejich čísla nemění. Částky jsou reálné, v cenách roku 2025, bez daní a řádové. Jsou předpočítané pro výchozí nastavení, posuvníky je nemění.</p>
+    <p>Část Kolik cesty stojí v záložce Bilance převádí stejné položky jako bilance na zařízení a zařízení na eura. Cesty ani jejich čísla nemění. Částky jsou reálné, v cenách roku 2025, bez daní a řádové. Ve výchozím nastavení jsou to mediány předem spočítaného losování. Po změně posuvníků se karta i cena nad hlavním grafem přepočítají na stránce stejným výpočtem při středních vstupech, losování se pro jiné nastavení nepočítá.</p>
     <p class="f">zásoba(t) = zásoba(t &minus; 1) + přírůstek(t) &minus; vyřazení(t) &nbsp; &nbsp; investice(t) = (přírůstek(t) + obnova(t)) &times; měrná investice(t)</p>
     <p class="f">splátka = I &middot; r(1 + r)<sup>n</sup> / ((1 + r)<sup>n</sup> &minus; 1) &nbsp; &nbsp; současná hodnota = &Sigma;<sub>t = 2026 až 2050</sub> C(t) / (1 + r)<sup>t &minus; 2025</sup> &nbsp; &nbsp; r = <span data-econ="r"></span> %</p>
     <p class="f">C<sub>A</sub>(t) = splátky + provoz + palivo + povolenky ETS1 + cena elektřiny &times; dovoz &nbsp; &nbsp; &Delta;C<sub>B</sub>(t) = &Delta;C<sub>A</sub>(t) + &Delta; splátky příplatků &minus; &Delta; ušetřená paliva &minus; &Delta; ušetřené povolenky ETS2</p>
@@ -729,7 +736,7 @@ svg .val{font:600 11.5px "DM Sans",sans-serif;fill:var(--ink)}
       <li><b>Výpadek největšího bloku.</b> Kdyby SMR vypadl ve chvíli zimní špičky dovozu, stoupla by špička z {{vs_spicka}} MW, průměru 5 let, o celých 500 MW na {{vs_smr}} MW. Je to prostý součet, ne výsledek hodinového výpočtu.</li>
       <li><b>Blackout.</b> Dopady výpadku podle skupin obyvatel jsou popsané jen slovně, počty lidí ani MW kritických odběrů kraje zdroje neuvádějí.</li>
       <li><b>Syntetický plyn.</b> Elektřina na jeho výrobu není vyčíslená, řádek je nula a skutečnost je větší. Výroba na tunu je převzatá ze spalování a řádek bere všech 240 000 t odpadu, studie s. 137 počítá s 1/3 až 1/2.</li>
-      <li><b>Náklady.</b> Část Kolik cesty stojí na konci záložky Bilance je řádový výpočet v cenách roku 2025, bez daní, jen pro výchozí nastavení, posuvníky ho nemění. Nepočítá: <span id="econMissing"></span>. Dotace se neodečítají, ukazuje se jen, kdo investici platí. Chybí také síťové poplatky, dopad na účty domácností a náklady financování nad reálnou sazbu. Dovoz je za průměrnou velkoobchodní cenu, dražší elektřina v hodinách nedostatku chybí. Splátky investic po roce 2050 v porovnání nejsou. Úroveň B stojí hlavně na ušetřeném benzínu a naftě a na ceně povolenek ETS2, jejíž výhled je náš předpoklad bez zdroje.</li>
+      <li><b>Náklady.</b> Část Kolik cesty stojí na konci záložky Bilance je řádový výpočet v cenách roku 2025, bez daní. S posuvníky se přepočítají jen střední hodnoty, pásma nejistoty platí pro výchozí nastavení. Výkon plynových bloků a velikost baterií jsou v ceně pevné podle hodinového výpočtu, úspory nemají investici a přebytek elektřiny nemá hodnotu. Nepočítá: <span id="econMissing"></span>. Dotace se neodečítají, ukazuje se jen, kdo investici platí. Chybí také síťové poplatky, dopad na účty domácností a náklady financování nad reálnou sazbu. Dovoz je za průměrnou velkoobchodní cenu, dražší elektřina v hodinách nedostatku chybí. Splátky investic po roce 2050 v porovnání nejsou. Úroveň B stojí hlavně na ušetřeném benzínu a naftě a na ceně povolenek ETS2, jejíž výhled je náš předpoklad bez zdroje.</li>
       <li><b>Posuvníky.</b> Hodinový výpočet ani pásmo se při změně posuvníků nepřepočítávají.</li>
       <li><b>Technologie.</b> Panel mění roční řádky poměrem. Pásmo, hodinový výpočet a špičku dovozu z hodinového modelu nepřepočítá, pohled Zimní špička se mění. Lepší vítr se počítá pro celý instalovaný výkon, i když starší turbíny se do roku 2050 nemusí všechny vyměnit. Topný faktor 3,4 je naměřený v Německu, z kraje údaj není. Účinnost baterií 88 % je vyšší než 82,6 % včetně měniče podle PNNL 2022, ztráty baterií jsou tedy spíš podhodnocené o desítky GWh.</li>
     </ul>
@@ -924,6 +931,294 @@ function values(path, side, i){
 }
 function totals(path, side){
   return DATA.years.map((_, i) => values(path, side, i).reduce((sum, x) => sum + x.gwh, 0));
+}
+/* Cena cesty. Stejný výpočet jako střední běh ekonomického modelu: zásoby zařízení po ročnících, splátky investic do roku 2050, provoz,
+   palivo, povolenky a dovoz, počítaný z řádků values(), takže se mění s posuvníky. Vstupy jsou v DATA.cena, losování Monte Carlo jen v DATA.ekon. */
+/* CENA_START */
+const CenaCesty = (function(){
+  function crf(r, n){ return r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1); }
+  const zeros = n => new Array(n).fill(0);
+  const pos = x => Math.max(0, x);
+
+  /* Ročníky: stárnou, při poklesu zásoby se předčasně vyřadí nejstarší (FIFO), jinak se dostaví rozdíl. life null = bez vyřazení. */
+  function stockFlow(stockIn, life, wantAlive){
+    const N = stockIn.length, stock = stockIn.map(pos), vint = zeros(N), add = zeros(N), alive = wantAlive ? [] : null;
+    for(let t = 0; t < N; t++){
+      if(life !== null) for(let y = 0; y < t; y++) if(t - y === life && vint[y] > 0) vint[y] = 0;
+      let sum = 0; for(let y = 0; y < t; y++) sum += vint[y];
+      if(stock[t] < sum - 1e-12){
+        let need = sum - stock[t];
+        for(let y = 0; y < t; y++){ const take = Math.min(vint[y], need); vint[y] -= take; need -= take; if(need <= 1e-12) break; }
+      } else { add[t] = stock[t] - sum; vint[t] = add[t]; }
+      if(wantAlive) alive.push(vint.slice());
+    }
+    return {add, alive};
+  }
+
+  /* Počet tepelných čerpadel z řádku, jako dlaždice: max(0, GWh / (D · fT) − podnikatelé) · 1000 / 8,9. */
+  function heatPumps(inp, pod, C){
+    const g = inp.rows["vytápění tepelnými čerpadly"];
+    return g.map((x, i) => pos(x / (inp.D_tc[i] * inp.fT[i]) - pod[i]) * 1000 / C.MWH_TC);
+  }
+
+  /* Veličiny z řádků (vzorce dlaždic a metodika/s01_mnozstvi.py). kind: progresivni, konzervativni, realisticky. */
+  function quantities(kind, inp, P, mix){
+    const C = P.konst, R = P.rady, g = n => inp.rows[n], N = P.roky.length, idx = [...Array(N).keys()];
+    const q = {};
+    q.imp = idx.map(i => pos(inp.use[i] - inp.gen[i]));
+    q.wind = idx.map(i => g("vítr")[i] * 1000 / (C.H_VITR * inp.fW[i]));
+    q.roof = g("fotovoltaika střešní").map(x => x * 1000 / C.H_PV);
+    q.ground = g("fotovoltaika pozemní").map(x => x * 1000 / C.H_PV);
+    q.smr = g("SMR").map(x => Math.floor(x / C.SMR_UNIT_GWH + 0.5) * C.SMR_MW);
+    let pod;
+    if(kind === "realisticky"){
+      const a = mix.a_vitr, at = mix.a_teplo, m = (k, p) => idx.map(i => (1 - a) * k[i] + a * p[i]);
+      q.gas = mix.smr_on ? R.GAS_P : (mix.gas === "oznamene" ? R.GAS_K_OZNAMENE : R.GAS_K);
+      q.batE = m(R.BAT_E_K, R.BAT_E_P); q.batMW = m(R.BAT_MW_K, R.BAT_MW_P);
+      q.hp = idx.map(i => (1 - at) * mix.hpK[i] + at * mix.hpP[i]);
+      pod = idx.map(i => (1 - at) * R.TC_POD_K[i] + at * R.TC_POD_P[i]);
+    } else {
+      const P_ = kind === "progresivni";
+      q.gas = P_ ? R.GAS_P : R.GAS_K; q.batE = P_ ? R.BAT_E_P : R.BAT_E_K; q.batMW = P_ ? R.BAT_MW_P : R.BAT_MW_K;
+      pod = P_ ? R.TC_POD_P : R.TC_POD_K;
+      q.hp = heatPumps(inp, pod, C);
+    }
+    q.ely = idx.map(i => (g("výroba vodíku: nákladní doprava")[i] + g("výroba vodíku: MHD")[i]) * (1 + C.ELY_ZTRATY) * 1000 / C.ELY_HODINY);
+    q.ev = idx.map(i => g("osobní auta")[i] * 1000 / (C.MWH_AUTO * inp.eff_auta[i]));
+    q.h2trucks = idx.map(i => g("výroba vodíku: nákladní doprava")[i] * 1000 / (R.KWH_KG[i] * inp.fH[i]) * 1000 / R.KG_TRUCK[i] * 100 / C.KM_ROK_NAKL);
+    q.furn = idx.map(i => pos(Math.floor((g("Třinecké železárny")[i] - C.TRINEC_ZAKLAD) / C.TRINEC_PEC + 0.5)) + pos(Math.floor((g("Nová huť")[i] - C.HUT_ZAKLAD) / C.HUT_PEC + 0.5)));
+    /* Teplo dodané domu nezávisí na topném faktoru: ovladač se dělí fT (viz ZPRAVA.md, bod SCOP). */
+    q.tcD = idx.map(i => { const d = inp.fT[i] * (q.hp[i] * C.MWH_TC / 1000 + pod[i]); return d > 0 ? g("vytápění tepelnými čerpadly")[i] / d : 0; });
+    const tr = g("nákladní doprava"), dR = tr.map(x => pos(x - tr[0]));
+    q.truckBat = idx.map(i => dR[i] * 1e6 / (C.KWH_KM_NAKL * inp.eff_nakl[i]) / C.KM_ROK_NAKL);
+    return q;
+  }
+
+  /* Zásoby nad rok 2025 (ekonomika.py devices). */
+  function devices(q, P){
+    const C = P.konst;
+    return {
+      vitr: q.wind.map(x => pos(x - C.VITR_DNES_MW)),
+      fve_strechy: q.roof.map(x => pos(x - C.STRECHY_2025_GWH * 1000 / C.H_PV)),
+      fve_pozemni: q.ground.map(x => pos(x - C.POZEMNI_2025_GWH * 1000 / C.H_PV)),
+      smr: q.smr.slice(), plyn_novy: q.gas.slice(),
+      baterie: q.batE.map(x => pos(x - 0.01) * 1000), baterie_MW: q.batMW.map(x => pos(x - q.batMW[0])),
+      elektrolyzer: q.ely.slice(), tepelna_cerpadla: q.hp.map(x => pos(x - C.TC_DOMY_2025)), pece: q.furn.slice(),
+      auta: q.ev.map(x => pos(x - q.ev[0])), nakl_bat: q.truckBat.slice(), nakl_h2: q.h2trucks.slice(),
+    };
+  }
+
+  const DEVS = ["vitr", "fve_strechy", "fve_pozemni", "plyn_novy", "smr", "baterie", "elektrolyzer", "tepelna_cerpadla", "auta", "nakl_bat", "nakl_h2", "pece"];
+
+  /* Hlavní funkce. kind a inp jako quantities(); r sazba (0,03 základ); Xover nahradí střední řadu vstupu (varianty ETS2). Vrací investice, složky nákladů a současné hodnoty. */
+  function compute(kind, inp, P, r, mix, Xover){
+    r = r === undefined ? 0.03 : r;
+    const N = P.roky.length, X = Xover ? Object.assign({}, P.X, Xover) : P.X, C = P.konst, R = P.rady, g = n => inp.rows[n], idx = [...Array(N).keys()];
+    const q = quantities(kind, inp, P, mix), dev = devices(q, P), flow = {};
+    let alive = null;
+    for(const k of DEVS){
+      const sf = stockFlow(dev[k], P.bez_vyrazeni.includes(k) ? null : P.zivotnost[k], k === "tepelna_cerpadla");
+      flow[k] = sf.add; if(k === "tepelna_cerpadla") alive = sf.alive;
+    }
+    const units = dev.smr.map(x => x / C.SMR_MW);
+    const fSmr = idx.map(i => units[i] > 0 ? Math.min(1, g("SMR")[i] / (units[i] * C.SMR_GWH_NA_BLOK)) : 0);
+    const inv = {}, cost = {}, rest = {};
+    for(const grp of Object.keys(P.skupiny)){
+      let I;
+      if(grp === "sit_oze") I = idx.map(i => (flow.fve_strechy[i] * X.cap_sit_oze[i] + (flow.vitr[i] + flow.fve_pozemni[i]) * X.cap_sit_vn[i]) / 1e6);
+      else I = idx.map(i => flow[grp][i] * X["cap_" + grp][i] / 1e6);
+      const n = P.zivotnost[grp], c = crf(r, n), a = zeros(N);
+      for(let v = 0; v < N; v++){
+        if(!I[v]) continue;
+        for(let t = v; t < Math.min(N, v + n); t++) a[t] += I[v] * c * (grp === "smr" && t === v && fSmr[v] > 0 ? fSmr[v] : 1);
+      }
+      if(grp === "baterie"){
+        const L = C.BAT_NAHRADA_ROK, c15 = crf(r, L), rep = zeros(N);
+        for(let v = L; v < N; v++) rep[v] = I[v - L] * X.bat_repl[v - L];
+        for(let v = 0; v < N; v++) if(rep[v]) for(let t = v; t < Math.min(N, v + L); t++) a[t] += rep[v] * c15;
+        I = I.map((x, i) => x + rep[i]);
+      }
+      inv[grp] = I; cost["anuita_" + grp] = a;
+      let pv50 = 0, nom = 0;
+      for(let v = 0; v < N; v++){
+        const left = v + n - N;
+        if(left > 0){ let s = 0; for(let k = 1; k <= left; k++) s += Math.pow(1 + r, -k); pv50 += I[v] * c * s; nom += I[v] * c * left; }
+        if(grp === "smr" && fSmr[v] > 0 && fSmr[v] < 1){ nom += I[v] * c * (1 - fSmr[v]); pv50 += I[v] * c * (1 - fSmr[v]) * Math.pow(1 + r, -Math.max(1, v + n - N)); }
+      }
+      rest[grp] = {pv50, nom};
+    }
+    const om = zeros(N);
+    for(const k of ["vitr", "fve_strechy", "fve_pozemni", "plyn_novy", "smr"]) for(let i = 0; i < N; i++) om[i] += dev[k][i] * (k === "smr" ? fSmr[i] : 1) * X["fom_" + k][i] / 1e6;
+    let elyCum = 0;
+    for(let i = 0; i < N; i++){
+      om[i] += dev.baterie_MW[i] * X.fom_baterie_MW[i] / 1e6;
+      om[i] += dev.vitr[i] * C.H_VITR * X.vom_vitr[i] / 1e6 + g("nové plynové bloky")[i] * 1000 * X.vom_plyn[i] / 1e6 + g("SMR")[i] * 1000 * X.vom_smr[i] / 1e6;
+      elyCum += flow.elektrolyzer[i] * X.cap_elektrolyzer[i] * R.ELY_FOM[i];
+      om[i] += elyCum / 1e6;
+    }
+    cost.provoz_fixni_variabilni = om;
+    const gasMwh = idx.map(i => (g("zemní plyn: stávající kogenerace")[i] + g("nové plynové bloky")[i]) * 1000 / R.ETA_CCGT[i]);
+    const coalMwh = idx.map(i => (g("černé uhlí: Dětmarovice")[i] + g("černé uhlí: teplárny a průmysl")[i]) * 1000 / C.ETA_COAL);
+    const ligMwh = idx.map(i => g("hnědé uhlí")[i] * 1000 / C.ETA_LIG);
+    cost.palivo_elektraren = idx.map(i => (gasMwh[i] * X.gas[i] + coalMwh[i] * C.COAL_P + ligMwh[i] * C.LIG_P + g("SMR")[i] * 1000 * X.smr_fuel[i]) / 1e6);
+    cost.povolenky_ETS1 = idx.map(i => (gasMwh[i] * C.EF_GAS + coalMwh[i] * C.EF_COAL + ligMwh[i] * C.EF_LIG) * X.ets1[i] / 1e6);
+    const dc = idx.map(i => Math.min(g("datacentra")[i] * (1 + C.LOSS_K), q.imp[i]));
+    cost.dovoz_bez_datacenter = idx.map(i => (q.imp[i] - dc[i]) * 1000 * X.el[i] / 1e6);
+    cost.datacentra_elektrina = idx.map(i => dc[i] * 1000 * X.el[i] / 1e6);
+    cost.sit_zatez_nn = zeros(N);
+    const kmCar = dev.auta.map(x => x * C.KM_CAR), kmTruck = idx.map(i => (dev.nakl_bat[i] + dev.nakl_h2[i]) * C.KM_TRUCK);
+    cost.B_usetreny_benzin_nafta = idx.map(i => -(kmCar[i] * X.car_l_km[i] * X.petrol[i] + kmTruck[i] * X.truck_l_km[i] * X.diesel[i]) / 1e6);
+    const heatEl = q.tcD.map(d => pos(C.MWH_TC * d - 2.5));
+    const gasHh = idx.map(t => { let s = 0; for(let v = 0; v < N; v++) s += alive[t][v] * R.SCOP[v] / R.ETA_BOIL[v]; return C.GAS_SHARE * heatEl[t] * s; });
+    cost.B_usetreny_plyn_domu = idx.map(i => -gasHh[i] * X.gas[i] / 1e6);
+    cost.B_usetrene_ETS2 = idx.map(i => -(kmCar[i] * X.car_l_km[i] * C.PETROL_CO2 + kmTruck[i] * X.truck_l_km[i] * C.DIESEL_CO2 + gasHh[i] * C.EF_GAS) * X.ets2[i] / 1e6);
+    cost.B_provoz_TC_minus_kotel = idx.map(i => dev.tepelna_cerpadla[i] * (R.OM_HP[i] - C.GAS_SHARE * R.OM_BOIL[i]) / 1e6);
+    const chp = idx.map(i => g("černé uhlí: teplárny a průmysl")[i] * 1000 / C.ETA_COAL);
+    cost.B_bez_kreditu_uhli_teplaren = idx.map(i => -(chp[i] * (C.COAL_P + C.EF_COAL * X.ets1[i]) + ligMwh[i] * (C.LIG_P + C.EF_LIG * X.ets1[i])) / 1e6);
+
+    const disc = P.roky.map(y => y >= 2026 ? Math.pow(1 + r, -(y - 2025)) : 0), sv = s => s.reduce((acc, x, i) => acc + x * disc[i], 0);
+    const A = idx.map(i => P.slozky_A.reduce((s, k) => s + cost[k][i], 0));
+    const B = idx.map(i => A[i] + P.slozky_B.reduce((s, k) => s + cost[k][i], 0));
+    const cat = {elektro:zeros(N), priplatky:zeros(N), pece:zeros(N)}, payers = {};
+    for(const [grp, info] of Object.entries(P.skupiny)){
+      for(let i = 0; i < N; i++) cat[info.kategorie][i] += inv[grp][i];
+      payers[info.plati] = (payers[info.plati] || 0) + inv[grp].slice(1).reduce((s, x) => s + x, 0);
+    }
+    /* Dodaná elektřina zdola nulou (krajní posuvníky úspor); v běžném rozsahu beze změny proti ekonomika.py. */
+    const delivered = idx.map(i => Math.max(0, inp.use[i] - g("ztráty v sítích")[i] - g("vlastní spotřeba zdrojů")[i] - g("ztráty baterií")[i]));
+    const pvMwh = sv(delivered) * 1000, svA = sv(A);
+    const slozky = Object.fromEntries(Object.entries(cost).map(([k, s]) => [k, sv(s)]));
+    const sum26 = s => s.slice(1).reduce((a_, x) => a_ + x, 0);
+    return {
+      svA, svB:sv(B), svOcel:sv(cost.anuita_pece), eurMwh:svA * 1e6 / pvMwh, pvMwh, A, B, slozky, inv, cat, payers,
+      invElektro2650:sum26(cat.elektro), invPriplatky2650:sum26(cat.priplatky), invPece2650:sum26(cat.pece),
+      invCelkem2650:sum26(cat.elektro) + sum26(cat.priplatky) + sum26(cat.pece),
+      splatkyPo2050Pv2025:Object.values(rest).reduce((s, x) => s + x.pv50, 0) / Math.pow(1 + r, 25),
+      splatkyPo2050Elektro:Object.entries(rest).filter(([k]) => P.skupiny[k].kategorie === "elektro").reduce((s, [, x]) => s + x.pv50, 0) / Math.pow(1 + r, 25),
+      dovoz2050:q.imp[N - 1], prebytek2050:pos(inp.gen[N - 1] - inp.use[N - 1]),
+    };
+  }
+  return {compute, quantities, heatPumps, stockFlow};
+})();
+/* CENA_END */
+const CENA = {ready:false, P:DATA.cena, live:null, timer:null, detOpen:false};
+/* Řádky výroby, u kterých cena počítá zařízení nebo palivo. Ostatní výroba a úspory se v ceně projeví jen dovozem. */
+const CENA_OCENENE = new Set(["vítr", "fotovoltaika střešní", "fotovoltaika pozemní", "SMR", "zemní plyn: stávající kogenerace", "nové plynové bloky", "černé uhlí: Dětmarovice", "černé uhlí: teplárny a průmysl", "hnědé uhlí"]);
+const CENA_TC = "vytápění tepelnými čerpadly";
+function cenaKontext(rows, gen, use, tcIt){
+  const ctx = {rows, gen, use, D_tc:[], fT:[], fH:[], fW:[], eff_auta:[], eff_nakl:[]};
+  DATA.years.forEach((t, i) => {
+    const v = state.trendOn ? trendValues(i, true) : null;
+    ctx.D_tc.push(driverAt(tcIt, i)); ctx.fT.push(techFactor(CENA_TC, t)); ctx.fH.push(techFactor("výroba vodíku", t)); ctx.fW.push(techFactor("vítr", t));
+    ctx.eff_auta.push(v ? v.eff_auta : 1); ctx.eff_nakl.push(v ? v.eff_nakladni : 1);
+  });
+  return ctx;
+}
+/* Řádky cesty jako values(). Náhrada (páky) přepíše řádek po letech a vlastní spotřeba a ztráty se spočtou stejnými vzorci. */
+function cenaVstup(path, override){
+  const f = DATA.derived, items = DATA.items.filter(it => it.path === path), rows = {}, gen = [], use = [];
+  const ownIt = items.find(it => it.name === OWN_ITEM), lossIt = items.find(it => it.name === LOSS_ITEM), body = items.filter(it => it !== ownIt && it !== lossIt);
+  for(const it of body) rows[it.name] = override && override[it.name] ? override[it.name].slice() : DATA.years.map((_, i) => itemAt(it, i));
+  rows[OWN_ITEM] = []; rows[LOSS_ITEM] = [];
+  DATA.years.forEach((t, i) => {
+    let g = 0, ownRaw = 0, others = 0;
+    for(const it of body){ const y = rows[it.name][i]; if(it.side === "vyroba"){ g += y; ownRaw += (f.ownRates[it.name] || 0) * y; } else others += y; }
+    const own = Math.max(0, f.ownCal * ownRaw + (state.values[key(ownIt)] - ownIt.p50) * sigma(t));
+    others += own;
+    const loss = Math.max(0, techLossK(t, f.lossK) * Math.max(others - own - f.localOther, 0) + (state.values[key(lossIt)] - lossIt.p50) * sigma(t));
+    /* Spotřeba roku zdola nulou jako v řádku výsledků: úspory nad zbylou spotřebu ji nesmí udělat zápornou. */
+    rows[OWN_ITEM].push(own); rows[LOSS_ITEM].push(loss); gen.push(g); use.push(Math.max(0, others + loss));
+  });
+  return cenaKontext(rows, gen, use, items.find(it => it.name === CENA_TC));
+}
+/* Realistický scénář: řádky z realCompute(). Vlastní spotřeba stejným vzorcem, ztráty jako zbytek jeho spotřeby. Domy s tepelným čerpadlem
+   a baterie jsou směs obou cest podle úrovní skupin, plynové bloky podle větve reaktoru, stejně jako v ekonomickém modelu. */
+function cenaVstupReal(cfg){
+  const r = realCompute(cfg), f = DATA.derived, rows = {}, aAll = REAL_GROUP_KEYS.reduce((s, g) => s + r.levels[g], 0) / REAL_GROUP_KEYS.length;
+  const side = name => realFind("progresivni", name).side, shift = (name, t) => {
+    const p = realFind("progresivni", name), k = realFind("konzervativni", name);
+    return ((1 - aAll) * (state.values[key(k)] - k.p50) + aAll * (state.values[key(p)] - p.p50)) * sigma(t);
+  };
+  for(const [name, v] of Object.entries(r.rows)) rows[name] = v.slice();
+  rows[OWN_ITEM] = []; rows[LOSS_ITEM] = [];
+  DATA.years.forEach((t, i) => {
+    let ownRaw = 0, others = 0;
+    for(const [name, v] of Object.entries(r.rows)){ if(side(name) === "vyroba") ownRaw += (f.ownRates[name] || 0) * v[i]; else others += v[i]; }
+    const own = Math.max(0, f.ownCal * ownRaw + shift(OWN_ITEM, t));
+    rows[OWN_ITEM].push(own); rows[LOSS_ITEM].push(r.use[i] - others - own);
+  });
+  const C = CENA.P, pP = cenaVstup("progresivni"), pK = cenaVstup("konzervativni");
+  const mix = {a_teplo:r.levels.teplo, a_vitr:r.levels.vitr, smr_on:r.smrOn, gas:cfg.gas,
+    hpP:CenaCesty.heatPumps(pP, C.rady.TC_POD_P, C.konst), hpK:CenaCesty.heatPumps(pK, C.rady.TC_POD_K, C.konst)};
+  return {inp:cenaKontext(rows, r.gen, r.use, realFind("progresivni", CENA_TC)), mix, smrOn:r.smrOn};
+}
+function cenaSpocti(path, r, opt){
+  opt = opt || {};
+  if(path === "realisticky"){ const v = cenaVstupReal(opt.cfg || realCfg); return Object.assign(CenaCesty.compute("realisticky", v.inp, CENA.P, r, v.mix, opt.X), {smrOn:v.smrOn}); }
+  return CenaCesty.compute(path, cenaVstup(path, opt.override), CENA.P, r, null, opt.X);
+}
+/* Výchozí nastavení: ani posuvník cesty, ani trendy a technika, ani realistický panel se nehnuly. Jen pro ně platí losování Monte Carlo.
+   Posuvník vrácený rukou na značku výchozí hodnoty se trefí jen do svého kroku, proto stačí shoda do poloviny kroku. U skupinových
+   posuvníků se krok rozpočítá na položky skupiny, u kategorií realistického scénáře na jejich indikátory. */
+let CENA_TOL = null;
+function cenaTolerance(){
+  if(CENA_TOL) return CENA_TOL;
+  const val = {}, x = {};
+  for(const it of DATA.items){
+    const saving = it.p10 < 0, min = saving ? it.p10 * 1.5 : 0, max = saving ? 0 : Math.max(100, it.p90 * 1.5, it.base * 1.25, it.p50 * 1.5);
+    val[key(it)] = it.name === SMR_NAME ? 0 : Math.max(1, Math.round((max - min) / 200)) / 2;
+  }
+  for(const path of Object.keys(PATHNAME)) for(const side of ["vyroba", "spotreba"]) for(const g of GROUPS[side]){
+    if(g.name === SMR_NAME) continue;
+    const members = DATA.items.filter(it => it.path === path && it.side === side && g.items.includes(it.name));
+    const def = members.reduce((s, it) => s + it.p50, 0), base = members.reduce((s, it) => s + it.base, 0);
+    if(def === 0) continue;
+    const step = Math.max(1, Math.round(Math.max(100, def * 2, base * 1.25) / 200));
+    for(const it of members) if(it.name !== SMR_NAME) val[key(it)] = Math.max(val[key(it)], Math.abs(it.p50 * step / 2 / def));
+  }
+  for(const r of REAL.ind) x[r.id] = 0.005;
+  for(const cat of REAL_CATS) for(const r of cat.members){
+    const x0 = REAL_DEFAULT_X[r.id], up = cat.c0 < 1 ? (1 - x0) / (1 - cat.c0) : 0, down = cat.c0 > 0 ? x0 / cat.c0 : 0;
+    x[r.id] = Math.max(x[r.id], 0.005 * Math.max(up, down));
+  }
+  const tech = Object.fromEntries(TECH_UI.filter(ui => !ui.trend).map(ui => [ui.name, ui.step / 2]));
+  return CENA_TOL = {val, x, tech, rok:0.5, trend:0.0025};
+}
+const cenaBlizko = (a, b, tol) => Math.abs(a - b) <= tol + 1e-9;
+function cenaVychoziCesta(path){
+  const T = cenaTolerance(), same = (a, b, tol) => Object.keys(b).every(k => !k.startsWith(path + "|") || cenaBlizko(a[k], b[k], typeof tol === "number" ? tol : tol[k]));
+  return state.trendOn && Object.keys(DEFAULTS.trends).every(n => cenaBlizko(state.trends[n], DEFAULTS.trends[n], T.trend))
+    && Object.entries(techDefaults().v).every(([k, v]) => cenaBlizko(state.tech.v[k], v, T.tech[k] || 0))
+    && same(state.values, DEFAULTS.values, T.val) && same(state.jumps, DEFAULTS.jumps, T.rok) && same(state.tms, DEFAULTS.tms, T.rok);
+}
+function cenaVychoziReal(){
+  const T = cenaTolerance(), d = realInit(), c = realCfg;
+  return ["smr", "dc", "pec", "huta", "gas"].every(k => c[k] === d[k]) && cenaBlizko(c.smrYear, d.smrYear, 0.5) && cenaBlizko(c.dT, d.dT, 0.05)
+    && cenaBlizko(c.dpop, d.dpop, 0.5 / REAL.pop.base) && Object.keys(d.x).every(k => cenaBlizko(c.x[k], d.x[k], T.x[k]));
+}
+function cenaVychoziVse(){ return cenaVychoziCesta("progresivni") && cenaVychoziCesta("konzervativni") && cenaVychoziReal(); }
+const cenaMld = v => NF1.format(v / 1000);
+/* Buňka ceny vedle výroby a spotřeby a krátká poznámka pod nimi. path je progresivni, konzervativni nebo realisticky. */
+function cenaBunka(path){
+  const res = cenaSpocti(path, 0.03), E = EKON.cesty[path], H1 = EKON.srovnani.jmenovatele.find(j => j.id === "H1"), let_ = EKON.srovnani.let;
+  const def = path === "realisticky" ? cenaVychoziVse() : cenaVychoziCesta(path), karta = cenaVychoziVse(), gdp = v => NF1.format(v / let_ / 1000 / H1.eur_mld * 100);
+  const cell = `<div class="cena"><small>Náklady elektroenergetiky 2026 až 2050, současná hodnota</small><b>${cenaMld(res.svA)}</b><span class="unit">mld. EUR</span></div>`;
+  const kum = E.pasma.elektro.kum.p50, invMed = kum[kum.length - 1], mc = E.A_3_mc, smr = res.inv.smr.some(v => v > 0) || E.smr.some(v => v > 0);
+  const mcA = `medián losování ${cenaMld(mc[1])} mld. EUR (P10 až P90 ${cenaMld(mc[0])} až ${cenaMld(mc[2])})`;
+  const mcInv = `medián investic ${econM(invMed)} mil. EUR a ${NF1.format(H1.podil_mc_pct[path][1])} % HDP kraje za rok`;
+  const tol = cenaTolerance().val, gaps = [];
+  if(res.prebytek2050 > 0) gaps.push(`V roce 2050 vznikne přebytek ${NF.format(res.prebytek2050)} GWh, v ceně nemá žádnou hodnotu.`);
+  const moved = DATA.items.filter(it => (path === "realisticky" || it.path === path) && !cenaBlizko(state.values[key(it)], DEFAULTS.values[key(it)], tol[key(it)]));
+  const bez = [...new Set(moved.filter(it => (it.side === "vyroba" && !CENA_OCENENE.has(it.name)) || it.name === "úspory a účinnost").map(it => label(it.name)))];
+  if(bez.length) gaps.push(`Změnu u položek ${bez.join(", ")} cena zachytí jen dovozem, investici ani palivo pro ně nepočítá.`);
+  if(moved.some(it => it.name === "nové plynové bloky")) gaps.push("U nových plynových bloků se v ceně mění palivo a povolenky, výkon zůstává pevný.");
+  const mwh = Number.isFinite(res.eurMwh) && res.pvMwh > 0 ? ` Na megawatthodinu dodané elektřiny vychází ${NF.format(res.eurMwh)} EUR, i to jen s touto výhradou k ceně dovozu.` : "";
+  const note = `<div class="cenanote"><p>Úroveň A z části Kolik cesty stojí. Investice do zařízení bez diskontu ${cenaMld(res.invElektro2650)} mld. EUR, ${gdp(res.invElektro2650)} % HDP kraje za rok; jejich splátky po roce 2050, v současné hodnotě ${cenaMld(res.splatkyPo2050Elektro)} mld. EUR, v částce nejsou.</p>`
+    + (def ? `<p>Ve výchozím nastavení: ${mcA}; ${mcInv}${karta ? ", stejně jako v části Kolik cesty stojí" : ""}.</p>`
+           : `<p class="cenagrey">Pro výchozí nastavení: ${mcA}; ${mcInv}. Pro jiné nastavení se losování nepočítá.</p>`)
+    + (gaps.length ? `<p>${gaps.join(" ")}</p>` : "")
+    + `<details${CENA.detOpen ? " open" : ""}><summary>Jak se cena počítá a co nepočítá</summary><p>Splátky investic do roku 2050, provoz, palivo, povolenky a dovoz elektřiny v současné hodnotě při sazbě 3 %, v cenách roku 2025, bez daní a se středním scénářem cen ze zdrojů.${smr ? " U reaktoru SMR je střední scénář zároveň horní mez rozpětí, proto je medián investic nižší." : ""} Výkon plynových bloků a velikost baterií jsou v ceně pevné, posuvníky je nemění. Cena nepočítá s investicemi do úspor, se sítí na straně nové spotřeby ani s hodnotou přebytku a dovoz oceňuje průměrnou cenou pásmové dodávky bez přirážky v hodinách nedostatku.${mwh}</p></details></div>`;
+  return {cell, note};
 }
 /* Výkon v MW: roční GWh × 1000 / 8760 × koeficient okamžiku. */
 function interp(xs, ys, x){
@@ -1135,8 +1430,9 @@ function drawKpi(){
   const cell = (a, v) => `<div><small>${a}</small><b>${NF.format(v)}</b><span class="unit">GWh</span></div>`;
   $("kpi").innerHTML = shown.map(p => {
     const gen = Math.max(0, totals(p, "vyroba")[i]), use = Math.max(0, totals(p, "spotreba")[i]), gap = use - gen;
+    const cena = CENA.ready ? cenaBunka(p) : {cell:"", note:""};
     return `<div class="kpirow"><div class="name">${PATHNAME[p]} cesta, rok ${state.year}.${use >= 1 ? ` Výroba pokryje ${NF.format(gen / use * 100)} % spotřeby.` : ""}</div><div class="cells">` +
-      cell("Výroba", gen) + cell("Spotřeba", use) + cell(gap >= 0 ? "Schodek" : "Přebytek", Math.abs(gap)) + `</div></div>`;
+      cell("Výroba", gen) + cell("Spotřeba", use) + cell(gap >= 0 ? "Schodek" : "Přebytek", Math.abs(gap)) + cena.cell + `</div>${p === state.path ? cena.note : ""}</div>`;
   }).join("");
   $("yearv").textContent = state.year;
   const view = $("kpiView");
@@ -1660,9 +1956,9 @@ const NF2 = new Intl.NumberFormat("cs-CZ", {minimumFractionDigits:2, maximumFrac
 function realDraw(){
   const r = realCompute(realCfg), other = realCompute({...realCfg, smr:r.smrOn ? "ne" : "ano", smrYear:r.smrOn ? realCfg.smrYear : Math.min(realCfg.smrYear, 2050)});
   const last = DATA.years.length - 1, cell = (a, v) => `<div><small>${a}</small><b>${NF.format(v)}</b><span class="unit">GWh</span></div>`;
-  const row = (name, x) => { const gap = x.use[last] - x.gen[last]; return `<div class="kpirow"><div class="name">${name}, rok 2050. Výroba pokryje ${NF.format(x.gen[last] / x.use[last] * 100)} % spotřeby.</div><div class="cells">${cell("Výroba", x.gen[last])}${cell("Spotřeba", x.use[last])}${cell(gap >= 0 ? "Schodek" : "Přebytek", Math.abs(gap))}</div></div>`; };
+  const row = (name, x, cena) => { const gap = x.use[last] - x.gen[last]; return `<div class="kpirow"><div class="name">${name}, rok 2050. Výroba pokryje ${NF.format(x.gen[last] / x.use[last] * 100)} % spotřeby.</div><div class="cells">${cell("Výroba", x.gen[last])}${cell("Spotřeba", x.use[last])}${cell(gap >= 0 ? "Schodek" : "Přebytek", Math.abs(gap))}${cena ? cena.cell : ""}</div>${cena ? cena.note : ""}</div>`; };
   const branchName = on => on ? "S reaktorem SMR" : realCfg.gas === "oznamene" ? "Bez reaktoru SMR, oznámené plynové bloky 283 MW" : "Bez reaktoru SMR, plynové bloky 683 MW";
-  let html = row(branchName(r.smrOn), r);
+  let html = row(branchName(r.smrOn), r, CENA.ready ? cenaBunka("realisticky") : null);
   if(realShowBranch) html += row("Pro srovnání: " + branchName(other.smrOn), other);
   for(const p of Object.keys(PATHNAME)) if(realCompare[p]) html += row(`${PATHNAME[p]} cesta`, {gen:totals(p, "vyroba"), use:totals(p, "spotreba")});
   $("realKpi").innerHTML = html;
@@ -1673,6 +1969,7 @@ function realDraw(){
   realChart(r, other);
   realSync(r);
   pinLayout();
+  cenaKarta();
 }
 function realChart(r, other){
   setGeometry();
@@ -2047,8 +2344,9 @@ if(typeof addEventListener !== "undefined"){
   addEventListener("resize", () => { if(isSmall() !== wasSmall){ wasSmall = isSmall(); refresh(); drawFigDen(); } });
 }
 
-/* Ekonomika na konci záložky Bilance. Všechna čísla jsou předem spočítaná pro výchozí nastavení a leží v DATA.ekon, posuvníky je nemění.
-   Grafy a věty ukazují medián losování Monte Carlo s P10 až P90. Jen složky mostu rozdílu jsou při středních vstupech, protože mediány se nesčítají. */
+/* Ekonomika na konci záložky Bilance. Ve výchozím nastavení grafy a věty ukazují medián losování Monte Carlo s P10 až P90 z DATA.ekon,
+   jen složky mostu rozdílu jsou při středních vstupech, protože mediány se nesčítají. Po změně posuvníků karta čte econLive(): stejný
+   výpočet při středních vstupech pro nastavené cesty, bez pásem, která platí jen pro výchozí nastavení. */
 const EKON = DATA.ekon;
 const ECON_PATHS = [["progresivni", "Progresivní", "var(--prog)"], ["konzervativni", "Konzervativní", "var(--kons)"], ["realisticky", "Realistický", "var(--real)"]];
 const ECON_GROUPS = {elektro:["econGrpElektro", "zařízení elektroenergetiky"], priplatky:["econGrpPriplatky", "příplatky za auta a tepelná čerpadla"], pece:["econGrpPece", "elektrické pece v ocelárnách"]};
@@ -2062,7 +2360,57 @@ const econLow = s => s[0].toLowerCase() + s.slice(1);
 const econLine = c => `<i style="border-color:${c}"></i>`;
 const econBox = (c, op) => `<i style="border-color:${c};border-top-width:9px${op ? `;opacity:${op}` : ""}"></i>`;
 const econWhisk = `<span>${econLine("var(--ink)")}Úsečka: P10 až P90 z losování Monte Carlo</span>`;
-const econPathLegend = () => ECON_PATHS.map(([q, name, c]) => `<span>${econBox(c)}${name}${q === "realisticky" ? ", bez reaktoru" : ""}</span>`).join("");
+/* Po změně posuvníků karta počítá z ceny cesty při středních vstupech: stejný tvar dat jako DATA.ekon, pásma Monte Carlo jsou null,
+   protože losování je spočítané jen pro výchozí nastavení. Ve výchozím nastavení karta čte DATA.ekon beze změny. */
+function econLive(){
+  const Q = ECON_PATHS.map(([q]) => q), nul = v => [null, v, null], C = CENA.P, R = EKON.roky;
+  /* Vstupy se sestaví jednou, sazby a varianty ETS2 jen přepočítají cenu. */
+  const IN = {progresivni:cenaVstup("progresivni"), konzervativni:cenaVstup("konzervativni")}, RV = cenaVstupReal(realCfg);
+  const run = (q, r, X) => q === "realisticky" ? Object.assign(CenaCesty.compute(q, RV.inp, C, r, RV.mix, X), {smrOn:RV.smrOn}) : CenaCesty.compute(q, IN[q], C, r, null, X);
+  const res = Object.fromEntries(Q.map(q => [q, run(q, 0.03)]));
+  const cum = a => a.map((_, i) => a.slice(1, i + 1).reduce((s, x) => s + x, 0));
+  const band = a => ({rok:{p50:a, p10:null, p90:null}, kum:{p50:cum(a), p10:null, p90:null}});
+  const cesty = {};
+  for(const q of Q){
+    const x = res[q], el = x.cat.elektro;
+    cesty[q] = Object.assign({}, EKON.cesty[q], {elektro:el, smr:x.inv.smr, A_eur_mwh_mc:nul(x.eurMwh), investice_vse_mc:nul(x.invCelkem2650),
+      pasma:{elektro:band(el), elektro_bez_smr:band(el.map((v, i) => v - x.inv.smr[i])), priplatky:band(x.cat.priplatky), pece:band(x.cat.pece)},
+      platci_mc:Object.fromEntries(Object.entries(x.payers).map(([k, v]) => [k, nul(v)]))});
+  }
+  const P = res.progresivni, K = res.konzervativni, dA = P.svA - K.svA, dB = P.svB - K.svB;
+  const diff = (r, X) => { const p = run("progresivni", r, X), k = run("konzervativni", r, X); return {A:p.svA - k.svA, B:p.svB - k.svB}; };
+  const s5 = diff(0.05), s7 = diff(0.07), sp = diff(0.03, {ets2:C.ets2_spoustec}), z0 = diff(0.03, {ets2:R.map(() => 0)});
+  const dc = P.slozky.datacentra_elektrina - K.slozky.datacentra_elektrina;
+  const slozky = C.slozky_A.map(k => [k, "A"]).concat(C.slozky_B.map(k => [k, "B"])).map(([k, u]) => ({k, u, v:P.slozky[k] - K.slozky[k]}))
+    .filter(x => Math.abs(x.v) >= 0.05).map(x => ({nazev:C.slozky_nazvy[x.k], uroven:x.u, hodnota:Math.round(x.v * 10) / 10}));
+  const rozdil = Object.assign({}, EKON.rozdil, {A:dA, B:dB, A_median:dA, B_median:dB, A_mc:nul(dA), B_mc:nul(dB), slozky,
+    dodana_elektrina_P_proti_K_pct:Math.floor((P.pvMwh / K.pvMwh - 1) * 1000) / 10, datacentra_mc:nul(dc), bez_datacenter_A_mc:nul(dA - dc),
+    ets2_spoustec:{B:sp.B, B_mc:nul(sp.B)}, bez_ets2:{B:z0.B, B_mc:nul(z0.B)}, sazby_mc:{"5":{A:nul(s5.A), B:nul(s5.B)}, "7":{A:nul(s7.A), B:nul(s7.B)}}});
+  /* Páky nad nastavenou progresivní cestou: stejné tři změny jako v modelu. */
+  const zero = R.map(() => 0), kDc = DATA.items.find(it => it.path === "konzervativni" && it.name === "datacentra");
+  const lever = x => /vodík/i.test(x.nazev) ? {"výroba vodíku: nákladní doprava":zero, "výroba vodíku: MHD":zero} : /SMR/.test(x.nazev) ? {SMR:zero} : {datacentra:R.map((_, i) => itemAt(kDc, i))};
+  const paky = EKON.paky.map(x => {
+    const L = cenaSpocti("progresivni", 0.03, {override:lever(x)}), a = L.svA - P.svA, b = L.svB - P.svB;
+    return Object.assign({}, x, {A:a, B:b, A_mc:nul(a), B_mc:nul(b), dovoz_2050_GWh:Math.round((L.dovoz2050 - P.dovoz2050) * 10) / 10});
+  });
+  const S = EKON.srovnani, avg = q => res[q].invElektro2650 / S.let / 1000, peak = q => { const a = res[q].cat.elektro; return a.indexOf(Math.max(...a)); };
+  const share = j => Object.assign({}, j, {podil_mc_pct:Object.fromEntries(Q.map(q => [q, nul(avg(q) / j.eur_mld * 100)]))});
+  const srovnani = Object.assign({}, S, {jmenovatele:S.jmenovatele.map(share), fond:share(S.fond), prumer_mld_mc:Object.fromEntries(Q.map(q => [q, nul(avg(q))])),
+    max_mld_mc:Object.fromEntries(Q.map(q => [q, res[q].cat.elektro[peak(q)] / 1000])), max_rok_mc:Object.fromEntries(Q.map(q => [q, R[peak(q)]]))});
+  return Object.assign({}, EKON, {cesty, rozdil, paky, srovnani, realSmr:res.realisticky.smrOn});
+}
+function econData(){ return CENA.live || EKON; }
+/* Karta se přepočítá kousek po posledním pohybu posuvníku, ve výchozím nastavení se vrátí k číslům z losování. */
+function cenaKarta(){
+  if(!CENA.ready) return;
+  const run = () => { CENA.timer = null; const def = cenaVychoziVse(); if(def && !CENA.live) return; CENA.live = def ? null : econLive(); econTexts(); econCharts(); };
+  if(typeof setTimeout !== "function"){ run(); return; }
+  if(CENA.timer) clearTimeout(CENA.timer);
+  CENA.timer = setTimeout(run, 150);
+}
+const econRealSuffix = () => CENA.live && CENA.live.realSmr ? ", s reaktorem" : ", bez reaktoru";
+const econWhiskNow = () => CENA.live ? "" : econWhisk;
+const econPathLegend = () => ECON_PATHS.map(([q, name, c]) => `<span>${econBox(c)}${name}${q === "realisticky" ? econRealSuffix() : ""}</span>`).join("");
 /* Graf 1: investice od roku 2026, součet nebo po letech, medián a pásmo P10 až P90. Pásmo součtu jsou percentily součtu v každém losování. */
 function econChart(){
   setGeometry();
@@ -2070,9 +2418,10 @@ function econChart(){
   const H = small ? 300 : 360, YB = H - 34, host = $("econMain"), cum = econMode === "kum", R = EKON.roky, last = R.length - 1;
   const el = econGroup === "elektro", noSmr = el && econNoSmr, cat = el ? (noSmr ? "elektro_bez_smr" : "elektro") : econGroup, m = cum ? "kum" : "rok";
   host.innerHTML = "";
-  const svg = mk("svg", {viewBox:`0 0 ${GW} ${H}`, role:"img", "aria-label":`Investice, ${ECON_GROUPS[econGroup][1]}${noSmr ? " bez reaktoru SMR" : ""}, ${cum ? "součet od roku 2026" : "po letech"}, medián a P10 až P90, tři cesty`}, host);
-  const series = ECON_PATHS.map(([p, name, c]) => { const b = EKON.cesty[p].pasma[cat][m]; return {p, name, c, v:b.p50, lo:b.p10, hi:b.p90}; });
-  const all = series.flatMap(s => s.lo.concat(s.hi));
+  const ED = econData(), live = ED !== EKON;
+  const svg = mk("svg", {viewBox:`0 0 ${GW} ${H}`, role:"img", "aria-label":`Investice, ${ECON_GROUPS[econGroup][1]}${noSmr ? " bez reaktoru SMR" : ""}, ${cum ? "součet od roku 2026" : "po letech"}, ${live ? "střední vstupy" : "medián a P10 až P90"}, tři cesty`}, host);
+  const series = ECON_PATHS.map(([p, name, c]) => { const b = ED.cesty[p].pasma[cat][m]; return {p, name, c, v:b.p50, lo:b.p10, hi:b.p90}; });
+  const all = series.flatMap(s => s.lo ? s.lo.concat(s.hi) : s.v);
   const top = Math.max(...all, 0), bottom = Math.min(...all, 0);
   const step = [50, 100, 200, 500, 1000, 2000, 5000].find(s => (top - bottom) / s <= (small ? 5 : 6)) || 10000;
   const ymax = Math.ceil(top / step) * step, ymin = Math.floor(bottom / step) * step, yS = v => YB - (v - ymin) / (ymax - ymin || 1) * (YB - Y0);
@@ -2084,11 +2433,12 @@ function econChart(){
   for(const y of (small ? [2025, 2035, 2045] : [2025, 2030, 2035, 2040, 2045, 2050])) mk("text", {x:xs(y), y:H - 12, "text-anchor":"middle"}, svg, y);
   const line = arr => pathD(R.map((y, i) => [xs(y), yS(arr[i])]));
   for(const s of series){
+    if(!s.lo) continue;
     const up = R.map((y, i) => [xs(y), yS(s.hi[i])]), lo = R.map((y, i) => [xs(y), yS(s.lo[i])]).reverse();
     mk("path", {d:pathD(up.concat(lo)) + "Z", fill:s.c, opacity:.13}, svg);
   }
   for(const s of series) mk("path", {d:line(s.v), fill:"none", stroke:s.c, "stroke-width":2.5}, svg);
-  const pk = EKON.cesty.progresivni, i = pk.smr.indexOf(Math.max(...pk.smr)), smrBig = pk.smr[i] > pk.elektro[i] / 2, peak = pk.pasma.elektro.rok;
+  const pk = ED.cesty.progresivni, i = pk.smr.indexOf(Math.max(...pk.smr)), smrBig = pk.smr[i] > pk.elektro[i] / 2, peak = pk.pasma.elektro.rok;
   if(el && !noSmr && smrBig) mk("text", {class:"ev", x:xs(R[i]) - 8, y:yS(series[0].v[i]) + 4, "text-anchor":"end"}, svg, `Reaktor SMR ${R[i]}`);
   if(cum){
     /* Hodnoty roku 2050 na konci čar, v jednotce osy, popisky se neslepí. */
@@ -2102,7 +2452,7 @@ function econChart(){
     const box = svg.getBoundingClientRect(), y = Math.round(2023 + ((e.clientX - box.left) / box.width * GW - GX0) / (GX1 - GX0) * 27), tp = $("tip");
     if(y < 2025 || y > 2050){ tp.style.display = "none"; return; }
     const k = y - 2025;
-    tp.innerHTML = `<b class="mono">${y}, mil. EUR${cum ? ", součet od 2026" : ""}, medián, v závorce P10 až P90</b>` + series.map(s => `<div><span>${s.name}</span><span class="mono">${econM(s.v[k])} (${econM(s.lo[k])} až ${econM(s.hi[k])})</span></div>`).join("");
+    tp.innerHTML = `<b class="mono">${y}, mil. EUR${cum ? ", součet od 2026" : ""}, ${live ? "střední vstupy" : "medián, v závorce P10 až P90"}</b>` + series.map(s => `<div><span>${s.name}</span><span class="mono">${econM(s.v[k])}${s.lo ? ` (${econM(s.lo[k])} až ${econM(s.hi[k])})` : ""}</span></div>`).join("");
     tp.style.display = "block";
     tp.style.left = Math.max(4, Math.min(e.clientX + 14, innerWidth - 300)) + "px";
     tp.style.top = Math.max(4, Math.min(e.clientY + 14, innerHeight - tp.offsetHeight - 4)) + "px";
@@ -2110,9 +2460,16 @@ function econChart(){
   hit.addEventListener("pointermove", tip);
   hit.addEventListener("pointerdown", tip);
   hit.addEventListener("pointerleave", () => { $("tip").style.display = "none"; });
-  $("econLegend").innerHTML = series.map(s => `<span>${econLine(s.c)}${s.name}${el && s.p === "realisticky" ? ", bez reaktoru" : ""}</span>`).join("") + `<span><i style="border-color:var(--muted);border-top-width:8px;opacity:.25"></i>Plocha: P10 až P90 ${cum ? "součtu " : ""}z losování Monte Carlo</span>`;
+  $("econLegend").innerHTML = series.map(s => `<span>${econLine(s.c)}${s.name}${el && s.p === "realisticky" ? econRealSuffix() : ""}</span>`).join("") + (live ? "" : `<span><i style="border-color:var(--muted);border-top-width:8px;opacity:.25"></i>Plocha: P10 až P90 ${cum ? "součtu " : ""}z losování Monte Carlo</span>`);
   const S = n => econM(series.find(s => s.p === n).v[last]), sP = series[0], grp = {elektro:"investic do zařízení elektroenergetiky", priplatky:"příplatků za auta a tepelná čerpadla", pece:"investic do elektrických pecí v ocelárnách"}[econGroup] + (noSmr ? " bez reaktoru SMR" : "");
   const ip = peak.p50.indexOf(Math.max(...peak.p50));
+  if(live){
+    const real = el ? (ED.realSmr ? " s reaktorem" : " bez reaktoru") : "";
+    $("econCaption").textContent = cum
+      ? `Čára je součet ${grp} od roku 2026 při středních vstupech a nastavení posuvníků, pásmo z losování je spočítané jen pro výchozí nastavení: do roku 2050 je to ${S("progresivni")} mil. EUR v progresivní cestě, ${S("konzervativni")} v konzervativní a ${S("realisticky")} v realistickém scénáři${real}${el && !noSmr && smrBig ? `, skok v roce ${R[i]} je reaktor SMR` : ""}${econGroup === "pece" ? ", každá pec se připíše celá roku spuštění" : ""}.`
+      : `Čára ukazuje výši ${grp} v každém roce při středních vstupech a nastavení posuvníků, pásmo z losování je spočítané jen pro výchozí nastavení, celá investice se připíše roku uvedení do provozu${noSmr && peak.p50[ip] > 0 ? `: s reaktorem má progresivní cesta v roce ${R[ip]} ${econM(peak.p50[ip])} mil. EUR` : el && smrBig ? `: progresivní cesta má v roce ${R[ip]} špičku ${econM(peak.p50[ip])} mil. EUR, hlavně reaktor SMR` : ""}.`;
+    return;
+  }
   $("econCaption").textContent = cum
     ? `Čára je medián součtu ${grp} od roku 2026 v losováních Monte Carlo a plocha jeho P10 až P90: do roku 2050 je to ${S("progresivni")} mil. EUR v progresivní cestě (P10 až P90 ${econM(sP.lo[last])} až ${econM(sP.hi[last])}), ${S("konzervativni")} v konzervativní a ${S("realisticky")} v realistickém scénáři${el && !noSmr && smrBig ? `, skok v roce ${R[i]} je reaktor SMR` : ""}${econGroup === "pece" ? ", každá pec se připíše celá roku spuštění" : ""}.`
     : noSmr
@@ -2130,6 +2487,8 @@ function econWrap(s, n){
   return out;
 }
 function econBars(host, rows, o){
+  /* Bez losování (po změně posuvníků) úsečka P10 až P90 není. */
+  for(const r of rows) for(const b of r.bars) if(b.wh && b.wh[0] === null) delete b.wh;
   setGeometry();
   const small = isSmall(), BW = small ? 400 : W, lh = small ? 18 : 15, bh = small ? 13 : 11, bg = 3, wg = 9, rg = small ? 14 : 10, LX = small ? 4 : 400;
   const PX0 = small ? 4 : LX + 18, PX1 = BW - (small ? 4 : 24), units = small ? econWrap(o.unit, 44) : [o.unit], top0 = 20 + units.length * lh;
@@ -2178,15 +2537,15 @@ function econBars(host, rows, o){
 const econPctTick = v => NF.format(v) + " %";
 /* Graf 2: medián průměrné roční investice proti ročním měřítkům kraje, od největšího měřítka. */
 function econDrawYard(){
-  const S = EKON.srovnani, rows = S.jmenovatele.concat([S.fond]).sort((a, b) => b.eur_mld - a.eur_mld);
-  $("econYardLegend").innerHTML = econPathLegend() + econWhisk + `<span><i style="border-color:var(--ink);border-top-style:dashed"></i>100 %: celé měřítko</span>`;
+  const S = econData().srovnani, rows = S.jmenovatele.concat([S.fond]).sort((a, b) => b.eur_mld - a.eur_mld);
+  $("econYardLegend").innerHTML = econPathLegend() + econWhiskNow() + `<span><i style="border-color:var(--ink);border-top-style:dashed"></i>100 %: celé měřítko</span>`;
   econBars($("econYard"), rows.map(j => ({label:`${econCap(j.nazev)}, ${NF2.format(j.eur_mld)} mld. EUR`,
     bars:ECON_PATHS.map(([q, , c]) => ({from:0, to:j.podil_mc_pct[q][1], wh:j.podil_mc_pct[q], c, t:NF1.format(j.podil_mc_pct[q][1]) + " %"}))})),
-    {aria:"Průměrná roční investice do zařízení elektroenergetiky jako podíl z HDP kraje, investic v kraji, rozpočtu kraje a Modernizačního fondu, medián a P10 až P90, tři cesty", unit:"Podíl průměrné roční investice z měřítka, %", tick:econPctTick, refs:[100]});
+    {aria:`Průměrná roční investice do zařízení elektroenergetiky jako podíl z HDP kraje, investic v kraji, rozpočtu kraje a Modernizačního fondu, ${CENA.live ? "střední vstupy" : "medián a P10 až P90"}, tři cesty`, unit:"Podíl průměrné roční investice z měřítka, %", tick:econPctTick, refs:[100]});
 }
 /* Graf 3: most rozdílu současné hodnoty, progresivní minus konzervativní. Složky při středních vstupech, součty jako medián s P10 až P90. */
 function econDrawBridge(){
-  const D = EKON.rozdil, ord = lvl => {
+  const D = econData().rozdil, live = !!CENA.live, ord = lvl => {
     const s = D.slozky.filter(x => x.uroven === lvl);
     return s.filter(x => x.hodnota > 0).sort((a, b) => b.hodnota - a.hodnota).concat(s.filter(x => x.hodnota <= 0).sort((a, b) => a.hodnota - b.hodnota));
   };
@@ -2194,54 +2553,78 @@ function econDrawBridge(){
   let run = 0;
   const comp = x => { const a = run; run += x.hodnota; rows.push({label:econCap(x.nazev), bars:[{from:a, to:run, c:x.hodnota > 0 ? "var(--warn)" : "var(--ok)", t:econSigned(x.hodnota)}]}); };
   ord("A").forEach(comp);
-  rows.push({label:"Rozdíl A: elektroenergetika kraje, medián", strong:true, bars:[{from:0, to:D.A_median, c:"var(--crit)", t:econSigned(D.A_median), wh:D.A_mc}]});
+  rows.push({label:`Rozdíl A: elektroenergetika kraje, ${live ? "střední vstupy" : "medián"}`, strong:true, bars:[{from:0, to:D.A_median, c:"var(--crit)", t:econSigned(D.A_median), wh:D.A_mc}]});
   run = D.A;
   ord("B").forEach(comp);
-  rows.push({label:"Rozdíl B: s vozidly, teplem a ušetřenými palivy, medián", strong:true, bars:[{from:0, to:D.B_median, c:"var(--crit)", t:econSigned(D.B_median), wh:D.B_mc}]});
-  $("econBridgeLegend").innerHTML = `<span>${econBox("var(--warn)")}Složka, progresivní cesta platí víc</span><span>${econBox("var(--ok)")}Složka, progresivní cesta ušetří</span><span>${econBox("var(--crit)")}Medián rozdílu A a B</span>` + econWhisk;
+  rows.push({label:`Rozdíl B: s vozidly, teplem a ušetřenými palivy, ${live ? "střední vstupy" : "medián"}`, strong:true, bars:[{from:0, to:D.B_median, c:"var(--crit)", t:econSigned(D.B_median), wh:D.B_mc}]});
+  $("econBridgeLegend").innerHTML = `<span>${econBox("var(--warn)")}Složka, progresivní cesta platí víc</span><span>${econBox("var(--ok)")}Složka, progresivní cesta ušetří</span><span>${econBox("var(--crit)")}${live ? "Rozdíl A a B" : "Medián rozdílu A a B"}</span>` + econWhiskNow();
   econBars($("econBridge"), rows, {aria:"Rozdíl současné hodnoty nákladů progresivní minus konzervativní po složkách, úroveň A a úroveň B", unit:`Rozdíl současné hodnoty 2026 až 2050, mil. EUR, sazba ${EKON.sazba_pct} %`, tick:v => NF.format(v), refs:[], connect:true});
 }
 /* Graf 4: kdo investice platí, medián losování. */
 function econDrawPay(){
-  const C = EKON.cesty, P = C.progresivni.platci_mc, payers = Object.keys(P).sort((a, b) => P[b][1] - P[a][1]);
+  const C = econData().cesty, P = C.progresivni.platci_mc, payers = Object.keys(P).sort((a, b) => P[b][1] - P[a][1]), live = !!CENA.live;
   $("econPayLegend").innerHTML = econPathLegend();
   econBars($("econPay"), payers.map(k => ({label:econCap(k), bars:ECON_PATHS.map(([q, , c]) => { const v = (C[q].platci_mc[k] || [0, 0, 0])[1]; return {from:0, to:v, c, t:econM(v)}; })})),
-    {aria:"Investice 2026 až 2050 podle toho, kdo je platí, medián, tři cesty", unit:"Investice 2026 až 2050 bez diskontu, medián, mil. EUR", tick:v => NF.format(v), refs:[]});
+    {aria:`Investice 2026 až 2050 podle toho, kdo je platí, ${live ? "střední vstupy" : "medián"}, tři cesty`, unit:`Investice 2026 až 2050 bez diskontu, ${live ? "střední vstupy" : "medián"}, mil. EUR`, tick:v => NF.format(v), refs:[]});
   const tot = q => C[q].investice_vse_mc;
+  if(live){
+    $("econPayCaption").textContent = `Pruhy jsou investice 2026 až 2050 bez diskontu podle toho, kdo je platí, při středních vstupech a nastavení posuvníků; všechny investice včetně příplatků za vozidla a tepelná čerpadla a pecí dávají dohromady ${econM(tot("progresivni")[1])} mil. EUR v progresivní cestě, ${econM(tot("konzervativni")[1])} v konzervativní a ${econM(tot("realisticky")[1])} v realistickém scénáři, a záporná hodnota u dopravců znamená, že bateriová nákladní auta jsou levnější než naftová.`;
+    return;
+  }
   $("econPayCaption").textContent = `Pruhy jsou mediány investic 2026 až 2050 bez diskontu podle toho, kdo je platí; všechny investice včetně příplatků za vozidla a tepelná čerpadla a pecí dávají dohromady medián ${econM(tot("progresivni")[1])} mil. EUR v progresivní cestě (P10 až P90 ${econM(tot("progresivni")[0])} až ${econM(tot("progresivni")[2])}), ${econM(tot("konzervativni")[1])} v konzervativní a ${econM(tot("realisticky")[1])} v realistickém scénáři, a záporná hodnota u dopravců znamená, že bateriová nákladní auta jsou levnější než naftová.`;
 }
 /* Graf 5: co jedna změna udělá s náklady, úroveň A a B, medián s P10 až P90. */
 function econDrawLevers(){
-  const P = EKON.paky, one = P.every(x => x.cesta === P[0].cesta);
-  $("econLeversLegend").innerHTML = `<span>${econBox("var(--prog)", .45)}Úroveň A, jen elektroenergetika kraje</span><span>${econBox("var(--prog)")}Úroveň B, celá cesta včetně vozidel, tepla a paliv</span>` + econWhisk;
+  const P = econData().paky, one = P.every(x => x.cesta === P[0].cesta), live = !!CENA.live;
+  $("econLeversLegend").innerHTML = `<span>${econBox("var(--prog)", .45)}Úroveň A, jen elektroenergetika kraje</span><span>${econBox("var(--prog)")}Úroveň B, celá cesta včetně vozidel, tepla a paliv</span>` + econWhiskNow();
   econBars($("econLevers"), P.map(x => ({label:`${x.nazev}${one ? "" : ` (${x.cesta} cesta)`}: ${x.vyklad}; dovoz elektřiny v roce 2050 ${econSigned(x.dovoz_2050_GWh)} GWh`,
     bars:[{from:0, to:x.B_mc[1], wh:x.B_mc, c:"var(--prog)", t:"B " + econSigned(x.B_mc[1])}, {from:0, to:x.A_mc[1], wh:x.A_mc, c:"var(--prog)", op:.45, t:"A " + econSigned(x.A_mc[1])}]})),
-    {aria:"Změna současné hodnoty nákladů po jedné změně proti výchozí cestě, úroveň B a A, medián a P10 až P90", unit:`Změna současné hodnoty 2026 až 2050, medián, mil. EUR, sazba ${EKON.sazba_pct} %`, tick:v => NF.format(v), refs:[]});
+    {aria:`Změna současné hodnoty nákladů po jedné změně proti ${live ? "nastavené" : "výchozí"} cestě, úroveň B a A, ${live ? "střední vstupy" : "medián a P10 až P90"}`, unit:`Změna současné hodnoty 2026 až 2050, ${live ? "střední vstupy" : "medián"}, mil. EUR, sazba ${EKON.sazba_pct} %`, tick:v => NF.format(v), refs:[]});
+  if(live){
+    $("econLeversCaption").textContent = `Pruh je změna současné hodnoty nákladů proti nastavené ${one ? P[0].cesta + " " : ""}cestě při středních vstupech, úsečka z losování je spočítaná jen pro výchozí nastavení, záporná hodnota znamená nižší náklady: o úspoře celé cesty rozhoduje úroveň B, protože úroveň A nevidí naftu a benzín, které změna přidá nebo ušetří, a menší dodávka elektřiny není levnější cesta.`;
+    return;
+  }
   $("econLeversCaption").textContent = `Pruh je medián změny současné hodnoty nákladů proti výchozí ${one ? P[0].cesta + " " : ""}cestě a úsečka její P10 až P90, záporná hodnota znamená nižší náklady: o úspoře celé cesty rozhoduje úroveň B, protože úroveň A nevidí naftu a benzín, které změna přidá nebo ušetří, a menší dodávka elektřiny není levnější cesta.`;
 }
 function econTexts(){
-  const C = EKON.cesty, D = EKON.rozdil, M = EKON.metoda, r = EKON.sazba_pct, word = v => v > 0 ? "dražší" : "levnější";
+  const ED = econData(), live = ED !== EKON;
+  const C = ED.cesty, D = ED.rozdil, M = EKON.metoda, r = EKON.sazba_pct, word = v => v > 0 ? "dražší" : "levnější";
   const kum = q => C[q].pasma.elektro.kum, med = q => kum(q).p50[kum(q).p50.length - 1];
-  $("econInfo").innerHTML = realInfo(`<b>Co to je:</b> náklady tří cest v cenách roku 2025, bez daní, ne rozpočet ani nabídková cena.<br><b>Úroveň A, elektroenergetika kraje:</b> splátky investic do elektráren, baterií, elektrolyzérů a posílení sítě, jejich provoz, palivo, povolenky ETS1 a dovezená elektřina.<br><b>Úroveň B:</b> jen rozdíl mezi cestami. K úrovni A přidá příplatky za tepelná čerpadla, elektromobily a nákladní auta a odečte ušetřený benzín, naftu, plyn a povolenky ETS2. Pece v ocelárnách jsou zvlášť.<br><b>Čísla:</b> medián a pásmo P10 až P90 z losování Monte Carlo. Všechna čísla jsou spočítaná pro výchozí nastavení, posuvníky je nemění.`);
+  $("econInfo").innerHTML = realInfo(`<b>Co to je:</b> náklady tří cest v cenách roku 2025, bez daní, ne rozpočet ani nabídková cena.<br><b>Úroveň A, elektroenergetika kraje:</b> splátky investic do elektráren, baterií, elektrolyzérů a posílení sítě, jejich provoz, palivo, povolenky ETS1 a dovezená elektřina.<br><b>Úroveň B:</b> jen rozdíl mezi cestami. K úrovni A přidá příplatky za tepelná čerpadla, elektromobily a nákladní auta a odečte ušetřený benzín, naftu, plyn a povolenky ETS2. Pece v ocelárnách jsou zvlášť.<br><b>Čísla:</b> ve výchozím nastavení medián a pásmo P10 až P90 z losování Monte Carlo. Po změně posuvníků se karta přepočítá při středních vstupech pro nastavené cesty, pásma a podíl losování zůstanou jen pro výchozí nastavení a karta je skryje.`);
   realBindInfo($("econInfo"));
-  $("econLead").textContent = `Do roku 2050 se do zařízení elektroenergetiky kraje proinvestuje medián ${econM(med("progresivni"))} mil. EUR v progresivní cestě, ${econM(med("konzervativni"))} v konzervativní a ${econM(med("realisticky"))} v realistickém scénáři bez reaktoru, bez diskontu.`;
   const mwh = q => econB(C[q].A_eur_mwh_mc[1]);
+  if(live){
+    const rs = ED.realSmr ? "s reaktorem" : "bez reaktoru";
+    $("econLead").textContent = `Při nastavení posuvníků a středních vstupech se do roku 2050 do zařízení elektroenergetiky kraje proinvestuje ${econM(med("progresivni"))} mil. EUR v progresivní cestě, ${econM(med("konzervativni"))} v konzervativní a ${econM(med("realisticky"))} v realistickém scénáři ${rs}, bez diskontu.`;
+    $("econBridgeLead").textContent = `První graf sčítá celé investice bez diskontu, tady jsou splátky investic do roku 2050 v současné hodnotě spolu s palivem, povolenkami a dovozem elektřiny, proto je rozdíl mnohem menší než rozdíl investic. Progresivní cesta při tomto nastavení dodá o ${econB(D.dodana_elektrina_P_proti_K_pct)} % ${D.dodana_elektrina_P_proti_K_pct >= 0 ? "víc" : "méně"} elektřiny (megawatthodiny přepočtené stejnou sazbou jako náklady) a megawatthodina její elektroenergetiky stojí ${mwh("progresivni")} EUR proti ${mwh("konzervativni")} EUR v konzervativní cestě a ${mwh("realisticky")} EUR v realistickém scénáři. V současné hodnotě nákladů 2026 až 2050 při sazbě ${r} % a středních vstupech je elektroenergetika progresivní cesty ${word(D.A)}, rozdíl A je ${econSigned(D.A)} mil. EUR. S příplatky za vozidla a tepelná čerpadla a s ušetřenými palivy a povolenkami je celá progresivní cesta ${word(D.B)}, rozdíl B je ${econSigned(D.B)} mil. EUR, z toho velkou část mohou tvořit ušetřené povolenky ETS2, jejichž cena od roku ${M.ets2_od_roku} je náš předpoklad bez zdroje: bez ETS2 je rozdíl B ${econSigned(D.bez_ets2.B)} mil. EUR.`;
+  } else {
+  $("econLead").textContent = `Do roku 2050 se do zařízení elektroenergetiky kraje proinvestuje medián ${econM(med("progresivni"))} mil. EUR v progresivní cestě, ${econM(med("konzervativni"))} v konzervativní a ${econM(med("realisticky"))} v realistickém scénáři bez reaktoru, bez diskontu.`;
   $("econBridgeLead").textContent = `První graf sčítá celé investice bez diskontu, tady jsou splátky investic do roku 2050 v současné hodnotě spolu s palivem, povolenkami a dovozem elektřiny, proto je rozdíl mnohem menší než rozdíl investic. Progresivní cesta přitom dodá o ${econB(D.dodana_elektrina_P_proti_K_pct)} % víc elektřiny (megawatthodiny přepočtené stejnou sazbou jako náklady), protože navíc zásobuje auta, tepelná čerpadla, vodík, pece a datová centra, a megawatthodina její elektroenergetiky stojí medián ${mwh("progresivni")} EUR proti ${mwh("konzervativni")} EUR v konzervativní cestě a ${mwh("realisticky")} EUR v realistickém scénáři. V současné hodnotě nákladů 2026 až 2050 při sazbě ${r} % je elektroenergetika progresivní cesty ${word(D.A_median)}, rozdíl A má medián ${econSigned(D.A_median)} mil. EUR (P10 až P90 ${econBand(D.A_mc)}). S příplatky za vozidla a tepelná čerpadla a s ušetřenými palivy a povolenkami je celá progresivní cesta ${word(D.B_median)}, rozdíl B má medián ${econSigned(D.B_median)} mil. EUR (P10 až P90 ${econBand(D.B_mc)}), ale velkou část tvoří ušetřené povolenky ETS2, jejichž cena od roku ${M.ets2_od_roku} je náš předpoklad bez zdroje, a bez ETS2 má rozdíl B medián ${econSigned(D.bez_ets2.B_mc[1])} mil. EUR (P10 až P90 ${econBand(D.bez_ets2.B_mc)}).`;
+  }
   const all = D.slozky.slice().sort((a, b) => b.hodnota - a.hodnota), pos = all.filter(x => x.hodnota > 0), neg = all.filter(x => x.hodnota < 0).reverse();
+  if(live){
+    const two = (a, s) => a.length > 1 ? `${a[0].nazev} a ${a[1].nazev}` : a.length ? a[0].nazev : s;
+    $("econBridgeCaption").textContent = `Barevné pruhy skládají rozdíl současné hodnoty nákladů progresivní minus konzervativní po složkách při středních vstupech a šedé pruhy jsou jejich součty, rozdíl A a rozdíl B: nejvíc přidává ${two(pos, "žádná složka")}, nejvíc ubírá ${two(neg, "žádná složka")}.`;
+    $("econDiffLead").innerHTML = `<span class="econgrey">Pro výchozí nastavení vychází progresivní cesta v elektroenergetice dražší v ${NF.format(100 * EKON.rozdil.podil_P_drazsi_A)} % losování, pro jiné nastavení se losování nepočítá.</span> S cenou ETS2 na úrovni spouštěče je rozdíl B ${econSigned(D.ets2_spoustec.B)} mil. EUR. Kladná hodnota v grafu znamená, že progresivní cesta je dražší.`;
+    const s5 = D.sazby_mc[String(M.sazby_pct[1])], s7 = D.sazby_mc[String(M.sazby_pct[2])];
+    $("econRate").textContent = `Současná hodnota: náklad každého roku 2026 až 2050 se přepočte k roku 2025 reálnou sazbou ${r} % ročně. Je to referenční hodnota EU pro projekty, pokud chybí národní hodnota (${M.sazba_zdroj}). Stejnou sazbou se každá investice rozpočítá na roční splátky po dobu životnosti zařízení. Při sazbě ${M.sazby_pct[1]} % je rozdíl A ${econSigned(s5.A[1])} a B ${econSigned(s5.B[1])} mil. EUR, při ${M.sazby_pct[2]} % ${econSigned(s7.A[1])} a ${econSigned(s7.B[1])}, vše při středních vstupech. Elektřina pro datová centra tvoří z rozdílu A ${econSigned(D.datacentra_mc[1])} mil. EUR, bez ní je rozdíl A ${econSigned(D.bez_datacenter_A_mc[1])}. Splátky investic po roce 2050 v porovnání nejsou, platí ale za službu po roce 2050, která v porovnání také není.`;
+  } else {
   $("econBridgeCaption").textContent = `Barevné pruhy skládají rozdíl současné hodnoty nákladů progresivní minus konzervativní po složkách při středních vstupech, protože mediány složek se nesčítají, a šedé pruhy jsou mediány rozdílu A a B z losování: nejvíc přidává ${pos[0].nazev} a ${pos[1].nazev}, nejvíc ubírá ${neg[0].nazev} a ${neg[1].nazev}.`;
   $("econDiffLead").textContent = `Progresivní cesta vychází v elektroenergetice dražší v ${NF.format(100 * D.podil_P_drazsi_A)} % losování. S cenou ETS2 na úrovni spouštěče má rozdíl B medián ${econSigned(D.ets2_spoustec.B_mc[1])} mil. EUR (P10 až P90 ${econBand(D.ets2_spoustec.B_mc)}). Kladná hodnota v grafu znamená, že progresivní cesta je dražší.`;
   const s5 = D.sazby_mc[String(M.sazby_pct[1])], s7 = D.sazby_mc[String(M.sazby_pct[2])];
   $("econRate").textContent = `Současná hodnota: náklad každého roku 2026 až 2050 se přepočte k roku 2025 reálnou sazbou ${r} % ročně. Je to referenční hodnota EU pro projekty, pokud chybí národní hodnota (${M.sazba_zdroj}). Stejnou sazbou se každá investice rozpočítá na roční splátky po dobu životnosti zařízení. Při sazbě ${M.sazby_pct[1]} % má rozdíl A medián ${econSigned(s5.A[1])} a B ${econSigned(s5.B[1])} mil. EUR, při ${M.sazby_pct[2]} % ${econSigned(s7.A[1])} a ${econSigned(s7.B[1])}. Elektřina pro datová centra tvoří z rozdílu A medián ${econSigned(D.datacentra_mc[1])} mil. EUR, bez ní má rozdíl A medián ${econSigned(D.bez_datacenter_A_mc[1])} (P10 až P90 ${econBand(D.bez_datacenter_A_mc)}). Splátky investic po roce 2050 v porovnání nejsou, platí ale za službu po roce 2050, která v porovnání také není.`;
-  $("econInputs").innerHTML = `<p class="viewnote">Rozdíl progresivní minus konzervativní, když jeden vstup leží na nízkém a pak na vysokém scénáři zdroje a ostatní na středním, mil. EUR. Výchozí hodnota při středních vstupech je A ${econSigned(D.A)} a B ${econSigned(D.B)}.</p><div class="tablewrap"><table class="grades"><tr><th>Vstup</th><th>Rozdíl A</th><th>Rozdíl B</th></tr>`
+  }
+  $("econInputs").innerHTML = (live ? `<p class="viewnote econgrey">Tabulka platí pro výchozí nastavení posuvníků.</p>` : "") + `<p class="viewnote">Rozdíl progresivní minus konzervativní, když jeden vstup leží na nízkém a pak na vysokém scénáři zdroje a ostatní na středním, mil. EUR. Výchozí hodnota při středních vstupech je A ${econSigned(EKON.rozdil.A)} a B ${econSigned(EKON.rozdil.B)}.</p><div class="tablewrap"><table class="grades"><tr><th>Vstup</th><th>Rozdíl A</th><th>Rozdíl B</th></tr>`
     + EKON.vstupy.map(v => `<tr><td>${esc(econCap(v.nazev))}</td><td class="n">${v.A[0] === v.A[1] ? "beze změny" : `${econSigned(v.A[0])} až ${econSigned(v.A[1])}`}</td><td class="n">${v.B[0] === v.B[1] ? "beze změny" : `${econSigned(v.B[0])} až ${econSigned(v.B[1])}`}</td></tr>`).join("") + `</table></div>`;
   $("econNeumi").innerHTML = EKON.neumi_ocenit.map(x => `<li><b>${esc(econCap(x.polozka))}.</b> ${esc(econCap(x.proc))}.</li>`).join("");
   $("econChybi").innerHTML = EKON.chybi.map(x => `<li>${esc(econCap(x))}.</li>`).join("");
-  const S = EKON.srovnani, F = EKON.financovani, fin = Object.fromEntries(F.polozky.map(x => [x.id, x])), src = id => realLink(fin[id].zdroj, fin[id].url) + (fin[id].misto ? `, ${esc(fin[id].misto)}` : "");
+  const S = ED.srovnani, F = EKON.financovani, fin = Object.fromEntries(F.polozky.map(x => [x.id, x])), src = id => realLink(fin[id].zdroj, fin[id].url) + (fin[id].misto ? `, ${esc(fin[id].misto)}` : "");
   const J = id => S.jmenovatele.find(j => j.id === id), pp = j => Object.fromEntries(ECON_PATHS.map(([q]) => [q, j.podil_mc_pct[q][1]])), cap = J("R2"), fond = S.fond;
   const rest = [cap, fond].flatMap(j => [pp(j).konzervativni, pp(j).realisticky]), over = pp(cap).progresivni > 100 && pp(fond).progresivni > 100;
-  $("econRealLead").textContent = `Rozpočet kraje platí jen malou část těchto investic, vlastní budovy, objednanou veřejnou dopravu a spolufinancování dotací, takže srovnání s ním ukazuje jen velikost, ne účet kraji, a kolik přesně zaplatí kraj, model neodhaduje. Proti ekonomice kraje je roční potřeba malá, medián v progresivní cestě je ${NF1.format(pp(J("H1")).progresivni)} % HDP kraje a ${NF1.format(pp(J("H2")).progresivni)} % všech investic v kraji, ale ${over ? "převyšuje celé kapitálové výdaje rozpočtu kraje i roční objem projektů schválených v kraji z Modernizačního fondu" : `odpovídá ${NF1.format(pp(cap).progresivni)} % kapitálových výdajů rozpočtu kraje a ${NF1.format(pp(fond).progresivni)} % ročního objemu projektů schválených v kraji z Modernizačního fondu`}, v konzervativní cestě a realistickém scénáři je to ${NF1.format(Math.min(...rest))} až ${NF1.format(Math.max(...rest))} % z nich.`;
+  $("econRealLead").textContent = `Rozpočet kraje platí jen malou část těchto investic, vlastní budovy, objednanou veřejnou dopravu a spolufinancování dotací, takže srovnání s ním ukazuje jen velikost, ne účet kraji, a kolik přesně zaplatí kraj, model neodhaduje. Proti ekonomice kraje je roční potřeba malá, ${live ? "při středních vstupech a nastavení posuvníků je" : "medián"} v progresivní cestě${live ? "" : " je"} ${NF1.format(pp(J("H1")).progresivni)} % HDP kraje a ${NF1.format(pp(J("H2")).progresivni)} % všech investic v kraji, ale ${over ? "převyšuje celé kapitálové výdaje rozpočtu kraje i roční objem projektů schválených v kraji z Modernizačního fondu" : `odpovídá ${NF1.format(pp(cap).progresivni)} % kapitálových výdajů rozpočtu kraje a ${NF1.format(pp(fond).progresivni)} % ročního objemu projektů schválených v kraji z Modernizačního fondu`}, v konzervativní cestě a realistickém scénáři je to ${NF1.format(Math.min(...rest))} až ${NF1.format(Math.max(...rest))} % z nich.`;
   const pk = C.progresivni, im = S.max_rok_mc.progresivni - EKON.roky[0];
-  $("econYardCaption").textContent = `Pruh je medián průměrné roční investice do zařízení elektroenergetiky 2026 až 2050, tedy součtu z prvního grafu děleného ${S.let} lety, jako podíl z ročního měřítka kraje, úsečka je P10 až P90 a čárkovaná čára celé měřítko: průměr progresivní cesty ${NF2.format(S.prumer_mld_mc.progresivni[1])} mld. EUR ročně zahrnuje rok ${S.max_rok_mc.progresivni} s mediánem ${NF2.format(S.max_mld_mc.progresivni)} mld. EUR${pk.smr[im] > pk.elektro[im] / 2 ? ", hlavně reaktor" : ""}.`;
+  if(live) $("econYardCaption").textContent = `Pruh je průměrná roční investice do zařízení elektroenergetiky 2026 až 2050 při středních vstupech a nastavení posuvníků, tedy součet z prvního grafu dělený ${S.let} lety, jako podíl z ročního měřítka kraje, čárkovaná čára je celé měřítko: průměr progresivní cesty ${NF2.format(S.prumer_mld_mc.progresivni[1])} mld. EUR ročně zahrnuje rok ${S.max_rok_mc.progresivni} s ${NF2.format(S.max_mld_mc.progresivni)} mld. EUR${pk.smr[im] > pk.elektro[im] / 2 ? ", hlavně reaktor" : ""}. Úsečky P10 až P90 platí jen pro výchozí nastavení a nejsou nakreslené.`;
+  else $("econYardCaption").textContent = `Pruh je medián průměrné roční investice do zařízení elektroenergetiky 2026 až 2050, tedy součtu z prvního grafu děleného ${S.let} lety, jako podíl z ročního měřítka kraje, úsečka je P10 až P90 a čárkovaná čára celé měřítko: průměr progresivní cesty ${NF2.format(S.prumer_mld_mc.progresivni[1])} mld. EUR ročně zahrnuje rok ${S.max_rok_mc.progresivni} s mediánem ${NF2.format(S.max_mld_mc.progresivni)} mld. EUR${pk.smr[im] > pk.elektro[im] / 2 ? ", hlavně reaktor" : ""}.`;
   const bySrc = new Map();
   for(const j of S.jmenovatele.concat([S.fond])){ const k = src(j.id); bySrc.set(k, (bySrc.get(k) || []).concat([j.nazev.split(",")[0]])); }
   $("econYardSrc").innerHTML = "Zdroj: " + [...bySrc].map(([k, names]) => `${esc(econCap(names.join(" a ")))}: ${k}`).join("; ") + ".";
@@ -3033,6 +3416,9 @@ if(typeof addEventListener !== "undefined"){
 }
 $("foot").innerHTML = "Výroba je brutto. Spotřeba je součet sektorů plus ztráty v sítích. Zdroje skutečnosti: Dopadová studie energetické bezpečnosti a soběstačnosti MSK (2024), Tab. 1 a Tab. 6; zprávy ERÚ o provozu elektrizační soustavy, tabulky 6.1 a 6.3, předběžné údaje. Stupně důkazu: A měření, B publikovaná studie, C technický výpočet, D odhad bez publikovaného zdroje. Meze P10 a P90 jsou téměř všude odhad. <a href=\"polozky.csv\">Tabulka položek</a>, <a href=\"polozky_poznamky.md\">poznámky ke zdrojům</a>, <a href=\"grafy_polozek.pdf\">grafy položek</a>, <a href=\"hodinovy/PREPOCET.md\">přepočet s hodinami</a>, <a href=\"EXPORT_BILANCE_MSK.md\">souhrnný export všech čísel</a>. Část zdrojů je neveřejná. Zdroj je neveřejná studie, uvedena jsou jen čísla potřebná k výpočtu.";
 resetValues();
+CENA.ready = true;
+/* Řádek výsledků se kreslí znovu při každém posuvníku, otevřené vysvětlení u ceny má zůstat otevřené. */
+for(const id of ["kpi", "realKpi"]) $(id).addEventListener("toggle", e => { if(e.target && e.target.tagName === "DETAILS") CENA.detOpen = e.target.open; }, true);
 applyPath(); drawLegend(); drawTrends(); drawTech(); drawLists(); refresh();
 if(tabFromHash() !== "bilance") showTab(tabFromHash());
 </script>
